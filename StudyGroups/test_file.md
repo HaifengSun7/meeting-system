@@ -1,1 +1,0 @@
-# Haifeng's test file
