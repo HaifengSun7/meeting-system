@@ -1,7 +1,7 @@
 package message;
 import users.user;
 
-public class message {
+public class Message {
     private user sen;
     private user rec;
     private String text;

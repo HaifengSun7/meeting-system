@@ -6,18 +6,18 @@ package event;
  * @version 1.0.0
  *
  */
-public class meetingTime {
+public class MeetingTime {
 
     private int hour;
     private int min;
     private int length = 1;
 
     /**
-     * Initiates the meetingTime, with default length of 1 hour.
+     * Initiates the MeetingTime, with default length of 1 hour.
      * @param h the hour part of the time, in 24 hours, in int.
      * @param m the minute part of the time, rounded to nearest minute, in int.
      */
-    public meetingTime(int h, int m){
+    public MeetingTime(int h, int m){
         this.hour = h;
         this.min = m;
     }
@@ -39,8 +39,8 @@ public class meetingTime {
     }
 
     /**
-     * Get the length of the event with this specific meetingTime.
-     * @return length of the event using this time, in int.
+     * Get the length of the Event with this specific MeetingTime.
+     * @return length of the Event using this time, in int.
      */
     public int getMeetingLength(){
         return length;
@@ -66,9 +66,9 @@ public class meetingTime {
      * @param t the time slot that may contradict with current time slot or not.
      * @return a boolean that shows if this planned time slot contradicts with the other time slot.
      */
-    public boolean contradicts(meetingTime t){
-        meetingTime endTime = new meetingTime(this.hour+length, this.min);
-        meetingTime t_endTime = new meetingTime(t.getHour()+length, t.getMin());
+    public boolean contradicts(MeetingTime t){
+        MeetingTime endTime = new MeetingTime(this.hour+length, this.min);
+        MeetingTime t_endTime = new MeetingTime(t.getHour()+length, t.getMin());
         if(this.hour == t_endTime.getHour()) {
             return !(this.min >= t_endTime.getMin());
         }else if(endTime.getHour() == t.getHour()){
