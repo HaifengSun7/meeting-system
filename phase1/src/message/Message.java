@@ -2,10 +2,10 @@ package message;
 import users.user;
 
 public class Message {
-    private user sen;
-    private user rec;
+    private User sen;
+    private User rec;
     private String text;
-    public void message(user sender, user receiver, String text){
+    public void message(User sender, User receiver, String text){
         this.sen = sender;
         this.rec = receiver;
         this.text = text;
