@@ -5,9 +5,9 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /**
- * Stores meeting Times in hours and minutes, with 1 hour as length of the meeting.
+ * Stores properties of events, with default 1 hour as length of the event.
  * @author Shaohong Chen and Whoever is in charge of events.
- * @version 1.0.0
+ * @version 1.0.1
  *
  */
 //TODO: REMEMBER TO CHANGE THE AUTHOR.
