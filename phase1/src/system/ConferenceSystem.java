@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ConferenceSystem {
     /**
-     * Yo I take user input and generate commands for managers. Also a simple text UI is included.
+     * Yo I login tho. and send people to different UI.
      *
      */
     public void run() {
@@ -36,11 +36,13 @@ public class ConferenceSystem {
             break;
         }
         if (!logged_in) {
+            //TODO: be sure to save lol
             return;
         }
         if (manager.getUserType(person) == "Attendee"){
             AttendeeUI aui = new AttendeeUI(person);
             aui.run();
+            //TODO: after running, save.
         }
     }
 }
