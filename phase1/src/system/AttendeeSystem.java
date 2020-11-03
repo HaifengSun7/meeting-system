@@ -1,22 +1,26 @@
 package system;
 
-import event.Event; //TODO: Avoid using entity in controller. ONLY use Cases.
+import event.Event;
 import event.EventManager;
 import message.MessageManager;
 import user.User; //TODO: Avoid using entity in controller. ONLY use Cases.
+import message.Message;
+import message.MessageManager;
+import user.Attendee;
+import user.User;
 import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AttendeeUI{
+public class AttendeeSystem {
     private final User attendee;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
-    public AttendeeUI(User attendee) {
+    public AttendeeSystem(User attendee) {
         this.attendee = attendee;
     }
 

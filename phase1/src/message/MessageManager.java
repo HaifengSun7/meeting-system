@@ -1,5 +1,7 @@
 package message;
 
+import user.User;
+
 import java.util.ArrayList;
 
 

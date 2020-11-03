@@ -1,7 +1,6 @@
 package system;
 import user.UserManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConferenceSystem {
@@ -14,6 +13,7 @@ public class ConferenceSystem {
         /*
           This method is in charge of logging in, separate the UI and log out.
          */
+        //TODO: READ.
         boolean logged_in = false;
         user.User person = new user.User();
         user.UserManager manager = new UserManager();
@@ -36,14 +36,21 @@ public class ConferenceSystem {
             break;
         }
         if (!logged_in) {
-            //TODO: be sure to save lol
+            //TODO: be sure to save lol, or not.
             return;
         }
-        if (manager.getUserType(person) == "Attendee"){
-            AttendeeUI aui = new AttendeeUI(person);
-            aui.run();
-            //TODO: after running, save.
+        switch (getUserType(person)){
+            case "Attendee":
+                AttendeeSystem as = new AttendeeSystem(person);
+                as.run();
+            case "Organizer":
+                OrganizerSystem os = new OrganizerSystem(person);
+                os.run();
+
+
         }
+        //TODO: after running, save.
+
     }
 }
 
