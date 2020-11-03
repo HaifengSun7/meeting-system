@@ -8,6 +8,7 @@ public class User {
     }
     public String getName(){
         //TODO: We need to Get the name plz. By James.
+        //TODO: username (for logging in) is the name of the user. By Haifeng.
     }
 
 }

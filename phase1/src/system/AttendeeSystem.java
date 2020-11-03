@@ -1,26 +1,20 @@
 package system;
 
-import event.Event;
 import event.EventManager;
 import message.MessageManager;
-import user.User; //TODO: Avoid using entity in controller. ONLY use Cases.
-import message.Message;
-import message.MessageManager;
-import user.Attendee;
-import user.User;
 import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AttendeeSystem {
-    private final User attendee;
+    private final String attendee;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
-    public AttendeeSystem(User attendee) {
+    public AttendeeSystem(String attendee) {
         this.attendee = attendee;
     }
 
@@ -40,7 +34,7 @@ public class AttendeeSystem {
 
                 case "1":
                     //TODO: Show a list of schedule which they can sign up for.
-                    ArrayList<Event> example_list = new ArrayList<Event>(); // Just an example
+                    ArrayList<String> example_list = new ArrayList<String>(); // Just an example
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println("[" + i + "] " + example_list.get(i).toString());
                     }
@@ -59,18 +53,17 @@ public class AttendeeSystem {
                     //TODO: See the events that I have signed up for
                 case "3":
                     System.out.println("To Who?");
-                    ArrayList<User> msglst= usermanager.getContactList(attendee);
+                    ArrayList<String> msglst= usermanager.getContactList(attendee);
                     for(int i = 0; i < msglst.size(); i++){
                         System.out.println("[" + i + "] " + msglst.get(i).toString());
                     }
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        User receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
-                        System.out.println("Yo, now input your message. Hint: \n and stuff."); // TODO: WTF?
+                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
+                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: WTF?
                         command = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, command);
-                        //TODO: CAN'T USER entity in controller. This method has other type of input, too. By James.
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }

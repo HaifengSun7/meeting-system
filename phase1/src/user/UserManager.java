@@ -8,9 +8,13 @@ public class UserManager {
 
     }
 
-    public ArrayList<User> getContactList(User user) {
+    public ArrayList<String> getContactList(String user) {
         //TODO: Return a list of people who user can send a message to.
         //TODO: Important. We can't use entities in controllers and other Use Cases. Must change the output type.
 
+    }
+
+    public String logIn(String username, String password) {
+        //TODO: returns a string, representing the TYPE of user. e.g. Attendee.
     }
 }

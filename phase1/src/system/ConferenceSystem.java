@@ -15,17 +15,17 @@ public class ConferenceSystem {
          */
         //TODO: READ.
         boolean logged_in = false;
-        user.User person = new user.User();
-        user.UserManager manager = new UserManager();
+        String user_type = "";
+        String username = "";
         for (int i = 0; i < 5; i++) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
             System.out.println("You have" + (5-i) + "trials remaining \n");
             System.out.println("Username:");
-            String username = reader.nextLine();
+            username = reader.nextLine();
             System.out.println("Password:");
             String password = reader.nextLine();
             try {
-                person = usermanager.logIn(username, password);
+                user_type = usermanager.logIn(username, password);
             } catch (exception e) //exception should be implemented in UserManager
             {
                 //error handling code
@@ -39,9 +39,9 @@ public class ConferenceSystem {
             //TODO: be sure to save lol, or not.
             return;
         }
-        switch (getUserType(person)){
+        switch (user_type){
             case "Attendee":
-                AttendeeSystem as = new AttendeeSystem(person);
+                AttendeeSystem as = new AttendeeSystem(username);
                 as.run();
             case "Organizer":
                 OrganizerSystem os = new OrganizerSystem(person);
