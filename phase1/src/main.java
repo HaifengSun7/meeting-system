@@ -1,6 +1,6 @@
 public class main {
     public static void main(String[] args) {
-        ConferenceSystem cs = new ConferenceSystem();
+        system.ConferenceSystem cs = new system.ConferenceSystem();
         cs.run();
     }
 }
