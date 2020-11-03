@@ -5,6 +5,7 @@ import event.EventManager;
 import message.Message;
 import user.Attendee;
 import user.User;
+import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class AttendeeUI{
     private final User attendee;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
+    public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
     public AttendeeUI(User attendee) {
@@ -50,7 +52,7 @@ public class AttendeeUI{
                     //TODO: See the events that I have signed up for
                 case "3":
                     System.out.println("To Who?");
-                    ArrayList<User> msglst= Attendee.getMessageList();
+                    ArrayList<User> msglst= usermanager.getMessageList(attendee);
                     for(int i = 0; i < msglst.size(); i++){
                         System.out.println("[" + i + "] " + msglst.get(i).toString());
                     }
@@ -73,7 +75,7 @@ public class AttendeeUI{
                     System.out.println("Press the right key you dumb dumb.");
             }
         }
-        ///TODO: Saving...
+        ///TODO: Saving... or not?
 
     }
 }

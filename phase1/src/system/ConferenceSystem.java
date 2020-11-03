@@ -10,6 +10,7 @@ public class ConferenceSystem {
      * Yo I login tho. and send people to different UI.
      *
      */
+    UserManager usermanager = new UserManager();
     public void run() {
         /*
           This method is in charge of logging in, separate the UI and log out.
@@ -25,7 +26,7 @@ public class ConferenceSystem {
             System.out.println("Password:");
             String password = reader.nextLine();
             try {
-                person = user.UserManager.logIn(username, password);
+                person = usermanager.logIn(username, password);
             } catch (exception e) //exception should be implemented in UserManager
             {
                 //error handling code
