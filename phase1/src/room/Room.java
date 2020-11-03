@@ -1,4 +1,5 @@
-package event;
+package room;
+import event.Event;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ public class Room {
 
     private int roomNumber;
     private int capacity;
-    private ArrayList<Event> schedule = new ArrayList<>();
+    private ArrayList<Integer> schedule = new ArrayList<>();
 
     /**
      * Initialize the Room that has a certain Room number, capacity, with an empty schedule.
@@ -41,16 +42,9 @@ public class Room {
 
     /**
      * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
-     * @param e An Event that is planned to be added to the schedule of the Room.
-     * @return A boolean that shows if the Event is added into the schedule of the Room successfully.
+     * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
-    public boolean addEvent(Event e){
-         for(Event a: this.schedule){
-             if(!e.getTime().canAddEvent() || e.getTime().contradicts(a.getTime())){
-                return false;
-             }
-         }
-         schedule.add(e);
-         return true;
+    public void addEvent(int eventID){
+         schedule.add(eventID);
     }
 }

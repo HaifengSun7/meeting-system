@@ -1,5 +1,4 @@
 package system;
-import user.User;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class ConferenceSystem {
         user.UserManager manager = new UserManager();
         for (int i = 0; i < 5; i++) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
-            System.out.println("You have" + (5-i) + "tries remaining \n");
+            System.out.println("You have" + (5-i) + "trials remaining \n");
             System.out.println("Username:");
             String username = reader.nextLine();
             System.out.println("Password:");

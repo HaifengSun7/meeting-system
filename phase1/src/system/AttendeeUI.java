@@ -1,10 +1,9 @@
 package system;
 
-import event.Event;
+import event.Event; //TODO: Avoid using entity in controller. ONLY use Cases.
 import event.EventManager;
-import message.Message;
-import user.Attendee;
-import user.User;
+import message.MessageManager;
+import user.User; //TODO: Avoid using entity in controller. ONLY use Cases.
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -25,7 +24,11 @@ public class AttendeeUI{
         while (true){
             System.out.println("Name:" + attendee.toString());
             System.out.println("Attendee");
-            System.out.println("[1] Schedule of events that I can sign up for.\n[2] See events that I have signed up for\n[3] Send a message\n [4] See messages \n[e] exit");
+            System.out.println("[1] Schedule of events that I can sign up for.\n" +
+                    "[2] See events that I have signed up for\n" +
+                    "[3] Send a message\n " +
+                    "[4] See messages \n" +
+                    "[e] exit");
             String command = reader.next();
             switch (command) {
                 case "e":
@@ -52,7 +55,7 @@ public class AttendeeUI{
                     //TODO: See the events that I have signed up for
                 case "3":
                     System.out.println("To Who?");
-                    ArrayList<User> msglst= usermanager.getMessageList(attendee);
+                    ArrayList<User> msglst= usermanager.getContactList(attendee);
                     for(int i = 0; i < msglst.size(); i++){
                         System.out.println("[" + i + "] " + msglst.get(i).toString());
                     }
@@ -63,6 +66,7 @@ public class AttendeeUI{
                         System.out.println("Yo, now input your message. Hint: \n and stuff."); // TODO: WTF?
                         command = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, command);
+                        //TODO: CAN'T USER entity in controller. This method has other type of input, too. By James.
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }
