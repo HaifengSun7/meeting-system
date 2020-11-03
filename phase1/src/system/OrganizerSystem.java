@@ -20,7 +20,7 @@ public class OrganizerSystem {
         while(true){
             System.out.println("Name:" + organizer.toString());
             System.out.println("Organizer");
-            System.out.println("[1] enter a room.\n[2] create speaker account\n[3] Schedule speakers\n [4] Send a message\n [5] See messages \n[e] exit");
+            System.out.println("[1] see and manage rooms\n[2] create speaker account\n[3] Schedule speakers\n [4] Send a message\n [5] See messages \n[e] exit");
             String command = reader.next();
             switch (command){
                 case "1":
