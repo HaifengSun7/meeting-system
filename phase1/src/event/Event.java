@@ -35,6 +35,10 @@ public class Event {
         //TODO: We need an arraylist of all attendees of this event, in usernames.
     }
 
+    public String toString(){
+        //TODO: return the string of the event
+    }
+
     private void convertTime(String str){
         this.hour = Integer.parseInt(str.substring(0, 2));
         this.min = Integer.parseInt(str.substring(3, 5));

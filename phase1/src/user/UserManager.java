@@ -17,4 +17,8 @@ public class UserManager {
     public String logIn(String username, String password) {
         //TODO: returns a string, representing the TYPE of user. e.g. Attendee.
     }
+
+    public ArrayList<String> getSignedEventList(String user){
+        //TODO: return a list of toString of events that the user has signed in.
+    }
 }

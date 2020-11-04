@@ -52,6 +52,11 @@ public class AttendeeSystem {
                     }
                 case "2":
                     //TODO: See the events that user have signed up for
+                    ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
+                    for(int i = 0; i < eventsList.size(); i++){
+                        System.out.println("[" + i + "] " + eventsList.get(i));
+                    }
+                    System.out.println("[e] exit to main menu");
                 case "3":
                     System.out.println("To Who?");
                     ArrayList<String> msglst= usermanager.getContactList(attendee);
