@@ -35,7 +35,7 @@ public class LogInSystem {
             break;
         }
         if (!logged_in) {
-            //TODO: be sure to save lol, or not.
+            //TODO: be sure to save, or not.
             return;
         }
         switch (user_type){

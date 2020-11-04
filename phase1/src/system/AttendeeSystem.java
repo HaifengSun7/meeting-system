@@ -51,7 +51,7 @@ public class AttendeeSystem {
                         System.out.println("Exiting");
                     }
                 case "2":
-                    //TODO: See the events that I have signed up for
+                    //TODO: See the events that user have signed up for
                 case "3":
                     System.out.println("To Who?");
                     ArrayList<String> msglst= usermanager.getContactList(attendee);
@@ -62,7 +62,7 @@ public class AttendeeSystem {
                     command = reader.next();
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
-                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: WTF?
+                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
                         String command2 = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, command2);
                         System.out.println("Success! Press something to continue");
@@ -74,7 +74,7 @@ public class AttendeeSystem {
                 case "4":
                     // TODO: see inbox.
                 case "default":
-                    System.out.println("Press the right key you dumb dumb.");
+                    System.out.println("Press the right key.");
             }
         }
         //TODO: Saving... or not?
