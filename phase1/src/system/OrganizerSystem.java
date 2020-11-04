@@ -2,18 +2,22 @@ package system;
 
 import event.EventManager;
 import message.MessageManager;
-import user.User;
+import room.RoomManager;
 import user.UserManager;
 
+import javax.activity.InvalidActivityException;
+import java.lang.invoke.SwitchPoint;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrganizerSystem {
-    private final User organizer;
+    private final String organizer;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    public OrganizerSystem(User organizer) {
+    public RoomManager roommanager = new RoomManager();
+    public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }
     public void run() {
@@ -24,15 +28,137 @@ public class OrganizerSystem {
             String command = reader.next();
             switch (command){
                 case "1":
-                    //TODO: enter a room.
+                    System.out.println("Yo here is a list of rooms");
+                    ArrayList<String> roomList = roommanager.getAllRooms();
+                    for(int i = 0; i < roomList.size(); i++){
+                        System.out.println("[" + i + "]" + roomList.get(i));
+                    }
+                    System.out.println("What do you want? \n [a] add a new room \n [b] see schedule of a certain room\n [e] get out.");
+                    String command2 = reader.next();
+                    switch (command2){
+                        case "a":
+                            System.out.println("room number?");
+                            String roomnumber = reader.next();
+                            System.out.println("size?");
+                            String size = reader.next();
+                            roommanager.add(Integer.parseInt(roomnumber), Integer.parseInt(size));
+                            System.out.println("done. Press something to continue.");
+                            command = reader.next();
+                            continue;
+                        case "b":
+                            System.out.println("room number?");
+                            String roomno = reader.next();
+                            try{
+                                ArrayList<Integer> schedule = new ArrayList<Integer>();
+                                schedule = roommanager.getSchedule(Integer.parseInt(roomno));
+                                for(Integer i: schedule){
+                                    System.out.println(eventmanager.findEventStr(i));
+                                }
+                            } catch (InvalidActivityException e) {
+                                System.out.println("dumb.");
+                                continue;
+                            }
+                            System.out.println("That's everything. Press something to continue.");
+                            command = reader.next();
+                            continue;
+                        case "e":
+                            continue;
+                        default:
+                            System.out.println("Invalid input. Press something to continue");
+                            command = reader.next();
+                            continue;
+                    }
+
                 case "2":
-                    //TODO: create speaker account
+                    System.out.println("You want a promotion or a creation? \n [a] promotion \n [b] creation");
+                    String command3 = reader.next();
+                    switch (command3){
+                        case "a":
+                            System.out.println("but promote who? give me their username.");
+                            command3 = reader.next();
+                            //TODO: promoted.
+                            //TODO: and double check all their task, so that no 2 speaker in a same event.
+                        case "b":
+                            System.out.println("username?");
+                            String username = reader.nextLine();
+                            System.out.println("password?");
+                            String password = reader.nextLine();
+                            //TODO: create a speaker.
+                    }
                 case "3":
-                    //TODO: schedule speakers
+                    System.out.println("Give me the username");
+                    String name = reader.nextLine();
+                    //TODO: check if they are speaker.
+                    System.out.println("Showing all events");
+                    //TODO: show all events from eventmanager.
+                    System.out.println("Input event number to add. \n[r] show rooms and add new event. \n[e] to exit.");
+                    command3 = reader.nextLine();
+                    switch (command3){
+                        default:
+                            //TODO: add to event with proper id if possible.
+                        case "r":
+                            System.out.println("Here are the rooms.");
+                            ArrayList<String> roomLst = roommanager.getAllRooms();
+                            for(int i = 0; i < roomLst.size(); i++){
+                                System.out.println("[" + i + "]" + roomLst.get(i));
+                            }
+                            System.out.println("[a] to add new event \n room number to choose an event in some room \n [e] to exit");
+                            String command4 = reader.next();
+                            switch (command4){
+                                case "a":
+                                    System.out.println("Room?");
+                                    String command5 = reader.nextLine();
+                                    //TODO: input time and add and stuff.
+                                    //TODO: double check if available.
+                                    System.out.println("done. Press something to continue.");
+                                    command = reader.next();
+                                    continue;
+                                case "e":
+                                    System.out.println("bye bye. Press something to continue.");
+                                    command = reader.next();
+                                    continue;
+                                default:
+                                    try{
+                                        ArrayList<Integer> schedule = new ArrayList<Integer>();
+                                        schedule = roommanager.getSchedule(Integer.parseInt(command));
+                                        for(Integer i: schedule){
+                                            System.out.println(eventmanager.findEventStr(i));
+                                        }
+                                    } catch (InvalidActivityException e) {
+                                        System.out.println("dumb.");
+                                        continue;
+                                    }
+                                    System.out.println("give me your event ID");
+                                    String eventID = reader.nextLine();
+                                    //TODO: add to event.
+                                    System.out.println("done. Press something to continue.");
+                                    command = reader.next();
+                                    continue;
+                            }
+                    }
                 case "4":
-                    //TODO: send a message
+                    System.out.println("To Who?");
+                    ArrayList<String> msglst= usermanager.getContactList(organizer);
+                    for(int i = 0; i < msglst.size(); i++){
+                        System.out.println("[" + i + "] " + msglst.get(i));
+                    }
+                    System.out.println("[all speaker] to send to all speaker\n[all attendee] to send to all attendee\n[e] exit to main menu");
+                    String command4 = reader.nextLine();
+                    switch (command4){
+                        case "all speaker":
+                            //TODO: send to all speaker.
+                        case "all attendee":
+                            //TODO: send to all attendee.
+                        default:
+                            String receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
+                            System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: WTF?
+                            command = reader.nextLine();
+                            messagemanager.sendMessage(organizer, receiver, command);
+                            System.out.println("Success! Press something to continue");
+                            reader.next();
+                    }
                 case "5":
-                    //TODO: See messages.
+                    //TODO: See inbox.
             }
 
 

@@ -3,7 +3,7 @@ import user.UserManager;
 
 import java.util.Scanner;
 
-public class ConferenceSystem {
+public class LogInSystem {
     /**
      * Yo I login tho. and send people to different UI.
      *
@@ -11,9 +11,8 @@ public class ConferenceSystem {
     UserManager usermanager = new UserManager();
     public void run() {
         /*
-          This method is in charge of logging in, separate the UI and log out.
+          This method is in charge of logging in, separate the system and log out.
          */
-        //TODO: READ.
         boolean logged_in = false;
         String user_type = "";
         String username = "";
@@ -26,7 +25,7 @@ public class ConferenceSystem {
             String password = reader.nextLine();
             try {
                 user_type = usermanager.logIn(username, password);
-            } catch (exception e) //exception should be implemented in UserManager
+            } catch (Exception e) //exception should be implemented in UserManager.
             {
                 //error handling code
                 //...
@@ -44,7 +43,7 @@ public class ConferenceSystem {
                 AttendeeSystem as = new AttendeeSystem(username);
                 as.run();
             case "Organizer":
-                OrganizerSystem os = new OrganizerSystem(person);
+                OrganizerSystem os = new OrganizerSystem(username);
                 os.run();
 
 

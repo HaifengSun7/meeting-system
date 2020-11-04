@@ -19,6 +19,7 @@ public class AttendeeSystem {
     }
 
     public void run() {
+        //TODO: READ.
         while (true){
             System.out.println("Name:" + attendee.toString());
             System.out.println("Attendee");
@@ -55,15 +56,15 @@ public class AttendeeSystem {
                     System.out.println("To Who?");
                     ArrayList<String> msglst= usermanager.getContactList(attendee);
                     for(int i = 0; i < msglst.size(); i++){
-                        System.out.println("[" + i + "] " + msglst.get(i).toString());
+                        System.out.println("[" + i + "] " + msglst.get(i));
                     }
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: WTF?
-                        command = reader.nextLine();
-                        messagemanager.sendMessage(attendee, receiver, command);
+                        String command2 = reader.nextLine();
+                        messagemanager.sendMessage(attendee, receiver, command2);
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }

@@ -47,4 +47,18 @@ public class Room {
     public void addEvent(int eventID){
          schedule.add(eventID);
     }
+
+    public ArrayList<Integer> getSchedule(){
+        return this.schedule;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber=" + roomNumber +
+                ", capacity=" + capacity +
+                '}';
+    }
 }

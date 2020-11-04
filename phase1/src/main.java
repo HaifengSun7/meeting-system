@@ -1,6 +1,8 @@
+import system.LogInSystem;
+
 public class main {
     public static void main(String[] args) {
-        system.ConferenceSystem cs = new system.ConferenceSystem();
+        LogInSystem cs = new LogInSystem();
         cs.run();
     }
 }
