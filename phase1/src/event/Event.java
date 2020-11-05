@@ -1,14 +1,20 @@
 package event;
 
+import user.User;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores properties of events, with default 1 hour as length of the event.
  * @author Shaohong Chen and Whoever is in charge of events.
  * @version 1.0.1
  *
+ * @version 1.0.2
+ * @author Dechen Han
+ * update getAttendees and toString
  */
 //TODO: REMEMBER TO CHANGE THE AUTHOR.
 public class Event {
@@ -18,6 +24,7 @@ public class Event {
     private int length = 1;
     private int id;
     private static int eventNumber = 0;
+    private List<User> user_list;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -33,10 +40,17 @@ public class Event {
 
     public ArrayList<String> getAttendees(){
         //TODO: We need an arraylist of all attendees of this event, in usernames.
+        ArrayList<String> name_list = new ArrayList<>();
+        for (User u : this.user_list){
+            name_list.add(u.getName());
+        }
+        return name_list;
     }
 
     public String toString(){
         //TODO: return the string of the event
+        return "Event{" + "Time:" + hour + ":" + min +
+                ", Attendees:" + this.getAttendees() + "}";
     }
 
     private void convertTime(String str){
