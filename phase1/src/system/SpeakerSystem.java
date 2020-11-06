@@ -2,6 +2,7 @@ package system;
 
 import event.EventManager;
 import message.MessageManager;
+import room.RoomManager;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class SpeakerSystem {
                 case "e":
                     break;
                 case "1":   //See the talks that the speaker is giving
-                    ArrayList<Message> messageList = messagemanager.getSent(speaker);
+                    ArrayList<String> messageList = messagemanager.getSent(speaker);
                     for(int i = 0; i < messageList.size(); i++){
                         System.out.println("[" + i + "] " + messageList.get(i));
                     }

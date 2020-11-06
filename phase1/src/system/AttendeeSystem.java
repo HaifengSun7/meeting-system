@@ -77,7 +77,7 @@ public class AttendeeSystem {
                         System.out.println("Exiting");
                     }
                 case "4":
-                    ArrayList<Message> inbox = messagemanager.getInbox(attendee);
+                    ArrayList<String> inbox = messagemanager.getInbox(attendee);
                     for(int i = 0; i < inbox.size(); i++){
                         System.out.println("[" + i + "] " + inbox.get(i));
                     }

@@ -23,7 +23,7 @@ public class MessageManager {
                 rtn_list.add(msg);
             }
         }
-        return rtn_list;
+        return rtn_list;//TODO: Please return a list of String, or write another method that returns a String. Haifeng
     }
 
     public ArrayList<Message> getInbox(String username){
