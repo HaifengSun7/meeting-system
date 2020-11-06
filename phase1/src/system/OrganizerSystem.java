@@ -2,11 +2,9 @@ package system;
 
 import event.EventManager;
 import message.MessageManager;
-import room.RoomManager;
 import user.UserManager;
 
 import javax.activity.InvalidActivityException;
-import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +14,6 @@ public class OrganizerSystem {
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    public RoomManager roommanager = new RoomManager();
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }
@@ -29,7 +26,7 @@ public class OrganizerSystem {
             switch (command){
                 case "1":
                     System.out.println("Here is a list of rooms");
-                    ArrayList<String> roomList = roommanager.getAllRooms();
+                    ArrayList<String> roomList = eventmanager.getAllRooms();
                     for(int i = 0; i < roomList.size(); i++){
                         System.out.println("[" + i + "]" + roomList.get(i));
                     }
@@ -41,7 +38,7 @@ public class OrganizerSystem {
                             String roomnumber = reader.nextLine();
                             System.out.println("size?");
                             String size = reader.nextLine();
-                            roommanager.add(Integer.parseInt(roomnumber), Integer.parseInt(size));
+                            eventmanager.addRoom(Integer.parseInt(roomnumber), Integer.parseInt(size));
                             System.out.println("done. Press enter to continue.");
                             command = reader.nextLine();
                             break;
@@ -50,7 +47,7 @@ public class OrganizerSystem {
                             String roomno = reader.nextLine();
                             try{
                                 ArrayList<Integer> schedule = new ArrayList<Integer>();
-                                schedule = roommanager.getSchedule(Integer.parseInt(roomno));
+                                schedule = eventmanager.getSchedule(Integer.parseInt(roomno));
                                 for(Integer i: schedule){
                                     System.out.println(eventmanager.findEventStr(i));
                                 }
@@ -102,7 +99,7 @@ public class OrganizerSystem {
                             break;
                         case "r":
                             System.out.println("Here are the rooms.");
-                            ArrayList<String> roomLst = roommanager.getAllRooms();
+                            ArrayList<String> roomLst = eventmanager.getAllRooms();
                             for(int i = 0; i < roomLst.size(); i++){
                                 System.out.println("[" + i + "]" + roomLst.get(i));
                             }
@@ -124,7 +121,7 @@ public class OrganizerSystem {
                                 default:
                                     try{
                                         ArrayList<Integer> schedule = new ArrayList<Integer>();
-                                        schedule = roommanager.getSchedule(Integer.parseInt(command));
+                                        schedule = eventmanager.getSchedule(Integer.parseInt(command));
                                         for(Integer i: schedule){
                                             System.out.println(eventmanager.findEventStr(i));
                                         }
@@ -168,7 +165,7 @@ public class OrganizerSystem {
                     }
                     continue;
                 case "5":
-                    ArrayList<Message> inbox = messagemanager.getInbox(attendee);
+                    ArrayList<String> inbox = messagemanager.getInbox(attendee);
                     for(int i = 0; i < inbox.size(); i++){
                         System.out.println("[" + i + "] " + inbox.get(i));
                     }

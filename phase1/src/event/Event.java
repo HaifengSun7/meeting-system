@@ -8,15 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Stores properties of events, with default 1 hour as length of the event.
- * @author Shaohong Chen and Whoever is in charge of events.
- * @version 1.0.1
- *
+ * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString
+ * @author Dechen Han, Shaohong Chen.
  * @version 1.0.2
- * @author Dechen Han
- * update getAttendees and toString
+ *
  */
-//TODO: REMEMBER TO CHANGE THE AUTHOR.
+//TODO: REMEMBER TO CHANGE THE AUTHOR AND REMOVE THE TODOS.
 public class Event {
 
     private int hour;
@@ -59,7 +56,15 @@ public class Event {
     }
 
     /**
-     * Get the hour of the meeting time, in 24 hours, in int.
+     * Get the id of the event.
+     * @return the id of event in int.
+     */
+    public int getId(){
+        return this.id;
+    }
+
+    /**
+     * Get the hour of the event time, in 24 hours, in int.
      * @return the hour part of the time, in int.
      */
     public String getTime(){
@@ -94,7 +99,7 @@ public class Event {
             }
         }
         return false;
-    }  //IMPORTANT: I think this method should be in the event manager.
+    }
 
     /**
      * Check if the event contradicts the other event in time.

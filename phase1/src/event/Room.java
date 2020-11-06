@@ -1,5 +1,4 @@
-package room;
-import event.Event;
+package event;
 import java.util.ArrayList;
 
 /**
@@ -48,17 +47,23 @@ public class Room {
          schedule.add(eventID);
     }
 
+    /**
+     * Get the schedule of the room, by the event ID's.
+     * @return the ID's of events scheduled in this room.
+     */
     public ArrayList<Integer> getSchedule(){
         return this.schedule;
     }
 
-
-
+    /**
+     * Override of toString method, that writes the output of class Room.
+     * @return the string form of output for class Room.
+     */
     @Override
     public String toString() {
-        return "Room{" +
-                "roomNumber=" + roomNumber +
-                ", capacity=" + capacity +
-                '}';
+        return "Room" +
+                roomNumber +
+                ": Total Seats = " +
+                capacity;
     }
 }

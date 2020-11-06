@@ -4,6 +4,11 @@ import user.User;
 
 import java.util.ArrayList;
 
+/**
+ * @version 1.0.2
+ * @author Shaohong Chen, Haoyang Wang
+ * The message manager that organizes sending, receiving of messages.
+ */
 
 public class MessageManager {
 
@@ -16,21 +21,21 @@ public class MessageManager {
         Messages.add(message);
     }
 
-    public ArrayList<Message> getSent(String username) {
-        ArrayList<Message> rtn_list = new ArrayList<Message>();
+    public ArrayList<String> getSent(String username) {
+        ArrayList<String> rtn_list = new ArrayList<String>();
         for(Message msg:this.Messages){
             if(msg.getSender().equals(username)){
-                rtn_list.add(msg);
+                rtn_list.add(msg.toString());
             }
         }
-        return rtn_list;//TODO: Please return a list of String, or write another method that returns a String. Haifeng
+        return rtn_list;
     }
 
-    public ArrayList<Message> getInbox(String username){
-        ArrayList<Message> rtn_list = new ArrayList<Message>();
+    public ArrayList<String> getInbox(String username){
+        ArrayList<String> rtn_list = new ArrayList<String>();
         for(Message msg:this.Messages){
-            if(msg.getReceiver().equals(username)){
-                rtn_list.add(msg);
+            if(msg.getSender().equals(username)){
+                rtn_list.add(msg.toString());
             }
         }
         return rtn_list;

@@ -2,7 +2,6 @@ package system;
 
 import event.EventManager;
 import message.MessageManager;
-import room.RoomManager;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ public class SpeakerSystem {
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    public RoomManager roommanager = new RoomManager();
 
     public SpeakerSystem(String speaker) {
         this.speaker = speaker;
@@ -45,10 +43,8 @@ public class SpeakerSystem {
                     String eventName = reader.nextLine();
                     System.out.println("Messages that you are sending to all attendees");
                     String messageToAllAttendees = reader.nextLine();
-                    ArrayList<String> attendeeList= eventmanagermanager.getAttendees(eventName);
-                    for(int i = 0; i < attendeeList.size(); i++){
-                        sendMessage(speaker, attendeeList.get(i), messageToAllAttendees);
-                    }
+                    ArrayList<String> attendeeList= eventmanager.getAttendees(eventName);
+                    messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
                     System.out.println("Success! Press something to continue");
                     reader.next();
                 case "3": //send messages to a particular Attendee who signed up for a particular event
@@ -66,8 +62,7 @@ public class SpeakerSystem {
                         messagemanager.sendMessage(speaker, receiver, command2);
                         System.out.println("Success! Press something to continue");
                         reader.next();
-                    }
-                    else{
+                    }else{
                         System.out.println("Exiting");
                     }
         }
