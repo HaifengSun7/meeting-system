@@ -1,4 +1,5 @@
 package system;
+import sun.rmi.runtime.Log;
 import user.UserManager;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ public class LogInSystem {
      * Yo I login tho. and send people to different UI.
      *
      */
+
     UserManager usermanager = new UserManager();
     public void run() {
         /*
@@ -45,8 +47,9 @@ public class LogInSystem {
             case "Organizer":
                 OrganizerSystem os = new OrganizerSystem(username);
                 os.run();
-
-
+            case "Speaker":
+                SpeakerSystem ss = new SpeakerSystem(username);
+                ss.run();
         }
         //TODO: after running, save.
 

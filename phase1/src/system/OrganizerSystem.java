@@ -165,9 +165,9 @@ public class OrganizerSystem {
                     }
                     continue;
                 case "5":
-                    ArrayList<String> inbox = messagemanager.getInbox(attendee);
+                    ArrayList<String> inbox = messagemanager.getInbox(organizer);
                     for(int i = 0; i < inbox.size(); i++){
-                        System.out.println("[" + i + "] " + inbox.get(i));
+                        System.out.println("[" + i + "] " + inbox.get(i)+"\n");
                     }
                     System.out.println("[e] exit to main menu");
                     continue;
@@ -180,28 +180,7 @@ public class OrganizerSystem {
             }
             break;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
 
 
     }
