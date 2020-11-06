@@ -15,4 +15,8 @@ public class EventManager {
          */
         //TODO: implement this. Haifeng.
     }
+
+    public ArrayList<Attendee> getAttendees(Event event){
+        //TODO: get the list of attendees that have signed up a particular event
+    }
 }
