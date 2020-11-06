@@ -77,7 +77,11 @@ public class AttendeeSystem {
                         System.out.println("Exiting");
                     }
                 case "4":
-                    // TODO: see inbox.
+                    ArrayList<Message> inbox = messagemanager.getInbox(attendee);
+                    for(int i = 0; i < inbox.size(); i++){
+                        System.out.println("[" + i + "] " + inbox.get(i));
+                    }
+                    System.out.println("[e] exit to main menu");
                 case "default":
                     System.out.println("Press the right key.");
             }

@@ -168,7 +168,11 @@ public class OrganizerSystem {
                     }
                     continue;
                 case "5":
-                    //TODO: See inbox.
+                    ArrayList<Message> inbox = messagemanager.getInbox(attendee);
+                    for(int i = 0; i < inbox.size(); i++){
+                        System.out.println("[" + i + "] " + inbox.get(i));
+                    }
+                    System.out.println("[e] exit to main menu");
                     continue;
                 case "e":
                     //TODO: Save.
