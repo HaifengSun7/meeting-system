@@ -16,7 +16,6 @@ public class EventManager{
     What we need(for now):
     1. Add events to the rooms.
     2. getAttendees(eventID)
-    ？？？？？ Q: Do we need a list to store all speakers(different with attendee) ？？？？？
      */
 
     private ArrayList<Room> rooms;
