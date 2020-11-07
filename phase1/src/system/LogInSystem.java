@@ -5,16 +5,13 @@ import user.UserManager;
 import java.util.Scanner;
 
 public class LogInSystem {
-    /**
-     * Yo I login tho. and send people to different UI.
-     *
-     */
 
     UserManager usermanager = new UserManager();
     public void run() {
         /*
           This method is in charge of logging in, separate the system and log out.
          */
+        //TODO: READ USER ONLY.
         boolean logged_in = false;
         String user_type = "";
         String username = "";

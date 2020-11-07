@@ -92,4 +92,20 @@ public class EventManager{
         }
     }
 
+    /**
+     * Make attendee signup for an event.
+     * @param event Event, but with String.
+     * @param attendee Attendee, but with String.
+     * @throws Exception when needed. or not, I don't care. but you should tho.
+     */
+    public void signUp(String event, String attendee) {
+    }
+
+    /**
+     * Return a list of Events.toString() that attendee can sign up for.
+     * @param attendee Attendee, but string.
+     * @return a list of Events.toString() that attendee can sign up for.
+     */
+    public ArrayList<String> canSignUp(String attendee) {
+    }
 }

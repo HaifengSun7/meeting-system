@@ -34,15 +34,15 @@ public class AttendeeSystem {
                     break;
 
                 case "1":
-                    //TODO: Show a list of schedule which they can sign up for.
-                    ArrayList<String> example_list = new ArrayList<String>(); // Just an example
+                    // Show a list of schedule which they can sign up for.
+                    ArrayList<String> example_list = eventmanager.canSignUp(attendee); //TODO: throw error?
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println("[" + i + "] " + example_list.get(i).toString());
                     }
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee); // TODO: what if input wrong?
+                        eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee); // TODO: throw error?
 
                         System.out.println("Success! Press something to continue");
                         reader.next();
@@ -51,7 +51,7 @@ public class AttendeeSystem {
                         System.out.println("Exiting");
                     }
                 case "2":
-                    //TODO: See the events that user have signed up for
+                    //See the events that user have signed up for
                     ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
                     for(int i = 0; i < eventsList.size(); i++){
                         System.out.println("[" + i + "] " + eventsList.get(i));
@@ -66,7 +66,7 @@ public class AttendeeSystem {
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
+                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
                         String command2 = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, command2);
@@ -81,7 +81,8 @@ public class AttendeeSystem {
                     for(int i = 0; i < inbox.size(); i++){
                         System.out.println("[" + i + "] " + inbox.get(i));
                     }
-                    System.out.println("[e] exit to main menu");
+                    System.out.println("press enter to exit to main menu");
+                    reader.next();
                 case "default":
                     System.out.println("Press the right key.");
             }
