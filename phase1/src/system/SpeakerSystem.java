@@ -34,7 +34,7 @@ public class SpeakerSystem {
                     break;
                 case "1":   //See the talks that the speaker is giving
                     ArrayList<String> messageList = messagemanager.getSent(speaker);
-                    for(int i = 0; i < messageList.size(); i++){
+                    for (int i = 0; i < messageList.size(); i++) {
                         System.out.println("[" + i + "] " + messageList.get(i));
                     }
                     System.out.println("[e] exit to main menu");
@@ -43,14 +43,14 @@ public class SpeakerSystem {
                     String eventName = reader.nextLine();
                     System.out.println("Messages that you are sending to all attendees");
                     String messageToAllAttendees = reader.nextLine();
-                    ArrayList<String> attendeeList= eventmanager.getAttendees(eventName);
+                    ArrayList<String> attendeeList = eventmanager.getAttendees(eventName);
                     messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
                     System.out.println("Success! Press something to continue");
                     reader.next();
                 case "3": //send messages to a particular Attendee who signed up for a particular event
                     System.out.println("Which single person you want to send message?");
-                    ArrayList<String> msglst= usermanager.getContactList(attendee);
-                    for(int i = 0; i < msglst.size(); i++){
+                    ArrayList<String> msglst = usermanager.getContactList(speaker);
+                    for (int i = 0; i < msglst.size(); i++) {
                         System.out.println("[" + i + "] " + msglst.get(i));
                     }
                     System.out.println("[e] exit to main menu");
@@ -62,9 +62,11 @@ public class SpeakerSystem {
                         messagemanager.sendMessage(speaker, receiver, command2);
                         System.out.println("Success! Press something to continue");
                         reader.next();
-                    }else{
+                    } else {
                         System.out.println("Exiting");
                     }
+            }
         }
     }
 }
+
