@@ -1,4 +1,20 @@
 package user;
 
+import event.Event;
+
+import java.util.ArrayList;
+
 public class Organizer extends User{
+    public Organizer(String username, String password) {
+        super(username, password);
+        this.usertype = "Organizer";
+    }
+
+    @Override
+    public ArrayList<Event> getSignedEvent() {
+        return null;
+    }
+    @Override
+    public void setSignedEvent(ArrayList<Event> signedEvent) {
+    }
 }

@@ -1,24 +1,62 @@
 package user;
 
+import event.Event;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 public class UserManager {
+    public Map<String, User> userMapping;
 
-    public ArrayList<User> getAllUsers() {
-
+    public void creatUserAccount(String userType, String username, String password){
+        if (userType.equals("Speaker")) {
+            Speaker newuser = new Speaker(username, password);
+            addUser(newuser);
+        } else if (userType.equals("Organizer")){
+            Organizer newuser = new Organizer(username, password);
+            addUser(newuser);
+        } else {
+            Attendee newuser = new Attendee(username, password);
+            addUser(newuser);
+        }
     }
 
-    public ArrayList<String> getContactList(String user) {
-        //TODO: Return a list of people who user can send a message to.
+    private void addUser(User user){
+        userMapping.put(user.username, user);
+    }
 
+    public Collection<User> getAllUsers() {
+        return userMapping.values();
+    }
+
+    public ArrayList<Event> getSignedEventList(String username){
+        return userMapping.get(username).getSignedEvent();
+    }
+
+    public String getUserType(String username){
+        return userMapping.get(username).usertype;
+    }
+
+    public ArrayList<String> getContactList(String username){
+        return userMapping.get(username).contactList;
     }
 
     public String logIn(String username, String password) {
+        User user = userMapping.get(username);
+        if (user.password.equals(password)){
+            user.status = true;
+            return user.usertype;
+        } else {
+            return "Login failed!";
+        }
         //TODO: returns a string, representing the TYPE of user. e.g. Attendee.
     }
 
-    public ArrayList<String> getSignedEventList(String user){
-        //TODO: return a list of toString of events that the user has signed in.
+    public void logout(User user){
+        user.status = false;
     }
+
+
 
 }
