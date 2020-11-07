@@ -1,7 +1,5 @@
 package user;
 
-import event.Event;
-
 import java.util.ArrayList;
 
 public class Organizer extends User{
@@ -11,10 +9,9 @@ public class Organizer extends User{
     }
 
     @Override
-    public ArrayList<Event> getSignedEvent() {
+    public ArrayList<String> getSignedEvent() {
         return null;
     }
     @Override
-    public void setSignedEvent(ArrayList<Event> signedEvent) {
-    }
+    public void setSignedEvent(ArrayList<String> signedEvent) {}
 }

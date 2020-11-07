@@ -10,15 +10,19 @@ public class UserManager {
     public Map<String, User> userMapping;
 
     public void creatUserAccount(String userType, String username, String password){
-        if (userType.equals("Speaker")) {
-            Speaker newuser = new Speaker(username, password);
-            addUser(newuser);
-        } else if (userType.equals("Organizer")){
-            Organizer newuser = new Organizer(username, password);
-            addUser(newuser);
+        if (userMapping.containsKey(username)) {
+            System.out.println("This username has been used! Try another one!");
         } else {
-            Attendee newuser = new Attendee(username, password);
-            addUser(newuser);
+            if (userType.equals("Speaker")) {
+                Speaker newuser = new Speaker(username, password);
+                addUser(newuser);
+            } else if (userType.equals("Organizer")){
+                Organizer newuser = new Organizer(username, password);
+                addUser(newuser);
+            } else {
+                Attendee newuser = new Attendee(username, password);
+                addUser(newuser);
+            }
         }
     }
 
@@ -26,11 +30,11 @@ public class UserManager {
         userMapping.put(user.username, user);
     }
 
-    public Collection<User> getAllUsers() {
-        return userMapping.values();
+    public Collection<String> getAllUsers(){
+        return userMapping.keySet();
     }
 
-    public ArrayList<Event> getSignedEventList(String username){
+    public ArrayList<String> getSignedEventList(String username){
         return userMapping.get(username).getSignedEvent();
     }
 
@@ -40,6 +44,10 @@ public class UserManager {
 
     public ArrayList<String> getContactList(String username){
         return userMapping.get(username).contactList;
+    }
+
+    public boolean getStatus(String username){
+        return userMapping.get(username).getStatus();
     }
 
     public String logIn(String username, String password) {

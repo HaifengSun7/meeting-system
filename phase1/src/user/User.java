@@ -13,6 +13,7 @@ public abstract class User {
     public User(String username, String password){
         this.username = username;
         this.password = password;
+        this.status = false;
     }
 
     public String getUserName(){
@@ -47,6 +48,6 @@ public abstract class User {
         return usertype;
     }
 
-    public abstract ArrayList<Event> getSignedEvent();
-    public abstract void setSignedEvent(ArrayList<Event> signedEvent);
+    public abstract ArrayList<String> getSignedEvent();
+    public abstract void setSignedEvent(ArrayList<String> signedEvent);
 }
