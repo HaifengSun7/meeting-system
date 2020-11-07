@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString
  * @author Dechen Han, Shaohong Chen.
- * @version 1.0.2
+ * @version 1.0.3
  *
  */
 //TODO: REMEMBER TO CHANGE THE AUTHOR AND REMOVE THE TODOS.
@@ -22,6 +22,7 @@ public class Event {
     private int id;
     private static int eventNumber = 0;
     private List<User> user_list;
+    private User speaker;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -43,6 +44,10 @@ public class Event {
         }
         return name_list;
     }
+
+    public User getSpeaker(){ return speaker; }
+        //TODO: return speaker of the event, in usernames.
+
 
     public String toString(){
         //TODO: return the string of the event

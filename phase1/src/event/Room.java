@@ -48,6 +48,14 @@ public class Room {
     }
 
     /**
+     * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
+     * @param eventID An Event that is planned to be added to the schedule of the Room.
+     */
+    public void removeEvent(int eventID){
+        schedule.remove(eventID);
+    }
+
+    /**
      * Get the schedule of the room, by the event ID's.
      * @return the ID's of events scheduled in this room.
      */
