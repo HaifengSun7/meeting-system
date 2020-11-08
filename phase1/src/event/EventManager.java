@@ -1,6 +1,8 @@
 package event;
 
 import javax.activity.InvalidActivityException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -133,7 +135,7 @@ public class EventManager{
      * @param roomno: room number.
      * @param time: time the meeting begins.
      */
-    public void addEvents(String roomno, String time) {
+    public void addEvents(String roomno, Timestamp time) {
         Event newEvent = new Event(time);
         map.put(newEvent.getId(), newEvent);
         for (Room r: rooms) {
