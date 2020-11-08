@@ -1,9 +1,12 @@
 package event;
 
+import com.sun.scenario.animation.shared.TimerReceiver;
 import user.User;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +19,7 @@ import java.util.List;
 //TODO: REMEMBER TO CHANGE THE AUTHOR AND REMOVE THE TODOS.
 public class Event {
 
-    private int hour;
-    private int min;
+    private Timestamp time;
     private int length = 1;
     private int id;
     private static int eventNumber = 0;
@@ -28,12 +30,13 @@ public class Event {
      * Initiates the Meeting, with its time and a default length of 1 hour.
      * @param time: The time the meeting begins.
      */
-    public Event(String time){
+    public Event(Timestamp time){
         //TODO: Constructor, The input of time is an input made by users in string.
         //The input time needs to be in the form of 05:00, which means with length 5.
-        convertTime(time);
+        this.time = time;
         this.id = eventNumber; //To be used in other useCases and entities.
         eventNumber += 1;
+        this.user_list = new ArrayList<>();
     }
 
     public ArrayList<String> getAttendees(){
@@ -51,14 +54,11 @@ public class Event {
 
     public String toString(){
         //TODO: return the string of the event
-        return "Event{" + "Time:" + hour + ":" + min +
+        String t = this.time.toString();
+        return "Event{" + "Time:" + t +
                 ", Attendees:" + this.getAttendees() + "}";
     }
 
-    private void convertTime(String str){
-        this.hour = Integer.parseInt(str.substring(0, 2));
-        this.min = Integer.parseInt(str.substring(3, 5));
-    }
 
     /**
      * Get the id of the event.
@@ -73,7 +73,8 @@ public class Event {
      * @return the hour part of the time, in int.
      */
     public String getTime(){
-        return "The meeting will begin on:"+this.hour+":"+this.min+".";
+        String t = this.time.toString();
+        return "The meeting will begin on:"+t+".";
     }
 
     /**
@@ -96,11 +97,13 @@ public class Event {
      * @return a boolean of whether the time slot is in working time.
      */
     public boolean inOfficeHour(){
-        if(this.hour>=9){
-            if(this.hour==16 && this.min == 0){
+        int hour = this.getHour();
+        int min = this.getMin();
+        if(hour >=9){
+            if(hour ==16 && min == 0){
                 return true;
             }else{
-                return this.hour < 16;
+                return hour < 16;
             }
         }
         return false;
@@ -111,30 +114,54 @@ public class Event {
      * @param t: The other event.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
-    public boolean contradicts(Event t){
+    public boolean contradicts(Event t) {
         ArrayList<Integer> endTime = new ArrayList<>();
-        endTime.add(this.hour+length);
-        endTime.add(this.min);
+        endTime.add(this.getHour()+length);
+        endTime.add(this.getMin());
         ArrayList<Integer> t_endTime = new ArrayList<>();
         t_endTime.add(t.getHour()+t.getLength());
         t_endTime.add(t.getMin());
-        if(this.hour == t_endTime.get(0)) {
-            return !(this.min >= t_endTime.get(1));
+        if(this.getHour() == t_endTime.get(0)) {
+            return !(this.getMin() >= t_endTime.get(1));
         }else if(endTime.get(0) == t.getHour()){
             return !(endTime.get(1) < t.getMin());
-        }else return t_endTime.get(0) >= this.hour && t.getHour() <= endTime.get(0);
+        }else return t_endTime.get(0) >= this.getHour() && t.getHour() <= endTime.get(0);
     }
 
     private int getHour(){
-        return this.hour;
+        String t = this.time.toString();
+        ArrayList<Integer> time_list = new ArrayList<>();
+        for(int i = 0; i < t.length(); i++){
+            char y = ':';
+            char x = t.charAt(i);
+            if(x == y){
+                String t1 = String.valueOf(t.charAt(i-2));
+                String t2 = String.valueOf(t.charAt(i-1));
+                String time = t1 + t2;
+                int tt = Integer.parseInt(time);
+                time_list.add(tt);
+            }
+        }
+        return time_list.get(0);
     }
 
     private int getMin(){
-        return this.min;
+        String t = this.time.toString();
+        ArrayList<Integer> time_list = new ArrayList<>();
+        for(int i = 0; i < t.length(); i++){
+            char y = ':';
+            char x = t.charAt(i);
+            if(x == y){
+                String t1 = String.valueOf(t.charAt(i-2));
+                String t2 = String.valueOf(t.charAt(i-1));
+                String time = t1 + t2;
+                int tt = Integer.parseInt(time);
+                time_list.add(tt);
+            }
+        }
+        return time_list.get(1);
     }
 
-    private int getLength(){
-        return this.length;
-    }
+    private int getLength(){return this.length;}
 
 }
