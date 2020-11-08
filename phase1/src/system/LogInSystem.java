@@ -24,10 +24,9 @@ public class LogInSystem {
             String password = reader.nextLine();
             try {
                 user_type = usermanager.logIn(username, password);
-            } catch (Exception e) //exception should be implemented in UserManager.
+            } catch (Exception e)
             {
-                //error handling code
-                //...
+                System.out.println("fuck you.");
                 continue;
             }
             logged_in = true;
@@ -35,6 +34,7 @@ public class LogInSystem {
         }
         if (!logged_in) {
             //TODO: be sure to save, or not.
+            System.out.println("You have wasted your chances. now leave.");
             return;
         }
         switch (user_type){

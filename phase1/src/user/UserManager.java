@@ -9,9 +9,9 @@ import java.lang.Exception;
 public class UserManager {
     public Map<String, User> userMapping;
 
-    public void createUserAccount(String usertype, String username, String password){
+    public void createUserAccount(String usertype, String username, String password) throws Exception{
         if (userMapping.containsKey(username)) {
-            System.out.println("This username has been used! Try another one!"); //TODO: throw. exception. don't println. You are not system.
+            throw new Exception();
         } else {
             if (usertype.equals("Speaker")) {
                 Speaker newuser = new Speaker(username, password);
@@ -54,13 +54,13 @@ public class UserManager {
         return userMapping.get(username).getStatus();
     }
 
-    public String logIn(String username, String password) {
+    public String logIn(String username, String password) throws Exception {
         User user = userMapping.get(username);
         if (user.password.equals(password)){
             user.setStatus(true);
             return user.getUserType();
         } else {
-            return "Login failed!"; //TODO: Please throw an exception. PLEASE. I won't write a if condition specifically for "Login failed!"
+            throw new Exception();
         }
     }
 

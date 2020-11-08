@@ -90,7 +90,12 @@ public class OrganizerSystem {
                             String username = reader.nextLine();
                             System.out.println("password?");
                             String password = reader.nextLine();
-                            usermanager.createUserAccount("Speaker", username, password);
+                            try {
+                                usermanager.createUserAccount("Speaker", username, password);
+                            } catch (Exception e) {
+                                System.out.println("give me a usable name you dumb dumb.");
+                                break;
+                            }
                             break;
                     }
                     continue;
