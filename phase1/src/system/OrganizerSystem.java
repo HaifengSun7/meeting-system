@@ -73,30 +73,40 @@ public class OrganizerSystem {
                         case "a":
                             System.out.println("but promote who? give me their username.");
                             command3 = reader.nextLine();
-                            //TODO: promoted.
-                            //TODO: and double check all their task, so that no 2 speaker in a same event.
+                            usermanager.becomeSpeaker(command3);
+                            //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
                             break;
                         case "b":
                             System.out.println("username?");
                             String username = reader.nextLine();
                             System.out.println("password?");
                             String password = reader.nextLine();
-                            //TODO: create a speaker.
+                            usermanager.creatUserAccount("Speaker", username, password);
                             break;
                     }
                     continue;
                 case "3":
                     System.out.println("Give me the username");
                     String name = reader.nextLine();
-                    //TODO: check if they are speaker.
-                    System.out.println("Showing all events");
-                    //TODO: show all events from eventmanager.
+                    // check if they are speaker.
+                    if (!usermanager.getUserType(name).equals("Speaker")) {
+                        System.out.println("not a speaker.");
+                        continue;
+                    }
+                    System.out.println("Showing all events:");
+                    ArrayList<String> allevents = eventmanager.getAllEvents();
+                    for(int i = 0; i < allevents.size(); i++){
+                        System.out.println("[" + i + "]" + allevents.get(i));
+                    }
                     System.out.println("Input event number to add. \n[r] show rooms and add new event. \n[e] to exit.");
                     command3 = reader.nextLine();
                     switch (command3){
                         default:
-                            //TODO: add to event with proper id if possible.
+                            if(0 <= Integer.parseInt(command3) && Integer.parseInt(command3) <= allevents.size()){
+                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command3));
+                            }
                             break;
+                            //TODO: fix UI.
                         case "r":
                             System.out.println("Here are the rooms.");
                             ArrayList<String> roomLst = eventmanager.getAllRooms();
@@ -108,6 +118,10 @@ public class OrganizerSystem {
                             switch (command4){
                                 case "a":
                                     System.out.println("Room?");
+                                    String room = reader.nextLine();
+                                    System.out.println("StartTime");
+                                    String time = reader.nextLine();
+                                    System.out.println("EndTime");
                                     String command5 = reader.nextLine();
                                     //TODO: input time and add and stuff.
                                     //TODO: double check if available.

@@ -2,6 +2,8 @@ package event;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
@@ -19,6 +21,7 @@ public class EventManager{
      */
 
     private ArrayList<Room> rooms;
+    private Map<Integer, Event> map = new HashMap<Integer, Event>();
 
     //TODO: Complete the constructor.
     public EventManager(){
@@ -32,6 +35,7 @@ public class EventManager{
      */
     public String findEventStr(Integer id){
         //TODO: implement this. Haifeng.
+        return map.get(id).toString();
     }
 
     /**
@@ -41,6 +45,7 @@ public class EventManager{
      */
     public ArrayList<String> getAttendees(String eventId){
         //TODO: get the list of attendees in string that have signed up a particular event
+        return map.get(Integer.parseInt(eventId)).getAttendees();
     }
 
     /**
@@ -107,5 +112,35 @@ public class EventManager{
      * @return a list of Events.toString() that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee) {
+    }
+
+    /**
+     * Get a map that stores all events.
+     * @return the map<eventId, correspondingEvent>.
+     */
+    public Map<Integer, Event> getMap() {return this.map;}
+
+    /**
+     * Check if the room is available or not at the input time.
+     * @param roomno: room number of the given room.
+     * @param time: time period that the event will take.
+     * @return true or not
+     */
+    public boolean ifRoomAvailable(String roomno, String time) {}
+
+    /**
+     * Create and add a event.
+     * @param roomno: room number.
+     * @param time: time the meeting begins.
+     */
+    public void addEvents(String roomno, String time) {
+        Event newEvent = new Event(time);
+        map.put(newEvent.getId(), newEvent);
+        for (Room r: rooms) {
+            if (r.getRoomNumber() == Integer.parseInt(roomno)) {
+                r.getSchedule().add(newEvent.getId());
+            }
+        }
+
     }
 }
