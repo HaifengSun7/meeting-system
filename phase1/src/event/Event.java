@@ -43,19 +43,28 @@ public class Event {
         //TODO: We need an arraylist of all attendees of this event, in usernames.
         ArrayList<String> name_list = new ArrayList<>();
         for (User u : this.user_list){
-            name_list.add(u.getName());
+            name_list.add(u.getUserName());
         }
         return name_list;
     }
 
+    public void addAttendees(User attendee) {
+        this.user_list.add(attendee);
+    }
+
+    public void removeAttendees(User attendee) {
+        this.user_list.remove(attendee);
+    }
+
+    public void setSpeaker(User u) {this.speaker = u; }
+
     public User getSpeaker(){ return speaker; }
-        //TODO: return speaker of the event, in usernames.
 
 
     public String toString(){
         //TODO: return the string of the event
         String t = this.time.toString();
-        return "Event{" + "Time:" + t +
+        return "Event{" + "ID" + this.getId() + "Time:" + t +
                 ", Attendees:" + this.getAttendees() + "}";
     }
 

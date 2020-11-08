@@ -1,5 +1,8 @@
 package event;
 
+import com.sun.tools.corba.se.idl.constExpr.Times;
+import user.UserManager;
+
 import javax.activity.InvalidActivityException;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -36,7 +39,6 @@ public class EventManager{
      * @return a Event based on its id, but with toString();
      */
     public String findEventStr(Integer id){
-        //TODO: implement this. Haifeng.
         return map.get(id).toString();
     }
 
@@ -46,7 +48,6 @@ public class EventManager{
      * @return A list of Attendees' usernames that the event has.
      */
     public ArrayList<String> getAttendees(String eventId){
-        //TODO: get the list of attendees in string that have signed up a particular event
         return map.get(Integer.parseInt(eventId)).getAttendees();
     }
 
@@ -106,6 +107,7 @@ public class EventManager{
      * @throws Exception when needed. or not, I don't care. but you should tho.
      */
     public void signUp(String event, String attendee) {
+
     }
 
     /**
@@ -114,6 +116,13 @@ public class EventManager{
      * @return a list of Events.toString() that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee) {
+        ArrayList<String> rslt= new ArrayList<String>();
+        for (int i = 0; i < map.size()-1; i++) {
+            if(!map.get(i).getAttendees().contains(attendee)) {
+                rslt.add(map.get(i).toString());
+            }
+        }
+        return rslt;
     }
 
     /**
@@ -125,26 +134,44 @@ public class EventManager{
     /**
      * Check if the room is available or not at the input time.
      * @param roomno: room number of the given room.
-     * @param time: time period that the event will take.
+     * @param time: start time of the event.
+     * @param length: number of hours the event will take.
      * @return true or not
+     * @throws Exception
      */
-    public boolean ifRoomAvailable(String roomno, String time) {}
+    private boolean ifRoomAvailable(String roomno, Timestamp time, int length) throws Exception{
+        for (Room r: rooms) {
+            if (r.getRoomNumber() == Integer.parseInt(roomno)) {
+                for (int id: r.getSchedule()) {
+                    if (map.get(id).contradicts(time, length)) {
+                        return false;
+                    }
+                }return true;
+            } else {
+                throw new Exception();//TODO: Exception.
+            }
+        }
+    }
 
     /**
      * Create and add a event.
      * @param roomno: room number.
      * @param time: time the meeting begins.
+     * @param meetingLength: time length of the event.
+     * @throws Exception: throw exception if the room is unavailable.
      */
-    public void addEvent(String roomno, Timestamp time) {
-        Event newEvent = new Event(time);
-        //TODO: what if 2 events happen in the same room at the same time? Thorw an exception.
-        map.put(newEvent.getId(), newEvent);
-        for (Room r: rooms) {
-            if (r.getRoomNumber() == Integer.parseInt(roomno)) {
-                r.getSchedule().add(newEvent.getId());
+    public void addEvent(String roomno, Timestamp time, int meetingLength) throws Exception{
+        if (ifRoomAvailable(roomno, time, meetingLength)){
+            Event newEvent = new Event(time);
+            map.put(newEvent.getId(), newEvent);
+            for (Room r: rooms) {
+                if (r.getRoomNumber() == Integer.parseInt(roomno)) {
+                    r.addEvent(newEvent.getId());
+                }
             }
+        } else {
+            throw new Exception();//TODO: Exception.
         }
-
     }
 
     /**
@@ -160,6 +187,15 @@ public class EventManager{
      * @return all events. Index = eventnumber.
      */
     public ArrayList<String> getAllEvents() {
+        ArrayList<String> events = new ArrayList<String> ();
+        for (int i = 0; i < map.size() - 1; i++) {
+            if (map.containsKey(i)) {
+                events.add(String.valueOf(map.get(i).getId()));
+            } else {
+                events.add("cancelled");
+            }
+        }
+        return events;
     }
 
     /**
@@ -168,6 +204,14 @@ public class EventManager{
      * @param username username
      * @param eventnumber eventnumber.
      */
-    public void addUserToEvent(String type, String username, int eventnumber) {
+    public void addUserToEvent(String type, String username, int eventnumber) throws Exception{
+        if (type.equals("Attendee")) {
+            map.get(eventnumber).addAttendees();
+        } else if(type.equals("Speaker")) {
+            map.get(eventnumber).setSpeaker();
+        } else {
+            throw new Exception();//TODO: Exception.
+        }
+        )
     }
 }
