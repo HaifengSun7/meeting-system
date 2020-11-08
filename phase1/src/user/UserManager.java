@@ -1,7 +1,5 @@
 package user;
 
-import event.Event;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
