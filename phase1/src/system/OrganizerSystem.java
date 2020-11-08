@@ -77,13 +77,12 @@ public class OrganizerSystem {
                     continue;
                 case "2":
                     System.out.println("You want a promotion or a creation? \n [a] promotion \n [b] creation");
-                    String command3 = reader.nextLine();
-                    switch (command3){
+                    switch (command){
                         case "a":
                             System.out.println("but promote who? give me their username.");
-                            command3 = reader.nextLine();
-                            eventmanager.becomeSpeaker(command3);
-                            usermanager.becomeSpeaker(command3);
+                            command = reader.nextLine();
+                            eventmanager.becomeSpeaker(command);
+                            usermanager.becomeSpeaker(command);
                             //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
                             break;
                         case "b":
@@ -109,11 +108,11 @@ public class OrganizerSystem {
                         System.out.println("[" + i + "]" + allevents.get(i));
                     }
                     System.out.println("Input event number to add. \n[r] show rooms and add new event. \n[e] to exit.");
-                    command3 = reader.nextLine();
-                    switch (command3){
+                    command = reader.nextLine();
+                    switch (command){
                         default:
-                            if(0 <= Integer.parseInt(command3) && Integer.parseInt(command3) <= allevents.size()){
-                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command3));
+                            if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allevents.size()){
+                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                             }
                             break;
                             //TODO: fix UI.
@@ -173,14 +172,24 @@ public class OrganizerSystem {
                     String command4 = reader.nextLine();
                     switch (command4){
                         case "all speaker":
-                            //TODO: send to all speaker.
+                            ArrayList<String> speakers = usermanager.getSpeakers();
+                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
+                            command = reader.nextLine();
+                            messagemanager.sendToList(organizer, speakers, command);
+                            System.out.println("Success! Press enter to continue");
+                            reader.nextLine();
                             break;
                         case "all attendee":
-                            //TODO: send to all attendee.
+                            ArrayList<String> attendees = usermanager.getAttendees();
+                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
+                            command = reader.nextLine();
+                            messagemanager.sendToList(organizer, attendees, command);
+                            System.out.println("Success! Press enter to continue");
+                            reader.nextLine();
                             break;
                         default:
                             String receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
-                            System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: String.
+                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
                             command = reader.nextLine();
                             messagemanager.sendMessage(organizer, receiver, command);
                             System.out.println("Success! Press enter to continue");

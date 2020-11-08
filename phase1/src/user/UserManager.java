@@ -86,4 +86,18 @@ public class UserManager {
         speaker.setStatus(status);
         speaker.setSignedEvent(signedEvent);
     }
+
+    /**
+     *
+     * @return a list of speakers
+     */
+    public ArrayList<String> getSpeakers() {
+    }
+
+    /**
+     *
+     * @return a list of Attendees
+     */
+    public ArrayList<String> getAttendees() {
+    }
 }
