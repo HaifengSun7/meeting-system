@@ -11,7 +11,7 @@ public class UserManager {
 
     public void creatUserAccount(String userType, String username, String password){
         if (userMapping.containsKey(username)) {
-            System.out.println("This username has been used! Try another one!");
+            System.out.println("This username has been used! Try another one!"); //TODO: throw. exception. don't println. You are not system.
         } else {
             if (userType.equals("Speaker")) {
                 Speaker newuser = new Speaker(username, password);
@@ -56,15 +56,20 @@ public class UserManager {
             user.status = true;
             return user.usertype;
         } else {
-            return "Login failed!";
+            return "Login failed!"; //TODO: Please throw an exception. PLEASE. I won't write a if condition specifically for "Login failed!"
         }
-        //TODO: returns a string, representing the TYPE of user. e.g. Attendee.
     }
 
     public void logout(User user){
         user.status = false;
     }
 
-
-
+    /**
+     * make attendee become Speaker
+     * @param attendee Attendee but with String.
+     * @exception Exception throw an exception when necessary.
+     */
+    public void becomeSpeaker(String attendee) {
+        //TODO: Remember to update their events or whatever.
+    }
 }
