@@ -122,7 +122,7 @@ public class OrganizerSystem {
                                     System.out.println("StartTime");
                                     String time = reader.nextLine();
                                     System.out.println("EndTime");
-                                    String command5 = reader.nextLine();
+                                    String endtime = reader.nextLine();
                                     //TODO: input time and add and stuff.
                                     //TODO: double check if available.
                                     System.out.println("done. Press enter to continue.");

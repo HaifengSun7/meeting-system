@@ -38,6 +38,7 @@ public class SpeakerSystem {
                         System.out.println("[" + i + "] " + messageList.get(i));
                     }
                     System.out.println("[e] exit to main menu");
+                    continue;
                 case "2":  //send messages to all Attendees who signed up for a particular event
                     System.out.println("Event name that you want to send messages");
                     String eventName = reader.nextLine();
@@ -47,6 +48,7 @@ public class SpeakerSystem {
                     messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
                     System.out.println("Success! Press something to continue");
                     reader.next();
+                    continue;
                 case "3": //send messages to a particular Attendee who signed up for a particular event
                     System.out.println("Which single person you want to send message?");
                     ArrayList<String> msglst = usermanager.getContactList(speaker);
@@ -65,7 +67,9 @@ public class SpeakerSystem {
                     } else {
                         System.out.println("Exiting");
                     }
+                    continue;
             }
+            break;
         }
     }
 }
