@@ -7,7 +7,7 @@ import java.lang.Exception;
 
 
 public class UserManager {
-    public Map<String, User> userMapping;
+    private Map<String, User> userMapping;
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{
         if (userMapping.containsKey(username)) {
@@ -84,9 +84,12 @@ public class UserManager {
         speaker.setSignedEvent(signedEvent);
     }
 
-
-    public Collection<String> getAllUsers(){
+    public Collection<String> getAllUsernames() {
         return userMapping.keySet();
+    }
+
+    public Map<String, User> getUserMapping() {
+        return userMapping;
     }
 
     /**
