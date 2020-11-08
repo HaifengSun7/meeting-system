@@ -11,7 +11,7 @@ public class UserManager {
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{
         if (userMapping.containsKey(username)) {
-            throw new Exception();
+            throw new Exception(); //TODO: new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
         } else {
             if (usertype.equals("Speaker")) {
                 Speaker newuser = new Speaker(username, password);
@@ -32,10 +32,6 @@ public class UserManager {
 
     private void deleteUser(String username){
         userMapping.remove(username);
-    }
-
-    public Collection<String> getAllUsers(){
-        return userMapping.keySet();
     }
 
     public ArrayList<String> getSignedEventList(String username){
@@ -74,17 +70,23 @@ public class UserManager {
      * @exception Exception throw an exception when necessary.
      */
 
-    public void becomeSpeaker(String attendeeName) {
-        User attendee = userMapping.get(attendeeName); //If we cannot find such attendee, throw exception
+    public void becomeSpeaker(String attendeeName) throws Exception{
+        User attendee = userMapping.get(attendeeName); //If we cannot find such attendee, throw exception //TODO: new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
         ArrayList<String> contactlist = attendee.getContactList();
         ArrayList<String> signedEvent = attendee.getSignedEvent();
         boolean status =  attendee.getStatus();
         deleteUser(attendeeName);
         createUserAccount("speacker", attendee.getUserName(), attendee.getPassword());
+        //TODO: It is possible to throw a new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
         User speaker = userMapping.get(attendeeName);
         speaker.setContactList(contactlist);
         speaker.setStatus(status);
         speaker.setSignedEvent(signedEvent);
+    }
+
+
+    public Collection<String> getAllUsers(){
+        return userMapping.keySet();
     }
 
     /**
@@ -92,6 +94,13 @@ public class UserManager {
      * @return a list of speakers
      */
     public ArrayList<String> getSpeakers() {
+        ArrayList<String> speaker = new ArrayList<>();
+        for (String username: userMapping.keySet()){
+            if (userMapping.get(username).getUserType().equals("Speaker")){
+                speaker.add(username);
+            }
+        }
+        return speaker;
     }
 
     /**
@@ -99,5 +108,12 @@ public class UserManager {
      * @return a list of Attendees
      */
     public ArrayList<String> getAttendees() {
+        ArrayList<String> attendee = new ArrayList<>();
+        for (String username: userMapping.keySet()){
+            if (userMapping.get(username).getUserType().equals("Attendee")){
+                attendee.add(username);
+            }
+        }
+        return attendee;
     }
 }
