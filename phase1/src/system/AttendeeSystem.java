@@ -13,6 +13,8 @@ public class AttendeeSystem {
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
+    public String command; //command buffer
+    public String message; //message buffer
 
     public AttendeeSystem(String attendee) {
         this.attendee = attendee;
@@ -28,7 +30,7 @@ public class AttendeeSystem {
                     "[3] Send a message\n " +
                     "[4] See messages \n" +
                     "[e] exit");
-            String command = reader.next();
+            command = reader.next();
             switch (command) {
                 case "e":
                     break;
@@ -68,8 +70,8 @@ public class AttendeeSystem {
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
-                        String command2 = reader.nextLine();
-                        messagemanager.sendMessage(attendee, receiver, command2);
+                        message = reader.nextLine();
+                        messagemanager.sendMessage(attendee, receiver, message);
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }

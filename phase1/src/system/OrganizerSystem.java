@@ -5,6 +5,7 @@ import message.MessageManager;
 import user.UserManager;
 
 import javax.activity.InvalidActivityException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +15,14 @@ public class OrganizerSystem {
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
+    String command; //command buffer
+    String roomnumber;//roomnumber buffer
+    String size;//size buffer
+    String time1;
+    String time2;
+    String room;
+
+
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }
@@ -22,7 +31,7 @@ public class OrganizerSystem {
             System.out.println("Name:" + organizer.toString());
             System.out.println("Organizer");
             System.out.println("[1] see and manage rooms\n[2] create speaker account\n[3] Schedule speakers\n [4] Send a message\n [5] See messages \n[e] exit");
-            String command = reader.nextLine();
+            command = reader.nextLine();
             switch (command){
                 case "1":
                     System.out.println("Here is a list of rooms");
@@ -31,23 +40,23 @@ public class OrganizerSystem {
                         System.out.println("[" + i + "]" + roomList.get(i));
                     }
                     System.out.println("See and manage rooms: \n [a] add a new room \n [b] see schedule of a certain room\n [e] exit to main menu.");
-                    String command2 = reader.nextLine();
-                    switch (command2){
+                    command = reader.nextLine();
+                    switch (command){
                         case "a":
                             System.out.println("room number?");
-                            String roomnumber = reader.nextLine();
+                            roomnumber = reader.nextLine();
                             System.out.println("size?");
-                            String size = reader.nextLine();
+                            size = reader.nextLine();
                             eventmanager.addRoom(Integer.parseInt(roomnumber), Integer.parseInt(size));
                             System.out.println("done. Press enter to continue.");
                             command = reader.nextLine();
                             break;
                         case "b":
                             System.out.println("room number?");
-                            String roomno = reader.nextLine();
+                            roomnumber = reader.nextLine();
                             try{
                                 ArrayList<Integer> schedule = new ArrayList<Integer>();
-                                schedule = eventmanager.getSchedule(Integer.parseInt(roomno));
+                                schedule = eventmanager.getSchedule(Integer.parseInt(roomnumber));
                                 for(Integer i: schedule){
                                     System.out.println(eventmanager.findEventStr(i));
                                 }
@@ -73,6 +82,7 @@ public class OrganizerSystem {
                         case "a":
                             System.out.println("but promote who? give me their username.");
                             command3 = reader.nextLine();
+                            eventmanager.becomeSpeaker(command3);
                             usermanager.becomeSpeaker(command3);
                             //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
                             break;
@@ -81,7 +91,7 @@ public class OrganizerSystem {
                             String username = reader.nextLine();
                             System.out.println("password?");
                             String password = reader.nextLine();
-                            usermanager.creatUserAccount("Speaker", username, password);
+                            usermanager.createUserAccount("Speaker", username, password);
                             break;
                     }
                     continue;
@@ -118,12 +128,12 @@ public class OrganizerSystem {
                             switch (command4){
                                 case "a":
                                     System.out.println("Room?");
-                                    String room = reader.nextLine();
-                                    System.out.println("StartTime");
-                                    String time = reader.nextLine();
-                                    System.out.println("EndTime");
-                                    String endtime = reader.nextLine();
-                                    //TODO: input time and add and stuff.
+                                    room = reader.nextLine();
+                                    System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
+                                    time1 = reader.nextLine();
+                                    System.out.println("EndTime"); // endtime?
+                                    time2 = reader.nextLine();
+                                    eventmanager.addEvent(room, Timestamp.valueOf(time1));
                                     //TODO: double check if available.
                                     System.out.println("done. Press enter to continue.");
                                     reader.nextLine();
@@ -143,9 +153,9 @@ public class OrganizerSystem {
                                         System.out.println("dumb.");
                                         break;
                                     }
-                                    System.out.println("give me your event ID");
-                                    String eventID = reader.nextLine();
-                                    //TODO: add to event.
+                                    System.out.println("give me your room number");
+                                    String time = reader.nextLine();
+                                    eventmanager.addEvent(room, Timestamp.valueOf(time));
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
                                     break;

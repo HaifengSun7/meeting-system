@@ -135,8 +135,9 @@ public class EventManager{
      * @param roomno: room number.
      * @param time: time the meeting begins.
      */
-    public void addEvents(String roomno, Timestamp time) {
+    public void addEvent(String roomno, Timestamp time) {
         Event newEvent = new Event(time);
+        //TODO: what if 2 events happen in the same room at the same time? Thorw an exception.
         map.put(newEvent.getId(), newEvent);
         for (Room r: rooms) {
             if (r.getRoomNumber() == Integer.parseInt(roomno)) {
@@ -144,5 +145,29 @@ public class EventManager{
             }
         }
 
+    }
+
+    /**
+     * Make attendee a speaker by updating all events related with them.
+     * Tips: 1. scan all events with attendee. 2. See if there is an speaker. If there is one already, throw an exception. 3. make attendee speaker.
+     * @param attendee Attendee but string.
+     */
+    public void becomeSpeaker(String attendee) {
+    }
+
+    /**
+     * Return all events in an ArrayList of Strings.
+     * @return all events. Index = eventnumber.
+     */
+    public ArrayList<String> getAllEvents() {
+    }
+
+    /**
+     * Add user to an event. MAKE SURE TO DOUBLE CHECK ALL CONDITIONS.
+     * @param type type of user
+     * @param username username
+     * @param eventnumber eventnumber.
+     */
+    public void addUserToEvent(String type, String username, int eventnumber) {
     }
 }
