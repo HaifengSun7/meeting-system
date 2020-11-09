@@ -23,8 +23,9 @@ public class Event {
     private int length = 1;
     private int id;
     private static int eventNumber = 0;
-    private List<User> user_list;
-    private User speaker;
+    private ArrayList<String> user_list;
+    private String speaker;
+    private String description;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -39,32 +40,39 @@ public class Event {
         this.user_list = new ArrayList<>();
     }
 
+//    public ArrayList<String> getAttendees(){
+//        //TODO: We need an arraylist of all attendees of this event, in usernames.
+//        ArrayList<String> name_list = new ArrayList<>();
+//        for (User u : this.user_list){
+//            name_list.add(u.getUserName());
+//        }
+//        return name_list;
+//    }
+
     public ArrayList<String> getAttendees(){
-        //TODO: We need an arraylist of all attendees of this event, in usernames.
-        ArrayList<String> name_list = new ArrayList<>();
-        for (User u : this.user_list){
-            name_list.add(u.getUserName());
-        }
-        return name_list;
+        return user_list;
     }
 
-    public void addAttendees(User attendee) {
+    public void addAttendees(String attendee) {
         this.user_list.add(attendee);
     }
 
-    public void removeAttendees(User attendee) {
+    public void removeAttendees(String attendee) {
         this.user_list.remove(attendee);
     }
 
-    public void setSpeaker(User u) {this.speaker = u; }
+    public void setSpeaker(String u) {this.speaker = u; }
 
-    public User getSpeaker(){ return speaker; }
+    public String getSpeaker() {return speaker; }
+
+    public void setDescription(String description) {this.description = description; }
+
+    public String getDescription() {return description; }
 
 
     public String toString(){
-        //TODO: return the string of the event
         String t = this.time.toString();
-        return "Event{" + "ID" + this.getId() + "Time:" + t +
+        return "Event{" + "Id: " + this.getId() + ", Description: " + this.description + ", Time:" + t +
                 ", Attendees:" + this.getAttendees() + "}";
     }
 
@@ -120,21 +128,36 @@ public class Event {
 
     /**
      * Check if the event contradicts the other event in time.
-     * @param t: The other event.
+     * @param start: start time, length: length add in the start time.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
-    public boolean contradicts(Event t) {
+    public boolean contradicts(Timestamp start, int length) {
         ArrayList<Integer> endTime = new ArrayList<>();
         endTime.add(this.getHour()+length);
         endTime.add(this.getMin());
         ArrayList<Integer> t_endTime = new ArrayList<>();
-        t_endTime.add(t.getHour()+t.getLength());
-        t_endTime.add(t.getMin());
+        String t = start.toString();
+        ArrayList<Integer> time_list = new ArrayList<>();
+        for(int i = 0; i < t.length(); i++){
+            char y = ':';
+            char x = t.charAt(i);
+            if(x == y){
+                String t1 = String.valueOf(t.charAt(i-2));
+                String t2 = String.valueOf(t.charAt(i-1));
+                String time = t1 + t2;
+                int tt = Integer.parseInt(time);
+                time_list.add(tt);
+            }
+        }
+        int t_hour = time_list.get(0);
+        int t_min = time_list.get(1);
+        t_endTime.add(t_hour);
+        t_endTime.add(t_min);
         if(this.getHour() == t_endTime.get(0)) {
             return !(this.getMin() >= t_endTime.get(1));
-        }else if(endTime.get(0) == t.getHour()){
-            return !(endTime.get(1) < t.getMin());
-        }else return t_endTime.get(0) >= this.getHour() && t.getHour() <= endTime.get(0);
+        }else if(endTime.get(0) == t_hour){
+            return !(endTime.get(1) < t_min);
+        }else return t_endTime.get(0) >= this.getHour() && t_hour <= endTime.get(0);
     }
 
     private int getHour(){
