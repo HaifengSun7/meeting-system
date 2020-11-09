@@ -21,14 +21,14 @@ public class UserIterator implements Iterator<String[]> {
         //open file and read from it...
         BufferedReader br = null;
         try {
-            Scanner myReader = new Scanner(new File("user.txt"));
+            Scanner myReader = new Scanner(new File("user.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 userinfo.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("student_properties.txt is missing");
+            System.out.println("user.csv is missing");
             e.printStackTrace();
         }
     }

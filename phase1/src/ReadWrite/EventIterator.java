@@ -17,18 +17,15 @@ public class EventIterator implements Iterator<String[]> {
      * and added to the list of event properties.
      */
     public EventIterator() {
-
-        //open file and read from it...
-        BufferedReader br = null;
         try {
-            Scanner myReader = new Scanner(new File("event.txt"));
+            Scanner myReader = new Scanner(new File("event.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 eventinfo.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("event_properties.txt is missing");
+            System.out.println("event.csv is missing");
             e.printStackTrace();
         }
     }
