@@ -45,7 +45,7 @@ public class AttendeeSystem {
                     command = reader.next();
                     if (!("e".equals(command))) {
                         eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee); // TODO: throw error?
-                        //TODO: update update update usermanager.
+                        usermanager.addSignedEvent(example_list.get(Integer.parseInt(command)), attendee);
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }
@@ -68,8 +68,8 @@ public class AttendeeSystem {
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
-                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
+                        String receiver = msglst.get(Integer.parseInt(command));//TODO: what if input wrong?
+                        System.out.println("Yo, now input your message. Hint: \\n and stuff.");
                         message = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, message);
                         System.out.println("Success! Press something to continue");

@@ -61,7 +61,6 @@ public class EventManager{
         rooms.add(r);
     }
 
-    //TODO: add events from file?
     public ArrayList<String> getAllRooms(){
         ArrayList<String> result = new ArrayList<String>();
         for(Room room: rooms){
