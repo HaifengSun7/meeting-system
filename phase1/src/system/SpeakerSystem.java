@@ -41,6 +41,7 @@ public class SpeakerSystem {
                     continue;
                 case "2":  //send messages to all Attendees who signed up for a particular event
                     System.out.println("Event name that you want to send messages");
+                    reader.nextLine();
                     String eventName = reader.nextLine();
                     System.out.println("Messages that you are sending to all attendees");
                     String messageToAllAttendees = reader.nextLine();
@@ -60,8 +61,8 @@ public class SpeakerSystem {
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
-                        String command2 = reader.nextLine();
-                        messagemanager.sendMessage(speaker, receiver, command2);
+                        message = reader.nextLine();
+                        messagemanager.sendMessage(speaker, receiver, message);
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     } else {
