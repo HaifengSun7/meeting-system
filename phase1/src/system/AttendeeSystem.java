@@ -37,7 +37,7 @@ public class AttendeeSystem {
 
                 case "1":
                     // Show a list of schedule which they can sign up for.
-                    ArrayList<String> example_list = eventmanager.canSignUp(attendee); //TODO: throw error?
+                    ArrayList<String> example_list = eventmanager.canSignUp(attendee);
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println("[" + i + "] " + example_list.get(i).toString());
                     }
@@ -45,7 +45,7 @@ public class AttendeeSystem {
                     command = reader.next();
                     if (!("e".equals(command))) {
                         eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee); // TODO: throw error?
-
+                        //TODO: update update update usermanager.
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }

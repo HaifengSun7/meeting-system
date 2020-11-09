@@ -19,8 +19,9 @@ public class OrganizerSystem {
     String roomnumber;//roomnumber buffer
     String size;//size buffer
     String time1;
-    String time2;
+    String duration;
     String room;
+    String receiver;
 
 
     public OrganizerSystem(String organizer) {
@@ -135,10 +136,13 @@ public class OrganizerSystem {
                                     room = reader.nextLine();
                                     System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
                                     time1 = reader.nextLine();
-                                    System.out.println("EndTime"); // endtime?
-                                    time2 = reader.nextLine();
-                                    eventmanager.addEvent(room, Timestamp.valueOf(time1));
-                                    //TODO: double check if available.
+                                    System.out.println("Duration");
+                                    duration = reader.nextLine();
+                                    try {
+                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                                    } catch (Exception e) {
+                                        //TODO:
+                                    }
                                     System.out.println("done. Press enter to continue.");
                                     reader.nextLine();
                                     break;
@@ -158,8 +162,10 @@ public class OrganizerSystem {
                                         break;
                                     }
                                     System.out.println("give me your room number");
-                                    String time = reader.nextLine();
-                                    eventmanager.addEvent(room, Timestamp.valueOf(time));
+                                    time1 = reader.nextLine();
+                                    System.out.println("Duration");
+                                    duration = reader.nextLine();
+                                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
                                     break;
@@ -193,7 +199,7 @@ public class OrganizerSystem {
                             reader.nextLine();
                             break;
                         default:
-                            String receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
+                            receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
                             System.out.println("Yo, now input your message. Hint: \\n and stuff.");
                             command = reader.nextLine();
                             messagemanager.sendMessage(organizer, receiver, command);

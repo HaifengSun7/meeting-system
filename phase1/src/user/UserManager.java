@@ -122,4 +122,29 @@ public class UserManager {
         }
         return attendee;
     }
+
+
+    public void addSignedEvent(String eventId, String username) {
+        ArrayList<String> lst = userMapping.get(username).getSignedEvent();
+        lst.add(eventId);
+        userMapping.get(username).setSignedEvent(lst);
+    }
+
+    public void deleteSignedEvent(String eventId, String username) {
+        ArrayList<String> lst = userMapping.get(username).getSignedEvent();
+        lst.remove(eventId);
+        userMapping.get(username).setSignedEvent(lst);
+    }
+
+    public void addContactList(String contactName, String username) {
+        ArrayList<String> lst = userMapping.get(username).getContactList();
+        lst.add(contactName);
+        userMapping.get(username).setContactList(lst);
+    }
+
+    public void deleteContactList(String contactName, String username) {
+        ArrayList<String> lst = userMapping.get(username).getContactList();
+        lst.remove(contactName);
+        userMapping.get(username).setContactList(lst);
+    }
 }
