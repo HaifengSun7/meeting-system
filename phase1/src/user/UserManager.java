@@ -123,7 +123,6 @@ public class UserManager {
         return attendee;
     }
 
-
     public void addSignedEvent(String eventId, String username) {
         ArrayList<String> lst = userMapping.get(username).getSignedEvent();
         lst.add(eventId);
