@@ -154,7 +154,7 @@ public class EventManager{
     }
 
     /**
-     * Create and add a event.
+     * Create and add an event.
      * @param roomno: room number.
      * @param time: time the meeting begins.
      * @param meetingLength: time length of the event.

@@ -1,4 +1,5 @@
 package system;
+import ReadWrite.UserManagerInitializer;
 import sun.rmi.runtime.Log;
 import user.UserManager;
 
@@ -12,6 +13,8 @@ public class LogInSystem {
           This method is in charge of logging in, separate the system and log out.
          */
         //TODO: READ USER ONLY.
+        usermanager = new UserManagerInitializer().run();
+
         boolean logged_in = false;
         String user_type = "";
         String username = "";
@@ -33,7 +36,6 @@ public class LogInSystem {
             break;
         }
         if (!logged_in) {
-            //TODO: be sure to save, or not.
             System.out.println("You have wasted your chances. now leave.");
             return;
         }
@@ -48,8 +50,6 @@ public class LogInSystem {
                 SpeakerSystem ss = new SpeakerSystem(username);
                 ss.run();
         }
-        //TODO: after running, save.
-
     }
 }
 
