@@ -11,12 +11,12 @@ public class UserManager {
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{
         if (userMapping.containsKey(username)) {
-            throw new Exception(); //TODO: new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
+            throw new DuplicateUserNameException("DuplicateUserName : " + username);
         } else {
             if (usertype.equals("Speaker")) {
                 Speaker newuser = new Speaker(username, password);
                 addUser(newuser);
-            } else if (usertype.equals("Organizer")){
+            } else if (usertype.equals("Organizer")) {
                 Organizer newuser = new Organizer(username, password);
                 addUser(newuser);
             } else {
@@ -70,18 +70,21 @@ public class UserManager {
      * @exception Exception throw an exception when necessary.
      */
 
-    public void becomeSpeaker(String attendeeName) throws Exception{
-        User attendee = userMapping.get(attendeeName); //If we cannot find such attendee, throw exception //TODO: new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
-        ArrayList<String> contactlist = attendee.getContactList();
-        ArrayList<String> signedEvent = attendee.getSignedEvent();
-        boolean status =  attendee.getStatus();
-        deleteUser(attendeeName);
-        createUserAccount("speacker", attendee.getUserName(), attendee.getPassword());
-        //TODO: It is possible to throw a new exception!!!!!!!!!!!!!!!!!!!!!!!!!!
-        User speaker = userMapping.get(attendeeName);
-        speaker.setContactList(contactlist);
-        speaker.setStatus(status);
-        speaker.setSignedEvent(signedEvent);
+    public void becomeSpeaker(String attendeeName) throws Exception {
+        if (! userMapping.containsKey(attendeeName)) {
+            throw new NoSuchUserException("NoSuchUser: " + attendeeName);
+        } else {
+            User attendee = userMapping.get(attendeeName);
+            ArrayList<String> contactlist = attendee.getContactList();
+            ArrayList<String> signedEvent = attendee.getSignedEvent();
+            boolean status = attendee.getStatus();
+            deleteUser(attendeeName);
+            createUserAccount("speacker", attendee.getUserName(), attendee.getPassword());
+            User speaker = userMapping.get(attendeeName);
+            speaker.setContactList(contactlist);
+            speaker.setStatus(status);
+            speaker.setSignedEvent(signedEvent);
+        }
     }
 
     public Collection<String> getAllUsernames() {
