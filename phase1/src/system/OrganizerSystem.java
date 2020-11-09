@@ -60,7 +60,9 @@ public class OrganizerSystem {
                                 schedule = eventmanager.getSchedule(Integer.parseInt(roomnumber));
                                 for(Integer i: schedule){
                                     System.out.println(eventmanager.findEventStr(i));
-                                }
+                                }//TODO: eventmanager.getSchedule is now a list of String
+                                 // and findEventStr's input should also be String
+                                 // (same change for line 158).
                             } catch (InvalidActivityException e) {
                                 System.out.println("dumb.");
                                 break;
