@@ -105,27 +105,27 @@ public class EventManager{
      * @param attendee Attendee, but with String.
      * @throws Exception when needed. or not, I don't care. but you should tho.
      */
-    public void signUp(String event, String attendee) {
+    public void signUp(String event, String attendee) throws Exception{
 
     }
 
     /**
      * Return a list of Events.toString() that attendee can sign up for.
      * @param attendee Attendee, but string.
-     * @return a list of Events.toString() that attendee can sign up for.
+     * @return a list of Event ids in String that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee) {
         ArrayList<String> rslt= new ArrayList<String>();
         for (int i = 0; i < map.size()-1; i++) {
             if(!map.get(i).getAttendees().contains(attendee)) {
-                rslt.add(map.get(i).toString());
+                rslt.add(String.valueOf(map.get(i).getId()));
             }
         }
         return rslt;
     }
 
     /**
-     * Get a map that stores all events.
+     * Get a map that contains all events.
      * @return the map<eventId, correspondingEvent>.
      */
     public Map<Integer, Event> getMap() {return this.map;}
@@ -203,14 +203,14 @@ public class EventManager{
      * @param username username
      * @param eventnumber eventnumber.
      */
-    public void addUserToEvent(String type, String username, int eventnumber) throws Exception{
+    public void addUserToEvent(String type, String username, int eventnumber) throws Exception {
         if (type.equals("Attendee")) {
-            map.get(eventnumber).addAttendees();
-        } else if(type.equals("Speaker")) {
-            map.get(eventnumber).setSpeaker();
+            map.get(eventnumber).addAttendees(username);
+        } else if (type.equals("Speaker")) {
+            map.get(eventnumber).setSpeaker(username);
         } else {
-            throw new Exception();//TODO: Exception.
+            throw new Exception();
+            //TODO: Exception.
         }
-        )
     }
 }
