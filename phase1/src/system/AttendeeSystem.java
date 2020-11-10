@@ -55,8 +55,11 @@ public class AttendeeSystem {
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
-                        // TODO: throw error?
+                        try {
+                            eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
+                        } catch (Exception e) {
+                            //handle it.
+                        }
                         //TODO: update update update usermanager.
                         System.out.println("Success! Press something to continue");
                         reader.next();

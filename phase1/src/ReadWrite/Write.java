@@ -27,7 +27,7 @@ public class Write {
             String password;
             ArrayList<String> msglst;
             String type;
-            FileWriter userWriter = new FileWriter("resources/user.csv", false);
+            FileWriter userWriter = new FileWriter("src/resources/user.csv", false);
             Collection<String> usernames = usermanager.getAllUsernames();
             for(String username : usernames) {
                 password = usermanager.getPassword(username);
@@ -48,7 +48,7 @@ public class Write {
             userWriter.flush();
             userWriter.close();
 
-            FileWriter roomWriter = new FileWriter("resources/room.csv", false);
+            FileWriter roomWriter = new FileWriter("src/resources/room.csv", false);
             HashMap<Integer, Integer> roomToCapacity = eventmanager.getRoomNumberMapToCapacity();
             for (Map.Entry<Integer, Integer> item : roomToCapacity.entrySet()) {
                 Integer room = item.getKey();
@@ -62,7 +62,7 @@ public class Write {
             roomWriter.flush();
             roomWriter.close();
 
-            FileWriter eventWriter = new FileWriter("resources/event.csv", false);
+            FileWriter eventWriter = new FileWriter("src/resources/event.csv", false);
             HashMap<Integer, Integer> eventToRoom = eventmanager.getEventIDMapToRoomNumber();
             String time;
             String duration;
@@ -93,7 +93,7 @@ public class Write {
             eventWriter.flush();
             eventWriter.close();
 
-            FileWriter messageWriter = new FileWriter("resources/message.csv", false);
+            FileWriter messageWriter = new FileWriter("src/resources/message.csv", false);
             ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
             for(ArrayList<String> messageinfo : allMessage){
                 messageWriter.append(messageinfo.get(0));

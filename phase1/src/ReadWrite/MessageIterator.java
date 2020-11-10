@@ -17,7 +17,7 @@ public class MessageIterator implements Iterator<String[]> {
      */
     public MessageIterator() {
         try {
-            Scanner myReader = new Scanner(new File("resources/message.csv"));
+            Scanner myReader = new Scanner(new File("src/resources/message.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 messageinfo.add(data.split(","));
