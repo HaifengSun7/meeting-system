@@ -43,9 +43,11 @@ public class AttendeeSystem {
 
                 case "1":
                     // Show a list of schedule which they can sign up for.
-                    ArrayList<String> example_list = eventmanager.canSignUp(attendee);
-                    //TODO: We only need the User_signed_events_list from this attendee,
+
+                    ArrayList<String> example_list = eventmanager.canSignUp(usermanager.getSignedEventList(attendee));
+                    // We only need the User_signed_events_list from this attendee,
                     // please get it from user manager(by using .getSignedEventList(Attendee))
+                    // FIxed.
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println("[" + i + "] " + example_list.get(i).toString());
                     }
