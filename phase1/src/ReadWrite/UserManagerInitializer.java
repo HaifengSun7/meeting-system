@@ -33,11 +33,11 @@ public class UserManagerInitializer {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            for(j = 2; j < temp2.length; j++){
+            for(j = 3; j < temp2.length; j++){
                 try {
                     usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {
-                    System.out.println("This should not be happening.");
+                    System.out.println("cannot add event (userManager). something went wrong.");
                 }
 
             }
