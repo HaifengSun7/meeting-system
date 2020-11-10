@@ -40,7 +40,7 @@ public class AttendeeSystem {
                     "[3] Send a message\n " +
                     "[4] See messages \n" +
                     "[e] exit");
-            command = reader.nextLine()`;
+            command = reader.nextLine();
             switch (command) {
                 case "e":
                     break;
