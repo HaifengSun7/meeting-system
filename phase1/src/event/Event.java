@@ -90,8 +90,9 @@ public class Event {
      * @return the hour part of the time, in int.
      */
     public String getTime(){
-        String t = this.time.toString();
-        return "The meeting will begin on:"+t+".";
+        //String t = this.time.toString();
+        //return "The meeting will begin on:"+t+".";
+        return this.time.toString(); //For Write.
     }
 
     /**

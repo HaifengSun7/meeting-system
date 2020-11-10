@@ -1,7 +1,6 @@
 package message;
 
-import user.User;
-
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  */
 public class MessageManager {
 
-    private ArrayList<Message> Messages =  new ArrayList<Message>();
+    private ArrayList<Message> messages =  new ArrayList<Message>();
 
     /**
      * Send a Message to receiver by sender. With the message text.
@@ -21,7 +20,7 @@ public class MessageManager {
      */
     public void sendMessage(String sender, String receiver, String text){
         Message message = new Message(sender, receiver, text);
-        Messages.add(message);
+        messages.add(message);
     }
 
     /**
@@ -31,7 +30,7 @@ public class MessageManager {
      */
     public ArrayList<String> getSent(String username) {
         ArrayList<String> rtn_list = new ArrayList<String>();
-        for(Message msg:this.Messages){
+        for(Message msg:this.messages){
             if(msg.getSender().equals(username)){
                 rtn_list.add(msg.toString());
             }
@@ -46,7 +45,7 @@ public class MessageManager {
      */
     public ArrayList<String> getInbox(String username){
         ArrayList<String> rtn_list = new ArrayList<String>();
-        for(Message msg:this.Messages){
+        for(Message msg:this.messages){
             if(msg.getSender().equals(username)){
                 rtn_list.add(msg.toString());
             }
@@ -66,4 +65,16 @@ public class MessageManager {
         }
     }
 
+    public ArrayList<ArrayList<String>> getAllMessage() {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
+        for(Message message: messages){
+            temp.add(message.getSender());
+            temp.add(message.getReceiver());
+            temp.add(message.getText());
+            result.add(temp);
+            temp.clear();
+        }
+        return result;
+    }
 }

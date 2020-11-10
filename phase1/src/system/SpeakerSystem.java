@@ -1,5 +1,9 @@
 package system;
 
+import ReadWrite.EventManagerInitializer;
+import ReadWrite.MessageManagerInitializer;
+import ReadWrite.UserManagerInitializer;
+import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -19,7 +23,12 @@ public class SpeakerSystem {
     }
 
     public void run() {
-        //TODO: READ.
+        EventManagerInitializer eventManagerInitializer = new EventManagerInitializer();
+        eventmanager = eventManagerInitializer.run();
+        MessageManagerInitializer messageManagerInitializer = new MessageManagerInitializer();
+        messagemanager = messageManagerInitializer.run();
+        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
+        usermanager = userManagerInitializer.run();
         while (true) {
             System.out.println("Name:" + speaker.toString());
             System.out.println("Speaker");
@@ -61,7 +70,7 @@ public class SpeakerSystem {
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
-                        message = reader.nextLine();
+                        String message = reader.nextLine();
                         messagemanager.sendMessage(speaker, receiver, message);
                         System.out.println("Success! Press something to continue");
                         reader.next();
@@ -72,6 +81,8 @@ public class SpeakerSystem {
             }
             break;
         }
+        Write write = new Write(usermanager, eventmanager, messagemanager);
+        write.run();
     }
 }
 

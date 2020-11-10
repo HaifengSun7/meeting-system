@@ -1,5 +1,6 @@
 package event;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Represents the Room that has certain Room number, capacity and schedules.

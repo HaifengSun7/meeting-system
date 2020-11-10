@@ -1,5 +1,9 @@
 package system;
 
+import ReadWrite.EventManagerInitializer;
+import ReadWrite.MessageManagerInitializer;
+import ReadWrite.UserManagerInitializer;
+import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -28,6 +32,12 @@ public class OrganizerSystem {
         this.organizer = organizer;
     }
     public void run() {
+        EventManagerInitializer eventManagerInitializer = new EventManagerInitializer();
+        eventmanager = eventManagerInitializer.run();
+        MessageManagerInitializer messageManagerInitializer = new MessageManagerInitializer();
+        messagemanager = messageManagerInitializer.run();
+        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
+        usermanager = userManagerInitializer.run();
         while(true){
             System.out.println("Name:" + organizer.toString());
             System.out.println("Organizer");
@@ -83,8 +93,11 @@ public class OrganizerSystem {
                             System.out.println("but promote who? give me their username.");
                             command = reader.nextLine();
                             eventmanager.becomeSpeaker(command);
-                            usermanager.becomeSpeaker(command);
-                            //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
+                            try {
+                                usermanager.becomeSpeaker(command);
+                            } catch (Exception e) {
+                                //TODO:
+                            }
                             break;
                         case "b":
                             System.out.println("username?");
@@ -118,7 +131,11 @@ public class OrganizerSystem {
                     switch (command){
                         default:
                             if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allevents.size()){
-                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                                try {
+                                    eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                                } catch (Exception e) {
+                                    //TODO:
+                                }
                             }
                             break;
                             //TODO: fix UI.
@@ -165,7 +182,11 @@ public class OrganizerSystem {
                                     time1 = reader.nextLine();
                                     System.out.println("Duration");
                                     duration = reader.nextLine();
-                                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                                    try {
+                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                                    } catch (Exception e) {
+                                        //TODO:
+                                    }
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
                                     break;
@@ -216,7 +237,6 @@ public class OrganizerSystem {
                     System.out.println("[e] exit to main menu");
                     continue;
                 case "e":
-                    //TODO: Save.
                     break;
                 default:
                     System.out.println("Please press the right key.");
@@ -225,7 +245,7 @@ public class OrganizerSystem {
             break;
 
         }
-
-
+        Write write = new Write(usermanager, eventmanager, messagemanager);
+        write.run();
     }
 }

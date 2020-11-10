@@ -12,8 +12,8 @@ public class LogInSystem {
         /*
           This method is in charge of logging in, separate the system and log out.
          */
-        //TODO: READ USER ONLY.
-        usermanager = new UserManagerInitializer().run();
+        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
+        usermanager = userManagerInitializer.run();
 
         boolean logged_in = false;
         String user_type = "";

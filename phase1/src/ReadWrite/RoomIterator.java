@@ -1,6 +1,5 @@
 package ReadWrite;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -18,7 +17,7 @@ public class RoomIterator implements Iterator<String[]> {
      */
     public RoomIterator() {
         try {
-            Scanner myReader = new Scanner(new File("room.csv"));
+            Scanner myReader = new Scanner(new File("resources/room.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 roominfo.add(data.split(","));

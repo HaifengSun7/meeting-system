@@ -21,7 +21,7 @@ public class UserIterator implements Iterator<String[]> {
         //open file and read from it...
         BufferedReader br = null;
         try {
-            Scanner myReader = new Scanner(new File("user.csv"));
+            Scanner myReader = new Scanner(new File("resources/user.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 userinfo.add(data.split(","));

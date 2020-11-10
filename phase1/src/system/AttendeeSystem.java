@@ -1,5 +1,9 @@
 package system;
 
+import ReadWrite.EventManagerInitializer;
+import ReadWrite.MessageManagerInitializer;
+import ReadWrite.UserManagerInitializer;
+import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -21,7 +25,13 @@ public class AttendeeSystem {
     }
 
     public void run() {
-        //TODO: READ.
+        EventManagerInitializer eventManagerInitializer = new EventManagerInitializer();
+        eventmanager = eventManagerInitializer.run();
+        MessageManagerInitializer messageManagerInitializer = new MessageManagerInitializer();
+        messagemanager = messageManagerInitializer.run();
+        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
+        usermanager = userManagerInitializer.run();
+
         while (true){
             System.out.println("Name:" + attendee.toString());
             System.out.println("Attendee");
@@ -88,8 +98,10 @@ public class AttendeeSystem {
                 case "default":
                     System.out.println("Press the right key.");
             }
+            break;
         }
-        //TODO: Saving... or not?
+        Write write = new Write(usermanager, eventmanager, messagemanager);
+        write.run();
 
     }
 }

@@ -1,7 +1,5 @@
 package event;
 
-import com.sun.tools.corba.se.idl.constExpr.Times;
-import user.UserManager;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Time;
@@ -149,7 +147,7 @@ public class EventManager{
             } else {
                 throw new Exception();//TODO: Exception.
             }
-        }
+        } return true;//TODO: please double check this part.
     }
 
     /**
@@ -205,12 +203,46 @@ public class EventManager{
      */
     public void addUserToEvent(String type, String username, int eventnumber) throws Exception{
         if (type.equals("Attendee")) {
-            map.get(eventnumber).addAttendees();
+            map.get(eventnumber).addAttendees(username);
         } else if(type.equals("Speaker")) {
-            map.get(eventnumber).setSpeaker();
+            map.get(eventnumber).setSpeaker(username);
         } else {
             throw new Exception();//TODO: Exception.
         }
-        )
+    }
+
+
+    /**
+     * Added for Write. DO NOT CHANGE ANYTHING!
+     * @return A hashmap.
+     */
+    public HashMap<Integer, Integer> getRoomNumberMapToCapacity(){
+        HashMap<Integer, Integer> result = new HashMap<>();
+        for(Room room : rooms){
+            result.put(room.getRoomNumber(), room.getCapacity());
+        }
+        return result;
+    }
+
+    public HashMap<Integer, Integer> getEventIDMapToRoomNumber(){
+        HashMap<Integer, Integer> result = new HashMap<>();
+        for(Room room: rooms){
+            for(Integer eventID: room.getSchedule()){
+                result.put(eventID, room.getRoomNumber());
+            }
+        }
+        return result;
+    }
+
+    public String getTime(Integer event) {
+        return map.get(event).getTime();
+    }
+
+    public String getDuration(Integer event) {
+        return String.valueOf(map.get(event).getMeetingLength());
+    }
+
+    public String getSpeakers(Integer event) {
+        return map.get(event).getSpeaker();
     }
 }

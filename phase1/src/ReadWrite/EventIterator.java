@@ -1,6 +1,5 @@
 package ReadWrite;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -18,7 +17,7 @@ public class EventIterator implements Iterator<String[]> {
      */
     public EventIterator() {
         try {
-            Scanner myReader = new Scanner(new File("event.csv"));
+            Scanner myReader = new Scanner(new File("resources/event.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 eventinfo.add(data.split(","));
