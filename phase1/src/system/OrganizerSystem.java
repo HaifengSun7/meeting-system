@@ -84,12 +84,7 @@ public class OrganizerSystem {
                             command = reader.nextLine();
                             eventmanager.becomeSpeaker(command);
                             usermanager.becomeSpeaker(command);
-                            //TODO: let usermanager do becomespeaker first, and usermanager will return a User-signedeverntlist
-                            //      Type: ArrayList<String>
-                            //      Please give that list to next event manager, thank!
-                            //                  ---- By Jinyang Zhao
                             //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
-
                             break;
                         case "b":
                             System.out.println("username?");
