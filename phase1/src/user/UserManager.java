@@ -2,12 +2,18 @@ package user;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.lang.Exception;
 
 
 public class UserManager {
+
     private Map<String, User> userMapping;
+
+    public UserManager(){
+        this.userMapping = new HashMap<>();
+    }
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{
         if (userMapping.containsKey(username)) {
@@ -155,6 +161,7 @@ public class UserManager {
      * @param username username.
      * @return the password.
      */
+
     public String getPassword(String username) {
         return userMapping.get(username).password;
     }
