@@ -279,6 +279,10 @@ public class EventManager {
     }
 
     public String getSpeakers(Integer event) {
-        return map.get(event).getSpeaker();
+        try {
+            return map.get(event).getSpeaker();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
