@@ -70,7 +70,7 @@ public class UserManager {
      * @exception Exception throw an exception when necessary.
      */
 
-    public void becomeSpeaker(String attendeeName) throws Exception {
+    public ArrayList<String> becomeSpeaker(String attendeeName) throws Exception {
         if (! userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("NoSuchUser: " + attendeeName);
         } else {
@@ -84,6 +84,7 @@ public class UserManager {
             speaker.setContactList(contactlist);
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
+            return signedEvent;
         }
     }
 
