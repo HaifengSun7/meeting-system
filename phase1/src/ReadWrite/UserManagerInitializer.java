@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class UserManagerInitializer {
     public UserManager run(){
+        int j;
         UserManager usermanager = new UserManager();
         UserIterator userIterator = new UserIterator();
         EventIterator eventIterator = new EventIterator();
         String[] temp;
-        while (!userIterator.hasNext()) {
+        while (userIterator.hasNext()) {
             temp = userIterator.next(); //do something
             try {
                 usermanager.createUserAccount(temp[2], temp[0], temp[1]);
@@ -29,13 +30,17 @@ public class UserManagerInitializer {
             }
         }
         String[] temp2;
-        while (!eventIterator.hasNext()) {
+        int k = 0;
+        while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            try {
-                usermanager.addSignedEvent(temp2[0], temp2[3]);
-            } catch (Exception e) {
-                System.out.println("This should not be happening.");
+            for(j = 2; j < temp2.length; j++){
+                try {
+                    usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
+                } catch (Exception e) {
+                    System.out.println("This should not be happening.");
+                }
             }
+            k += 1;
         }
         return usermanager;
     }

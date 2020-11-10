@@ -84,9 +84,12 @@ public class OrganizerSystem {
                         case "a":
                             System.out.println("but promote who? give me their username.");
                             command = reader.nextLine();
+                            try {
+                                usermanager.becomeSpeaker(command);
+                            } catch (Exception e) {
+                                //TODO:
+                            }
                             eventmanager.becomeSpeaker(command);
-                            usermanager.becomeSpeaker(command);
-                            //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
                             break;
                         case "b":
                             System.out.println("username?");
@@ -120,7 +123,11 @@ public class OrganizerSystem {
                     switch (command){
                         default:
                             if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allevents.size()){
-                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                                try {
+                                    eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                                } catch (Exception e) {
+                                    //TODO:
+                                }
                             }
                             break;
                             //TODO: fix UI.
@@ -167,7 +174,11 @@ public class OrganizerSystem {
                                     time1 = reader.nextLine();
                                     System.out.println("Duration");
                                     duration = reader.nextLine();
-                                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                                    try {
+                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                                    } catch (Exception e) {
+                                        //TODO:
+                                    }
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
                                     break;
