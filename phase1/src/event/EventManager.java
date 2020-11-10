@@ -129,7 +129,7 @@ public class EventManager {
                 rslt.add(String.valueOf(map.get(i).getId()));
             }
         }
-        return rslt;
+        return rslt; //TODO: what about time conflict?
     }
 
 //    /**

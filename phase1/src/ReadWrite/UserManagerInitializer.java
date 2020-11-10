@@ -23,7 +23,7 @@ public class UserManagerInitializer {
             }
         }
         UserIterator useriterator2 = new UserIterator();
-        while (!useriterator2.hasNext()) {
+        while (useriterator2.hasNext()) {
             temp = useriterator2.next(); //do something
             for(int i = 3; i < temp.length; i++){
                 usermanager.addContactList(temp[i], temp[0]);
@@ -41,7 +41,7 @@ public class UserManagerInitializer {
                 }
 
             }
-            k += 1;
+
         }
         return usermanager;
     }

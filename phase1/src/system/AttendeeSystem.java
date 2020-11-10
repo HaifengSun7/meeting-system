@@ -37,7 +37,7 @@ public class AttendeeSystem {
             System.out.println("Attendee");
             System.out.println("[1] Schedule of events that I can sign up for.\n" +
                     "[2] See events that I have signed up for\n" +
-                    "[3] Send a message\n " +
+                    "[3] Send a message\n" +
                     "[4] See messages \n" +
                     "[e] exit");
             command = reader.nextLine();
@@ -47,7 +47,7 @@ public class AttendeeSystem {
 
                 case "1":
                     // Show a list of schedule which they can sign up for.
-                    ArrayList<String> example_list = eventmanager.canSignUp(attendee);
+                    ArrayList<String> example_list = eventmanager.canSignUp(attendee); //TODO: bug.
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println(eventmanager.findEventStr(Integer.parseInt(example_list.get(i))));
                     }
@@ -59,7 +59,6 @@ public class AttendeeSystem {
                         } catch (Exception e) {
                             //handle it.
                         }
-                        //TODO: update update update usermanager.
                         usermanager.addSignedEvent(command,attendee);
                         System.out.println("Success! Press something to continue");
                         reader.nextLine();
@@ -67,6 +66,7 @@ public class AttendeeSystem {
                     else{
                         System.out.println("Exiting");
                     }
+                    continue;
                 case "2":
                     //See the events that user have signed up for
                     ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
@@ -74,6 +74,7 @@ public class AttendeeSystem {
                         System.out.println("[" + i + "] " + eventsList.get(i));
                     }
                     System.out.println("[e] exit to main menu");
+                    continue;
                 case "3":
                     System.out.println("To Who?");
                     ArrayList<String> msglst= usermanager.getContactList(attendee);
@@ -93,6 +94,7 @@ public class AttendeeSystem {
                     else{
                         System.out.println("Exiting");
                     }
+                    continue;
                 case "4":
                     ArrayList<String> inbox = messagemanager.getInbox(attendee);
                     for(int i = 0; i < inbox.size(); i++){
@@ -100,13 +102,15 @@ public class AttendeeSystem {
                     }
                     System.out.println("press enter to exit to main menu");
                     reader.nextLine();
+                    continue;
                 case "default":
                     System.out.println("Press the right key.");
+                    continue;
             }
             break;
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        //write.run();
 
     }
 }

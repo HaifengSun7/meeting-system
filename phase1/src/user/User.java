@@ -14,6 +14,7 @@ public abstract class User {
         this.username = username;
         this.password = password;
         this.status = false;
+        this.contactList = new ArrayList<>();
     }
 
     public String getUserName(){

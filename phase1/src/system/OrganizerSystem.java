@@ -246,6 +246,6 @@ public class OrganizerSystem {
 
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        //write.run();
     }
 }
