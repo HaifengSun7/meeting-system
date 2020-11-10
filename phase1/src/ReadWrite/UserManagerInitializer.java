@@ -34,11 +34,8 @@ public class UserManagerInitializer {
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
             for(j = 2; j < temp2.length; j++){
-                try {
-                    usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
-                } catch (Exception e) {
-                    System.out.println("This should not be happening.");
-                }
+                usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
+
             }
             k += 1;
         }
