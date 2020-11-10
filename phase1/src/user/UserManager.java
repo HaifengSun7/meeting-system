@@ -161,6 +161,7 @@ public class UserManager {
      * @param username username.
      * @return the password.
      */
+
     public String getPassword(String username) {
         return userMapping.get(username).password;
     }

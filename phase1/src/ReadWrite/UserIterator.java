@@ -21,6 +21,8 @@ public class UserIterator implements Iterator<String[]> {
 
         try {
             Scanner myReader = new Scanner(new File("src/resources/user.csv"));
+            //TODO: Remark, we need to change the file path, suggest: phase1/rc/resources/user.csv -- Jerry
+            // and also other iterators, thanks in advance!
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 userinfo.add(data.split(","));
