@@ -20,7 +20,7 @@ public class LogInSystem {
         String username = "";
         for (int i = 0; i < 5; i++) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
-            System.out.println("You have" + (5-i) + "trials remaining \n");
+            System.out.println("You have " + (5-i) + " trials remaining \n");
             System.out.println("Username:");
             username = reader.nextLine();
             System.out.println("Password:");
@@ -29,14 +29,14 @@ public class LogInSystem {
                 user_type = usermanager.logIn(username, password);
             } catch (Exception e)
             {
-                System.out.println("fuck you.");
+                System.out.println("wrong username or password");
                 continue;
             }
             logged_in = true;
             break;
         }
         if (!logged_in) {
-            System.out.println("You have wasted your chances. now leave.");
+            System.out.println("Sorry, you don't have trials left.");
             return;
         }
         switch (user_type){
