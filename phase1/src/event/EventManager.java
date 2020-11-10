@@ -101,11 +101,11 @@ public class EventManager{
 
     /**
      * Make attendee signup for an event.
-     * @param event Event, but with String.
+     * @param event Event id.
      * @param attendee Attendee, but with String.
      * @throws Exception when needed. or not, I don't care. but you should tho.
      */
-    public void signUp(String event, String attendee) throws Exception{
+    public void signUp(int event, String attendee) throws Exception{
 
     }
 
