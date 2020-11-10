@@ -26,29 +26,29 @@ public class EventManager{
      */
 
     private ArrayList<Room> rooms;
-    private Map<String, Event> map = new HashMap<String, Event>();
+    private Map<Integer, Event> map = new HashMap<Integer, Event>();
 
-
+    //TODO: Complete the constructor.
     public EventManager(){
         rooms = new ArrayList<Room>();
     }
 
     /**
      * Gives the string output of the event.
-     * @param description: event description.
+     * @param id: The event id.
      * @return a Event based on its id, but with toString();
      */
-    public String findEventStr(String description){
-        return map.get(description).toString();
+    public String findEventStr(Integer id){
+        return map.get(id).toString();
     }
 
     /**
      * Get's the attendees of a particular event.
-     * @param description: event description.
+     * @param eventId The id of the event that we are looking for.
      * @return A list of Attendees' usernames that the event has.
      */
-    public ArrayList<String> getAttendees(String description){
-        return map.get(description).getAttendees();
+    public ArrayList<String> getAttendees(String eventId){
+        return map.get(Integer.parseInt(eventId)).getAttendees();
     }
 
     /**
@@ -85,10 +85,10 @@ public class EventManager{
     /**
      * Get the events planned in a room.
      * @param roomNumber The room number of the room that we are looking for.
-     * @return The list of event in Strings of the given room.
+     * @return The list of event in id's of the given room.
      * @throws InvalidActivityException When the room number given is not valid.
      */
-    public ArrayList<String> getSchedule (int roomNumber) throws InvalidActivityException {
+    public ArrayList<Integer> getSchedule (int roomNumber) throws InvalidActivityException {
         try {
             Room room = this.findRoom(roomNumber);
             return room.getSchedule();
@@ -99,35 +99,36 @@ public class EventManager{
         }
     }
 
-//    /**
-//     * Make attendee signup for an event.
-//     * @param event Event, but with String.
-//     * @param attendee Attendee, but with String.
-//     * @throws Exception when needed. or not, I don't care. but you should tho.
-//     */
-//    public void signUp(String event, String attendee) {
-//
-//    }
+    /**
+     * Make attendee signup for an event.
+     * @param event Event, but with String.
+     * @param attendee Attendee, but with String.
+     * @throws Exception when needed. or not, I don't care. but you should tho.
+     */
+    public void signUp(String event, String attendee) {
+
+    }
 
     /**
      * Return a list of Events.toString() that attendee can sign up for.
-     * @param signedEventsList: a User's list of signed Event descriptions.
+     * @param attendee Attendee, but string.
      * @return a list of Events.toString() that attendee can sign up for.
      */
-    public ArrayList<String> canSignUp(ArrayList<String> signedEventsList) {
-        ArrayList<String> rslt = new ArrayList<String>();
-        for(String eventName: signedEventsList) {
-            rslt.add(map.get(eventName).toString());
+    public ArrayList<String> canSignUp(String attendee) {
+        ArrayList<String> rslt= new ArrayList<String>();
+        for (int i = 0; i < map.size()-1; i++) {
+            if(!map.get(i).getAttendees().contains(attendee)) {
+                rslt.add(map.get(i).toString());
+            }
         }
         return rslt;
     }
 
-
-//    /**
-//     * Get a map that contains all events.
-//     * @return the map<eventId, correspondingEvent>.
-//     */
-//    public Map<String, Event> getMap() {return this.map;}
+    /**
+     * Get a map that stores all events.
+     * @return the map<eventId, correspondingEvent>.
+     */
+    public Map<Integer, Event> getMap() {return this.map;}
 
     /**
      * Check if the room is available or not at the input time.
@@ -140,8 +141,8 @@ public class EventManager{
     private boolean ifRoomAvailable(String roomno, Timestamp time, int length) throws Exception{
         for (Room r: rooms) {
             if (r.getRoomNumber() == Integer.parseInt(roomno)) {
-                for (String description: r.getSchedule()) {
-                    if (map.get(description).contradicts(time, length)) {
+                for (int id: r.getSchedule()) {
+                    if (map.get(id).contradicts(time, length)) {
                         return false;
                     }
                 }return true;
@@ -152,7 +153,7 @@ public class EventManager{
     }
 
     /**
-     * Create and add an event.
+     * Create and add a event.
      * @param roomno: room number.
      * @param time: time the meeting begins.
      * @param meetingLength: time length of the event.
@@ -161,10 +162,10 @@ public class EventManager{
     public void addEvent(String roomno, Timestamp time, int meetingLength) throws Exception{
         if (ifRoomAvailable(roomno, time, meetingLength)){
             Event newEvent = new Event(time);
-            map.put(newEvent.getDescription(), newEvent);
+            map.put(newEvent.getId(), newEvent);
             for (Room r: rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomno)) {
-                    r.addEvent(newEvent.getDescription());
+                    r.addEvent(newEvent.getId());
                 }
             }
         } else {
@@ -186,18 +187,11 @@ public class EventManager{
      */
     public ArrayList<String> getAllEvents() {
         ArrayList<String> events = new ArrayList<String> ();
-        int i = 0;
-        int j = map.size() - 1;
-        while (i <= j) {
-            for (String description: map.keySet()) {
-                if (map.get(description).getId() == i) {
-                    events.add(description);
-                    i++;
-                } else {
-                    events.add("cancelled");
-                    i++;
-                    j++;
-                }
+        for (int i = 0; i < map.size() - 1; i++) {
+            if (map.containsKey(i)) {
+                events.add(String.valueOf(map.get(i).getId()));
+            } else {
+                events.add("cancelled");
             }
         }
         return events;

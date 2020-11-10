@@ -11,7 +11,7 @@ public class Room {
 
     private int roomNumber;
     private int capacity;
-    private ArrayList<String> schedule = new ArrayList<>();
+    private ArrayList<Integer> schedule = new ArrayList<>();
 
     /**
      * Initialize the Room that has a certain Room number, capacity, with an empty schedule.
@@ -41,25 +41,25 @@ public class Room {
 
     /**
      * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
-     * @param description An Event that is planned to be added to the schedule of the Room.
+     * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
-    public void addEvent(String description){
-         schedule.add(description);
+    public void addEvent(int eventID){
+         schedule.add(eventID);
     }
 
     /**
      * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
-     * @param description An Event that is planned to be added to the schedule of the Room.
+     * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
-    public void removeEvent(String description){
-        schedule.remove(description);
+    public void removeEvent(int eventID){
+        schedule.remove(eventID);
     }
 
     /**
      * Get the schedule of the room, by the event ID's.
      * @return the ID's of events scheduled in this room.
      */
-    public ArrayList<String> getSchedule(){
+    public ArrayList<Integer> getSchedule(){
         return this.schedule;
     }
 

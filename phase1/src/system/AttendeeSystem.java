@@ -1,8 +1,5 @@
 package system;
 
-import ReadWrite.EventManagerInitializer;
-import ReadWrite.MessageManagerInitializer;
-import ReadWrite.UserManagerInitializer;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -25,9 +22,6 @@ public class AttendeeSystem {
 
     public void run() {
         //TODO: READ.
-        eventmanager = new EventManagerInitializer().run();
-        usermanager = new UserManagerInitializer().run();
-        messagemanager = new MessageManagerInitializer().run();
         while (true){
             System.out.println("Name:" + attendee.toString());
             System.out.println("Attendee");
@@ -43,11 +37,7 @@ public class AttendeeSystem {
 
                 case "1":
                     // Show a list of schedule which they can sign up for.
-
-                    ArrayList<String> example_list = eventmanager.canSignUp(usermanager.getSignedEventList(attendee));
-                    // We only need the User_signed_events_list from this attendee,
-                    // please get it from user manager(by using .getSignedEventList(Attendee))
-                    // FIxed.
+                    ArrayList<String> example_list = eventmanager.canSignUp(attendee);
                     for (int i = 0; i < example_list.size(); i++) {
                         System.out.println("[" + i + "] " + example_list.get(i).toString());
                     }
@@ -55,7 +45,7 @@ public class AttendeeSystem {
                     command = reader.next();
                     if (!("e".equals(command))) {
                         eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee); // TODO: throw error?
-                        usermanager.addSignedEvent(example_list.get(Integer.parseInt(command)), attendee);
+                        //TODO: update update update usermanager.
                         System.out.println("Success! Press something to continue");
                         reader.next();
                     }
@@ -78,8 +68,8 @@ public class AttendeeSystem {
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
                     if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command));//TODO: what if input wrong?
-                        System.out.println("Yo, now input your message. Hint: \\n and stuff.");
+                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
+                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
                         message = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, message);
                         System.out.println("Success! Press something to continue");
