@@ -40,7 +40,7 @@ public class AttendeeSystem {
                     "[3] Send a message\n " +
                     "[4] See messages \n" +
                     "[e] exit");
-            command = reader.next();
+            command = reader.nextLine()`;
             switch (command) {
                 case "e":
                     break;
@@ -49,8 +49,7 @@ public class AttendeeSystem {
                     // Show a list of schedule which they can sign up for.
                     ArrayList<String> example_list = eventmanager.canSignUp(attendee);
                     for (int i = 0; i < example_list.size(); i++) {
-//                        System.out.println("[" + i + "] " + example_list.get(i).toString());
-                        System.out.println("[" + i + "] " + eventmanager.findEventStr(Integer.parseInt(example_list.get(i))));
+                        System.out.println(eventmanager.findEventStr(Integer.parseInt(example_list.get(i))));
                     }
                     System.out.println("[e] exit to main menu");
                     command = reader.next();
@@ -61,8 +60,9 @@ public class AttendeeSystem {
                             //handle it.
                         }
                         //TODO: update update update usermanager.
+                        usermanager.addSignedEvent(command,attendee);
                         System.out.println("Success! Press something to continue");
-                        reader.next();
+                        reader.nextLine();
                     }
                     else{
                         System.out.println("Exiting");
@@ -81,14 +81,14 @@ public class AttendeeSystem {
                         System.out.println("[" + i + "] " + msglst.get(i));
                     }
                     System.out.println("[e] exit to main menu");
-                    command = reader.next();
+                    command = reader.nextLine();
                     if (!("e".equals(command))) {
                         String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
                         message = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, message);
                         System.out.println("Success! Press something to continue");
-                        reader.next();
+                        reader.nextLine();
                     }
                     else{
                         System.out.println("Exiting");
@@ -99,7 +99,7 @@ public class AttendeeSystem {
                         System.out.println("[" + i + "] " + inbox.get(i));
                     }
                     System.out.println("press enter to exit to main menu");
-                    reader.next();
+                    reader.nextLine();
                 case "default":
                     System.out.println("Press the right key.");
             }

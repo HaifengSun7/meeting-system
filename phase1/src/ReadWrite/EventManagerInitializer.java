@@ -18,8 +18,8 @@ public class EventManagerInitializer {
         RoomIterator roomIterator = new RoomIterator();
         UserManager usermanager = new UserManagerInitializer().run();
         String[] temp;
-        while (!roomIterator.hasNext()) {
-            temp = roomIterator.next(); //do something
+        while (roomIterator.hasNext()) {
+            temp = roomIterator.next();
             try {
                 eventmanager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
             } catch (Exception e) {
