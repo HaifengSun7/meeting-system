@@ -1,5 +1,8 @@
 package system;
 
+import ReadWrite.EventManagerInitializer;
+import ReadWrite.MessageManagerInitializer;
+import ReadWrite.UserManagerInitializer;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -22,6 +25,9 @@ public class AttendeeSystem {
 
     public void run() {
         //TODO: READ.
+        eventmanager = new EventManagerInitializer().run();
+        usermanager = new UserManagerInitializer().run();
+        messagemanager = new MessageManagerInitializer().run();
         while (true){
             System.out.println("Name:" + attendee.toString());
             System.out.println("Attendee");

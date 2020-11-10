@@ -16,7 +16,7 @@ public class EventManagerInitializer {
         EventManager eventmanager = new EventManager();
         EventIterator eventIterator = new EventIterator();
         RoomIterator roomIterator = new RoomIterator();
-        UserManager usermanager = UserManagerInitializer.run();
+        UserManager usermanager = new UserManagerInitializer().run();
         String[] temp;
         while (!roomIterator.hasNext()) {
             temp = roomIterator.next(); //do something

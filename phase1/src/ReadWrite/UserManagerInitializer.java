@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class UserManagerInitializer {
-    public static UserManager run(){
+    public UserManager run(){
         int j;
         UserManager usermanager = new UserManager();
         UserIterator userIterator = new UserIterator();
