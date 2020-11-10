@@ -17,7 +17,7 @@ public class EventIterator implements Iterator<String[]> {
      */
     public EventIterator() {
         try {
-            Scanner myReader = new Scanner(new File("phase1/src/resources/event.csv"));
+            Scanner myReader = new Scanner(new File("src/resources/event.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 eventinfo.add(data.split(","));
