@@ -46,9 +46,6 @@ public class LogInSystem {
             case "Organizer":
                 OrganizerSystem os = new OrganizerSystem(username);
                 os.run();
-            case "Speaker":
-                SpeakerSystem ss = new SpeakerSystem(username);
-                ss.run();
         }
     }
 }
