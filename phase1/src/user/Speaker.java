@@ -8,6 +8,7 @@ public class Speaker extends User{
     public Speaker(String username, String password) {
         super(username, password);
         this.usertype = "Speaker";
+        this.signedEvent = new ArrayList<String>();
     }
 
     @Override
