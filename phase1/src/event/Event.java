@@ -26,6 +26,7 @@ public class Event {
     private ArrayList<String> user_list;
     private String speaker;
     private String description;
+    private boolean speakStatus = false;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -61,9 +62,22 @@ public class Event {
         this.user_list.remove(attendee);
     }
 
-    public void setSpeaker(String u) {this.speaker = u; }
+    public boolean getSpeakStatus() {
+        return speakStatus;
+    }
 
-    public String getSpeaker() {return speaker; }
+    public void setSpeaker(String u) {
+        this.speaker = u;
+        this.speakStatus = true;
+    }
+
+    public String getSpeaker() throws Exception{
+        if (speakStatus) {
+            return speaker;
+        } else {
+            throw new Exception();
+        }//TODO: Exception: if there is no speaker.
+    }
 
     public void setDescription(String description) {this.description = description; }
 
