@@ -60,9 +60,7 @@ public class OrganizerSystem {
                                 schedule = eventmanager.getSchedule(Integer.parseInt(roomnumber));
                                 for(Integer i: schedule){
                                     System.out.println(eventmanager.findEventStr(i));
-                                }//TODO: eventmanager.getSchedule is now a list of String
-                                 // and findEventStr's input should also be String
-                                 // (same change for line 158).
+                                }
                             } catch (InvalidActivityException e) {
                                 System.out.println("dumb.");
                                 break;
@@ -84,12 +82,9 @@ public class OrganizerSystem {
                         case "a":
                             System.out.println("but promote who? give me their username.");
                             command = reader.nextLine();
-                            try {
-                                usermanager.becomeSpeaker(command);
-                            } catch (Exception e) {
-                                //TODO:
-                            }
                             eventmanager.becomeSpeaker(command);
+                            usermanager.becomeSpeaker(command);
+                            //TODO: and double check all their task, so that no 2 speaker ended up in a same event.
                             break;
                         case "b":
                             System.out.println("username?");
@@ -123,11 +118,7 @@ public class OrganizerSystem {
                     switch (command){
                         default:
                             if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allevents.size()){
-                                try {
-                                    eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
-                                } catch (Exception e) {
-                                    //TODO:
-                                }
+                                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                             }
                             break;
                             //TODO: fix UI.
@@ -174,11 +165,7 @@ public class OrganizerSystem {
                                     time1 = reader.nextLine();
                                     System.out.println("Duration");
                                     duration = reader.nextLine();
-                                    try {
-                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
-                                    } catch (Exception e) {
-                                        //TODO:
-                                    }
+                                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
                                     break;
