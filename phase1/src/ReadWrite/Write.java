@@ -99,7 +99,7 @@ public class Write {
             }
             eventWriter.flush();
             eventWriter.close();
-
+            i = 0;
             FileWriter messageWriter = new FileWriter("src/resources/message.csv", false);
             ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
             for(ArrayList<String> messageinfo : allMessage){
