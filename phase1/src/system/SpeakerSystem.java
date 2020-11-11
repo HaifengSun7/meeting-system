@@ -35,7 +35,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             System.out.println("[1] See a list of messages the speaker gave.\n" +
                     "[2] Message all Attendees who signed up for a particular event\n" +
                     "[3] Message a particular Attendee who signed up for a particular event\n" +
-                    "[4] See messages\n" +
+                    "[4] Respond to an attendee" +
                     "[e] exit");
             String command = reader.nextLine();
 
