@@ -41,14 +41,6 @@ public class Event {
         this.user_list = new ArrayList<>();
     }
 
-//    public ArrayList<String> getAttendees(){
-//        //TODO: We need an arraylist of all attendees of this event, in usernames.
-//        ArrayList<String> name_list = new ArrayList<>();
-//        for (User u : this.user_list){
-//            name_list.add(u.getUserName());
-//        }
-//        return name_list;
-//    }
 
     public ArrayList<String> getAttendees(){
         return user_list;
