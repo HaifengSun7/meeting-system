@@ -85,7 +85,7 @@ public class UserManager {
             ArrayList<String> signedEvent = attendee.getSignedEvent();
             boolean status = attendee.getStatus();
             deleteUser(attendeeName);
-            createUserAccount("speacker", attendee.getUserName(), attendee.getPassword());
+            createUserAccount("Speaker", attendee.getUserName(), attendee.getPassword());
             User speaker = userMapping.get(attendeeName);
             speaker.setContactList(contactlist);
             speaker.setStatus(status);
