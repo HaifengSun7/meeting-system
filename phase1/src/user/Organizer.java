@@ -2,7 +2,8 @@ package user;
 
 import java.util.ArrayList;
 
-public class Organizer extends User{
+public class Organizer extends User {
+    private ArrayList<String> signedEvent = new ArrayList<>();
     public Organizer(String username, String password) {
         super(username, password);
         this.usertype = "Organizer";
@@ -10,8 +11,11 @@ public class Organizer extends User{
 
     @Override
     public ArrayList<String> getSignedEvent() {
-        return new ArrayList<String>();
+        return this.signedEvent;
     }
+
     @Override
-    public void setSignedEvent(ArrayList<String> signedEvent) {}
+    public void setSignedEvent(ArrayList<String> signedEvent) {
+        this.signedEvent = signedEvent;
+    }
 }

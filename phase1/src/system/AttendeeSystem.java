@@ -33,7 +33,7 @@ public class AttendeeSystem {
         usermanager = userManagerInitializer.run();
 
         while (true){
-            System.out.println("Name:" + attendee.toString());
+            System.out.println("Name:" + attendee);
             System.out.println("Attendee");
             System.out.println("[1] Schedule of events that I can sign up for.\n" +
                     "[2] See events that I have signed up for\n" +
@@ -84,7 +84,7 @@ public class AttendeeSystem {
                     System.out.println("[e] exit to main menu");
                     command = reader.nextLine();
                     if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: throw error?
+                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: WHAT IF input wrong?
                         System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
                         message = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, message);
