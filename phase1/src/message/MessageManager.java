@@ -112,13 +112,12 @@ public class MessageManager {
      */
     public ArrayList<ArrayList<String>> getAllMessage() {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
-        ArrayList<String> temp = new ArrayList<>();
         for(Message message: messages){
+            ArrayList<String> temp = new ArrayList<>();
             temp.add(message.getSender());
             temp.add(message.getReceiver());
             temp.add(message.getText());
             result.add(temp);
-            temp.clear();
         }
         return result;
     }
