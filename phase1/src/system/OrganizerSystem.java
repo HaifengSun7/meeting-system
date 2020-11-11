@@ -104,7 +104,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             try {
                                 eventmanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("The event already has a speaker. Please restart from menu.");
+                                System.out.println("Promote Successful.");
                                 break;
                             }
                             break;

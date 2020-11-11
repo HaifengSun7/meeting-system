@@ -109,7 +109,7 @@ public class UserManager {
 
     /**
      * make attendee become Speaker
-     * @param attendeeName Attendee but with String.
+     * @param attendeeName Attendee username in String.
      * @exception Exception throw an exception when necessary.
      */
 

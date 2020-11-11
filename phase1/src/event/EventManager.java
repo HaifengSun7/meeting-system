@@ -227,7 +227,6 @@ public class EventManager {
      * Tips: 1. scan all events with attendee. 2. See if there is an speaker. If there is one already, throw an exception. 3. make attendee speaker.
      *
      * @param attendee Attendee but string.
-     * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
     public void becomeSpeaker(String attendee) throws Exception {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
@@ -239,7 +238,7 @@ public class EventManager {
         }
         for(Event j :attended){
             if(j.getSpeakStatus()){
-                throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + j.getSpeaker());
+                System.out.println("event"+j.getId()+" already has a speaker. Unable to promote");
             }
             else{
                 j.setSpeaker(attendee);
