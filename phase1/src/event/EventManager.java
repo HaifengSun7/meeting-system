@@ -193,7 +193,7 @@ public class EventManager {
      * @param attendee Attendee but string.
      * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException {
+    public void becomeSpeaker(String attendee) throws Exception {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for(Event i :events){
