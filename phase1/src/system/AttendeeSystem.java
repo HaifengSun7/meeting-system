@@ -113,7 +113,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
     private void checkSignedUp(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
         for (int i = 0; i < eventsList.size(); i++) {
-            System.out.println(eventmanager.findEventStr(i));
+            System.out.println(eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
         }
         System.out.println("Press enter to exit");
     }
