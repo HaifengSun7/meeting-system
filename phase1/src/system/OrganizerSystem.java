@@ -276,21 +276,21 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     //Send message to a particular person
     @Override
     public void sendMessageToSomeone(String organizer) {
-        System.out.println("Which single person you want to send message?");
-        ArrayList<String> contactList= usermanager.getContactList(organizer);
-        for(int i = 0; i < contactList.size(); i++){
-            System.out.println("[" + i + "] " + contactList.get(i));
-        }
+        System.out.println("Input the username you want to send message"); //TODO: What if the username is *e*
         System.out.println("[e] exit to main menu");
-        String receive = reader.nextLine();
-        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
-            String receiver = contactList.get(Integer.parseInt(receive));
-            System.out.println("Now input your message. Hint: \\n and stuff.");
-            String message = reader.nextLine();
-            messagemanager.sendMessage(organizer, receiver, message);
-            System.out.println("Success! Press enter to continue");
-        } else {
+        String target = reader.nextLine();
+        if("e".equals(target)){
             System.out.println("Press enter to exit to main menu");
+        } else {
+            if(usermanager.getAllUsernames().contains(target)){
+                System.out.println("Enter your message");
+                String msg = reader.nextLine();
+                messagemanager.sendMessage(organizer, target, msg);
+                System.out.println("Success");
+            } else {
+                System.out.println("Wrong username, exit to main menu");
+            }
         }
     }
+
 }
