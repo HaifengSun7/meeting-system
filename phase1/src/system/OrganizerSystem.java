@@ -103,17 +103,19 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     command = reader.nextLine();
                     switch (command){
                         case "a":
-                            System.out.println("but promote who? give me their username.");
+                            System.out.println("but promote who? give me his or her username.");
                             command = reader.nextLine();
                             try {
                                 eventmanager.becomeSpeaker(command);
                             } catch (Exception e) {
-                                //TODO:
+                                System.out.println("eventManager doesn't want you to be speaker");
+                                break;
                             }
                             try {
                                 usermanager.becomeSpeaker(command);
                             } catch (Exception e) {
-                                //TODO:
+                                System.out.println("userManager doesn't want you to be speaker");
+                                break;
                             }
                             break;
                         case "b":
@@ -153,7 +155,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                 try {
                                     eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                                 } catch (Exception e) {
-                                    //TODO:
+                                    System.out.println("Cannot add speaker to the event");
                                 }
                             }
                             break;
@@ -179,7 +181,8 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                     try {
                                         eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
                                     } catch (Exception e) {
-                                        //TODO:
+                                        System.out.println("Sorry, cannot add event!");
+                                        break;
                                     }
                                     System.out.println("done. Press enter to continue.");
                                     reader.nextLine();
@@ -196,7 +199,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                             System.out.println(eventmanager.findEventStr(i));
                                         }
                                     } catch (InvalidActivityException e) {
-                                        System.out.println("dumb.");
+                                        System.out.println("Sorry, cannot get event schedule");
                                         break;
                                     }
                                     System.out.println("give me your room number");
@@ -206,13 +209,18 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                     try {
                                         eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
                                     } catch (Exception e) {
-                                        //TODO:
+                                        System.out.println("Sorry, cannot add event");
+                                        break;
                                     }
                                     System.out.println("done. Press enter to continue.");
                                     command = reader.next();
-                                    break;
+                                    continue;
                             }
                             break;
+                        case "e":
+                            System.out.println("Press enter to exit to main menu");
+                            reader.nextLine();
+                            continue;
                     }
                     continue;
                 case "4":
