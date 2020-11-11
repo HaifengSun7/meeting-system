@@ -50,6 +50,9 @@ public class UserManager {
     }
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{
+        if (username.length()<3){
+            throw new InvalidUsernameException("length of username should be at least 3");
+        }
         if (userMapping.containsKey(username)) {
             throw new DuplicateUserNameException("DuplicateUserName : " + username);
         } else {
