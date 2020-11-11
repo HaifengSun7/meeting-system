@@ -62,7 +62,7 @@ public class MessageManager {
         ArrayList<String> rtn_list = new ArrayList<String>();
         for(Message msg:this.messages){
             if(msg.getReceiver().equals(username)){
-                rtn_list.add(msg.getReceiver());
+                rtn_list.add(msg.getSender());
             }
         }
         return rtn_list;
