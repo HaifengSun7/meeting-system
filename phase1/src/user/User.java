@@ -1,5 +1,4 @@
 package user;
-import event.Event;
 
 import java.util.ArrayList;
 

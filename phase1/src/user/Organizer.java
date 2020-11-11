@@ -10,7 +10,7 @@ public class Organizer extends User{
 
     @Override
     public ArrayList<String> getSignedEvent() {
-        return new ArrayList<String>();
+        return null;
     }
     @Override
     public void setSignedEvent(ArrayList<String> signedEvent) {}
