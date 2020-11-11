@@ -22,7 +22,6 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     String time1;
     String duration;
     String room;
-    String receiver;
 
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
@@ -93,7 +92,9 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     command = reader.nextLine();
                     switch (command){
                         case "a":
-                            System.out.println("Please enter a username to promote them a speaker.");
+                            System.out.println("Note that promotion will make that user the speaker of all their " +
+                                    "signed events.\n" +
+                                    "Enter a username to promote him/her a speaker.");
                             String name = reader.nextLine();
                             try {
                                 usermanager.becomeSpeaker(name);
@@ -104,14 +105,14 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             try {
                                 eventmanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("Promote Successful.");
+                                System.out.println("Promote Successful. Returning to Main menu.");
                                 break;
                             }
                             break;
                         case "b":
-                            System.out.println("username?");
+                            System.out.println("Please enter a new username");
                             String username = reader.nextLine();
-                            System.out.println("password?");
+                            System.out.println("Please enter a password");
                             String password = reader.nextLine();
                             try {
                                 usermanager.createUserAccount("Speaker", username, password);
