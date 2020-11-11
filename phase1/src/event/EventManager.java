@@ -30,7 +30,7 @@ public class EventManager {
     public EventManager() {
         rooms = new ArrayList<Room>();
         int j;
-        int k =0;
+        int k = 0;
         EventIterator eventIterator = new EventIterator();
         RoomIterator roomIterator = new RoomIterator();
         UserManager usermanager = new UserManager();
