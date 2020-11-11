@@ -3,7 +3,7 @@ package user;
 import java.util.ArrayList;
 
 public class Attendee extends User{
-    private ArrayList<String> signedEvent;
+    private ArrayList<String> signedEvent = new ArrayList<>();
 
     public Attendee(String username, String password) {
         super(username, password);
