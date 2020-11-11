@@ -67,8 +67,8 @@ public class Event {
         if (speakStatus) {
             return speaker;
         } else {
-            throw new Exception();
-        }//TODO: Exception: if there is no speaker.
+            throw new NoSpeakerException("NoSpeaker: at " + this.id);
+        }
     }
 
     public void setDescription(String description) {this.description = description; }
