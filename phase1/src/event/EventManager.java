@@ -1,8 +1,11 @@
 package event;
 
 
+import ReadWrite.EventIterator;
+import ReadWrite.RoomIterator;
+import user.UserManager;
+
 import javax.activity.InvalidActivityException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +18,6 @@ import java.util.Map;
  */
 
 public class EventManager {
-//TODO: We are making it a room manager, too. We will check if the time are available here, then add to Room with Event ID.
-//TODO: We are doing like this because entities can't use each other. Only the corresponding UseCases can use Entities.
     /*
     What we need(for now):
     1. Add events to the rooms.
@@ -29,6 +30,37 @@ public class EventManager {
     //TODO: Complete the constructor.
     public EventManager() {
         rooms = new ArrayList<Room>();
+        int j;
+        int k =0;
+        EventIterator eventIterator = new EventIterator();
+        RoomIterator roomIterator = new RoomIterator();
+        UserManager usermanager = new UserManager();
+        String[] temp;
+        while (roomIterator.hasNext()) {
+            temp = roomIterator.next();
+            try {
+                this.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+            } catch (Exception e) {
+                System.out.println("2");
+            }
+        }
+        String[] temp2;
+        while (eventIterator.hasNext()) {
+            temp2 = eventIterator.next(); //do something
+            try {
+                this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]));
+            } catch (Exception e) {
+                System.out.println("3");
+            }
+            for(j = 3; j < temp2.length; j++){
+                try {
+                    this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            k += 1;
+        }
     }
 
     /**
@@ -62,6 +94,10 @@ public class EventManager {
         rooms.add(r);
     }
 
+    /**
+     * Get all the rooms in the conference.
+     * @return a list of strings of Rooms.
+     */
     public ArrayList<String> getAllRooms() {
         ArrayList<String> result = new ArrayList<String>();
         for (Room room : rooms) {
@@ -72,8 +108,9 @@ public class EventManager {
 
     /**
      * given a room number, return a room.
-     *
      * @param roomNumber: The room number of the Room you are looking for.
+     * @return Returns a room with the room number if the room exists.
+     * @throws InvalidActivityException When the room number does not exist.
      */
     public Room findRoom(int roomNumber) throws InvalidActivityException {
         for (Room room : rooms) {
@@ -141,15 +178,15 @@ public class EventManager {
     /**
      * Check if the room is available or not at the input time.
      *
-     * @param roomno: room number of the given room.
+     * @param roomNo: room number of the given room.
      * @param time:   start time of the event.
      * @param length: number of hours the event will take.
      * @return true or not
      * @throws InvalidActivityException when the room number is invalid.
      */
-    private boolean ifRoomAvailable(String roomno, Timestamp time, int length) throws InvalidActivityException {
+    private boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
         for (Room r : rooms) {
-            if (r.getRoomNumber() == Integer.parseInt(roomno)) {
+            if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                 for (int id : r.getSchedule()) {
                     if (map.get(id).contradicts(time, length)) {
                         return false;
@@ -164,18 +201,18 @@ public class EventManager {
     /**
      * Create and add a event.
      *
-     * @param roomno:        room number.
+     * @param roomNo:        room number.
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
-     * @throws InvalidActivityException: if cannot find a room with room number roomno.
+     * @throws InvalidActivityException: if cannot find a room with room number roomNo.
      */
-    public void addEvent(String roomno, Timestamp time, int meetingLength) throws InvalidActivityException {
+    public void addEvent(String roomNo, Timestamp time, int meetingLength) throws InvalidActivityException {
         try {
-            if (ifRoomAvailable(roomno, time, meetingLength)) {
+            if (ifRoomAvailable(roomNo, time, meetingLength)) {
                 Event newEvent = new Event(time);
                 map.put(newEvent.getId(), newEvent);
                 for (Room r : rooms) {
-                    if (r.getRoomNumber() == Integer.parseInt(roomno)) {
+                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                         r.addEvent(newEvent.getId());
                     }
                 }
@@ -233,33 +270,32 @@ public class EventManager {
      *
      * @param type        type of user
      * @param username    username
-     * @param eventnumber eventnumber.
+     * @param eventNumber eventNumber.
      */
-    public void addUserToEvent(String type, String username, int eventnumber) throws Exception {
-        if (map.containsKey(eventnumber)) {
+    public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
+        if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
-                if (!map.get(eventnumber).getSpeakStatus()) {
-                    map.get(eventnumber).setSpeaker(username);
+                if (!map.get(eventNumber).getSpeakStatus()) {
+                    map.get(eventNumber).setSpeaker(username);
                     try {
-                        signUp(String.valueOf(eventnumber), username);
+                        signUp(String.valueOf(eventNumber), username);
                     } catch (Exception e1) {
-                        throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
+                        throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
                     }
                 } else {
-                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventnumber).getSpeaker() + " at " + map.get(eventnumber));
+                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
                 try{
-                    signUp(String.valueOf(eventnumber), username);
+                    signUp(String.valueOf(eventNumber), username);
                 } catch (Exception e2) {
-                    throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
+                    throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
                 }
             } else {
                 throw new Exception();
-                //TODO: Is organizer an attendee?
             }
         } else {
-            throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
+            throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
         }
     }
 
@@ -286,19 +322,37 @@ public class EventManager {
         return result;
     }
 
-    public String getTime(Integer event) {
-        return map.get(event).getTime();
+    /**
+     * Get the time of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the time of the event with the eventNum
+     */
+    public String getTime(Integer eventNum) {
+        return map.get(eventNum).getTime();
     }
 
-    public String getDuration(Integer event) {
-        return String.valueOf(map.get(event).getMeetingLength());
+    /**
+     * Get the length of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the length of the event with the eventNum
+     */
+    public String getDuration(Integer eventNum) {
+        return String.valueOf(map.get(eventNum).getMeetingLength());
     }
 
-    public String getSpeakers(Integer event) {
+    /**
+     * Get the speaker of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the speaker of the event with the eventNum
+     */
+    public String getSpeakers(Integer eventNum) {
         try {
-            return map.get(event).getSpeaker();
+            return map.get(eventNum).getSpeaker();
         } catch (Exception e) {
-            return "";
+            return "(No speaker yet.)";
         }
     }
 }

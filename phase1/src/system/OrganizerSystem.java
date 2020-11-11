@@ -1,8 +1,6 @@
 package system;
 
-import ReadWrite.EventManagerInitializer;
 import ReadWrite.MessageManagerInitializer;
-import ReadWrite.UserManagerInitializer;
 import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
@@ -27,17 +25,13 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     String room;
     String receiver;
 
-
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }
+
     public void run() {
-        EventManagerInitializer eventManagerInitializer = new EventManagerInitializer();
-        eventmanager = eventManagerInitializer.run();
         MessageManagerInitializer messageManagerInitializer = new MessageManagerInitializer();
         messagemanager = messageManagerInitializer.run();
-        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
-        usermanager = userManagerInitializer.run();
         while(true){
             System.out.println("Name:" + organizer.toString());
             System.out.println("Organizer");

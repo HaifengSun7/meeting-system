@@ -1,5 +1,8 @@
 package user;
 
+import ReadWrite.EventIterator;
+import ReadWrite.UserIterator;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,6 +16,37 @@ public class UserManager {
 
     public UserManager(){
         this.userMapping = new HashMap<>();
+        int j;
+        UserIterator userIterator = new UserIterator();
+        EventIterator eventIterator = new EventIterator();
+        String[] temp;
+        while (userIterator.hasNext()) {
+            temp = userIterator.next(); //do something
+            try {
+                this.createUserAccount(temp[2], temp[0], temp[1]);
+            } catch (Exception e) {
+                System.out.println("This should not be happening.");
+            }
+        }
+        UserIterator useriterator2 = new UserIterator();
+        while (useriterator2.hasNext()) {
+            temp = useriterator2.next(); //do something
+            for(int i = 3; i < temp.length; i++){
+                this.addContactList(temp[i], temp[0]);
+            }
+        }
+        String[] temp2;
+        int k = 0;
+        while (eventIterator.hasNext()) {
+            temp2 = eventIterator.next(); //do something
+            for(j = 3; j < temp2.length; j++){
+                try {
+                    this.addSignedEvent(String.valueOf(k), temp2[j]);
+                } catch (Exception e) {
+                    System.out.println("cannot add event (userManager). something went wrong.");
+                }
+            }
+        }
     }
 
     public void createUserAccount(String usertype, String username, String password) throws Exception{

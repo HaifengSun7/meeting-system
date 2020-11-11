@@ -1,6 +1,4 @@
 package system;
-import ReadWrite.UserManagerInitializer;
-import sun.rmi.runtime.Log;
 import user.UserManager;
 
 import java.util.Scanner;
@@ -12,8 +10,6 @@ public class LogInSystem {
         /*
           This method is in charge of logging in, separate the system and log out.
          */
-        UserManagerInitializer userManagerInitializer = new UserManagerInitializer();
-        usermanager = userManagerInitializer.run();
 
         boolean logged_in = false;
         String user_type = "";
