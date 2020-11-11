@@ -79,6 +79,11 @@ public class MessageManager {
         }
     }
 
+    /**
+     * The method used to save all sent Messages in the system. Stores each message in the form of
+     * [sender's username, receiver's username, message] and put them into a list.
+     * @return A list of lists that has each element in form of [sender's username, receiver's username, message]
+     */
     public ArrayList<ArrayList<String>> getAllMessage() {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
