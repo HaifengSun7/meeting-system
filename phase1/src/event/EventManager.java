@@ -27,7 +27,6 @@ public class EventManager {
     private ArrayList<Room> rooms;
     private Map<Integer, Event> map = new HashMap<Integer, Event>();
 
-    //TODO: Complete the constructor.
     public EventManager() {
         rooms = new ArrayList<Room>();
         int j;
@@ -143,7 +142,7 @@ public class EventManager {
      *
      * @param event    Event id in string.
      * @param attendee Attendee, but with String.
-     * @throws Exception when needed. or not, I don't care. but you should tho.
+     * @throws NoSuchEventException when needed. or not, I don't care. but you should tho.
      */
     public void signUp(String event, String attendee) throws NoSuchEventException {
         if (map.containsKey(Integer.parseInt(event))) {
