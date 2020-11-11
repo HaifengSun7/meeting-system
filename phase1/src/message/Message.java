@@ -54,8 +54,8 @@ public class Message {
     @Override
     public String toString(){
         if(this.text.isEmpty()){
-            return "Message TO:" + this.receiver + ". From" + this.sender + ".\n" + "(empty text)";
+            return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + "(empty text)";
         }
-        return "Message TO:" + this.receiver + ". From" + this.sender + ".\n" + this.text;
+        return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + this.text;
     }
 }

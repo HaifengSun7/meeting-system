@@ -26,7 +26,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             System.out.println("[1] See a list of messages the speaker gave.\n" +
                     "[2] Message all Attendees who signed up for a particular event\n" +
                     "[3] Message a particular Attendee who signed up for a particular event\n" +
-                    "[4] Respond to an attendee" +
+                    "[4] Respond to an attendee\n" +
                     "[e] exit");
             String command = reader.nextLine();
 
@@ -45,7 +45,8 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     sendMessageToSomeone(speaker);
                     continue;
                 case "4": //respond to an Attendee
-                    RespondToAttendee();
+                    respondToAttendee();
+                    reader.nextLine();
                     continue;
                 default:
                     System.out.println("Please press the right key.");
@@ -69,12 +70,16 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
     @Override
     public void sendMessageToAll(String speaker, String object) {
         if ("attendee".equals(object)) {
-            System.out.println("Event name that you want to send messages");
-            String eventName = reader.nextLine();
+            System.out.println("Event Id that you want to send messages");
+            String eventId = reader.nextLine();
             System.out.println("Messages that you are sending to all attendees");
             String messageToAllAttendees = reader.nextLine();
-            ArrayList<String> attendeeList = eventmanager.getAttendees(eventName);
-            messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
+            try {
+                ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
+                messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
+            } catch (Exception e) {
+                System.out.println("Don't have that event, please check the availability of that event");
+            }
             System.out.println("Success! Press something to continue");
         }
     }
@@ -96,7 +101,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             System.out.println("Success! Press anything to continue");
             reader.nextLine();
         } else {
-            System.out.println("Exits.");
+            System.out.println("Invalid Input, exit to main menu and try again\n");
         }
     }
 
@@ -108,7 +113,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         System.out.println("press any key to return to menu");
     }
 
-    private void RespondToAttendee(){
+    private void respondToAttendee(){
         System.out.println("Which message would you like to respond?");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
@@ -125,9 +130,9 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             System.out.println("Success");
             reader.next();
         } else if("e".equals(cmd)){
-            System.out.println("Exiting");
+            System.out.println("Exiting\n");
         } else {
-            System.out.println("Invalid Input, exit to main menu and try again");
+            System.out.println("Invalid Input, exit to main menu and try again\n");
         }
     }
 }

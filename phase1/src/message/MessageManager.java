@@ -79,9 +79,10 @@ public class MessageManager {
     }
 
     /**
-     * Get the inbox messages of the user.
+     * Get the inbox messages' senders of the user.
      * @param username The username of the user that we are looking for.
-     * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the Message.
+     * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the
+     * messages' senders.
      */
     public ArrayList<String> getInboxSender(String username){
         ArrayList<String> rtn_list = new ArrayList<String>();

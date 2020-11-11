@@ -78,8 +78,8 @@ public class Event {
 
     public String toString(){
         String t = this.time.toString();
-        return "Event{" + "Id: " + this.getId() + ", Description: " + this.description + ", Time:" + t +
-                ", Attendees:" + this.getAttendees() + "}";
+        return "Event {" + "Id: " + this.getId() + ", Description: " + this.description + ", Time: " + t +
+                ", Attendees: " + this.getAttendees() + "}";
     }
 
 
