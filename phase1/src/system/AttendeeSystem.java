@@ -72,9 +72,10 @@ public class AttendeeSystem {
                     //See the events that user have signed up for
                     ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
                     for(int i = 0; i < eventsList.size(); i++){
-                        System.out.println(eventsList.get(i)); //TODO: fix this
+                        System.out.println(eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
                     }
-                    System.out.println("[e] exit to main menu");
+                    System.out.println("press enter to exit");
+                    command = reader.nextLine();
                     continue;
                 case "3":
                     System.out.println("To Who?");
@@ -84,8 +85,8 @@ public class AttendeeSystem {
                     }
                     System.out.println("[e] exit to main menu");
                     command = reader.nextLine();
-                    if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: WHAT IF input wrong?
+                    if (!("e".equals(command)) && (0 <= Integer.parseInt(command)) && (Integer.parseInt(command) < msglst.size())) {
+                        String receiver = msglst.get(Integer.parseInt(command));
                         System.out.println("Yo, now input your message. Hint: \\n and stuff.");
                         message = reader.nextLine();
                         messagemanager.sendMessage(attendee, receiver, message);
@@ -105,13 +106,13 @@ public class AttendeeSystem {
                     reader.nextLine();
                     continue;
                 case "default":
-                    System.out.println("Press the right key.");
+                    System.out.println("Please press the right key.");
                     continue;
             }
             break;
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
-        //write.run();
+        write.run();
 
     }
 }

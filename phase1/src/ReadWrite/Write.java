@@ -23,12 +23,14 @@ public class Write {
 
     }
     public void run(){
+        //TODO: remove extra \n
         try {
             String password;
             ArrayList<String> msglst;
             String type;
             FileWriter userWriter = new FileWriter("src/resources/user.csv", false);
             Collection<String> usernames = usermanager.getAllUsernames();
+            int i = 0;
             for(String username : usernames) {
                 password = usermanager.getPassword(username);
                 type = usermanager.getUserType(username);
@@ -42,7 +44,8 @@ public class Write {
                     userWriter.append(",");
                     userWriter.append(contactListedUser);
                 }
-                userWriter.append("\n");
+                i += 1;
+                if(!(i == usernames.size())){userWriter.append("\n");}
                 //That's user. now output.
             }
             userWriter.flush();
@@ -50,13 +53,15 @@ public class Write {
 
             FileWriter roomWriter = new FileWriter("src/resources/room.csv", false);
             HashMap<Integer, Integer> roomToCapacity = eventmanager.getRoomNumberMapToCapacity();
+            i = 0;
             for (Map.Entry<Integer, Integer> item : roomToCapacity.entrySet()) {
                 Integer room = item.getKey();
                 Integer capacity = item.getValue();
                 roomWriter.append(String.valueOf(room));
                 roomWriter.append(",");
                 roomWriter.append(String.valueOf(capacity));
-                roomWriter.append("\n");
+                i += 1;
+                if(!(i == roomToCapacity.entrySet().size())){roomWriter.append("\n");}
             }
             //That's room. now output.
             roomWriter.flush();
@@ -68,6 +73,7 @@ public class Write {
             String duration;
             ArrayList<String> attendees;
             String speaker;
+            i = 0;
             for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
                 Integer event = item.getKey();
                 Integer room2 = item.getValue();
@@ -79,16 +85,17 @@ public class Write {
                 eventWriter.append(",");
                 eventWriter.append(time);
                 eventWriter.append(",");
-                eventWriter.append(duration);
+                eventWriter.append(duration); //TODO: duration not right.
                 for(String attendee : attendees){
                     eventWriter.append(",");
                     eventWriter.append(attendee);
                 }
-                if (!(speaker.equals(""))){
-                    eventWriter.append(",");
-                    eventWriter.append(speaker);
-                }
-                eventWriter.append("\n");
+//                if (!(speaker.equals(""))){
+//                    eventWriter.append(",");
+//                    eventWriter.append(speaker);
+//                }
+                i += 1;
+                if(!(i == eventToRoom.entrySet().size())){eventWriter.append("\n");}
             }
             eventWriter.flush();
             eventWriter.close();
@@ -101,7 +108,8 @@ public class Write {
                 messageWriter.append(messageinfo.get(1));
                 messageWriter.append(",");
                 messageWriter.append(messageinfo.get(2));
-                messageWriter.append("\n");
+                i += 1;
+                if(!(i == allMessage.size())){messageWriter.append("\n");}
             }
             messageWriter.flush();
             messageWriter.close();
