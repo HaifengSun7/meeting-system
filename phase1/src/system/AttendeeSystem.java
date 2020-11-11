@@ -22,7 +22,6 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
     }
 
     public void run() {
-
         while (true){
             System.out.println("Name:" + attendee);
             System.out.println("Attendee");
@@ -48,7 +47,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                         try {
                             eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
                         } catch (Exception e) {
-                            System.out.println("Cant do that, bye bye.");
+                            System.out.println("The event doesn't exist.");
                             continue;
                         }
                         usermanager.addSignedEvent(command,attendee);
@@ -69,6 +68,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                     command = reader.nextLine();
                     continue;
                 case "3":
+                    //TODO: Show contact list and make able to choose whom to send.
                     sendMessageToSomeone(attendee);
                     reader.nextLine();
                     continue;
@@ -106,7 +106,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         String receive = reader.nextLine();
         if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
             String receiver = contactList.get(Integer.parseInt(receive));
-            System.out.println("Now input your message. Hint: \\n and stuff.");
+            System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
             String message = reader.nextLine();
             messagemanager.sendMessage(attendee, receiver, message);
             System.out.println("Success! Press enter to continue");
