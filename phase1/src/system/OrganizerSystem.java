@@ -123,7 +123,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     }
                     continue;
                 case "3":
-                    System.out.println("Please enter the username");
+                    System.out.println("Please enter the speaker's username");
                     String name = reader.nextLine();
                     // check if they are speaker.
                     if (!usermanager.getUserType(name).equals("Speaker")) {
@@ -183,8 +183,8 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                     break;
                                 default:
                                     try{
-                                        ArrayList<Integer> schedule = new ArrayList<Integer>();
-                                        schedule = eventmanager.getSchedule(Integer.parseInt(command));
+                                        ArrayList<Integer> schedule = eventmanager.getSchedule
+                                                (Integer.parseInt(command));
                                         for(Integer i: schedule){
                                             System.out.println(eventmanager.findEventStr(i));
                                         }

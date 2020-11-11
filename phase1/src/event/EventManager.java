@@ -276,22 +276,14 @@ public class EventManager {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {
                     map.get(eventNumber).setSpeaker(username);
-                    try {
-                        signUp(String.valueOf(eventNumber), username);
-                    } catch (Exception e1) {
-                        throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
-                    }
+                    signUp(String.valueOf(eventNumber), username);
                 } else {
                     throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
-                try{
-                    signUp(String.valueOf(eventNumber), username);
-                } catch (Exception e2) {
-                    throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
-                }
+                signUp(String.valueOf(eventNumber), username);
             } else {
-                throw new Exception();
+                throw new InvalidUserException("Invalid user type");
             }
         } else {
             throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
