@@ -53,9 +53,9 @@ public class Write {
             for (Map.Entry<Integer, Integer> item : roomToCapacity.entrySet()) {
                 Integer room = item.getKey();
                 Integer capacity = item.getValue();
-                roomWriter.append(Character.highSurrogate(room));
+                roomWriter.append(String.valueOf(room));
                 roomWriter.append(",");
-                roomWriter.append(Character.highSurrogate(capacity));
+                roomWriter.append(String.valueOf(capacity));
                 roomWriter.append("\n");
             }
             //That's room. now output.
@@ -75,7 +75,7 @@ public class Write {
                 duration = eventmanager.getDuration(event);
                 attendees = eventmanager.getAttendees(String.valueOf(event));
                 speaker = eventmanager.getSpeakers(event);
-                eventWriter.append(Character.highSurrogate(room2));
+                eventWriter.append(String.valueOf(room2));
                 eventWriter.append(",");
                 eventWriter.append(time);
                 eventWriter.append(",");

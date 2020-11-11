@@ -3,12 +3,12 @@ package user;
 import java.util.ArrayList;
 
 public class Speaker extends User{
-    private ArrayList<String> signedEvent = new ArrayList<>();
+    private ArrayList<String> signedEvent;
 
     public Speaker(String username, String password) {
         super(username, password);
         this.usertype = "Speaker";
-
+        this.signedEvent = new ArrayList<String>();
     }
 
     @Override

@@ -23,7 +23,7 @@ public class UserManagerInitializer {
             }
         }
         UserIterator useriterator2 = new UserIterator();
-        while (!useriterator2.hasNext()) {
+        while (useriterator2.hasNext()) {
             temp = useriterator2.next(); //do something
             for(int i = 3; i < temp.length; i++){
                 usermanager.addContactList(temp[i], temp[0]);
@@ -33,11 +33,15 @@ public class UserManagerInitializer {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            for(j = 2; j < temp2.length; j++){
-                usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
+            for(j = 3; j < temp2.length; j++){
+                try {
+                    usermanager.addSignedEvent(String.valueOf(k), temp2[j]);
+                } catch (Exception e) {
+                    System.out.println("cannot add event (userManager). something went wrong.");
+                }
 
             }
-            k += 1;
+
         }
         return usermanager;
     }

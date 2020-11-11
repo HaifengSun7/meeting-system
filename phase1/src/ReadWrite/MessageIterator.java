@@ -24,7 +24,7 @@ public class MessageIterator implements Iterator<String[]> {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("room_properties.txt is missing");
+            System.out.println("message.csv is missing");
             e.printStackTrace();
         }
     }
