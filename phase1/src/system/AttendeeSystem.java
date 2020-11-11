@@ -103,7 +103,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                 System.out.println("The event doesn't exist.");
                 return;
             }
-            usermanager.addSignedEvent(command,attendee);
+            usermanager.addSignedEvent(command, attendee);
             System.out.println("Success! Press something to continue");
         }
         else{
@@ -116,6 +116,6 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         for (String s : eventsList) {
             System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
         }
-        System.out.println("press any key to exit");
+        System.out.println("press enter to exit");
     }
 }
