@@ -48,7 +48,7 @@ public class OrganizerSystem {
                     System.out.println("Here is a list of rooms");
                     ArrayList<String> roomList = eventmanager.getAllRooms();
                     for(int i = 0; i < roomList.size(); i++){
-                        System.out.println("[" + i + "]" + roomList.get(i));
+                        System.out.println(roomList.get(i));
                     }
                     System.out.println("See and manage rooms: \n [a] add a new room \n [b] see schedule of a certain room\n [e] exit to main menu.");
                     command = reader.nextLine();
@@ -88,11 +88,16 @@ public class OrganizerSystem {
                     continue;
                 case "2":
                     System.out.println("You want a promotion or a creation? \n [a] promotion \n [b] creation");
+                    command = reader.nextLine();
                     switch (command){
                         case "a":
                             System.out.println("but promote who? give me their username.");
                             command = reader.nextLine();
-                            eventmanager.becomeSpeaker(command);
+                            try {
+                                eventmanager.becomeSpeaker(command);
+                            } catch (Exception e) {
+                                //TODO:
+                            }
                             try {
                                 usermanager.becomeSpeaker(command);
                             } catch (Exception e) {
@@ -218,6 +223,8 @@ public class OrganizerSystem {
                             messagemanager.sendToList(organizer, attendees, command);
                             System.out.println("Success! Press enter to continue");
                             reader.nextLine();
+                            break;
+                        case "e":
                             break;
                         default:
                             receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
