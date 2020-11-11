@@ -160,12 +160,27 @@ public class EventManager {
      */
     public ArrayList<String> canSignUp(String attendee) {
         ArrayList<String> rslt = new ArrayList<String>();
-        for (int i = 0; i < map.size() - 1; i++) {
-            if (!map.get(i).getAttendees().contains(attendee)) {
+        for (int i = 0; i < map.size(); i++) {
+            if (!map.get(i).getAttendees().contains(attendee)&&!this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
                 rslt.add(String.valueOf(map.get(i).getId()));
             }
         }
-        return rslt; //TODO: what about time conflict?
+        return rslt;
+    }
+
+    /**
+     * Return a list of times an attendee have signed up for events.
+     * @param attendee Attendee to string
+     * @return list of times this attendee is busy
+     */
+    private ArrayList<String> dontHaveTime(String attendee) {
+        ArrayList<String> res = new ArrayList<String>();
+        for(Integer key: map.keySet()){
+            if(map.get(key).getAttendees().contains(attendee)){
+                res.add(map.get(key).getTime());
+            }
+        }
+        return res;
     }
 
 //    /**
