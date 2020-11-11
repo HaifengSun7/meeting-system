@@ -64,8 +64,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                         messagemanager.sendMessage(speaker, receiver, message);
                         System.out.println("Success");
                         reader.next();
-                    } else {
+                    } else if("e".equals(cmd)){
                         System.out.println("Exiting");
+                    } else {
+                        System.out.println("Invalid Input, exit to main menu and try again");
                     }
                     continue;
                 default:
