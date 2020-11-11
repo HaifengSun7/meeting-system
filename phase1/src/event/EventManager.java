@@ -108,11 +108,11 @@ public class EventManager {
      * @param attendee Attendee, but with String.
      * @throws Exception when needed. or not, I don't care. but you should tho.
      */
-    public void signUp(String event, String attendee) throws Exception {
+    public void signUp(String event, String attendee) throws NoSuchEventException {
         if (map.containsKey(Integer.parseInt(event))) {
             map.get(Integer.parseInt(event)).addAttendees(attendee);
         } else {
-            throw new Exception();//TODO: Exception: invalid event id.
+            throw new NoSuchEventException("NoSuchEvent: " + event);
         }
     }
 
@@ -145,7 +145,7 @@ public class EventManager {
      * @param time:   start time of the event.
      * @param length: number of hours the event will take.
      * @return true or not
-     * @throws Exception
+     * @throws InvalidActivityException when the room number is invalid.
      */
     private boolean ifRoomAvailable(String roomno, Timestamp time, int length) throws InvalidActivityException {
         for (Room r : rooms) {
@@ -167,7 +167,7 @@ public class EventManager {
      * @param roomno:        room number.
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
-     * @throws Exception: if cannot find a room with room number roomno.
+     * @throws InvalidActivityException: if cannot find a room with room number roomno.
      */
     public void addEvent(String roomno, Timestamp time, int meetingLength) throws InvalidActivityException {
         try {
@@ -191,8 +191,24 @@ public class EventManager {
      * Tips: 1. scan all events with attendee. 2. See if there is an speaker. If there is one already, throw an exception. 3. make attendee speaker.
      *
      * @param attendee Attendee but string.
+     * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) {
+    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException {
+        ArrayList<Event> events = new ArrayList<>(this.map.values());
+        ArrayList<Event> attended = new ArrayList<>();
+        for(Event i :events){
+            if(i.getAttendees().contains(attendee)){
+                attended.add(i);
+            }
+        }
+        for(Event j :attended){
+            if(j.getSpeakStatus()){
+                throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + j.getSpeaker());
+            }
+            else{
+                j.setSpeaker(attendee);
+            }
+        }
     }
 
     /**
@@ -220,30 +236,30 @@ public class EventManager {
      * @param eventnumber eventnumber.
      */
     public void addUserToEvent(String type, String username, int eventnumber) throws Exception {
-        if (map.keySet().contains(eventnumber)) {
+        if (map.containsKey(eventnumber)) {
             if (type.equals("Speaker")) {
                 if (!map.get(eventnumber).getSpeakStatus()) {
                     map.get(eventnumber).setSpeaker(username);
                     try {
                         signUp(String.valueOf(eventnumber), username);
                     } catch (Exception e1) {
-                        throw new Exception(); //TODO: invalid event id.
+                        throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
                     }
                 } else {
-                    throw new Exception(); //TODO: Exception: if the event already has a speaker/
+                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventnumber).getSpeaker());
                 }
             } else if (type.equals("Attendee")) {
                 try{
                     signUp(String.valueOf(eventnumber), username);
                 } catch (Exception e2) {
-                    throw new Exception();//TODO: invalid event id.
+                    throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
                 }
             } else {
                 throw new Exception();
-                //TODO: Exception: input is organizer.
+                //TODO: Is organizer an attendee?
             }
         } else {
-            throw new Exception(); //TODO: invalid event id.
+            throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
         }
     }
 
