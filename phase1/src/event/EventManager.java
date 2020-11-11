@@ -187,7 +187,7 @@ public class EventManager {
         for (Room r : rooms) {
             if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                 for (int id : r.getSchedule()) {
-                    if (map.get(id).contradicts(time, length)) {
+                    if (map.get(id).contradicts(time, length) || !map.get(id).inOfficeHour()) {
                         return false;
                     }
                 }

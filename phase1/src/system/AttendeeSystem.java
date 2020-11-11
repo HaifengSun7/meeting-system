@@ -14,8 +14,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    public String command; //command buffer
-    public String message; //message buffer
+    public String command;
 
     public AttendeeSystem(String attendee) {
         this.attendee = attendee;
@@ -25,7 +24,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         while (true){
             System.out.println("Name:" + attendee);
             System.out.println("Attendee");
-            System.out.println("[1] Schedule of events that I can sign up for.\n" +
+            System.out.println("[1] sign up for an event.\n" +
                     "[2] See events that I have signed up for\n" +
                     "[3] Send a message\n" +
                     "[4] See messages\n" +
@@ -34,41 +33,15 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
             switch (command) {
                 case "e":
                     break;
-
                 case "1":
-                    // Show a list of schedule which they can sign up for.
-                    ArrayList<String> example_list = eventmanager.canSignUp(attendee);
-                    for (int i = 0; i < example_list.size(); i++) {
-                        System.out.println(eventmanager.findEventStr(Integer.parseInt(example_list.get(i))));
-                    }
-                    System.out.println("[e] exit to main menu");
+                    SignUpForEvent();
                     command = reader.nextLine();
-                    if (!("e".equals(command))) {
-                        try {
-                            eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
-                        } catch (Exception e) {
-                            System.out.println("The event doesn't exist.");
-                            continue;
-                        }
-                        usermanager.addSignedEvent(command,attendee);
-                        System.out.println("Success! Press something to continue");
-                        command = reader.nextLine();
-                    }
-                    else{
-                        System.out.println("Exiting");
-                    }
                     continue;
                 case "2":
-                    //See the events that user have signed up for
-                    ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
-                    for(int i = 0; i < eventsList.size(); i++){
-                        System.out.println(eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
-                    }
-                    System.out.println("press enter to exit");
+                    checkSignedUp();
                     command = reader.nextLine();
                     continue;
                 case "3":
-                    //TODO: Show contact list and make able to choose whom to send.
                     sendMessageToSomeone(attendee);
                     reader.nextLine();
                     continue;
@@ -97,14 +70,15 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
 
     @Override
     public void sendMessageToSomeone(String attendee) {
-        System.out.println("Which single person you want to send message?");
+        System.out.println("Which person you want to send message?");
         ArrayList<String> contactList= usermanager.getContactList(attendee);
         for(int i = 0; i < contactList.size(); i++){
             System.out.println("[" + i + "] " + contactList.get(i));
         }
         System.out.println("[e] exit to main menu");
         String receive = reader.nextLine();
-        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
+        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) &&
+                (Integer.parseInt(receive) < contactList.size())) {
             String receiver = contactList.get(Integer.parseInt(receive));
             System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
             String message = reader.nextLine();
@@ -113,5 +87,35 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         } else {
             System.out.println("Press enter to exit to main menu");
         }
+    }
+
+    private void SignUpForEvent(){
+        ArrayList<String> example_list = eventmanager.canSignUp(attendee);
+        for (String value : example_list) {
+            System.out.println(eventmanager.findEventStr(Integer.parseInt(value)));
+        }
+        System.out.println("[e] exit to main menu");
+        command = reader.nextLine();
+        if (!("e".equals(command))) {
+            try {
+                eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
+            } catch (Exception e) {
+                System.out.println("The event doesn't exist.");
+                return;
+            }
+            usermanager.addSignedEvent(command,attendee);
+            System.out.println("Success! Press something to continue");
+        }
+        else{
+            System.out.println("Press any key to return to main menu.");
+        }
+    }
+
+    private void checkSignedUp(){
+        ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
+        for (String s : eventsList) {
+            System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
+        }
+        System.out.println("press any key to exit");
     }
 }
