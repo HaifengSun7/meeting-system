@@ -35,7 +35,6 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                     break;
                 case "1":
                     SignUpForEvent();
-                    command = reader.nextLine();
                     continue;
                 case "2":
                     checkSignedUp();
@@ -91,8 +90,8 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
 
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
-        for (String value : example_list) {
-            System.out.println(eventmanager.findEventStr(Integer.parseInt(value)));
+        for (int i = 0; i < example_list.size(); i++) {
+            System.out.println("[" + i + "] " + eventmanager.findEventStr(i));
         }
         System.out.println("[e] exit to main menu");
         command = reader.nextLine();
@@ -104,18 +103,18 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                 return;
             }
             usermanager.addSignedEvent(command, attendee);
-            System.out.println("Success! Press something to continue");
+            System.out.println("Success!\n");
         }
         else{
-            System.out.println("Press any key to return to main menu.");
+            System.out.println("Return to main menu.");
         }
     }
 
     private void checkSignedUp(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
-        for (String s : eventsList) {
-            System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
+        for (int i = 0; i < eventsList.size(); i++) {
+            System.out.println(eventmanager.findEventStr(i));
         }
-        System.out.println("press enter to exit");
+        System.out.println("Press enter to exit");
     }
 }
