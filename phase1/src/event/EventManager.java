@@ -239,7 +239,10 @@ public class EventManager {
 
     /**
      * Make attendee a speaker by updating all events related with them.
-     * Tips: 1. scan all events with attendee. 2. See if there is an speaker. If there is one already, throw an exception. 3. make attendee speaker.
+     * Tips:
+     * 1. scan all events with attendee.
+     * 2. See if there is an speaker. If there is one already, We skip the event.
+     * 3. make attendee speaker of all the rest of events.
      *
      * @param attendee Attendee but string.
      */
