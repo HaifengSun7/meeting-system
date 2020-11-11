@@ -14,6 +14,9 @@ public class MessageManager {
 
     private ArrayList<Message> messages =  new ArrayList<Message>();
 
+    /**
+     * Initializes the MessageManager. Activates when being called new MessageManager.
+     */
     public MessageManager(){
         int j;
         MessageIterator messageIterator = new MessageIterator();

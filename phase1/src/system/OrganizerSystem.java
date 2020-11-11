@@ -17,7 +17,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
     String command; //command buffer
-    String roomnumber;//roomnumber buffer
+    String roomNumber;//roomNumber buffer
     String size;//size buffer
     String time1;
     String duration;
@@ -48,32 +48,31 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     for(int i = 0; i < roomList.size(); i++){
                         System.out.println(roomList.get(i));
                     }
-                    System.out.println("See and manage rooms:\n" +
+                    System.out.println("Manage rooms:\n" +
                             "[a] add a new room\n" +
                             "[b] see schedule of a certain room\n" +
                             "[e] exit to main menu.");
                     command = reader.nextLine();
                     switch (command){
                         case "a":
-                            System.out.println("room number?");
-                            roomnumber = reader.nextLine();
-                            System.out.println("size?");
+                            System.out.println("Please enter a new room number.");
+                            roomNumber = reader.nextLine();
+                            System.out.println("Please enter the room size.");
                             size = reader.nextLine();
-                            eventmanager.addRoom(Integer.parseInt(roomnumber), Integer.parseInt(size));
-                            System.out.println("done. Press enter to continue.");
+                            eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
+                            System.out.println("Adding successful. Press enter to continue.");
                             command = reader.nextLine();
                             break;
                         case "b":
-                            System.out.println("room number?");
-                            roomnumber = reader.nextLine();
+                            System.out.println("Please enter a room number.");
+                            roomNumber = reader.nextLine();
                             try{
-                                ArrayList<Integer> schedule = new ArrayList<Integer>();
-                                schedule = eventmanager.getSchedule(Integer.parseInt(roomnumber));
+                                ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
                                 for(Integer i: schedule){
                                     System.out.println(eventmanager.findEventStr(i));
                                 }
                             } catch (InvalidActivityException e) {
-                                System.out.println("dumb.");
+                                System.out.println("Please enter a valid room number. We will return to main menu.");
                                 break;
                             }
                             System.out.println("That's everything. Press enter to continue.");
@@ -94,18 +93,18 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     command = reader.nextLine();
                     switch (command){
                         case "a":
-                            System.out.println("but promote who? give me his or her username.");
+                            System.out.println("Please enter a username to promote them a speaker.");
                             String name = reader.nextLine();
                             try {
                                 usermanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("userManager doesn't want you to be speaker");
+                                System.out.println("the user does not exist. Returning to the organizer menu.");
                                 break;
                             }
                             try {
                                 eventmanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("eventManager doesn't want you to be speaker");
+                                System.out.println("The event already has a speaker. Please restart from menu.");
                                 break;
                             }
                             break;
@@ -117,24 +116,24 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             try {
                                 usermanager.createUserAccount("Speaker", username, password);
                             } catch (Exception e) {
-                                System.out.println("give me a usable name you dumb dumb.");
+                                System.out.println("Username already exists.");
                                 break;
                             }
                             break;
                     }
                     continue;
                 case "3":
-                    System.out.println("Give me the username");
+                    System.out.println("Please enter the username");
                     String name = reader.nextLine();
                     // check if they are speaker.
                     if (!usermanager.getUserType(name).equals("Speaker")) {
-                        System.out.println("not a speaker.");
+                        System.out.println("This user is not a speaker.");
                         continue;
                     }
                     System.out.println("Showing all events:");
-                    ArrayList<String> allevents = eventmanager.getAllEvents();
-                    for(int i = 0; i < allevents.size(); i++){
-                        System.out.println("[" + i + "]" + allevents.get(i));
+                    ArrayList<String> allEvents = eventmanager.getAllEvents();
+                    for(int i = 0; i < allEvents.size(); i++){
+                        System.out.println("[" + i + "]" + allEvents.get(i));
                     }
                     System.out.println("Input event number to add.\n" +
                             "[r] show rooms and add new event.\n" +
@@ -142,7 +141,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     command = reader.nextLine();
                     switch (command){
                         default:
-                            if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allevents.size()){
+                            if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allEvents.size()){
                                 try {
                                     eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                                 } catch (Exception e) {
