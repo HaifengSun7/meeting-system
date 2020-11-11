@@ -104,17 +104,17 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     switch (command){
                         case "a":
                             System.out.println("but promote who? give me his or her username.");
-                            command = reader.nextLine();
+                            String name = reader.nextLine();
                             try {
-                                eventmanager.becomeSpeaker(command);
+                                usermanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("eventManager doesn't want you to be speaker");
+                                System.out.println("userManager doesn't want you to be speaker");
                                 break;
                             }
                             try {
-                                usermanager.becomeSpeaker(command);
+                                eventmanager.becomeSpeaker(name);
                             } catch (Exception e) {
-                                System.out.println("userManager doesn't want you to be speaker");
+                                System.out.println("eventManager doesn't want you to be speaker");
                                 break;
                             }
                             break;
