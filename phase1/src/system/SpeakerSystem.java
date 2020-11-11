@@ -1,6 +1,5 @@
 package system;
 
-import ReadWrite.MessageManagerInitializer;
 import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
@@ -21,8 +20,6 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
     }
 
     public void run() {
-        MessageManagerInitializer messageManagerInitializer = new MessageManagerInitializer();
-        messagemanager = messageManagerInitializer.run();
         while (true) {
             System.out.println("Name:" + speaker.toString());
             System.out.println("Speaker");

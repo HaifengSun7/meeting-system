@@ -1,5 +1,7 @@
 package message;
 
+import ReadWrite.MessageIterator;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -11,6 +13,26 @@ import java.util.ArrayList;
 public class MessageManager {
 
     private ArrayList<Message> messages =  new ArrayList<Message>();
+
+    public MessageManager(){
+        int j;
+        MessageIterator messageIterator = new MessageIterator();
+        String[] temp;
+        String temp_str;
+        while (messageIterator.hasNext()) {
+            temp = messageIterator.next(); //do something
+            StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
+            for(j = 3; j < temp.length; j++){
+                temp_strBuilder.append(',').append(temp[j]);
+            }
+            temp_str = temp_strBuilder.toString();
+            try {
+                this.sendMessage(temp[0], temp[1], temp_str);
+            } catch (Exception e) {
+                System.out.println("1");
+            }
+        }
+    }
 
     /**
      * Send a Message to receiver by sender. With the message text.
