@@ -57,9 +57,25 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     sendMessageToSomeone(speaker);
                     reader.nextLine();
                     continue;
-                case "4":
-                    seeMessages(speaker);
-                    reader.nextLine();
+                case "4": //respond to an Attendee
+                    System.out.println("Which message would you like to respond?");
+                    ArrayList<String> msginbox = messagemanager.getInbox(speaker);
+                    ArrayList<String> inboxsender = messagemanager.getInboxSender(speaker);
+                    for(int i = 0; i < msginbox.size(); i++){
+                        System.out.println("[" + i + "] " + msginbox.get(i));
+                    }
+                    System.out.println("[e] exit to main menu");
+                    command = reader.next();
+                    if(!("e".equals(command))){
+                        String receiver = inboxsender.get(Integer.parseInt(command));
+                        System.out.println("Input your message");
+                        String message = reader.nextLine();
+                        messagemanager.sendMessage(speaker, receiver, message);
+                        System.out.println("Success");
+                        reader.next();
+                    } else {
+                        System.out.println("Exiting");
+                    }
                     continue;
                 default:
                     System.out.println("Please press the right key.");

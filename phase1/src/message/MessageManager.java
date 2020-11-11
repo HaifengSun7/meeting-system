@@ -46,13 +46,27 @@ public class MessageManager {
     public ArrayList<String> getInbox(String username){
         ArrayList<String> rtn_list = new ArrayList<String>();
         for(Message msg:this.messages){
-            if(msg.getSender().equals(username)){
+            if(msg.getReceiver().equals(username)){
                 rtn_list.add(msg.toString());
             }
         }
         return rtn_list;
     }
 
+    /**
+     * Get the inbox messages of the user.
+     * @param username The username of the user that we are looking for.
+     * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the Message.
+     */
+    public ArrayList<String> getInboxSender(String username){
+        ArrayList<String> rtn_list = new ArrayList<String>();
+        for(Message msg:this.messages){
+            if(msg.getReceiver().equals(username)){
+                rtn_list.add(msg.getReceiver());
+            }
+        }
+        return rtn_list;
+    }
     /**
      * Send a Message to a list of receivers by sender. With the same message text.
      * @param u The Username of the sender.
