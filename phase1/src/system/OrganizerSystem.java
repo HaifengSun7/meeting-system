@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrganizerSystem {
+public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendMessageToAll{
     private final String organizer;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
@@ -41,7 +41,14 @@ public class OrganizerSystem {
         while(true){
             System.out.println("Name:" + organizer.toString());
             System.out.println("Organizer");
-            System.out.println("[1] see and manage rooms\n[2] create speaker account\n[3] Schedule speakers\n [4] Send a message\n [5] See messages \n[e] exit");
+            System.out.println("[1] see and manage rooms\n" +
+                    "[2] create speaker account\n" +
+                    "[3] Schedule speakers\n" +
+                    "[4] Send message to a particular person\n" +
+                    "[5] Send message to all speakers\n" +
+                    "[6] Send message to all attendees\n" +
+                    "[7] See messages\n" +
+                    "[e] exit");
             command = reader.nextLine();
             switch (command){
                 case "1":
@@ -50,7 +57,10 @@ public class OrganizerSystem {
                     for(int i = 0; i < roomList.size(); i++){
                         System.out.println(roomList.get(i));
                     }
-                    System.out.println("See and manage rooms: \n [a] add a new room \n [b] see schedule of a certain room\n [e] exit to main menu.");
+                    System.out.println("See and manage rooms:\n" +
+                            "[a] add a new room\n" +
+                            "[b] see schedule of a certain room\n" +
+                            "[e] exit to main menu.");
                     command = reader.nextLine();
                     switch (command){
                         case "a":
@@ -87,7 +97,9 @@ public class OrganizerSystem {
                     }
                     continue;
                 case "2":
-                    System.out.println("You want a promotion or a creation? \n [a] promotion \n [b] creation");
+                    System.out.println("You want a promotion or a creation?\n " +
+                            "[a] promotion\n " +
+                            "[b] creation");
                     command = reader.nextLine();
                     switch (command){
                         case "a":
@@ -131,7 +143,9 @@ public class OrganizerSystem {
                     for(int i = 0; i < allevents.size(); i++){
                         System.out.println("[" + i + "]" + allevents.get(i));
                     }
-                    System.out.println("Input event number to add. \n[r] show rooms and add new event. \n[e] to exit.");
+                    System.out.println("Input event number to add.\n" +
+                            "[r] show rooms and add new event.\n" +
+                            "[e] to exit.");
                     command = reader.nextLine();
                     switch (command){
                         default:
@@ -150,7 +164,9 @@ public class OrganizerSystem {
                             for(int i = 0; i < roomLst.size(); i++){
                                 System.out.println("[" + i + "]" + roomLst.get(i));
                             }
-                            System.out.println("[a] to add new event \n room number to choose an event in some room \n [e] to exit");
+                            System.out.println("[a] to add new event\n" +
+                                    "room number to choose an event in some room\n" +
+                                    "[e] to exit");
                             String command4 = reader.nextLine();
                             switch (command4){
                                 case "a":
@@ -200,48 +216,20 @@ public class OrganizerSystem {
                     }
                     continue;
                 case "4":
-                    System.out.println("To Who?");
-                    ArrayList<String> msglst= usermanager.getContactList(organizer);
-                    for(int i = 0; i < msglst.size(); i++){
-                        System.out.println("[" + i + "] " + msglst.get(i));
-                    }
-                    System.out.println("[all speaker] to send to all speaker\n[all attendee] to send to all attendee\n[e] exit to main menu");
-                    String command4 = reader.nextLine();
-                    switch (command4){
-                        case "all speaker":
-                            ArrayList<String> speakers = usermanager.getSpeakers();
-                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
-                            command = reader.nextLine();
-                            messagemanager.sendToList(organizer, speakers, command);
-                            System.out.println("Success! Press enter to continue");
-                            reader.nextLine();
-                            break;
-                        case "all attendee":
-                            ArrayList<String> attendees = usermanager.getAttendees();
-                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
-                            command = reader.nextLine();
-                            messagemanager.sendToList(organizer, attendees, command);
-                            System.out.println("Success! Press enter to continue");
-                            reader.nextLine();
-                            break;
-                        case "e":
-                            break;
-                        default:
-                            receiver = msglst.get(Integer.parseInt(command4)); // TODO: what if input wrong?
-                            System.out.println("Yo, now input your message. Hint: \\n and stuff.");
-                            command = reader.nextLine();
-                            messagemanager.sendMessage(organizer, receiver, command);
-                            System.out.println("Success! Press enter to continue");
-                            reader.nextLine();
-                            break;
-                    }
+                    sendMessageToSomeone(organizer);
+                    reader.nextLine();
                     continue;
                 case "5":
-                    ArrayList<String> inbox = messagemanager.getInbox(organizer);
-                    for(int i = 0; i < inbox.size(); i++){
-                        System.out.println("[" + i + "] " + inbox.get(i)+"\n");
-                    }
-                    System.out.println("[e] exit to main menu");
+                    sendMessageToAll(organizer, "speaker");
+                    reader.nextLine();
+                    continue;
+                case "6":
+                    sendMessageToAll(organizer, "attendee");
+                    reader.nextLine();
+                    continue;
+                case "7":
+                    seeMessages(organizer);
+                    reader.nextLine();
                     continue;
                 case "e":
                     break;
@@ -254,5 +242,57 @@ public class OrganizerSystem {
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
         //write.run();
+    }
+
+    @Override
+    public void seeMessages(String organizer) {
+        ArrayList<String> inbox = messagemanager.getInbox(organizer);
+        for(int i = 0; i < inbox.size(); i++){
+            System.out.println("[" + i + "] " + inbox.get(i)+"\n");
+        }
+        System.out.println("Press enter to exit to main menu");
+    }
+
+    // Send messages to all speakers or all attendees
+    @Override
+    public void sendMessageToAll(String organizer, String object) {
+        switch (object) {
+            case "speaker":
+                ArrayList<String> speakers = usermanager.getSpeakers();
+                System.out.println("Now input your message. Hint: \\n and stuff.");
+                String message = reader.nextLine();
+                messagemanager.sendToList(organizer, speakers, message);
+                System.out.println("Success! Press enter to continue");
+                break;
+            case "attendee":
+                ArrayList<String> attendees = usermanager.getAttendees();
+                System.out.println("Now input your message. Hint: \\n and stuff.");
+                String message2 = reader.nextLine();
+                messagemanager.sendToList(organizer, attendees, message2);
+                System.out.println("Success! Press enter to continue");
+                break;
+        }
+
+    }
+
+    //Send message to a particular person
+    @Override
+    public void sendMessageToSomeone(String organizer) {
+        System.out.println("Which single person you want to send message?");
+        ArrayList<String> contactList= usermanager.getContactList(organizer);
+        for(int i = 0; i < contactList.size(); i++){
+            System.out.println("[" + i + "] " + contactList.get(i));
+        }
+        System.out.println("[e] exit to main menu");
+        String receive = reader.nextLine();
+        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
+            String receiver = contactList.get(Integer.parseInt(receive));
+            System.out.println("Now input your message. Hint: \\n and stuff.");
+            String message = reader.nextLine();
+            messagemanager.sendMessage(organizer, receiver, message);
+            System.out.println("Success! Press enter to continue");
+        } else {
+            System.out.println("Press enter to exit to main menu");
+        }
     }
 }

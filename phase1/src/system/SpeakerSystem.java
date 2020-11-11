@@ -11,7 +11,7 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SpeakerSystem {
+public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMessageToAll{
     private final String speaker;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
@@ -32,16 +32,17 @@ public class SpeakerSystem {
         while (true) {
             System.out.println("Name:" + speaker.toString());
             System.out.println("Speaker");
-            System.out.println("[1] See a list of talks.\n" +
+            System.out.println("[1] See a list of messages the speaker gave.\n" +
                     "[2] Message all Attendees who signed up for a particular event\n" +
-                    "[3] Message a particular Attendee who signed up for a particular event\n " +
+                    "[3] Message a particular Attendee who signed up for a particular event\n" +
+                    "[4] See messages\n" +
                     "[e] exit");
-            String command = reader.next();
+            String command = reader.nextLine();
 
             switch (command) {
                 case "e":
                     break;
-                case "1":   //See the talks that the speaker is giving
+                case "1":   //See the messages that the speaker gave
                     ArrayList<String> messageList = messagemanager.getSent(speaker);
                     for (int i = 0; i < messageList.size(); i++) {
                         System.out.println("[" + i + "] " + messageList.get(i));
@@ -49,33 +50,19 @@ public class SpeakerSystem {
                     System.out.println("[e] exit to main menu");
                     continue;
                 case "2":  //send messages to all Attendees who signed up for a particular event
-                    System.out.println("Event name that you want to send messages");
-                    String eventName = reader.nextLine();
-                    System.out.println("Messages that you are sending to all attendees");
-                    String messageToAllAttendees = reader.nextLine();
-                    ArrayList<String> attendeeList = eventmanager.getAttendees(eventName);
-                    messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
-                    System.out.println("Success! Press something to continue");
-                    reader.next();
+                    sendMessageToAll(speaker, "attendee");
+                    reader.nextLine();
                     continue;
                 case "3": //send messages to a particular Attendee who signed up for a particular event
-                    System.out.println("Which single person you want to send message?");
-                    ArrayList<String> msglst = usermanager.getContactList(speaker);
-                    for (int i = 0; i < msglst.size(); i++) {
-                        System.out.println("[" + i + "] " + msglst.get(i));
-                    }
-                    System.out.println("[e] exit to main menu");
-                    command = reader.next();
-                    if (!("e".equals(command))) {
-                        String receiver = msglst.get(Integer.parseInt(command)); // TODO: what if input wrong?
-                        System.out.println("Yo, now input your message. Hint: \\n and stuff."); // TODO: string is bad.
-                        String message = reader.nextLine();
-                        messagemanager.sendMessage(speaker, receiver, message);
-                        System.out.println("Success! Press something to continue");
-                        reader.next();
-                    } else {
-                        System.out.println("Exiting");
-                    }
+                    sendMessageToSomeone(speaker);
+                    reader.nextLine();
+                    continue;
+                case "4":
+                    seeMessages(speaker);
+                    reader.nextLine();
+                    continue;
+                default:
+                    System.out.println("Please press the right key.");
                     continue;
             }
             break;
@@ -83,5 +70,48 @@ public class SpeakerSystem {
         Write write = new Write(usermanager, eventmanager, messagemanager);
         //write.run();
     }
-}
+
+    @Override
+    public void seeMessages(String speaker) {
+        ArrayList<String> inbox = messagemanager.getInbox(speaker);
+        for(int i = 0; i < inbox.size(); i++){
+            System.out.println("[" + i + "] " + inbox.get(i));
+        }
+        System.out.println("Press enter to exit to main menu");
+    }
+
+    @Override
+    public void sendMessageToAll(String speaker, String object) {
+        if ("attendee".equals(object)) {
+            System.out.println("Event name that you want to send messages");
+            String eventName = reader.nextLine();
+            System.out.println("Messages that you are sending to all attendees");
+            String messageToAllAttendees = reader.nextLine();
+            ArrayList<String> attendeeList = eventmanager.getAttendees(eventName);
+            messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
+            System.out.println("Success! Press something to continue");
+        }
+    }
+
+    @Override
+    public void sendMessageToSomeone(String speaker) {
+        System.out.println("Which single person you want to send message?");
+        ArrayList<String> contactList= usermanager.getContactList(speaker);
+        for(int i = 0; i < contactList.size(); i++){
+            System.out.println("[" + i + "] " + contactList.get(i));
+        }
+        System.out.println("[e] exit to main menu");
+        String receive = reader.nextLine();
+        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
+            String receiver = contactList.get(Integer.parseInt(receive));
+            System.out.println("Now input your message. Hint: \\n and stuff.");
+            String message = reader.nextLine();
+            messagemanager.sendMessage(speaker, receiver, message);
+            System.out.println("Success! Press enter to continue");
+        } else {
+            System.out.println("Press enter to exit to main menu");
+        }
+    }
+    }
+
 
