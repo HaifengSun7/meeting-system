@@ -65,9 +65,9 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                         System.out.println("[" + i + "] " + msginbox.get(i));
                     }
                     System.out.println("[e] exit to main menu");
-                    command = reader.next();
-                    if(!("e".equals(command))){
-                        String receiver = inboxsender.get(Integer.parseInt(command));
+                    String cmd = reader.next();
+                    if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msginbox.size()&&Integer.parseInt(cmd)>=0){
+                        String receiver = inboxsender.get(Integer.parseInt(cmd));
                         System.out.println("Input your message");
                         String message = reader.nextLine();
                         messagemanager.sendMessage(speaker, receiver, message);
