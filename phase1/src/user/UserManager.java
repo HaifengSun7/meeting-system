@@ -16,7 +16,6 @@ public class UserManager {
 
     public UserManager(){
         this.userMapping = new HashMap<>();
-        int j;
         UserIterator userIterator = new UserIterator();
         EventIterator eventIterator = new EventIterator();
         String[] temp;
@@ -39,13 +38,14 @@ public class UserManager {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            for(j = 3; j < temp2.length; j++){
+            for(int j = 3; j < temp2.length; j++){
                 try {
                     this.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {
                     System.out.println("cannot add event (userManager). something went wrong.");
                 }
             }
+            k += 1;
         }
     }
 
