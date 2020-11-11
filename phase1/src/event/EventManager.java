@@ -246,7 +246,7 @@ public class EventManager {
                         throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventnumber));
                     }
                 } else {
-                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventnumber).getSpeaker());
+                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventnumber).getSpeaker() + " at " + map.get(eventnumber));
                 }
             } else if (type.equals("Attendee")) {
                 try{

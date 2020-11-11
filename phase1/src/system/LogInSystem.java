@@ -43,12 +43,15 @@ public class LogInSystem {
             case "Attendee":
                 AttendeeSystem as = new AttendeeSystem(username);
                 as.run();
+                break;
             case "Organizer":
                 OrganizerSystem os = new OrganizerSystem(username);
                 os.run();
+                break;
             case "Speaker":
                 SpeakerSystem ss = new SpeakerSystem(username);
                 ss.run();
+                break;
         }
     }
 }

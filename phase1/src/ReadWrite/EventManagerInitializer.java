@@ -23,7 +23,7 @@ public class EventManagerInitializer {
             try {
                 eventmanager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
             } catch (Exception e) {
-                System.out.println("This should not be happening.");
+                System.out.println("2");
             }
         }
         String[] temp2;
@@ -32,17 +32,17 @@ public class EventManagerInitializer {
             try {
                 eventmanager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]));
             } catch (Exception e) {
-                System.out.println("This should not be happening.");
+                System.out.println("3");
             }
-            for(j = 2; j < temp2.length; j++){
+            for(j = 3; j < temp2.length; j++){
                 try {
                     eventmanager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    System.out.println("This should not be happening.");
+                    e.printStackTrace();
                 }
             }
-            }
             k += 1;
+            }
         return eventmanager;
     }
 }

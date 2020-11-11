@@ -50,7 +50,6 @@ public class SpeakerSystem {
                     continue;
                 case "2":  //send messages to all Attendees who signed up for a particular event
                     System.out.println("Event name that you want to send messages");
-                    reader.nextLine();
                     String eventName = reader.nextLine();
                     System.out.println("Messages that you are sending to all attendees");
                     String messageToAllAttendees = reader.nextLine();

@@ -20,7 +20,7 @@ public class MessageManagerInitializer {
             try {
                 messagemanager.sendMessage(temp[0], temp[1], temp_str);
             } catch (Exception e) {
-                System.out.println("This should not be happening.");
+                System.out.println("1");
             }
         }
         return messagemanager;
