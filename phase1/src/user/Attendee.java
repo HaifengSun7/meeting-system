@@ -8,7 +8,6 @@ public class Attendee extends User{
     public Attendee(String username, String password) {
         super(username, password);
         this.usertype = "Attendee";
-        this.signedEvent = new ArrayList<String>();
     }
 
     @Override
