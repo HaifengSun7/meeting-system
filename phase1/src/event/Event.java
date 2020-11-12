@@ -139,32 +139,18 @@ public class Event {
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
     public boolean contradicts(Timestamp start, int length) {
-        ArrayList<Integer> endTime = new ArrayList<>();
-        endTime.add(this.getHour()+length);
-        endTime.add(this.getMin());
-        ArrayList<Integer> t_endTime = new ArrayList<>();
-        String t = start.toString();
-        ArrayList<Integer> time_list = new ArrayList<>();
-        for(int i = 0; i < t.length(); i++){
-            char y = ':';
-            char x = t.charAt(i);
-            if(x == y){
-                String t1 = String.valueOf(t.charAt(i-2));
-                String t2 = String.valueOf(t.charAt(i-1));
-                String time = t1 + t2;
-                int tt = Integer.parseInt(time);
-                time_list.add(tt);
-            }
+        if(this.time.compareTo(start) == 0){
+            return true;
         }
-        int t_hour = time_list.get(0);
-        int t_min = time_list.get(1);
-        t_endTime.add(t_hour);
-        t_endTime.add(t_min);
-        if(this.getHour() == t_endTime.get(0)) {
-            return !(this.getMin() >= t_endTime.get(1));
-        }else if(endTime.get(0) == t_hour){
-            return !(endTime.get(1) < t_min);
-        }else return t_endTime.get(0) >= this.getHour() && t_hour <= endTime.get(0);
+        long milliseconds = this.time.getTime() - start.getTime();
+        float seconds = (float) milliseconds / 1000;
+        float diff_h = Math.abs(seconds / 3600);
+        if (this.time.compareTo(start) < 0){
+            return this.length > diff_h;
+        }
+        else{
+            return length >diff_h;
+        }
     }
 
     private int getHour(){
