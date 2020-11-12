@@ -93,15 +93,19 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         }
         System.out.println("[e] exit to main menu");
         String receive = reader.nextLine();
-        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
-            String receiver = contactList.get(Integer.parseInt(receive));
-            System.out.println("Now input your message. Hint: \\n and stuff.");
-            String message = reader.nextLine();
-            messagemanager.sendMessage(speaker, receiver, message);
-            System.out.println("Success! Press anything to continue");
-            reader.nextLine();
-        } else {
-            System.out.println("Invalid Input, exit to main menu and try again\n");
+        try{
+            if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
+                String receiver = contactList.get(Integer.parseInt(receive));
+                System.out.println("Now input your message. Hint: \\n and stuff.");
+                String message = reader.nextLine();
+                messagemanager.sendMessage(speaker, receiver, message);
+                System.out.println("Success! Press anything to continue");
+                reader.nextLine();
+            } else {
+                System.out.println("Your input is out of range, please try again.\n");
+            }
+        } catch(Exception e) {
+            System.out.println("Invalid input. Exiting to main menu. \n");
         }
     }
 
