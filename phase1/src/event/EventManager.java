@@ -256,7 +256,7 @@ public class EventManager {
         }
         for(Event j :attended){
             if(j.getSpeakStatus()){
-                System.out.println("event"+j.getId()+" already has a speaker. Unable to promote");
+                System.out.println("event"+j.getId()+" already has a speaker. Unable to promote\n");
             }
             else{
                 j.setSpeaker(attendee);
