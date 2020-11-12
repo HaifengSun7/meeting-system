@@ -19,7 +19,9 @@ public class LogInSystem {
                     "Press [e] to quit the system.\n" +
                     "Press anything else to log in.");
             String command = reader.nextLine();
-            if (!"e".equals(command)) {
+            if ("e".equals(command)) {
+                break;
+            }else{
                 for (int i = 0; i < 5; i++) {
                     System.out.println("You have " + (5 - i) + " trials remaining \n");
                     System.out.println("Username:");
