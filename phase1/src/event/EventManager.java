@@ -154,6 +154,18 @@ public class EventManager {
         }
     }
 
+    public void signOut(String eventId, String attendee) throws Exception {
+        if (map.containsKey(Integer.parseInt(eventId))) {
+            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
+                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
+            } else {
+                throw new InvalidActivityException();
+            }
+        } else {
+            throw new NoSuchEventException("NoSuchEvent: " + eventId);
+        }
+    }
+
     /**
      * Return a list of Events.toString() that attendee can sign up for.
      *
