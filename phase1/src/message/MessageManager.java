@@ -101,7 +101,9 @@ public class MessageManager {
      */
     public void sendToList(String u, ArrayList<String> receivers, String text){
         for(String user:receivers){
-            sendMessage(u, user, text);
+            if(!user.equals(u)){
+                sendMessage(u, user, text);
+            }
         }
     }
 
