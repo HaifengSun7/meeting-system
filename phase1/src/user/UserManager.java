@@ -93,6 +93,10 @@ public class UserManager {
         return userMapping.get(username).getStatus();
     }
 
+    public String getPassword(String username) {
+        return userMapping.get(username).password;
+    }
+
     public String logIn(String username, String password) throws Exception {
         User user = userMapping.get(username);
         if (user.password.equals(password)){
@@ -196,17 +200,11 @@ public class UserManager {
         userMapping.get(username).setContactList(lst);
     }
 
-    //TODO: Added.
-
     /**
      *
-     * @param username username.
+     * @param userName username.
      * @return the password.
      */
-
-    public String getPassword(String username) {
-        return userMapping.get(username).password;
-    }
 
     private User findUser(String userName) throws NoSuchUserException {
         for(String name:userMapping.keySet()){
