@@ -35,12 +35,13 @@ public class EventManager {
         RoomIterator roomIterator = new RoomIterator();
         UserManager usermanager = new UserManager();
         String[] temp;
+        System.out.println("loading existing events from file...");
         while (roomIterator.hasNext()) {
             temp = roomIterator.next();
             try {
                 this.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
             } catch (Exception e) {
-                System.out.println("2");
+                System.out.println("Failed to add room" + Integer.parseInt(temp[0]));
             }
         }
         String[] temp2;
@@ -49,17 +50,18 @@ public class EventManager {
             try {
                 this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]));
             } catch (Exception e) {
-                System.out.println("3");
+                System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
             }
             for(j = 3; j < temp2.length; j++){
                 try {
                     this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println("Failed to add User to Event, event"+k+" does not exist.");
                 }
             }
             k += 1;
         }
+        System.out.println("\n Load complete. Welcome to the system. \n");
     }
 
     /**
@@ -221,9 +223,10 @@ public class EventManager {
      * @throws InvalidActivityException: if cannot find a room with room number roomNo.
      */
     public void addEvent(String roomNo, Timestamp time, int meetingLength) throws InvalidActivityException {
+        System.out.println("Adding event to room "+roomNo+", time: "+time.toString()+" Duration: "+meetingLength);
         try {
             if (!inOfficeHour(time)){
-                System.out.println("This time slot is not available");
+                System.out.println("Invalid time slot. Not in working hour.");
                 return;
             }
             if (ifRoomAvailable(roomNo, time, meetingLength)) {
@@ -236,7 +239,6 @@ public class EventManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Please enter a proper room number.");
             throw new InvalidActivityException();
         }
     }
@@ -300,7 +302,8 @@ public class EventManager {
                     map.get(eventNumber).setSpeaker(username);
                     signUp(String.valueOf(eventNumber), username);
                 } else {
-                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " + map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
+                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " +
+                            map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
                 signUp(String.valueOf(eventNumber), username);
