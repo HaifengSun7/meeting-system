@@ -46,7 +46,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     sendMessageToSomeone(speaker);
                     continue;
                 case "4": //respond to an Attendee
-                    respondToAttendee();
+                    respondToAttendee(speaker);
                     reader.nextLine();
                     continue;
                 case "5": //see message inbox
@@ -60,7 +60,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             break;
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
-        //write.run();
+        write.run();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         System.out.println("press any key to return to menu");
     }
 
-    private void respondToAttendee(){
+    public void respondToAttendee(String speaker){
         System.out.println("Which message would you like to respond?");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
@@ -134,14 +134,13 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             System.out.println("[" + i + "] " + msgInbox.get(i));
         }
         System.out.println("[e] exit to main menu");
-        String cmd = reader.next();
+        String cmd = reader.nextLine();
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
             System.out.println("Input your message");
             String message = reader.nextLine();
             messagemanager.sendMessage(speaker, receiver, message);
             System.out.println("Success");
-            reader.next();
         } else if("e".equals(cmd)){
             System.out.println("Exiting\n");
         } else {
