@@ -130,6 +130,10 @@ public class Event {
         }
     }
 
+    public static void resetID(){
+        eventNumber = 0;
+    }
+
     private int getLength(){return this.length;}
 
 }
