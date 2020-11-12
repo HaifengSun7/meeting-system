@@ -33,7 +33,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             System.out.println("Name:" + organizer);
             System.out.println("Organizer");
             System.out.println("[1] see and manage rooms\n" +
-                    "[2] create speaker account\n" +
+                    "[2] create/promote speaker account\n" +
                     "[3] Schedule speakers\n" +
                     "[4] Send message to a particular person\n" +
                     "[5] Send message to all speakers\n" +
@@ -43,183 +43,13 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             command = reader.nextLine();
             switch (command){
                 case "1":
-                    System.out.println("Here is a list of rooms");
-                    ArrayList<String> roomList = eventmanager.getAllRooms();
-                    for (String s : roomList) {
-                        System.out.println(s);
-                    }
-                    System.out.println("Manage rooms:\n" +
-                            "[a] add a new room\n" +
-                            "[b] see schedule of a certain room\n" +
-                            "[e] exit to main menu.");
-                    command = reader.nextLine();
-                    switch (command){
-                        case "a":
-                            System.out.println("Please enter a new room number.");
-                            roomNumber = reader.nextLine();
-                            System.out.println("Please enter the room size.");
-                            size = reader.nextLine();
-                            eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
-                            System.out.println("Adding successful. Press enter to continue.");
-                            command = reader.nextLine();
-                            break;
-                        case "b":
-                            System.out.println("Please enter a room number.");
-                            roomNumber = reader.nextLine();
-                            try{
-                                ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
-                                for(Integer i: schedule){
-                                    System.out.println(eventmanager.findEventStr(i));
-                                }
-                            } catch (InvalidActivityException e) {
-                                System.out.println("Please enter a valid room number. We will return to main menu.");
-                                break;
-                            }
-                            System.out.println("That's everything. Press enter to continue.");
-                            command = reader.nextLine();
-                            break;
-                        case "e":
-                            break;
-                        default:
-                            System.out.println("Invalid input. Press enter to continue");
-                            command = reader.nextLine();
-                            break;
-                    }
+                    manageRooms();
                     continue;
                 case "2":
-                    System.out.println("You want a promotion or a creation?\n " +
-                            "[a] promotion\n " +
-                            "[b] creation");
-                    command = reader.nextLine();
-                    switch (command){
-                        case "a":
-                            System.out.println("Note that promotion will make that user the speaker of all their " +
-                                    "signed events.\n" +
-                                    "Enter a username to promote him/her a speaker.");
-                            String name = reader.nextLine();
-                            try {
-                                usermanager.becomeSpeaker(name);
-                            } catch (Exception e) {
-                                System.out.println("the user does not exist. Returning to the organizer menu.");
-                                break;
-                            }
-                            try {
-                                eventmanager.becomeSpeaker(name);
-                            } catch (Exception e) {
-                                System.out.println("Promote Successful. Returning to Main menu.");
-                                break;
-                            }
-                            break;
-                        case "b":
-                            System.out.println("Please enter a new username");
-                            String username = reader.nextLine();
-                            System.out.println("Please enter a password");
-                            String password = reader.nextLine();
-                            try {
-                                usermanager.createUserAccount("Speaker", username, password);
-                                System.out.println("Successfully create a new user.");
-                            } catch (Exception e) {
-                                System.out.println("Username already exists.");
-                                break;
-                            }
-                            break;
-                    }
+                    createSpeaker();
                     continue;
                 case "3":
-                    System.out.println("Please enter the speaker's username");
-                    String name = reader.nextLine();
-                    // check if they are speaker.
-                    try {
-                        if (!usermanager.getUserType(name).equals("Speaker")) {
-                            System.out.println("This user is not a speaker.");
-                            continue;
-                    }} catch (Exception e) {
-                        System.out.println("Please enter a valid username\n");
-                        continue;
-                    }
-                    System.out.println("Showing all events:");
-                    ArrayList<String> allEvents = eventmanager.getAllEvents();
-                    for(int i = 0; i < allEvents.size(); i++){
-                        System.out.println("[" + i + "]" + allEvents.get(i));
-                    }
-                    System.out.println("Input the event number of an existing event to add speaker.\n" +
-                            "[r] show rooms and add new event.\n" +
-                            "[e] to exit.");
-                    command = reader.nextLine();
-                    switch (command){
-                        default:
-                            if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allEvents.size()){
-                                try {
-                                    eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
-                                    System.out.println("Successfully add the speaker to the event.\n");
-                                } catch (Exception e) {
-                                    System.out.println("Cannot add speaker to the event.\n");
-                                }
-                            }
-                            break;
-                            //TODO: fix UI.
-                        case "r":
-                            System.out.println("Here are the rooms.");
-                            ArrayList<String> roomLst = eventmanager.getAllRooms();
-                            for (String s : roomLst) {
-                                System.out.println(s);
-                            }
-                            System.out.println("Enter room number to check schedule of the room\n" +
-                                    "[a] to add new event\n" +
-                                    "[e] to exit");
-                            String command4 = reader.nextLine();
-                            switch (command4){
-                                case "a":
-                                    System.out.println("Please enter a room number.");
-                                    room = reader.nextLine();
-                                    System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
-                                    time1 = reader.nextLine();
-                                    System.out.println("Duration");
-                                    duration = reader.nextLine();
-                                    try {
-                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
-                                        System.out.println("done. Press enter to continue.");
-                                    } catch (Exception e) {
-                                        System.out.println("Sorry, cannot add event! Room unavailable or time not in" +
-                                                "valid spot.");
-                                        break;
-                                    }
-                                    reader.nextLine();
-                                    break;
-                                case "e":
-                                    System.out.println("bye bye. Press enter to continue.");
-                                    reader.nextLine();
-                                    break;
-                                default:
-                                    try{
-                                        ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command4));
-                                        for(Integer i: schedule){
-                                            System.out.println(eventmanager.findEventStr(i));
-                                        }
-                                    } catch (InvalidActivityException e) {
-                                        System.out.println("Sorry, cannot get event schedule. Event unavailable");
-                                        break;
-                                    }
-                                    System.out.println("Please enter the room number.");
-                                    room = reader.nextLine();
-                                    System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
-                                    time1 = reader.nextLine();
-                                    System.out.println("Duration");
-                                    duration = reader.nextLine();
-                                    try {
-                                        eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
-                                    } catch (Exception e) {
-                                        System.out.println("Sorry, cannot add event. Room unavailable.");
-                                        break;
-                                    }
-                                    System.out.println("Done. Back to the menu.\n");
-                                    break;
-                            }
-                            break;
-                        case "e":
-                            System.out.println("Press enter to exit to main menu");
-                            break;
-                    }
+                    scheduleSpeakers();
                     continue;
                 case "4":
                     sendMessageToSomeone(organizer);
@@ -302,4 +132,192 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         }
     }
 
+    private void manageRooms(){
+        System.out.println("Here is a list of rooms");
+        ArrayList<String> roomList = eventmanager.getAllRooms();
+        for (String s : roomList) {
+            System.out.println(s);
+        }
+        System.out.println("Manage rooms:\n" +
+                "[a] add a new room\n" +
+                "[b] see schedule of a certain room\n" +
+                "[e] exit to main menu.");
+        command = reader.nextLine();
+        switch (command){
+            case "a":
+                addNewRoom();
+                System.out.println("Adding successful. Press enter to continue.");
+                command = reader.nextLine();
+                break;
+            case "b":
+                checkRoom();
+                command = reader.nextLine();
+                break;
+            case "e":
+                break;
+            default:
+                System.out.println("Invalid input. Press enter to continue");
+                command = reader.nextLine();
+                break;
+        }
+    }
+
+    private void addNewRoom(){
+        System.out.println("Please enter a new room number.");
+        roomNumber = reader.nextLine();
+        System.out.println("Please enter the room size.");
+        size = reader.nextLine();
+        eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
+    }
+
+    private void checkRoom(){
+        System.out.println("Please enter a room number.");
+        roomNumber = reader.nextLine();
+        try{
+            ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
+            for(Integer i: schedule){
+                System.out.println(eventmanager.findEventStr(i));
+            }
+        } catch (InvalidActivityException e) {
+            System.out.println("Please enter a valid room number. Press anything to return to main menu.");
+            return;
+        }
+        System.out.println("That's everything. Press enter to continue.");
+    }
+
+    private void createSpeaker(){
+        System.out.println("You want a promotion or a creation?\n " +
+                "[a] promotion\n " +
+                "[b] creation");
+        command = reader.nextLine();
+        switch (command){
+            case "a":
+                promoteExistingSpeaker();
+                break;
+            case "b":
+                System.out.println("Please enter a new username");
+                String username = reader.nextLine();
+                System.out.println("Please enter a password");
+                String password = reader.nextLine();
+                try {
+                    usermanager.createUserAccount("Speaker", username, password);
+                    System.out.println("Successfully create a new user.");
+                } catch (Exception e) {
+                    System.out.println("Username already exists.");
+                    break;
+                }
+                break;
+        }
+    }
+
+    private void promoteExistingSpeaker(){
+        System.out.println("Note that promotion will make that user the speaker of all their " +
+                "signed events.\n" +
+                "Enter a username to promote him/her a speaker.");
+        String name = reader.nextLine();
+        try {
+            usermanager.becomeSpeaker(name);
+        } catch (Exception e) {
+            System.out.println("the user does not exist. Press anything to return to main menu.");
+            return;
+        }
+        eventmanager.becomeSpeaker(name);
+    }
+
+    private void scheduleSpeakers(){
+        System.out.println("Please enter the speaker's username");
+        String name = reader.nextLine();
+        // check if they are speaker.
+        try {
+            if (!usermanager.getUserType(name).equals("Speaker")) {
+                System.out.println("This user is not a speaker.");
+                return;
+            }} catch (Exception e) {
+            System.out.println("Please enter a valid username\n");
+            return;
+        }
+        System.out.println("Showing all events:");
+        ArrayList<String> allEvents = eventmanager.getAllEvents();
+        for(int i = 0; i < allEvents.size(); i++){
+            System.out.println("[" + i + "]" + allEvents.get(i));
+        }
+        System.out.println("Input the event number of an existing event to add speaker.\n" +
+                "[r] show rooms and add new event.\n" +
+                "[e] to exit.");
+        command = reader.nextLine();
+        switch (command){
+            default:
+                if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allEvents.size()){
+                    try {
+                        eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                        System.out.println("Successfully add the speaker to the event.\n");
+                    } catch (Exception e) {
+                        System.out.println("Cannot add speaker to the event.\n");
+                    }
+                }
+                break;
+            //TODO: fix UI.
+            case "r":
+                System.out.println("Here are the rooms.");
+                ArrayList<String> roomLst = eventmanager.getAllRooms();
+                for (String s : roomLst) {
+                    System.out.println(s);
+                }
+                System.out.println("Enter room number to check schedule of the room\n" +
+                        "[a] to add new event\n" +
+                        "[e] to exit");
+                String command4 = reader.nextLine();
+                switch (command4){
+                    case "a":
+                        System.out.println("Please enter a room number.");
+                        room = reader.nextLine();
+                        System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
+                        time1 = reader.nextLine();
+                        System.out.println("Duration");
+                        duration = reader.nextLine();
+                        try {
+                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                            System.out.println("done. Press enter to continue.");
+                        } catch (Exception e) {
+                            System.out.println("Sorry, cannot add event! Room unavailable or time not in" +
+                                    "valid spot.");
+                            break;
+                        }
+                        reader.nextLine();
+                        break;
+                    case "e":
+                        System.out.println("bye bye. Press enter to continue.");
+                        reader.nextLine();
+                        break;
+                    default:
+                        try{
+                            ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command4));
+                            for(Integer i: schedule){
+                                System.out.println(eventmanager.findEventStr(i));
+                            }
+                        } catch (InvalidActivityException e) {
+                            System.out.println("Sorry, cannot get event schedule. Event unavailable");
+                            break;
+                        }
+                        System.out.println("Please enter the room number.");
+                        room = reader.nextLine();
+                        System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
+                        time1 = reader.nextLine();
+                        System.out.println("Duration");
+                        duration = reader.nextLine();
+                        try {
+                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                        } catch (Exception e) {
+                            System.out.println("Sorry, cannot add event. Room unavailable.");
+                            break;
+                        }
+                        System.out.println("Done. Back to the menu.\n");
+                        break;
+                }
+                break;
+            case "e":
+                System.out.println("Press enter to exit to main menu");
+                break;
+        }
+    }
 }
