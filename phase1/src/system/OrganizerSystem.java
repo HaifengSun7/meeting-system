@@ -245,12 +245,12 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     private void scheduleSpeakers(){
         System.out.println("Please enter the speaker's username");
         String name = reader.nextLine();
-        // check if they are speaker.
         try {
             if (!usermanager.getUserType(name).equals("Speaker")) {
                 System.out.println("This user is not a speaker.");
                 return;
-            }} catch (Exception e) {
+            }
+        } catch (Exception e) {
             System.out.println("Please enter a valid username\n");
             return;
         }
