@@ -260,6 +260,7 @@ public class EventManager {
             }
             else{
                 j.setSpeaker(attendee);
+                System.out.println("Successfully set "+attendee+" to be the speaker of event"+j.getId()+"\n");
             }
         }
     }

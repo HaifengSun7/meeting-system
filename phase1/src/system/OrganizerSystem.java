@@ -116,6 +116,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             String password = reader.nextLine();
                             try {
                                 usermanager.createUserAccount("Speaker", username, password);
+                                System.out.println("Successfully create a new user.");
                             } catch (Exception e) {
                                 System.out.println("Username already exists.");
                                 break;
@@ -127,9 +128,13 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     System.out.println("Please enter the speaker's username");
                     String name = reader.nextLine();
                     // check if they are speaker.
-                    if (!usermanager.getUserType(name).equals("Speaker")) {
-                        System.out.println("This user is not a speaker.");
-                        continue;
+                    try {
+                        if (!usermanager.getUserType(name).equals("Speaker")) {
+                            System.out.println("This user is not a speaker.");
+                            continue;
+                    }} catch (Exception e) {
+                        System.out.println("Please enter a valid username");
+                        break;
                     }
                     System.out.println("Showing all events:");
                     ArrayList<String> allEvents = eventmanager.getAllEvents();
@@ -145,6 +150,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allEvents.size()){
                                 try {
                                     eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                                    System.out.println("Successfully add the speaker to the event.");
                                 } catch (Exception e) {
                                     System.out.println("Cannot add speaker to the event");
                                 }
@@ -234,7 +240,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                 case "e":
                     break;
                 default:
-                    System.out.println("Please press the right key.");
+                    System.out.println("Please press the right key.\n");
                     continue;
             }
             break;
