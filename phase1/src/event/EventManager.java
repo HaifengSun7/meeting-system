@@ -245,6 +245,20 @@ public class EventManager {
         }
     }
 
+    public boolean cancelEvent(String eventId) throws NoSuchEventException{
+        for (Integer id: map.keySet()) {
+            if (id == Integer.parseInt(eventId)) {
+                map.remove(id);
+                for (Room r: rooms) {
+                    if (r.getSchedule().contains(id)) {
+                        r.removeEvent(id);
+                    }
+                }
+            }return true;
+        }
+        throw new NoSuchEventException("NoSuchEvent: " + eventId);
+    }
+
     /**
      * Make attendee a speaker by updating all events related with them.
      * Tips:
