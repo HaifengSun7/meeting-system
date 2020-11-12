@@ -8,7 +8,7 @@ import java.util.*;
  * Iterates through a list of String prompts
  */
 public class EventIterator implements Iterator<String[]> {
-    private List<String[]> eventinfo = new ArrayList<>();
+    private List<String[]> eventInfo = new ArrayList<>();
     private int current = 0;
 
     /**
@@ -20,7 +20,7 @@ public class EventIterator implements Iterator<String[]> {
             Scanner myReader = new Scanner(new File("src/resources/event.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                eventinfo.add(data.split(","));
+                eventInfo.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -35,7 +35,7 @@ public class EventIterator implements Iterator<String[]> {
      */
     @Override
     public boolean hasNext() {
-        return current < eventinfo.size();
+        return current < eventInfo.size();
     }
 
     /**
@@ -51,7 +51,7 @@ public class EventIterator implements Iterator<String[]> {
         // But Iterator's next() needs to throw a
         // NoSuchElementException if there are no more elements.
         try {
-            res = eventinfo.get(current);
+            res = eventInfo.get(current);
         } catch (IndexOutOfBoundsException e) {
             throw new NoSuchElementException();
         }

@@ -202,7 +202,7 @@ public class EventManager {
         for (Room r : rooms) {
             if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                 for (int id : r.getSchedule()) {
-                    if (map.get(id).contradicts(time, length) || !map.get(id).inOfficeHour()) {
+                    if (map.get(id).contradicts(time, length)) {
                         return false;
                     }
                 }
@@ -222,6 +222,10 @@ public class EventManager {
      */
     public void addEvent(String roomNo, Timestamp time, int meetingLength) throws InvalidActivityException {
         try {
+            if (!inOfficeHour(time)){
+                System.out.println("This time slot is not available");
+                return;
+            }
             if (ifRoomAvailable(roomNo, time, meetingLength)) {
                 Event newEvent = new Event(time);
                 map.put(newEvent.getId(), newEvent);
@@ -232,7 +236,7 @@ public class EventManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Give me a proper room number.");
+            System.out.println("Please enter a proper room number.");
             throw new InvalidActivityException();
         }
     }
@@ -364,4 +368,20 @@ public class EventManager {
             return "(No speaker yet.)";
         }
     }
+
+    private boolean inOfficeHour(Timestamp time){
+        String t = time.toString();
+        int hour = Integer.parseInt(String.valueOf(t.charAt(11))+String.valueOf(t.charAt(12)));
+        int min = Integer.parseInt(String.valueOf(t.charAt(14))+String.valueOf(t.charAt(15)));
+        int sec = Integer.parseInt(String.valueOf(t.charAt(17))+String.valueOf(t.charAt(18)));
+        if(hour >=9){
+            if(hour == 16 && min == 0 && sec == 0){
+                return true;
+            }else{
+                return hour < 16;
+            }
+        }
+        return false;
+    }
+
 }

@@ -117,23 +117,6 @@ public class Event {
     }
 
     /**
-     * Check if the time is in proper working time so that attendees can attend.
-     * @return a boolean of whether the time slot is in working time.
-     */
-    public boolean inOfficeHour(){
-        int hour = this.getHour();
-        int min = this.getMin();
-        if(hour >=9){
-            if(hour ==16 && min == 0){
-                return true;
-            }else{
-                return hour < 16;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Check if the event contradicts the other event in time.
      * @param start: start time, length: length add in the start time.
      * @return A boolean showing if the two events contradicts. true for contradict.
@@ -151,40 +134,6 @@ public class Event {
         else{
             return length >diff_h;
         }
-    }
-
-    private int getHour(){
-        String t = this.time.toString();
-        ArrayList<Integer> time_list = new ArrayList<>();
-        for(int i = 0; i < t.length(); i++){
-            char y = ':';
-            char x = t.charAt(i);
-            if(x == y){
-                String t1 = String.valueOf(t.charAt(i-2));
-                String t2 = String.valueOf(t.charAt(i-1));
-                String time = t1 + t2;
-                int tt = Integer.parseInt(time);
-                time_list.add(tt);
-            }
-        }
-        return time_list.get(0);
-    }
-
-    private int getMin(){
-        String t = this.time.toString();
-        ArrayList<Integer> time_list = new ArrayList<>();
-        for(int i = 0; i < t.length(); i++){
-            char y = ':';
-            char x = t.charAt(i);
-            if(x == y){
-                String t1 = String.valueOf(t.charAt(i-2));
-                String t2 = String.valueOf(t.charAt(i-1));
-                String time = t1 + t2;
-                int tt = Integer.parseInt(time);
-                time_list.add(tt);
-            }
-        }
-        return time_list.get(1);
     }
 
     private int getLength(){return this.length;}
