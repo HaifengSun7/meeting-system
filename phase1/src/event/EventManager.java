@@ -319,7 +319,7 @@ public class EventManager {
 
 
     /**
-     * Added for Write. DO NOT CHANGE ANYTHING!
+     * Added for Write.
      * @return A hashmap.
      */
     public HashMap<Integer, Integer> getRoomNumberMapToCapacity(){
