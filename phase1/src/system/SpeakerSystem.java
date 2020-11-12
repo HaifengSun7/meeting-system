@@ -117,6 +117,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         System.out.println("Which message would you like to respond?");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
+        if(msgInbox.isEmpty()){
+            System.out.println("Your inbox is empty. Press enter to exit to main menu.");
+            return;
+        }
         for(int i = 0; i < msgInbox.size(); i++){
             System.out.println("[" + i + "] " + msgInbox.get(i));
         }
