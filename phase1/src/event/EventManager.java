@@ -132,7 +132,7 @@ public class EventManager {
             Room room = this.findRoom(roomNumber);
             return room.getSchedule();
         } catch (InvalidActivityException e) {
-            System.out.println("Give me a proper room number you dumb dumb");
+            System.out.println("Sorry, please give a proper room number");
             throw new InvalidActivityException();
         }
     }
