@@ -254,7 +254,7 @@ public class EventManager {
      *
      * @param attendee Attendee but string.
      */
-    public void becomeSpeaker(String attendee) throws Exception {
+    public void becomeSpeaker(String attendee){
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for(Event i :events){
@@ -276,7 +276,7 @@ public class EventManager {
     /**
      * Return all events in an ArrayList of Strings.
      *
-     * @return all events. Index = eventnumber.
+     * @return all events. Index = event number.
      */
     public ArrayList<String> getAllEvents() {
         ArrayList<String> events = new ArrayList<String>();
@@ -313,7 +313,7 @@ public class EventManager {
                 throw new InvalidUserException("Invalid user type");
             }
         } else {
-            throw new NoSuchEventException("NoSuchEvent: " + String.valueOf(eventNumber));
+            throw new NoSuchEventException("NoSuchEvent: " + eventNumber);
         }
     }
 

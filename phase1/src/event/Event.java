@@ -1,14 +1,8 @@
 package event;
 
-import com.sun.scenario.animation.shared.TimerReceiver;
-import user.User;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString

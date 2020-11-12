@@ -132,7 +132,7 @@ public class UserManager {
             speaker.setContactList(contactlist);
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
-            return signedEvent;
+            return signedEvent; //TODO:Is this necessary?
         }
     }
 
