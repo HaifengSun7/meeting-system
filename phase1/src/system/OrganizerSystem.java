@@ -30,7 +30,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
 
     public void run() {
         while(true){
-            System.out.println("Name:" + organizer.toString());
+            System.out.println("Name:" + organizer);
             System.out.println("Organizer");
             System.out.println("[1] see and manage rooms\n" +
                     "[2] create speaker account\n" +
@@ -161,8 +161,8 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                         case "r":
                             System.out.println("Here are the rooms.");
                             ArrayList<String> roomLst = eventmanager.getAllRooms();
-                            for(int i = 0; i < roomLst.size(); i++){
-                                System.out.println(roomLst.get(i));
+                            for (String s : roomLst) {
+                                System.out.println(s);
                             }
                             System.out.println("Enter room number to check schedule of the room\n" +
                                     "[a] to add new event\n" +
