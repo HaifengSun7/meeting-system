@@ -28,11 +28,12 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     "[3] Message a particular Attendee who signed up for a particular event\n" +
                     "[4] Respond to an attendee\n" +
                     "[5] Check your inbox\n" +
-                    "[e] exit");
+                    "[e] Save and log out");
             String command = reader.nextLine();
 
             switch (command) {
                 case "e":
+                    usermanager.logout(speaker);
                     break;
                 case "1":   //See the messages that the speaker gave
                     getSentMessages();
