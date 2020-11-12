@@ -20,7 +20,11 @@ public class Message {
     public Message(String sender, String receiver, String text){
         this.sender = sender;
         this.receiver = receiver;
-        this.text = text;
+        if(text.isEmpty()){
+            this.text = "(empty message)";
+        } else {
+            this.text = text;
+        }
     }
 
     /**
@@ -53,9 +57,6 @@ public class Message {
      */
     @Override
     public String toString(){
-        if(this.text.isEmpty()){
-            return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + "(empty text)";
-        }
         return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + this.text;
     }
 }
