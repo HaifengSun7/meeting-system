@@ -27,9 +27,9 @@ public class UserManager {
                 System.out.println("This should not be happening.");
             }
         }
-        UserIterator useriterator2 = new UserIterator();
-        while (useriterator2.hasNext()) {
-            temp = useriterator2.next(); //do something
+        UserIterator userIter = new UserIterator();
+        while (userIter.hasNext()) {
+            temp = userIter.next(); //do something
             for(int i = 3; i < temp.length; i++){
                 this.addContactList(temp[i], temp[0]);
             }
@@ -57,14 +57,14 @@ public class UserManager {
             throw new DuplicateUserNameException("DuplicateUserName : " + username);
         } else {
             if (usertype.equals("Speaker")) {
-                Speaker newuser = new Speaker(username, password);
-                addUser(newuser);
+                Speaker newUser = new Speaker(username, password);
+                addUser(newUser);
             } else if (usertype.equals("Organizer")) {
-                Organizer newuser = new Organizer(username, password);
-                addUser(newuser);
+                Organizer newUser = new Organizer(username, password);
+                addUser(newUser);
             } else {
-                Attendee newuser = new Attendee(username, password);
-                addUser(newuser);
+                Attendee newUser = new Attendee(username, password);
+                addUser(newUser);
             }
         }
     }
@@ -103,8 +103,13 @@ public class UserManager {
         }
     }
 
-    public void logout(User user){
-        user.setStatus(false);
+    public void logout(String username){
+        try {
+            User user = findUser(username);
+            user.setStatus(false);
+        } catch (Exception e){
+            System.out.println("The user doesn't exist.\n");
+        }
     }
 
     /**
@@ -201,5 +206,14 @@ public class UserManager {
 
     public String getPassword(String username) {
         return userMapping.get(username).password;
+    }
+
+    private User findUser(String userName) throws NoSuchUserException {
+        for(String name:userMapping.keySet()){
+            if(userName.equals(name)){
+                return userMapping.get(name);
+            }
+        }
+        throw new NoSuchUserException("the user does not exist.\n");
     }
 }

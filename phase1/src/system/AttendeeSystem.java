@@ -32,6 +32,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
             command = reader.nextLine();
             switch (command) {
                 case "e":
+                    usermanager.logout(attendee);
                     break;
                 case "1":
                     SignUpForEvent();

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendMessageToAll{
+
     private final String organizer;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
@@ -38,7 +39,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     "[5] Send message to all speakers\n" +
                     "[6] Send message to all attendees\n" +
                     "[7] See messages\n" +
-                    "[e] exit");
+                    "[e] Save and Log out");
             command = reader.nextLine();
             switch (command){
                 case "1":
@@ -237,6 +238,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     reader.nextLine();
                     continue;
                 case "e":
+                    usermanager.logout(organizer);
                     break;
                 default:
                     System.out.println("Please press the right key.\n");
@@ -246,7 +248,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
 
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
-        //write.run();
+        write.run();
     }
 
     @Override
