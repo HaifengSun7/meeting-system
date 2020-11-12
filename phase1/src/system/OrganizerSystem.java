@@ -163,7 +163,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             for(int i = 0; i < roomLst.size(); i++){
                                 System.out.println(roomLst.get(i));
                             }
-                            System.out.println("Enter room number to choose an event in some room\n" +
+                            System.out.println("Enter room number to check schedule of the room\n" +
                                     "[a] to add new event\n" +
                                     "[e] to exit");
                             String command4 = reader.nextLine();
@@ -211,7 +211,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                         System.out.println("Sorry, cannot add event. Room unavailable.");
                                         break;
                                     }
-                                    System.out.println("Done. Back to the menu.");
+                                    System.out.println("Done. Back to the menu.\n");
                                     break;
                             }
                             break;

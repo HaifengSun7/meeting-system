@@ -237,6 +237,8 @@ public class EventManager {
                         r.addEvent(newEvent.getId());
                     }
                 }
+            } else {
+                System.out.println("Failed to add event to room "+roomNo+": Time has been taken by other events.");
             }
         } catch (Exception e) {
             throw new InvalidActivityException();
