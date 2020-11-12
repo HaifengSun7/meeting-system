@@ -211,15 +211,13 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                                         System.out.println("Sorry, cannot add event. Room unavailable.");
                                         break;
                                     }
-                                    System.out.println("done. Press enter to continue.");
-                                    command = reader.next();
-                                    continue;
+                                    System.out.println("Done. Back to the menu.");
+                                    break;
                             }
-                            continue;
+                            break;
                         case "e":
                             System.out.println("Press enter to exit to main menu");
-                            reader.nextLine();
-                            continue;
+                            break;
                     }
                     continue;
                 case "4":
