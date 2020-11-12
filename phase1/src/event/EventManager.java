@@ -245,7 +245,7 @@ public class EventManager {
         }
     }
 
-    public boolean cancelEvent(String eventId) throws NoSuchEventException{
+    public void cancelEvent(String eventId) throws NoSuchEventException{
         for (Integer id: map.keySet()) {
             if (id == Integer.parseInt(eventId)) {
                 map.remove(id);
@@ -254,7 +254,8 @@ public class EventManager {
                         r.removeEvent(id);
                     }
                 }
-            }return true;
+            }System.out.println("Successfully cancel the event" + eventId);
+            return;
         }
         throw new NoSuchEventException("NoSuchEvent: " + eventId);
     }
