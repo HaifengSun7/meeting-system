@@ -247,16 +247,8 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         command = reader.nextLine();
         switch (command){
             default:
-                if(0 <= Integer.parseInt(command) && Integer.parseInt(command) <= allEvents.size()){
-                    try {
-                        eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
-                        System.out.println("Successfully add the speaker to the event.\n");
-                    } catch (Exception e) {
-                        System.out.println("Cannot add speaker to the event.\n");
-                    }
-                }
+                addSpeakerToEvent(allEvents, name);
                 break;
-            //TODO: fix UI.
             case "r":
                 System.out.println("Here are the rooms.");
                 ArrayList<String> roomLst = eventmanager.getAllRooms();
@@ -318,6 +310,19 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             case "e":
                 System.out.println("Press enter to exit to main menu");
                 break;
+        }
+    }
+
+    private void addSpeakerToEvent(ArrayList<String> allEvents, String name){
+        if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){
+            try {
+                eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
+                System.out.println("Successfully add the speaker to the event.\n");
+            } catch (Exception e) {
+                System.out.println("Cannot add speaker to the event.\n");
+            }
+        } else {
+            System.out.println("Please enter a valid event ID.");
         }
     }
 }
