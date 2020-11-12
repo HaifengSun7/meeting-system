@@ -28,6 +28,7 @@ public class EventManager {
     private Map<Integer, Event> map = new HashMap<Integer, Event>();
 
     public EventManager() {
+        Event.resetID();
         rooms = new ArrayList<Room>();
         int j;
         int k = 0;

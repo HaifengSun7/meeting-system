@@ -5,12 +5,13 @@ import java.util.Scanner;
 
 public class LogInSystem {
 
-    UserManager usermanager = new UserManager();
+    UserManager usermanager;
     public void run() {
         /*
           This method is in charge of logging in, separate the system and log out.
          */
         while(true){
+            usermanager = new UserManager();
             boolean logged_in = false;
             String user_type = "";
             String username = "";
