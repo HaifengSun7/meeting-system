@@ -34,7 +34,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             System.out.println("Organizer");
             System.out.println("[1] see and manage rooms\n" +
                     "[2] create/promote speaker account\n" +
-                    "[3] Schedule speakers\n" +
+                    "[3] Schedule speakers and events\n" +
                     "[4] Send message to a particular person\n" +
                     "[5] Send message to all speakers\n" +
                     "[6] Send message to all attendees\n" +
@@ -141,6 +141,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         System.out.println("Manage rooms:\n" +
                 "[a] add a new room\n" +
                 "[b] see schedule of a certain room\n" +
+                "[c] add a new event\n" +
                 "[e] exit to main menu.");
         command = reader.nextLine();
         switch (command){
@@ -152,6 +153,23 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             case "b":
                 checkRoom();
                 command = reader.nextLine();
+                break;
+            case "c":
+                System.out.println("Please enter a room number.");
+                room = reader.nextLine();
+                System.out.println("StartTime. Format: yyyy-m[m]-d[d] hh:mm:ss[.f…]");
+                time1 = reader.nextLine();
+                System.out.println("Duration");
+                duration = reader.nextLine();
+                try {
+                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                    System.out.println("done. Press enter to continue.");
+                } catch (Exception e) {
+                    System.out.println("Sorry, cannot add event! Room unavailable or time not in" +
+                            "valid spot.");
+                        }
+                System.out.println("Press enter to continue.");
+                reader.nextLine();
                 break;
             case "e":
                 break;
@@ -242,7 +260,6 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
             System.out.println("[" + i + "]" + allEvents.get(i));
         }
         System.out.println("Input the event number of an existing event to add speaker.\n" +
-                "[r] show rooms and add new event.\n" +
                 "[e] to exit.");
         command = reader.nextLine();
         switch (command){
