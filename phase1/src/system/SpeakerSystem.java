@@ -27,6 +27,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     "[2] Message all Attendees who signed up for a particular event\n" +
                     "[3] Message a particular Attendee who signed up for a particular event\n" +
                     "[4] Respond to an attendee\n" +
+                    "[5] Check your inbox\n" +
                     "[e] exit");
             String command = reader.nextLine();
 
@@ -46,6 +47,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     continue;
                 case "4": //respond to an Attendee
                     respondToAttendee();
+                    reader.nextLine();
+                    continue;
+                case "5": //see message inbox
+                    seeMessages(speaker);
                     reader.nextLine();
                     continue;
                 default:
