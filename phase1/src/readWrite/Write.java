@@ -1,4 +1,4 @@
-package ReadWrite;
+package readWrite;
 
 import event.EventManager;
 import message.MessageManager;

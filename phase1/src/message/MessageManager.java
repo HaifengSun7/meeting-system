@@ -1,6 +1,6 @@
 package message;
 
-import ReadWrite.MessageIterator;
+import readWrite.MessageIterator;
 
 import java.util.ArrayList;
 

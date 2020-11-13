@@ -1,8 +1,8 @@
 package event;
 
 
-import ReadWrite.EventIterator;
-import ReadWrite.RoomIterator;
+import readWrite.EventIterator;
+import readWrite.RoomIterator;
 import user.UserManager;
 
 import javax.activity.InvalidActivityException;

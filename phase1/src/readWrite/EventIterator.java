@@ -1,4 +1,4 @@
-package ReadWrite;
+package readWrite;
 
 import java.io.File;
 import java.io.FileNotFoundException;

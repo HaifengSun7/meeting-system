@@ -1,4 +1,4 @@
-package ReadWrite;
+package readWrite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,24 +7,24 @@ import java.util.*;
 /**
  * Iterates through a list of String prompts
  */
-public class RoomIterator implements Iterator<String[]> {
-    private List<String[]> roominfo = new ArrayList<>();
+public class MessageIterator implements Iterator<String[]> {
+    private List<String[]> messageinfo = new ArrayList<>();
     private int current = 0;
 
     /**
      * The prompt Strings are read from a file, room_properties.txt,
      * and added to the list of room properties.
      */
-    public RoomIterator() {
+    public MessageIterator() {
         try {
-            Scanner myReader = new Scanner(new File("src/resources/room.csv"));
+            Scanner myReader = new Scanner(new File("src/resources/message.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                roominfo.add(data.split(","));
+                messageinfo.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("room.csv is missing");
+            System.out.println("message.csv is missing");
             e.printStackTrace();
         }
     }
@@ -35,7 +35,7 @@ public class RoomIterator implements Iterator<String[]> {
      */
     @Override
     public boolean hasNext() {
-        return current < roominfo.size();
+        return current < messageinfo.size();
     }
 
     /**
@@ -51,7 +51,7 @@ public class RoomIterator implements Iterator<String[]> {
         // But Iterator's next() needs to throw a
         // NoSuchElementException if there are no more elements.
         try {
-            res = roominfo.get(current);
+            res = messageinfo.get(current);
         } catch (IndexOutOfBoundsException e) {
             throw new NoSuchElementException();
         }

@@ -1,7 +1,7 @@
 package user;
 
-import ReadWrite.EventIterator;
-import ReadWrite.UserIterator;
+import readWrite.EventIterator;
+import readWrite.UserIterator;
 
 import java.util.ArrayList;
 import java.util.Collection;

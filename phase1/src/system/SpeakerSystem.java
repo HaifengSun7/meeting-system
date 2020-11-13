@@ -1,6 +1,6 @@
 package system;
 
-import ReadWrite.Write;
+import readWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
