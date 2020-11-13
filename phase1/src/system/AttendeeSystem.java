@@ -77,6 +77,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         }
         System.out.println("[e] exit to main menu");
         String receive = reader.nextLine();
+        try{
         if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) &&
                 (Integer.parseInt(receive) < contactList.size())) {
             String receiver = contactList.get(Integer.parseInt(receive));
@@ -85,7 +86,10 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
             messagemanager.sendMessage(attendee, receiver, message);
             System.out.println("Success! Press enter to continue");
         } else {
-            System.out.println("Press enter to exit to main menu");
+            System.out.println("input out of range, exiting to main menu...");
+        }
+        } catch(Exception e) {
+            System.out.println("Invalid Input, exiting to main menu...");
         }
     }
 
