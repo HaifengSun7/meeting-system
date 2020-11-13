@@ -1,5 +1,6 @@
 package system;
 import user.UserManager;
+import presenter.*;
 
 import java.util.Scanner;
 
@@ -16,9 +17,7 @@ public class LogInSystem {
             String user_type = "";
             String username = "";
             Scanner reader = new Scanner(System.in);// Reading from System.in
-            System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
-                    "Press [e] to quit the system.\n" +
-                    "Press anything else to log in.");
+            System.out.println(Presenter.login());
             String command = reader.nextLine();
             if ("e".equals(command)) {
                 break;
@@ -32,14 +31,14 @@ public class LogInSystem {
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (Exception e) {
-                        System.out.println("wrong username or password");
+                        System.out.println(Presenter.invalid("login"));
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
                 if (!logged_in) {
-                    System.out.println("Sorry, you don't have trials left.");
+                    System.out.println(Presenter.noTrials());
                     return;
                 }
                 switch (user_type) {
