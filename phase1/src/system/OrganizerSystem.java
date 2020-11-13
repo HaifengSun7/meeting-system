@@ -19,19 +19,13 @@ public class OrganizerSystem{
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    String command;
-    String roomNumber;
-    String size;
-    String time1;
-    String duration;
-    String room;
-    String description;
 
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }
 
     public void run() {
+        String command;
         while(true){
             Presenter.name(organizer);
             Presenter.userType("Organizer");
@@ -66,7 +60,7 @@ public class OrganizerSystem{
                     Presenter.wrongKeyReminder();
                     Presenter.invalid("");
                     Presenter.continuePrompt();
-                    command = reader.nextLine();
+                    reader.nextLine();
                     continue;
             }
             break;
@@ -82,7 +76,7 @@ public class OrganizerSystem{
             System.out.println("[" + i + "] " + inbox.get(i)+"\n");
         }
         Presenter.exitToMainMenuPrompt();
-        command = reader.nextLine();
+        reader.nextLine();
     }
 
     // Send messages to all speakers or all attendees
@@ -132,26 +126,26 @@ public class OrganizerSystem{
             Presenter.defaultPrint(s);
         }
         Presenter.menusInSpeaker("manageRooms");
-        command = reader.nextLine();
+        String command = reader.nextLine();
         switch (command){
             case "a":
                 addNewRoom();
                 Presenter.continuePrompt();
-                command = reader.nextLine();
+                reader.nextLine();
                 break;
             case "b":
                 checkRoom();
-                command = reader.nextLine();
+                reader.nextLine();
                 break;
             case "c":
                 Presenter.inputPrompt("roomNumber");
-                room = reader.nextLine();
+                String room = reader.nextLine();
                 Presenter.inputPrompt("startTime");
-                time1 = reader.nextLine();
+                String time1 = reader.nextLine();
                 Presenter.inputPrompt("duration");
-                duration = reader.nextLine();
+                String duration = reader.nextLine();
                 Presenter.inputPrompt("description");
-                description = reader.nextLine();
+                String description = reader.nextLine();
                 try {
                     eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                     Presenter.continuePrompt();
@@ -165,16 +159,16 @@ public class OrganizerSystem{
             default:
                 Presenter.wrongKeyReminder();
                 Presenter.continuePrompt();
-                command = reader.nextLine();
+                reader.nextLine();
                 break;
         }
     }
 
     private void addNewRoom(){
         Presenter.inputPrompt("newRoomNumber");
-        roomNumber = reader.nextLine();
+        String roomNumber = reader.nextLine();
         Presenter.inputPrompt("roomSize");
-        size = reader.nextLine();
+        String size = reader.nextLine();
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
@@ -185,7 +179,7 @@ public class OrganizerSystem{
 
     private void checkRoom(){
         Presenter.inputPrompt("roomNumber");
-        roomNumber = reader.nextLine();
+        String roomNumber = reader.nextLine();
         try{
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
             for(Integer i: schedule){
@@ -194,18 +188,18 @@ public class OrganizerSystem{
         } catch (InvalidActivityException e) {
             Presenter.invalid("roomNumber");
             Presenter.continuePrompt();
-            command = reader.nextLine();
+            reader.nextLine();
             return;
         }
         Presenter.titlesInSpeaker("checkRoom");
         Presenter.continuePrompt();
         Presenter.continuePrompt();
-        command = reader.nextLine();
+        reader.nextLine();
     }
 
     private void createSpeaker(){
         Presenter.menusInSpeaker("createSpeaker");
-        command = reader.nextLine();
+        String command = reader.nextLine();
         switch (command){
             case "a":
                 promoteExistingSpeaker();
@@ -234,7 +228,7 @@ public class OrganizerSystem{
         } catch (Exception e) {
             Presenter.invalid("username");
             Presenter.continuePrompt();
-            command = reader.nextLine();
+            reader.nextLine();
             return;
         }
         eventmanager.becomeSpeaker(name);
@@ -259,10 +253,10 @@ public class OrganizerSystem{
         }
         Presenter.menusInSpeaker("scheduleSpeakers1");
                 Presenter.exitToMainMenuPrompt();
-        command = reader.nextLine();
+        String command = reader.nextLine();
         switch (command){
             default:
-                addSpeakerToEvent(allEvents, name);
+                addSpeakerToEvent(allEvents, name, command);
                 break;
             case "r":
                 Presenter.titlesInSpeaker("scheduleSpeakers2");
@@ -276,13 +270,13 @@ public class OrganizerSystem{
                 switch (command4){
                     case "a":
                         Presenter.inputPrompt("roomNumber");
-                        room = reader.nextLine();
+                        String room = reader.nextLine();
                         Presenter.inputPrompt("startTime");
-                        time1 = reader.nextLine();
+                        String time1 = reader.nextLine();
                         Presenter.inputPrompt("duration");
-                        duration = reader.nextLine();
+                        String duration = reader.nextLine();
                         Presenter.inputPrompt("description");
-                        description = reader.nextLine();
+                        String description = reader.nextLine();
                         try {
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                             Presenter.continuePrompt();
@@ -291,7 +285,7 @@ public class OrganizerSystem{
                             break;
                         }
                         Presenter.continuePrompt();
-                        command = reader.nextLine();
+                        reader.nextLine();
                         break;
                     case "e":
                         Presenter.exitingToMainMenu();
@@ -322,7 +316,7 @@ public class OrganizerSystem{
                         }
                         Presenter.success();
                         Presenter.continuePrompt();
-                        command = reader.nextLine();
+                        reader.nextLine();
                         break;
                 }
                 break;
@@ -332,7 +326,7 @@ public class OrganizerSystem{
         }
     }
 
-    private void addSpeakerToEvent(ArrayList<String> allEvents, String name){
+    private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command){
         if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
