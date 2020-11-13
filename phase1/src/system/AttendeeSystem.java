@@ -47,7 +47,7 @@ public class AttendeeSystem{
                     Presenter.wrongKeyReminder();
                     Presenter.invalid("");
                     Presenter.continuePrompt();
-                    command = reader.nextLine();
+                    reader.nextLine();
                     continue;
             }
             break;
@@ -106,7 +106,7 @@ public class AttendeeSystem{
         String command = reader.nextLine();
         if (!("e".equals(command))) {
             try {
-                eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
+                eventmanager.addUserToEvent("attendee", attendee, Integer.parseInt(example_list.get(Integer.parseInt(command))));
             } catch (Exception e) {
                 Presenter.invalid("");
                 return;
