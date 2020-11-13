@@ -190,7 +190,10 @@ public class UserManager {
 
     public void addContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
-        lst.add(contactName);
+        if(!(lst.contains(username)))
+        {
+            lst.add(contactName);
+        }
         userMapping.get(username).setContactList(lst);
     }
 

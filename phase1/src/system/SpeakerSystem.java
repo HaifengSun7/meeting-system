@@ -115,11 +115,20 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
 
     private void getSentMessages(){
         ArrayList<String> messageList = messagemanager.getSent(speaker);
+        addAllToMessageList();
         for (int i = 0; i < messageList.size(); i++) {
             Presenter.defaultPrint("[" + i + "] " + messageList.get(i));
         }
         Presenter.continuePrompt();
         reader.nextLine();
+    }
+
+    private void addAllToMessageList() {
+        ArrayList<String> inboxSenders = messagemanager.getInboxSender(speaker);
+        for(String sender: inboxSenders){
+            usermanager.addContactList(sender, speaker);
+        }
+        Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
     public void respondToAttendee(String speaker){

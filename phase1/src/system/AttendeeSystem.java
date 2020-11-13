@@ -58,12 +58,20 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
 
     @Override
     public void seeMessages(String attendee) {
+        addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(attendee);
         for(int i = 0; i < inbox.size(); i++){
             Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         Presenter.continuePrompt();
         command = reader.nextLine();
+    }
+    private void addAllToMessageList() {
+        ArrayList<String> inboxSenders = messagemanager.getInboxSender(attendee);
+        for(String sender: inboxSenders){
+            usermanager.addContactList(sender, attendee);
+        }
+        Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
     @Override
