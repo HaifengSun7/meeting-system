@@ -95,7 +95,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
 
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
-        System.out.println("Here are the existing events. Enter event id to choose the event.");
+        System.out.println("Here are the existing events. Enter serial number to choose the event.");
         for (int i = 0; i < example_list.size(); i++) {
             System.out.println("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
