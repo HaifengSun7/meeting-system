@@ -20,7 +20,7 @@ public class Presenter {
     public static void organizerMenu() {
         System.out.println("[1] see and manage rooms\n" +
                 "[2] create/promote speaker account\n" +
-                "[3] Schedule speakers and events\n" +
+                "[3] Schedule speakers and their events\n" +
                 "[4] Send message to a particular person\n" +
                 "[5] Send message to all speakers\n" +
                 "[6] Send message to all attendees\n" +
@@ -81,6 +81,9 @@ public class Presenter {
                 break;
             case "roomNumber":
                 System.out.println("Please enter a room number:");
+                break;
+            case "description":
+                System.out.println("Please input a short description that does not have a comma");
                 break;
             case "newRoomNumber":
                 System.out.println("Please enter a new room number:");

@@ -38,7 +38,7 @@ public class UserManager {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            for(int j = 3; j < temp2.length; j++){
+            for(int j = 4; j < temp2.length; j++){
                 try {
                     this.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {

@@ -73,6 +73,7 @@ public class Write {
             String duration;
             ArrayList<String> attendees;
             String speaker;
+            String description;
             i = 0;
             for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
                 Integer event = item.getKey();
@@ -81,11 +82,14 @@ public class Write {
                 duration = eventmanager.getDuration(event);
                 attendees = eventmanager.getAttendees(String.valueOf(event));
                 speaker = eventmanager.getSpeakers(event);
+                description = eventmanager.getDescription(event);
                 eventWriter.append(String.valueOf(room2));
                 eventWriter.append(",");
                 eventWriter.append(time);
                 eventWriter.append(",");
                 eventWriter.append(duration); //TODO: duration not right.
+                eventWriter.append(",");
+                eventWriter.append(description);
                 for(String attendee : attendees){
                     eventWriter.append(",");
                     eventWriter.append(attendee);

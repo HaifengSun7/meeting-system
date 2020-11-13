@@ -49,7 +49,7 @@ public class EventManager {
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
             try {
-                this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]));
+                this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
             } catch (Exception e) {
                 System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
             }
@@ -240,7 +240,7 @@ public class EventManager {
      * @param meetingLength: time length of the event.
      * @throws InvalidActivityException: if cannot find a room with room number roomNo.
      */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength) throws InvalidActivityException {
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws InvalidActivityException {
         System.out.println("Adding event to room "+roomNo+", time: "+time.toString()+" Duration: "+meetingLength);
         try {
             if (!inOfficeHour(time)){
@@ -250,6 +250,7 @@ public class EventManager {
             if (ifRoomAvailable(roomNo, time, meetingLength)) {
                 Event newEvent = new Event(time);
                 map.put(newEvent.getId(), newEvent);
+                newEvent.setDescription(description);
                 for (Room r : rooms) {
                     if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                         r.addEvent(newEvent.getId());
@@ -357,8 +358,8 @@ public class EventManager {
 
 
     /**
-     * Added for Write.
-     * @return A hashmap.
+     * Get a hash map that keys are room numbers and values are their capacities.
+     * @return A hashmap that maps room numbers to their capacities.
      */
     public HashMap<Integer, Integer> getRoomNumberMapToCapacity(){
         HashMap<Integer, Integer> result = new HashMap<>();
@@ -368,6 +369,10 @@ public class EventManager {
         return result;
     }
 
+    /**
+     * Get a hashmap that keys are eventID and values are room numbers.
+     * @return a hashmap that keys are eventID and values are room numbers.
+     */
     public HashMap<Integer, Integer> getEventIDMapToRoomNumber(){
         HashMap<Integer, Integer> result = new HashMap<>();
         for(Room room: rooms){
@@ -427,4 +432,8 @@ public class EventManager {
         return false;
     }
 
+
+    public String getDescription(Integer event) {
+        return map.get(event).getDescription();
+    }
 }

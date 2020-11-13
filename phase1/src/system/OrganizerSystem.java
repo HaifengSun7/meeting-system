@@ -19,12 +19,13 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    String command; //command buffer
-    String roomNumber;//roomNumber buffer
-    String size;//size buffer
+    String command;
+    String roomNumber;
+    String size;
     String time1;
     String duration;
     String room;
+    String description;
 
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
@@ -152,8 +153,10 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                 time1 = reader.nextLine();
                 Presenter.inputPrompt("duration");
                 duration = reader.nextLine();
+                Presenter.inputPrompt("description");
+                description = reader.nextLine();
                 try {
-                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                     Presenter.continuePrompt();
                 } catch (Exception e) {
                     Presenter.invalid("addEvent");
@@ -281,8 +284,10 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                         time1 = reader.nextLine();
                         Presenter.inputPrompt("duration");
                         duration = reader.nextLine();
+                        Presenter.inputPrompt("description");
+                        description = reader.nextLine();
                         try {
-                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                             Presenter.continuePrompt();
                         } catch (Exception e) {
                             Presenter.invalid("addEvent");
@@ -310,8 +315,10 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                         time1 = reader.nextLine();
                         Presenter.inputPrompt("duration");
                         duration = reader.nextLine();
+                        Presenter.inputPrompt("description");
+                        description = reader.nextLine();
                         try {
-                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
+                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                         } catch (Exception e) {
                             Presenter.invalid("addEvent");
                             break;
