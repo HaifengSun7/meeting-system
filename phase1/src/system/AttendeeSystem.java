@@ -3,6 +3,7 @@ package system;
 import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
+import presenter.Presenter;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -22,13 +23,9 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
 
     public void run() {
         while (true){
-            System.out.println("Name:" + attendee);
-            System.out.println("Attendee");
-            System.out.println("[1] sign up for an event.\n" +
-                    "[2] See events that I have signed up for\n" +
-                    "[3] Send a message\n" +
-                    "[4] See messages\n" +
-                    "[e] Save and log out.");
+            System.out.println(Presenter.name() + attendee);
+            System.out.println(Presenter.user("Attendee"));
+            System.out.println(Presenter.attendeeMenu());
             command = reader.nextLine();
             switch (command) {
                 case "e":

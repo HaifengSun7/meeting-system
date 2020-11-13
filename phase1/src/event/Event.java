@@ -130,6 +130,9 @@ public class Event {
         }
     }
 
+    /**
+     * Reset the event number to 0 so that it counts from 0 in the next time loading events.csv.
+     */
     public static void resetID(){
         eventNumber = 0;
     }

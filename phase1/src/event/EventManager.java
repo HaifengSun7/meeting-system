@@ -341,7 +341,6 @@ public class EventManager {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {
                     map.get(eventNumber).setSpeaker(username);
-                    signUp(String.valueOf(eventNumber), username);
                 } else {
                     throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " +
                             map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));

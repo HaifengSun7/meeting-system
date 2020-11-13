@@ -2,7 +2,6 @@ package message;
 
 import ReadWrite.MessageIterator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
