@@ -4,6 +4,7 @@ import ReadWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
+import presenter.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,14 +22,9 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
 
     public void run() {
         while (true) {
-            System.out.println("Name:" + speaker);
-            System.out.println("Speaker");
-            System.out.println("[1] See a list of messages the speaker gave.\n" +
-                    "[2] Message all Attendees who signed up for a particular event\n" +
-                    "[3] Message a particular Attendee who signed up for a particular event\n" +
-                    "[4] Respond to an attendee\n" +
-                    "[5] Check your inbox\n" +
-                    "[e] Save and log out");
+            System.out.println(Presenter.name() + speaker);
+            System.out.println(Presenter.user("Speaker"));
+            System.out.println(Presenter.speakerMenu());
             String command = reader.nextLine();
 
             switch (command) {
@@ -55,7 +51,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     reader.nextLine();
                     continue;
                 default:
-                    System.out.println("Please press the right key.");
+                    System.out.println(Presenter.wrongKeyRemainderInMenu());
                     continue;
             }
             break;
@@ -70,48 +66,48 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         for(int i = 0; i < inbox.size(); i++){
             System.out.println("[" + i + "] " + inbox.get(i));
         }
-        System.out.println("Press enter to exit to main menu");
+        System.out.println(Presenter.pressEnterToMainMenu());
     }
 
     @Override
     public void sendMessageToAll(String speaker, String object) {
         if ("attendee".equals(object)) {
-            System.out.println("Event Id that you want to send messages");
+            System.out.println(Presenter.input("eventIdSendMessage"));
             String eventId = reader.nextLine();
-            System.out.println("Messages that you are sending to all attendees");
+            System.out.println(Presenter.input("message"));
             String messageToAllAttendees = reader.nextLine();
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                 messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
             } catch (Exception e) {
-                System.out.println("Don't have that event, please check the availability of that event");
+                System.out.println(Presenter.invalid("eventId"));
             }
-            System.out.println("Success! Press something to continue");
+            System.out.println(Presenter.successPressEnter());
         }
     }
 
     @Override
     public void sendMessageToSomeone(String speaker) {
-        System.out.println("Which single person you want to send message?");
+        System.out.println(Presenter.input("username"));
         ArrayList<String> contactList= usermanager.getContactList(speaker);
         for(int i = 0; i < contactList.size(); i++){
             System.out.println("[" + i + "] " + contactList.get(i));
         }
-        System.out.println("[e] exit to main menu");
+        System.out.println(Presenter.pressEtoMainMenu());
         String receive = reader.nextLine();
         try{
             if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
                 String receiver = contactList.get(Integer.parseInt(receive));
-                System.out.println("Now input your message. Hint: \\n and stuff.");
+                System.out.println(Presenter.input("message"));
                 String message = reader.nextLine();
                 messagemanager.sendMessage(speaker, receiver, message);
-                System.out.println("Success! Press anything to continue");
+                System.out.println(Presenter.successPressEnter());
                 reader.nextLine();
             } else {
-                System.out.println("Your input is out of range, please try again.\n");
+                System.out.println(Presenter.inputOutOfRange());
             }
         } catch(Exception e) {
-            System.out.println("Invalid input. Exiting to main menu. \n");
+            System.out.println(Presenter.invalid("default"));
         }
     }
 
@@ -120,36 +116,36 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         for (int i = 0; i < messageList.size(); i++) {
             System.out.println("[" + i + "] " + messageList.get(i));
         }
-        System.out.println("press any key to return to menu");
+        System.out.println(Presenter.pressEnterToMainMenu());
     }
 
     public void respondToAttendee(String speaker){
-        System.out.println("Which message would you like to respond?");
+        System.out.println(Presenter.input("messageToRespond"));
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
         if(msgInbox.isEmpty()){
-            System.out.println("Your inbox is empty. Press enter to exit to main menu.");
+            System.out.println(Presenter.emptyInbox());
             return;
         }
         for(int i = 0; i < msgInbox.size(); i++){
             System.out.println("[" + i + "] " + msgInbox.get(i));
         }
-        System.out.println("[e] exit to main menu");
+        System.out.println(Presenter.pressEtoMainMenu());
         String cmd = reader.nextLine();
         try{
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
-            System.out.println("Input your message");
+            System.out.println(Presenter.input("message"));
             String message = reader.nextLine();
             messagemanager.sendMessage(speaker, receiver, message);
-            System.out.println("Success");
+            System.out.println(Presenter.success());
         } else if("e".equals(cmd)){
-            System.out.println("Exiting\n");
+            System.out.println(Presenter.exitToMainMenu());
         } else {
-            System.out.println("Input out of range, exit to main menu and try again\n");
+            System.out.println(Presenter.inputOutOfRange());
         }
         } catch(Exception e) {
-            System.out.println("Invalid Input, exiting to main menu");
+            System.out.println(Presenter.invalid("default"));
         }
     }
 }
