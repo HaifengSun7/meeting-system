@@ -41,7 +41,7 @@ public class Presenter {
     }
 
     public static void password(String password) {
-        System.out.println("Name: " + password);
+        System.out.println("Password: " + password);
     }
 
     public static void userType(String usertype) {
