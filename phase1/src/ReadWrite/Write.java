@@ -90,10 +90,10 @@ public class Write {
                     eventWriter.append(",");
                     eventWriter.append(attendee);
                 }
-//                if (!(speaker.equals(""))){
-//                    eventWriter.append(",");
-//                    eventWriter.append(speaker);
-//                }
+                if (!(speaker.equals("(No speaker yet.)")) && !(speaker.equals(""))){
+                    eventWriter.append(",");
+                    eventWriter.append(speaker);
+                }
                 i += 1;
                 if(!(i == eventToRoom.entrySet().size())){eventWriter.append("\n");}
             }
@@ -113,11 +113,6 @@ public class Write {
             }
             messageWriter.flush();
             messageWriter.close();
-
-
-
-
-
 
         } catch (IOException e) {
             System.out.println("Some random shit happened i don't know dont ask me");
