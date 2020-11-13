@@ -74,6 +74,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         if ("attendee".equals(object)) {
             System.out.println(Presenter.input("eventIdSendMessage"));
             String eventId = reader.nextLine();
+            if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
             System.out.println(Presenter.input("message"));
             String messageToAllAttendees = reader.nextLine();
             try {
@@ -83,6 +84,9 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                 System.out.println(Presenter.invalid("eventId"));
             }
             System.out.println(Presenter.successPressEnter());
+            } else {
+                System.out.println("This is not your event. Please check your input. Exiting to main menu.");
+            }
         }
     }
 
