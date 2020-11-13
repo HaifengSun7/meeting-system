@@ -1,6 +1,7 @@
 package system;
 
 import ReadWrite.Write;
+import event.DuplicateRoomNoException;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
@@ -185,7 +186,11 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         roomNumber = reader.nextLine();
         System.out.println("Please enter the room size.");
         size = reader.nextLine();
-        eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
+        try {
+            eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
+        } catch (DuplicateRoomNoException e) {
+            System.out.println("You added a duplicate Room");
+        }
     }
 
     private void checkRoom(){
