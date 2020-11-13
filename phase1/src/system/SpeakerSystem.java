@@ -31,19 +31,22 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                 case "e":
                     usermanager.logout(speaker);
                     break;
-                case "1":   //See the messages that the speaker gave
+                case "1":   //See the events that the speaker gave
+                    checkTalkedEvent();
+                    continue;
+                case "2":   //See the messages that the speaker gave
                     getSentMessages();
                     continue;
-                case "2":  //send messages to all Attendees who signed up for a particular event
+                case "3":  //send messages to all Attendees who signed up for a particular event
                     sendMessageToAll(speaker, "attendee");
                     continue;
-                case "3": //send messages to a particular Attendee who signed up for a particular event
+                case "4": //send messages to a particular Attendee who signed up for a particular event
                     sendMessageToSomeone(speaker);
                     continue;
-                case "4": //respond to an Attendee
+                case "5": //respond to an Attendee
                     respondToAttendee(speaker);
                     continue;
-                case "5": //see message inbox
+                case "6": //see message inbox
                     seeMessages(speaker);
                     continue;
                 default:
@@ -160,6 +163,17 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         }
         } catch(Exception e) {
             Presenter.invalid("default");
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
+
+    private void checkTalkedEvent(){
+        ArrayList<String> eventsList = usermanager.getSignedEventList(speaker);
+        for (String s : eventsList) {
+            if (eventmanager.getSpeakers(Integer.valueOf(s)).equals(speaker)){
+                System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
+            }
         }
         Presenter.continuePrompt();
         reader.nextLine();
