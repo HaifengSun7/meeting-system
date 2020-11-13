@@ -9,11 +9,12 @@ public class Presenter {
     }
 
     public static void speakerMenu() {
-        System.out.println("[1] See a list of messages the speaker gave.\n" +
-                "[2] Message all Attendees who signed up for a particular event\n" +
-                "[3] Message a particular Attendee who signed up for a particular event\n" +
-                "[4] Respond to an attendee\n" +
-                "[5] Check your inbox\n" +
+        System.out.println("[1] See a list of events the speaker gave.\n" +
+                "[2] See a list of messages the speaker gave.\n" +
+                "[3] Message all Attendees who signed up for a particular event\n" +
+                "[4] Message a particular Attendee who signed up for a particular event\n" +
+                "[5] Respond to an attendee\n" +
+                "[6] Check your inbox\n" +
                 "[e] Save and log out");
     }
 
