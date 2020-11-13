@@ -55,6 +55,7 @@ public class Event {
     public void setSpeaker(String u) {
         this.speaker = u;
         this.speakStatus = true;
+        this.user_list.remove(u);
     }
 
     public String getSpeaker() throws Exception{
