@@ -136,6 +136,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         }
         System.out.println("[e] exit to main menu");
         String cmd = reader.nextLine();
+        try{
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
             System.out.println("Input your message");
@@ -145,7 +146,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         } else if("e".equals(cmd)){
             System.out.println("Exiting\n");
         } else {
-            System.out.println("Invalid Input, exit to main menu and try again\n");
+            System.out.println("Input out of range, exit to main menu and try again\n");
+        }
+        } catch(Exception e) {
+            System.out.println("Invalid Input, exiting to main menu");
         }
     }
 }
