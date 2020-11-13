@@ -77,7 +77,7 @@ public class Presenter {
         return "Success! Press enter to continue.\n";
     }
 
-    public static String input(String input) {
+    public static String inputPrompt(String input) {
         switch (input) {
             case "message":
                 return "Now input your message. Hint: Type \\n for changing of lines if you want.";

@@ -91,14 +91,14 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         switch (object) {
             case "speaker":
                 ArrayList<String> speakers = usermanager.getSpeakers();
-                System.out.println(Presenter.input("message"));
+                System.out.println(Presenter.inputPrompt("message"));
                 String message = reader.nextLine();
                 messagemanager.sendToList(organizer, speakers, message);
                 System.out.println(Presenter.successPressEnter());
                 break;
             case "attendee":
                 ArrayList<String> attendees = usermanager.getAttendees();
-                System.out.println(Presenter.input("message"));
+                System.out.println(Presenter.inputPrompt("message"));
                 String message2 = reader.nextLine();
                 messagemanager.sendToList(organizer, attendees, message2);
                 System.out.println(Presenter.successPressEnter());
@@ -110,14 +110,14 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     //Send message to a particular person
     @Override
     public void sendMessageToSomeone(String organizer) {
-        System.out.println(Presenter.input("username"));
+        System.out.println(Presenter.inputPrompt("username"));
         System.out.println(Presenter.pressEtoMainMenu());
         String target = reader.nextLine();
         if("e".equals(target)){
             System.out.println(Presenter.pressEnterToMainMenu());
         } else {
             if(usermanager.getAllUsernames().contains(target)){
-                System.out.println(Presenter.input("message"));
+                System.out.println(Presenter.inputPrompt("message"));
                 String msg = reader.nextLine();
                 messagemanager.sendMessage(organizer, target, msg);
                 System.out.println(Presenter.success());
@@ -146,11 +146,11 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                 command = reader.nextLine();
                 break;
             case "c":
-                System.out.println(Presenter.input("roomNumber"));
+                System.out.println(Presenter.inputPrompt("roomNumber"));
                 room = reader.nextLine();
-                System.out.println(Presenter.input("startTime"));
+                System.out.println(Presenter.inputPrompt("startTime"));
                 time1 = reader.nextLine();
-                System.out.println(Presenter.input("duration"));
+                System.out.println(Presenter.inputPrompt("duration"));
                 duration = reader.nextLine();
                 try {
                     eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
@@ -170,9 +170,9 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     }
 
     private void addNewRoom(){
-        System.out.println(Presenter.input("newRoomNumber"));
+        System.out.println(Presenter.inputPrompt("newRoomNumber"));
         roomNumber = reader.nextLine();
-        System.out.println(Presenter.input("roomSize"));
+        System.out.println(Presenter.inputPrompt("roomSize"));
         size = reader.nextLine();
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
@@ -182,7 +182,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     }
 
     private void checkRoom(){
-        System.out.println(Presenter.input("roomNumber"));
+        System.out.println(Presenter.inputPrompt("roomNumber"));
         roomNumber = reader.nextLine();
         try{
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
@@ -204,9 +204,9 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                 promoteExistingSpeaker();
                 break;
             case "b":
-                System.out.println(Presenter.input("newUsername"));
+                System.out.println(Presenter.inputPrompt("newUsername"));
                 String username = reader.nextLine();
-                System.out.println(Presenter.input("password"));
+                System.out.println(Presenter.inputPrompt("password"));
                 String password = reader.nextLine();
                 try {
                     usermanager.createUserAccount("Speaker", username, password);
@@ -232,7 +232,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     }
 
     private void scheduleSpeakers(){
-        System.out.println(Presenter.input("speakerName"));
+        System.out.println(Presenter.inputPrompt("speakerName"));
         String name = reader.nextLine();
         try {
             if (!usermanager.getUserType(name).equals("Speaker")) {
@@ -266,11 +266,11 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                 String command4 = reader.nextLine();
                 switch (command4){
                     case "a":
-                        System.out.println(Presenter.input("roomNumber"));
+                        System.out.println(Presenter.inputPrompt("roomNumber"));
                         room = reader.nextLine();
-                        System.out.println(Presenter.input("startTime"));
+                        System.out.println(Presenter.inputPrompt("startTime"));
                         time1 = reader.nextLine();
-                        System.out.println(Presenter.input("duration"));
+                        System.out.println(Presenter.inputPrompt("duration"));
                         duration = reader.nextLine();
                         try {
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));
@@ -294,11 +294,11 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                             System.out.println(Presenter.invalid("getEventSchedule"));
                             break;
                         }
-                        System.out.println(Presenter.input("roomNumber"));
+                        System.out.println(Presenter.inputPrompt("roomNumber"));
                         room = reader.nextLine();
-                        System.out.println(Presenter.input("startTime"));
+                        System.out.println(Presenter.inputPrompt("startTime"));
                         time1 = reader.nextLine();
-                        System.out.println(Presenter.input("duration"));
+                        System.out.println(Presenter.inputPrompt("duration"));
                         duration = reader.nextLine();
                         try {
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration));

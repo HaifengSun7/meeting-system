@@ -40,14 +40,14 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                     continue;
                 case "3":
                     sendMessageToSomeone(attendee);
-                    reader.nextLine();
                     continue;
                 case "4":
                     seeMessages(attendee);
                     reader.nextLine();
                     continue;
                 default:
-                    System.out.println("Please press the right key.");
+                    System.out.println(Presenter.wrongKeyRemainderInMenu());
+                    System.out.println(Presenter.invalid(""));
                     continue;
             }
             break;
@@ -75,15 +75,14 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         System.out.println("[e] exit to main menu");
         String receive = reader.nextLine();
         try{
-        if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) &&
-                (Integer.parseInt(receive) < contactList.size())) {
+        if (!("e".equals(receive))) {
             String receiver = contactList.get(Integer.parseInt(receive));
             System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
             String message = reader.nextLine();
             messagemanager.sendMessage(attendee, receiver, message);
             System.out.println("Success! Press enter to continue");
         } else {
-            System.out.println("input out of range, exiting to main menu...");
+            System.out.println("Exiting to main menu...");
         }
         } catch(Exception e) {
             System.out.println("Invalid Input, exiting to main menu...");

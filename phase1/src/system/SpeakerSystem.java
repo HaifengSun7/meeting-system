@@ -72,10 +72,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
     @Override
     public void sendMessageToAll(String speaker, String object) {
         if ("attendee".equals(object)) {
-            System.out.println(Presenter.input("eventIdSendMessage"));
+            System.out.println(Presenter.inputPrompt("eventIdSendMessage"));
             String eventId = reader.nextLine();
             if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
-            System.out.println(Presenter.input("message"));
+            System.out.println(Presenter.inputPrompt("message"));
             String messageToAllAttendees = reader.nextLine();
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
@@ -92,7 +92,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
 
     @Override
     public void sendMessageToSomeone(String speaker) {
-        System.out.println(Presenter.input("username"));
+        System.out.println(Presenter.inputPrompt("username"));
         ArrayList<String> contactList= usermanager.getContactList(speaker);
         for(int i = 0; i < contactList.size(); i++){
             System.out.println("[" + i + "] " + contactList.get(i));
@@ -102,7 +102,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         try{
             if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
                 String receiver = contactList.get(Integer.parseInt(receive));
-                System.out.println(Presenter.input("message"));
+                System.out.println(Presenter.inputPrompt("message"));
                 String message = reader.nextLine();
                 messagemanager.sendMessage(speaker, receiver, message);
                 System.out.println(Presenter.successPressEnter());
@@ -124,7 +124,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
     }
 
     public void respondToAttendee(String speaker){
-        System.out.println(Presenter.input("messageToRespond"));
+        System.out.println(Presenter.inputPrompt("messageToRespond"));
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
         if(msgInbox.isEmpty()){
@@ -139,7 +139,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         try{
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
-            System.out.println(Presenter.input("message"));
+            System.out.println(Presenter.inputPrompt("message"));
             String message = reader.nextLine();
             messagemanager.sendMessage(speaker, receiver, message);
             System.out.println(Presenter.success());
