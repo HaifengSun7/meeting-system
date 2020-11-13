@@ -91,10 +91,16 @@ public class EventManager {
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
      */
-    public void addRoom(int roomNumber, int size) {
-        Room r = new Room(roomNumber, size);
-        rooms.add(r);
+    public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException{
+        for (Room r: rooms) {
+            if (r.getRoomNumber() == roomNumber) {
+                throw new DuplicateRoomNoException("DuplicateRoomNo: " + String.valueOf(roomNumber));
+            }
+        }
+        Room n = new Room(roomNumber, size);
+        rooms.add(n);
     }
+
 
     /**
      * Get all the rooms in the conference.
