@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendMessageToAll{
+public class OrganizerSystem{
 
     private final String organizer;
     public Scanner reader = new Scanner(System.in);
@@ -48,16 +48,16 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
                     scheduleSpeakers();
                     continue;
                 case "4":
-                    sendMessageToSomeone(organizer);
+                    sendMessageToSomeone();
                     continue;
                 case "5":
-                    sendMessageToAll(organizer, "speaker");
+                    sendMessageToAll("speaker");
                     continue;
                 case "6":
-                    sendMessageToAll(organizer, "attendee");
+                    sendMessageToAll("attendee");
                     continue;
                 case "7":
-                    seeMessages(organizer);
+                    seeMessages();
                     continue;
                 case "e":
                     usermanager.logout(organizer);
@@ -76,8 +76,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
         write.run();
     }
 
-    @Override
-    public void seeMessages(String organizer) {
+    private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
         for(int i = 0; i < inbox.size(); i++){
             System.out.println("[" + i + "] " + inbox.get(i)+"\n");
@@ -87,8 +86,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     }
 
     // Send messages to all speakers or all attendees
-    @Override
-    public void sendMessageToAll(String organizer, String object) {
+    private void sendMessageToAll(String object) {
         switch (object) {
             case "speaker":
                 ArrayList<String> speakers = usermanager.getSpeakers();
@@ -109,8 +107,7 @@ public class OrganizerSystem implements SeeMessages, SendMessageToSomeone, SendM
     }
 
     //Send message to a particular person
-    @Override
-    public void sendMessageToSomeone(String organizer) {
+    private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
         Presenter.exitToMainMenuPrompt();
         String target = reader.nextLine();

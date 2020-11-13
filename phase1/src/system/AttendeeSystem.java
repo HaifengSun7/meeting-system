@@ -9,19 +9,19 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
+public class AttendeeSystem{
     private final String attendee;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
-    public String command;
 
     public AttendeeSystem(String attendee) {
         this.attendee = attendee;
     }
 
     public void run() {
+        String command;
         while (true){
             Presenter.name(attendee);
             Presenter.userType("Attendee");
@@ -38,10 +38,10 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
                     checkSignedUp();
                     continue;
                 case "3":
-                    sendMessageToSomeone(attendee);
+                    sendMessageToSomeone();
                     continue;
                 case "4":
-                    seeMessages(attendee);
+                    seeMessages();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
@@ -56,15 +56,14 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         write.run();
     }
 
-    @Override
-    public void seeMessages(String attendee) {
+    private void seeMessages() {
         addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(attendee);
         for(int i = 0; i < inbox.size(); i++){
             Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         Presenter.continuePrompt();
-        command = reader.nextLine();
+        reader.nextLine();
     }
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(attendee);
@@ -74,8 +73,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
-    @Override
-    public void sendMessageToSomeone(String attendee) {
+    private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(attendee);
         for(int i = 0; i < contactList.size(); i++){
@@ -105,7 +103,7 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
             Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
         Presenter.exitToMainMenuPrompt();
-        command = reader.nextLine();
+        String command = reader.nextLine();
         if (!("e".equals(command))) {
             try {
                 eventmanager.signUp(example_list.get(Integer.parseInt(command)), attendee);
@@ -127,6 +125,6 @@ public class AttendeeSystem implements SeeMessages, SendMessageToSomeone{
             System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
         }
         Presenter.continuePrompt();
-        command = reader.nextLine();
+        reader.nextLine();
     }
 }

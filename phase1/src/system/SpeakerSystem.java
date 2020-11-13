@@ -9,7 +9,7 @@ import presenter.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMessageToAll{
+public class SpeakerSystem{
     private final String speaker;
     public Scanner reader = new Scanner(System.in);
     public EventManager eventmanager = new EventManager();
@@ -38,16 +38,16 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     getSentMessages();
                     continue;
                 case "3":  //send messages to all Attendees who signed up for a particular event
-                    sendMessageToAll(speaker, "attendee");
+                    sendMessageToAll();
                     continue;
                 case "4": //send messages to a particular Attendee who signed up for a particular event
-                    sendMessageToSomeone(speaker);
+                    sendMessageToSomeone();
                     continue;
                 case "5": //respond to an Attendee
-                    respondToAttendee(speaker);
+                    respondToAttendee();
                     continue;
                 case "6": //see message inbox
-                    seeMessages(speaker);
+                    seeMessages();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
@@ -59,8 +59,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         write.run();
     }
 
-    @Override
-    public void seeMessages(String speaker) {
+    /**
+     * See Messages.
+     */
+    private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(speaker);
         for(int i = 0; i < inbox.size(); i++){
             System.out.println("[" + i + "] " + inbox.get(i));
@@ -69,12 +71,10 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         reader.nextLine();
     }
 
-    @Override
-    public void sendMessageToAll(String speaker, String object) {
-        if ("attendee".equals(object)) {
-            Presenter.inputPrompt("eventIdSendMessage");
-            String eventId = reader.nextLine();
-            if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
+    private void sendMessageToAll() {
+        Presenter.inputPrompt("eventIdSendMessage");
+        String eventId = reader.nextLine();
+        if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
             Presenter.inputPrompt("message");
             String messageToAllAttendees = reader.nextLine();
             try {
@@ -85,14 +85,12 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
             }
             Presenter.continuePrompt();
             reader.nextLine();
-            } else {
-                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
-            }
+        } else {
+            Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
         }
     }
 
-    @Override
-    public void sendMessageToSomeone(String speaker) {
+    private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(speaker);
         for(int i = 0; i < contactList.size(); i++){
@@ -134,7 +132,7 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
-    public void respondToAttendee(String speaker){
+    private void respondToAttendee(){
         Presenter.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);

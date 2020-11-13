@@ -53,7 +53,7 @@ public class EventManager {
             } catch (Exception e) {
                 System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
             }
-            for(j = 3; j < temp2.length; j++){
+            for(j = 4; j < temp2.length; j++){
                 try {
                     this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
