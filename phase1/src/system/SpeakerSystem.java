@@ -22,9 +22,9 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
 
     public void run() {
         while (true) {
-            System.out.println(Presenter.name() + speaker);
-            System.out.println(Presenter.user("Speaker"));
-            System.out.println(Presenter.speakerMenu());
+            Presenter.name(speaker);
+            Presenter.userType("Speaker");
+            Presenter.speakerMenu();
             String command = reader.nextLine();
 
             switch (command) {
@@ -33,25 +33,21 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
                     break;
                 case "1":   //See the messages that the speaker gave
                     getSentMessages();
-                    reader.nextLine();
                     continue;
                 case "2":  //send messages to all Attendees who signed up for a particular event
                     sendMessageToAll(speaker, "attendee");
-                    reader.nextLine();
                     continue;
                 case "3": //send messages to a particular Attendee who signed up for a particular event
                     sendMessageToSomeone(speaker);
                     continue;
                 case "4": //respond to an Attendee
                     respondToAttendee(speaker);
-                    reader.nextLine();
                     continue;
                 case "5": //see message inbox
                     seeMessages(speaker);
-                    reader.nextLine();
                     continue;
                 default:
-                    System.out.println(Presenter.wrongKeyRemainderInMenu());
+                    Presenter.wrongKeyReminder();
                     continue;
             }
             break;
@@ -66,91 +62,98 @@ public class SpeakerSystem implements SeeMessages, SendMessageToSomeone, SendMes
         for(int i = 0; i < inbox.size(); i++){
             System.out.println("[" + i + "] " + inbox.get(i));
         }
-        System.out.println(Presenter.pressEnterToMainMenu());
+        Presenter.continuePrompt();
+        reader.nextLine();
     }
 
     @Override
     public void sendMessageToAll(String speaker, String object) {
         if ("attendee".equals(object)) {
-            System.out.println(Presenter.inputPrompt("eventIdSendMessage"));
+            Presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
             if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
-            System.out.println(Presenter.inputPrompt("message"));
+            Presenter.inputPrompt("message");
             String messageToAllAttendees = reader.nextLine();
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                 messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
             } catch (Exception e) {
-                System.out.println(Presenter.invalid("eventId"));
+                Presenter.invalid("eventId");
             }
-            System.out.println(Presenter.successPressEnter());
+            Presenter.continuePrompt();
+            reader.nextLine();
             } else {
-                System.out.println("This is not your event. Please check your input. Exiting to main menu.");
+                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
             }
         }
     }
 
     @Override
     public void sendMessageToSomeone(String speaker) {
-        System.out.println(Presenter.inputPrompt("username"));
+        Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(speaker);
         for(int i = 0; i < contactList.size(); i++){
-            System.out.println("[" + i + "] " + contactList.get(i));
+            Presenter.defaultPrint("[" + i + "] " + contactList.get(i));
         }
-        System.out.println(Presenter.pressEtoMainMenu());
+        Presenter.exitToMainMenuPrompt();
         String receive = reader.nextLine();
         try{
             if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
                 String receiver = contactList.get(Integer.parseInt(receive));
-                System.out.println(Presenter.inputPrompt("message"));
+                Presenter.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendMessage(speaker, receiver, message);
-                System.out.println(Presenter.successPressEnter());
-                reader.nextLine();
             } else {
-                System.out.println(Presenter.inputOutOfRange());
+                Presenter.inputOutOfRange();
             }
         } catch(Exception e) {
-            System.out.println(Presenter.invalid("default"));
+            Presenter.invalid("default");
         }
+        Presenter.continuePrompt();
+        reader.nextLine();
     }
 
     private void getSentMessages(){
         ArrayList<String> messageList = messagemanager.getSent(speaker);
         for (int i = 0; i < messageList.size(); i++) {
-            System.out.println("[" + i + "] " + messageList.get(i));
+            Presenter.defaultPrint("[" + i + "] " + messageList.get(i));
         }
-        System.out.println(Presenter.pressEnterToMainMenu());
+        Presenter.continuePrompt();
+        reader.nextLine();
     }
 
     public void respondToAttendee(String speaker){
-        System.out.println(Presenter.inputPrompt("messageToRespond"));
+        Presenter.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
         if(msgInbox.isEmpty()){
-            System.out.println(Presenter.emptyInbox());
+            Presenter.emptyInbox();
+            Presenter.continuePrompt();
+            reader.nextLine();
             return;
         }
         for(int i = 0; i < msgInbox.size(); i++){
-            System.out.println("[" + i + "] " + msgInbox.get(i));
+            Presenter.defaultPrint("[" + i + "] " + msgInbox.get(i));
         }
-        System.out.println(Presenter.pressEtoMainMenu());
+        Presenter.exitToMainMenuPrompt();
         String cmd = reader.nextLine();
         try{
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
-            System.out.println(Presenter.inputPrompt("message"));
+            Presenter.inputPrompt("message");
             String message = reader.nextLine();
             messagemanager.sendMessage(speaker, receiver, message);
-            System.out.println(Presenter.success());
+            Presenter.success();
         } else if("e".equals(cmd)){
-            System.out.println(Presenter.exitToMainMenu());
+            Presenter.exitingToMainMenu();
         } else {
-            System.out.println(Presenter.inputOutOfRange());
+            Presenter.inputOutOfRange();
         }
         } catch(Exception e) {
-            System.out.println(Presenter.invalid("default"));
+            Presenter.invalid("default");
         }
+        Presenter.continuePrompt();
+        reader.nextLine();
     }
 }
 

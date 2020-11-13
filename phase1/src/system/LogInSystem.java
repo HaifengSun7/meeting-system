@@ -17,28 +17,28 @@ public class LogInSystem {
             String user_type = "";
             String username = "";
             Scanner reader = new Scanner(System.in);// Reading from System.in
-            System.out.println(Presenter.login());
+            Presenter.login();
             String command = reader.nextLine();
             if ("e".equals(command)) {
                 break;
             }else{
                 for (int i = 0; i < 5; i++) {
-                    System.out.println("You have " + (5 - i) + " trials remaining \n");
-                    System.out.println("Username:");
+                    Presenter.defaultPrint("You have " + (5 - i) + " trials remaining \n");
+                    Presenter.name("");
                     username = reader.nextLine();
-                    System.out.println("Password:");
+                    Presenter.password("");
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (Exception e) {
-                        System.out.println(Presenter.invalid("login"));
+                        Presenter.invalid("login");
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
                 if (!logged_in) {
-                    System.out.println(Presenter.noTrials());
+                    Presenter.noTrials();
                     return;
                 }
                 switch (user_type) {
