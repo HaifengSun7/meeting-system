@@ -35,28 +35,52 @@ public class Event {
         this.user_list = new ArrayList<>();
     }
 
-
+    /**
+     * Get's the list of attendees.
+     * @return the list of attendees name.
+     */
     public ArrayList<String> getAttendees(){
         return user_list;
     }
 
+    /**
+     * Add attendee to the event.
+     * @param attendee: the attendee's name.
+     */
     public void addAttendees(String attendee) {
         this.user_list.add(attendee);
     }
 
+    /**
+     * Remove the attendee from the event.
+     * @param attendee: the attendee's name.
+     */
     public void removeAttendees(String attendee) {
         this.user_list.remove(attendee);
     }
 
+    /**
+     * Check if the event has a Speaker.
+     * @return true or false.
+     */
     public boolean getSpeakStatus() {
         return speakStatus;
     }
 
+    /**
+     * Set Speaker to the event.
+     * @param u: Speaker's name.
+     */
     public void setSpeaker(String u) {
         this.speaker = u;
         this.speakStatus = true;
     }
 
+    /**
+     * Get the name of the Speaker.
+     * @return the name of Speaker.
+     * @throws NoSpeakerException when there is no speaker in the event.
+     */
     public String getSpeaker() throws Exception{
         if (speakStatus) {
             return speaker;
@@ -65,11 +89,23 @@ public class Event {
         }
     }
 
+    /**
+     * Set the description of the event.
+     * @param description: the description of the event.
+     */
     public void setDescription(String description) {this.description = description; }
 
+    /**
+     * Get the description of the event.
+     * @return the description of the event.
+     */
     public String getDescription() {return description; }
 
 
+    /**
+     * Get's everything of the event.
+     * @return the event with all information in string.
+     */
     public String toString(){
         String t = this.time.toString();
         return "Event {" + "Id: " + this.getId() + ", Description: " + this.description + ", Time: " + t +
@@ -137,6 +173,10 @@ public class Event {
         eventNumber = 0;
     }
 
+    /**
+     * Get the length of the event.
+     * @return the length of the event.
+     */
     private int getLength(){return this.length;}
 
 }
