@@ -15,9 +15,9 @@ public class Event {
 
     private static int eventNumber = 0;
     private final Timestamp time;
-    private int length = 1;
     private final int id;
     private final ArrayList<String> user_list;
+    private int length = 1;
     private String speaker;
     private String description;
     private boolean speakStatus = false;
