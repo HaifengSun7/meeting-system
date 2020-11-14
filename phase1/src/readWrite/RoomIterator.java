@@ -8,7 +8,7 @@ import java.util.*;
  * Iterates through a list of String prompts
  */
 public class RoomIterator implements Iterator<String[]> {
-    private List<String[]> roominfo = new ArrayList<>();
+    private final List<String[]> roominfo = new ArrayList<>();
     private int current = 0;
 
     /**
@@ -31,6 +31,7 @@ public class RoomIterator implements Iterator<String[]> {
 
     /**
      * Checks for subsequent prompts.
+     *
      * @return true if there is prompt that has not yet been returned.
      */
     @Override
@@ -40,6 +41,7 @@ public class RoomIterator implements Iterator<String[]> {
 
     /**
      * Returns the next prompt to be printed.
+     *
      * @return the next prompt.
      */
     @Override

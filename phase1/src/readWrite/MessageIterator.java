@@ -31,6 +31,7 @@ public class MessageIterator implements Iterator<String[]> {
 
     /**
      * Checks for subsequent prompts.
+     *
      * @return true if there is prompt that has not yet been returned.
      */
     @Override
@@ -40,6 +41,7 @@ public class MessageIterator implements Iterator<String[]> {
 
     /**
      * Returns the next prompt to be printed.
+     *
      * @return the next prompt.
      */
     @Override

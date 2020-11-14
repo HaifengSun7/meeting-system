@@ -1,17 +1,18 @@
-package textUI;
+package Presenter;
 
 /**
  * <h>UI</h>
- * The TextUI class is used to print out information to the users.
+ * The Presenter class is used to give out information. A textUI is included.
+ *
  * @author Haifeng Sun, Wei Tao
  * @version 1.0.0
  */
-public class TextUI {
+public class Presenter {
 
     /**
      * Print out the login information to the user.
      */
-    public static void login() {
+    public static void logInPrompt() {
         System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
                 "Press [e] to quit the system.\n" +
                 "Press anything else to log in.");
@@ -56,7 +57,8 @@ public class TextUI {
     }
 
     /**
-     * Print out the name prompt.
+     * Print out the name.
+     *
      * @param username the username of user.
      */
     public static void name(String username) {
@@ -64,7 +66,8 @@ public class TextUI {
     }
 
     /**
-     * Print out the password prompt.
+     * Print out the password.
+     *
      * @param password the password of user.
      */
     public static void password(String password) {
@@ -73,6 +76,7 @@ public class TextUI {
 
     /**
      * Print out the type of user.
+     *
      * @param usertype the usertype of user.
      */
     public static void userType(String usertype) {
@@ -116,6 +120,7 @@ public class TextUI {
 
     /**
      * Print out the prompt of input
+     *
      * @param input the type of input to the corresponding prompt.
      */
     public static void inputPrompt(String input) {
@@ -170,6 +175,7 @@ public class TextUI {
 
     /**
      * Print out the menus in SpeakerSystem.
+     *
      * @param methodName the method name to the corresponding menu.
      */
     public static void menusInSpeaker(String methodName) {
@@ -198,6 +204,7 @@ public class TextUI {
 
     /**
      * Print out the title in SpeakerSystem.
+     *
      * @param methodName the method name to the corresponding title.
      */
     public static void titlesInSpeaker(String methodName) {
@@ -217,7 +224,7 @@ public class TextUI {
                 System.out.println("Showing all events:");
                 break;
             case "scheduleSpeakers2":
-                System.out.println( "Here are the rooms.");
+                System.out.println("Here are the rooms.");
                 break;
         }
     }
@@ -252,6 +259,7 @@ public class TextUI {
 
     /**
      * Print out the prompt of invalid input.
+     *
      * @param input the type of input to the corresponding prompt.
      */
     public static void invalid(String input) {
@@ -285,6 +293,7 @@ public class TextUI {
 
     /**
      * Print out the prompt of duplicate invalid input.
+     *
      * @param input the type of input to the corresponding prompt.
      */
     public static void duplicateInvalid(String input) {
@@ -300,9 +309,10 @@ public class TextUI {
 
     /**
      * Print out the default prompt.
+     *
      * @param input the input that the method would print out.
      */
-    public static void defaultPrint(String input){
+    public static void defaultPrint(String input) {
         System.out.println(input);
     }
 }

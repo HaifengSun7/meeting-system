@@ -16,13 +16,14 @@ public class Write {
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
 
-    public Write(UserManager usermanager, EventManager eventmanager, MessageManager messagemanager){
+    public Write(UserManager usermanager, EventManager eventmanager, MessageManager messagemanager) {
         this.usermanager = usermanager;
         this.eventmanager = eventmanager;
         this.messagemanager = messagemanager;
 
     }
-    public void run(){
+
+    public void run() {
         //TODO: remove extra \n
         try {
             String password;
@@ -31,7 +32,7 @@ public class Write {
             FileWriter userWriter = new FileWriter("src/resources/user.csv", false);
             Collection<String> usernames = usermanager.getAllUsernames();
             int i = 0;
-            for(String username : usernames) {
+            for (String username : usernames) {
                 password = usermanager.getPassword(username);
                 type = usermanager.getUserType(username);
                 msglst = usermanager.getContactList(username);
@@ -40,12 +41,14 @@ public class Write {
                 userWriter.append(password);
                 userWriter.append(",");
                 userWriter.append(type);
-                for(String contactListedUser : msglst){
+                for (String contactListedUser : msglst) {
                     userWriter.append(",");
                     userWriter.append(contactListedUser);
                 }
                 i += 1;
-                if(!(i == usernames.size())){userWriter.append("\n");}
+                if (!(i == usernames.size())) {
+                    userWriter.append("\n");
+                }
                 //That's user. now output.
             }
             userWriter.flush();
@@ -61,7 +64,9 @@ public class Write {
                 roomWriter.append(",");
                 roomWriter.append(String.valueOf(capacity));
                 i += 1;
-                if(!(i == roomToCapacity.entrySet().size())){roomWriter.append("\n");}
+                if (!(i == roomToCapacity.entrySet().size())) {
+                    roomWriter.append("\n");
+                }
             }
             //That's room. now output.
             roomWriter.flush();
@@ -90,30 +95,34 @@ public class Write {
                 eventWriter.append(duration); //TODO: duration not right.
                 eventWriter.append(",");
                 eventWriter.append(description);
-                for(String attendee : attendees){
+                for (String attendee : attendees) {
                     eventWriter.append(",");
                     eventWriter.append(attendee);
                 }
-                if (!(speaker.equals("(No speaker yet.)")) && !(speaker.equals(""))){
+                if (!(speaker.equals("(No speaker yet.)")) && !(speaker.equals(""))) {
                     eventWriter.append(",");
                     eventWriter.append(speaker);
                 }
                 i += 1;
-                if(!(i == eventToRoom.entrySet().size())){eventWriter.append("\n");}
+                if (!(i == eventToRoom.entrySet().size())) {
+                    eventWriter.append("\n");
+                }
             }
             eventWriter.flush();
             eventWriter.close();
             i = 0;
             FileWriter messageWriter = new FileWriter("src/resources/message.csv", false);
             ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
-            for(ArrayList<String> messageinfo : allMessage){
+            for (ArrayList<String> messageinfo : allMessage) {
                 messageWriter.append(messageinfo.get(0));
                 messageWriter.append(",");
                 messageWriter.append(messageinfo.get(1));
                 messageWriter.append(",");
                 messageWriter.append(messageinfo.get(2));
                 i += 1;
-                if(!(i == allMessage.size())){messageWriter.append("\n");}
+                if (!(i == allMessage.size())) {
+                    messageWriter.append("\n");
+                }
             }
             messageWriter.flush();
             messageWriter.close();

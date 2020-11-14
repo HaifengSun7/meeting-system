@@ -1,12 +1,14 @@
 package system;
+
+import Presenter.Presenter;
 import user.UserManager;
-import textUI.*;
 
 import java.util.Scanner;
 
 /**
- *<h1>Login System</h1>
- *The LoginSystem program implements the system of login.
+ * <h1>Login System</h1>
+ * The LoginSystem program implements the system of login.
+ *
  * @author Haifeng Sun, Wei Tao
  * @version 1.0.0
  */
@@ -21,34 +23,34 @@ public class LogInSystem {
         /*
           This method is in charge of logging in, separate the system and log out.
          */
-        while(true){
+        while (true) {
             usermanager = new UserManager();
             boolean logged_in = false;
             String user_type = "";
             String username = "";
             Scanner reader = new Scanner(System.in);// Reading from System.in
-            TextUI.login();
+            Presenter.logInPrompt();
             String command = reader.nextLine();
             if ("e".equals(command)) {
                 break;
-            }else{
+            } else {
                 for (int i = 0; i < 5; i++) {
-                    TextUI.defaultPrint("You have " + (5 - i) + " trials remaining \n");
-                    TextUI.name("");
+                    Presenter.defaultPrint("You have " + (5 - i) + " trials remaining \n");
+                    Presenter.name("");
                     username = reader.nextLine();
-                    TextUI.password("");
+                    Presenter.password("");
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (Exception e) {
-                        TextUI.invalid("login");
+                        Presenter.invalid("login");
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
                 if (!logged_in) {
-                    TextUI.noTrials();
+                    Presenter.noTrials();
                     return;
                 }
                 switch (user_type) {

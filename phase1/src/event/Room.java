@@ -1,71 +1,78 @@
 package event;
+
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Represents the Room that has certain Room number, capacity and schedules.
+ *
  * @author Shaohong Chen
  * @version 1.0.0
- *
  */
 public class Room {
 
-    private int roomNumber;
-    private int capacity;
-    private ArrayList<Integer> schedule = new ArrayList<>();
+    private final int roomNumber;
+    private final int capacity;
+    private final ArrayList<Integer> schedule = new ArrayList<>();
 
     /**
      * Initialize the Room that has a certain Room number, capacity, with an empty schedule.
+     *
      * @param roomNumber represents the Room number, in int.
-     * @param size represents the capacity of the Room, in int.
+     * @param size       represents the capacity of the Room, in int.
      */
-    public Room(int roomNumber, int size){
+    public Room(int roomNumber, int size) {
         this.roomNumber = roomNumber;
         this.capacity = size;
     }
 
     /**
      * Get the Room number of the Room.
+     *
      * @return the Room number of the Room, in int.
      */
-    public int getRoomNumber(){
+    public int getRoomNumber() {
         return roomNumber;
     }
 
     /**
      * Get the Room capacity
+     *
      * @return the capacity of the Room, in int.
      */
-    public int getCapacity(){
+    public int getCapacity() {
         return capacity;
     }
 
     /**
      * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
+     *
      * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
-    public void addEvent(int eventID){
-         schedule.add(eventID);
+    public void addEvent(int eventID) {
+        schedule.add(eventID);
     }
 
     /**
      * Add an Event to the schedule of the Room. May be successful or not depend on the Event's time.
+     *
      * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
-    public void removeEvent(int eventID){
+    public void removeEvent(int eventID) {
         schedule.remove(eventID);
     }
 
     /**
      * Get the schedule of the room, by the event ID's.
+     *
      * @return the ID's of events scheduled in this room.
      */
-    public ArrayList<Integer> getSchedule(){
+    public ArrayList<Integer> getSchedule() {
         return this.schedule;
     }
 
     /**
      * Override of toString method, that writes the output of class Room.
+     *
      * @return the string form of output for class Room.
      */
     @Override

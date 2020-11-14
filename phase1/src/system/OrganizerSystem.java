@@ -1,11 +1,11 @@
 package system;
 
-import readWrite.Write;
 import event.DuplicateRoomNoException;
 import event.EventManager;
 import message.MessageManager;
+import readWrite.Write;
+import Presenter.Presenter;
 import user.UserManager;
-import textUI.*;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -15,10 +15,11 @@ import java.util.Scanner;
 /**
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
+ *
  * @author Haifeng Sun, Wei Tao
  * @version 1.0.0
  */
-public class OrganizerSystem{
+public class OrganizerSystem {
 
     private final String organizer;
     public Scanner reader = new Scanner(System.in);
@@ -35,12 +36,12 @@ public class OrganizerSystem{
      */
     public void run() {
         String command;
-        while(true){
-            TextUI.name(organizer);
-            TextUI.userType("Organizer");
-            TextUI.organizerMenu();
+        while (true) {
+            Presenter.name(organizer);
+            Presenter.userType("Organizer");
+            Presenter.organizerMenu();
             command = reader.nextLine();
-            switch (command){
+            switch (command) {
                 case "1":
                     manageRooms();
                     continue;
@@ -66,9 +67,9 @@ public class OrganizerSystem{
                     usermanager.logout(organizer);
                     break;
                 default:
-                    TextUI.wrongKeyReminder();
-                    TextUI.invalid("");
-                    TextUI.continuePrompt();
+                    Presenter.wrongKeyReminder();
+                    Presenter.invalid("");
+                    Presenter.continuePrompt();
                     reader.nextLine();
                     continue;
             }
@@ -84,32 +85,33 @@ public class OrganizerSystem{
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
-        for(int i = 0; i < inbox.size(); i++){
-            System.out.println("[" + i + "] " + inbox.get(i)+"\n");
+        for (int i = 0; i < inbox.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + inbox.get(i) + "\n");
         }
-        TextUI.exitToMainMenuPrompt();
+        Presenter.exitToMainMenuPrompt();
         reader.nextLine();
     }
 
     /**
      * Send messages to all users, either all speakers or all attendees.
+     *
      * @param user type of user, either the String "speaker" or "attendee".
      */
     private void sendMessageToAll(String user) {
         switch (user) {
             case "speaker":
                 ArrayList<String> speakers = usermanager.getSpeakers();
-                TextUI.inputPrompt("message");
+                Presenter.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendToList(organizer, speakers, message);
-                TextUI.continuePrompt();
+                Presenter.continuePrompt();
                 break;
             case "attendee":
                 ArrayList<String> attendees = usermanager.getAttendees();
-                TextUI.inputPrompt("message");
+                Presenter.inputPrompt("message");
                 String message2 = reader.nextLine();
                 messagemanager.sendToList(organizer, attendees, message2);
-                TextUI.continuePrompt();
+                Presenter.continuePrompt();
                 break;
         }
 
@@ -119,19 +121,19 @@ public class OrganizerSystem{
      * Send message to a specific person.
      */
     private void sendMessageToSomeone() {
-        TextUI.inputPrompt("receiver");
-        TextUI.exitToMainMenuPrompt();
+        Presenter.inputPrompt("receiver");
+        Presenter.exitToMainMenuPrompt();
         String target = reader.nextLine();
-        if("e".equals(target)){
-            TextUI.exitingToMainMenu();
+        if ("e".equals(target)) {
+            Presenter.exitingToMainMenu();
         } else {
-            if(usermanager.getAllUsernames().contains(target)){
-                TextUI.inputPrompt("message");
+            if (usermanager.getAllUsernames().contains(target)) {
+                Presenter.inputPrompt("message");
                 String msg = reader.nextLine();
                 messagemanager.sendMessage(organizer, target, msg);
-                TextUI.success();
+                Presenter.success();
             } else {
-                TextUI.invalid("username");
+                Presenter.invalid("username");
             }
         }
     }
@@ -140,18 +142,18 @@ public class OrganizerSystem{
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room.
      */
-    private void manageRooms(){
-        TextUI.titlesInSpeaker("manageRooms");
+    private void manageRooms() {
+        Presenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
         for (String s : roomList) {
-            TextUI.defaultPrint(s);
+            Presenter.defaultPrint(s);
         }
-        TextUI.menusInSpeaker("manageRooms");
+        Presenter.menusInSpeaker("manageRooms");
         String command = reader.nextLine();
-        switch (command){
+        switch (command) {
             case "a":
                 addNewRoom();
-                TextUI.continuePrompt();
+                Presenter.continuePrompt();
                 reader.nextLine();
                 break;
             case "b":
@@ -159,27 +161,27 @@ public class OrganizerSystem{
                 reader.nextLine();
                 break;
             case "c":
-                TextUI.inputPrompt("roomNumber");
+                Presenter.inputPrompt("roomNumber");
                 String room = reader.nextLine();
-                TextUI.inputPrompt("startTime");
+                Presenter.inputPrompt("startTime");
                 String time1 = reader.nextLine();
-                TextUI.inputPrompt("duration");
+                Presenter.inputPrompt("duration");
                 String duration = reader.nextLine();
-                TextUI.inputPrompt("description");
+                Presenter.inputPrompt("description");
                 String description = reader.nextLine();
                 try {
                     eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
-                    TextUI.continuePrompt();
+                    Presenter.continuePrompt();
                 } catch (Exception e) {
-                    TextUI.invalid("addEvent");
-                        }
+                    Presenter.invalid("addEvent");
+                }
                 reader.nextLine();
                 break;
             case "e":
                 break;
             default:
-                TextUI.wrongKeyReminder();
-                TextUI.continuePrompt();
+                Presenter.wrongKeyReminder();
+                Presenter.continuePrompt();
                 reader.nextLine();
                 break;
         }
@@ -188,62 +190,62 @@ public class OrganizerSystem{
     /**
      * Create a new room.
      */
-    private void addNewRoom(){
-        TextUI.inputPrompt("newRoomNumber");
+    private void addNewRoom() {
+        Presenter.inputPrompt("newRoomNumber");
         String roomNumber = reader.nextLine();
-        TextUI.inputPrompt("roomSize");
+        Presenter.inputPrompt("roomSize");
         String size = reader.nextLine();
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
-            TextUI.success();
+            Presenter.success();
         } catch (DuplicateRoomNoException e) {
-            TextUI.duplicateInvalid("newRoom");
+            Presenter.duplicateInvalid("newRoom");
         }
     }
 
     /**
      * Check all scheduled events in a specific room.
      */
-    private void checkRoom(){
-        TextUI.inputPrompt("roomNumber");
+    private void checkRoom() {
+        Presenter.inputPrompt("roomNumber");
         String roomNumber = reader.nextLine();
-        try{
+        try {
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
-            for(Integer i: schedule){
-                System.out.println(eventmanager.findEventStr(i));
+            for (Integer i : schedule) {
+                Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            TextUI.invalid("roomNumber");
-            TextUI.continuePrompt();
+            Presenter.invalid("roomNumber");
+            Presenter.continuePrompt();
             reader.nextLine();
             return;
         }
-        TextUI.titlesInSpeaker("checkRoom");
-        TextUI.continuePrompt();
-        TextUI.continuePrompt();
+        Presenter.titlesInSpeaker("checkRoom");
+        Presenter.continuePrompt();
+        Presenter.continuePrompt();
         reader.nextLine();
     }
 
     /**
      * Create a new user to be the speaker.
      */
-    private void createSpeaker(){
-        TextUI.menusInSpeaker("createSpeaker");
+    private void createSpeaker() {
+        Presenter.menusInSpeaker("createSpeaker");
         String command = reader.nextLine();
-        switch (command){
+        switch (command) {
             case "a":
                 promoteExistingSpeaker();
                 break;
             case "b":
-                TextUI.inputPrompt("newUsername");
+                Presenter.inputPrompt("newUsername");
                 String username = reader.nextLine();
-                TextUI.inputPrompt("password");
+                Presenter.inputPrompt("password");
                 String password = reader.nextLine();
                 try {
                     usermanager.createUserAccount("Speaker", username, password);
-                    TextUI.success();
+                    Presenter.success();
                 } catch (Exception e) {
-                    TextUI.duplicateInvalid("username");
+                    Presenter.duplicateInvalid("username");
                     break;
                 }
                 break;
@@ -253,14 +255,14 @@ public class OrganizerSystem{
     /**
      * Promote a user to be a speaker.
      */
-    private void promoteExistingSpeaker(){
-        TextUI.titlesInSpeaker("promoteExistingSpeaker");
+    private void promoteExistingSpeaker() {
+        Presenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
         try {
             usermanager.becomeSpeaker(name);
         } catch (Exception e) {
-            TextUI.invalid("username");
-            TextUI.continuePrompt();
+            Presenter.invalid("username");
+            Presenter.continuePrompt();
             reader.nextLine();
             return;
         }
@@ -270,114 +272,115 @@ public class OrganizerSystem{
     /**
      * Schedule a speaker to an existing event or to a new event.
      */
-    private void scheduleSpeakers(){
-        TextUI.inputPrompt("speakerName");
+    private void scheduleSpeakers() {
+        Presenter.inputPrompt("speakerName");
         String name = reader.nextLine();
         try {
             if (!usermanager.getUserType(name).equals("Speaker")) {
-                TextUI.notASpeaker();
+                Presenter.notASpeaker();
                 return;
             }
         } catch (Exception e) {
-            TextUI.invalid("username");
+            Presenter.invalid("username");
             return;
         }
-        TextUI.titlesInSpeaker("scheduleSpeakers1");
+        Presenter.titlesInSpeaker("scheduleSpeakers1");
         ArrayList<String> allEvents = eventmanager.getAllEvents();
-        for(int i = 0; i < allEvents.size(); i++){
-            System.out.println("[" + i + "]" + allEvents.get(i));
+        for (int i = 0; i < allEvents.size(); i++) {
+            Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
         }
-        TextUI.menusInSpeaker("scheduleSpeakers1");
-                TextUI.exitToMainMenuPrompt();
+        Presenter.menusInSpeaker("scheduleSpeakers1");
+        Presenter.exitToMainMenuPrompt();
         String command = reader.nextLine();
-        switch (command){
+        switch (command) {
             default:
                 addSpeakerToEvent(allEvents, name, command);
                 break;
             case "r":
-                TextUI.titlesInSpeaker("scheduleSpeakers2");
+                Presenter.titlesInSpeaker("scheduleSpeakers2");
                 ArrayList<String> roomLst = eventmanager.getAllRooms();
                 for (String s : roomLst) {
-                    System.out.println(s);
+                    Presenter.defaultPrint(s);
                 }
-                TextUI.menusInSpeaker("scheduleSpeakers2");
-                        TextUI.exitToMainMenuPrompt();
+                Presenter.menusInSpeaker("scheduleSpeakers2");
+                Presenter.exitToMainMenuPrompt();
                 String command4 = reader.nextLine();
-                switch (command4){
+                switch (command4) {
                     case "a":
-                        TextUI.inputPrompt("roomNumber");
+                        Presenter.inputPrompt("roomNumber");
                         String room = reader.nextLine();
-                        TextUI.inputPrompt("startTime");
+                        Presenter.inputPrompt("startTime");
                         String time1 = reader.nextLine();
-                        TextUI.inputPrompt("duration");
+                        Presenter.inputPrompt("duration");
                         String duration = reader.nextLine();
-                        TextUI.inputPrompt("description");
+                        Presenter.inputPrompt("description");
                         String description = reader.nextLine();
                         try {
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
-                            TextUI.continuePrompt();
+                            Presenter.continuePrompt();
                         } catch (Exception e) {
-                            TextUI.invalid("addEvent");
+                            Presenter.invalid("addEvent");
                             break;
                         }
-                        TextUI.continuePrompt();
+                        Presenter.continuePrompt();
                         reader.nextLine();
                         break;
                     case "e":
-                        TextUI.exitingToMainMenu();
+                        Presenter.exitingToMainMenu();
                         break;
                     default:
-                        try{
+                        try {
                             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command4));
-                            for(Integer i: schedule){
-                                System.out.println(eventmanager.findEventStr(i));
+                            for (Integer i : schedule) {
+                                Presenter.defaultPrint(eventmanager.findEventStr(i));
                             }
                         } catch (InvalidActivityException e) {
-                            TextUI.invalid("getEventSchedule");
+                            Presenter.invalid("getEventSchedule");
                             break;
                         }
-                        TextUI.inputPrompt("roomNumber");
+                        Presenter.inputPrompt("roomNumber");
                         room = reader.nextLine();
-                        TextUI.inputPrompt("startTime");
+                        Presenter.inputPrompt("startTime");
                         time1 = reader.nextLine();
-                        TextUI.inputPrompt("duration");
+                        Presenter.inputPrompt("duration");
                         duration = reader.nextLine();
-                        TextUI.inputPrompt("description");
+                        Presenter.inputPrompt("description");
                         description = reader.nextLine();
                         try {
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                         } catch (Exception e) {
-                            TextUI.invalid("addEvent");
+                            Presenter.invalid("addEvent");
                             break;
                         }
-                        TextUI.success();
-                        TextUI.continuePrompt();
+                        Presenter.success();
+                        Presenter.continuePrompt();
                         reader.nextLine();
                         break;
                 }
                 break;
             case "e":
-                TextUI.exitingToMainMenu();
+                Presenter.exitingToMainMenu();
                 break;
         }
     }
 
     /**
      * Add a new speaker to an existing event.
+     *
      * @param allEvents all existing events.
-     * @param name the name of user who would be a speaker.
-     * @param command command that organizer choose.
+     * @param name      the name of user who would be a speaker.
+     * @param command   command that organizer choose.
      */
-    private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command){
-        if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){
+    private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command) {
+        if (0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()) {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
-                TextUI.success();
+                Presenter.success();
             } catch (Exception e) {
-                TextUI.invalid("addSpeaker");
+                Presenter.invalid("addSpeaker");
             }
         } else {
-            TextUI.invalid("eventId");
+            Presenter.invalid("eventId");
         }
     }
 }

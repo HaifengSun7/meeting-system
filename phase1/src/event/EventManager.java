@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
+ *
  * @author Haifeng Sun
  * @version 1.0.0
  */
@@ -24,8 +25,8 @@ public class EventManager {
     2. getAttendees(eventID)
      */
 
-    private ArrayList<Room> rooms;
-    private Map<Integer, Event> map = new HashMap<Integer, Event>();
+    private final ArrayList<Room> rooms;
+    private final Map<Integer, Event> map = new HashMap<Integer, Event>();
 
     public EventManager() {
         Event.resetID();
@@ -53,11 +54,11 @@ public class EventManager {
             } catch (Exception e) {
                 System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
             }
-            for(j = 4; j < temp2.length; j++){
+            for (j = 4; j < temp2.length; j++) {
                 try {
                     this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, event"+k+" does not exist.");
+                    System.out.println("Failed to add User to Event, event" + k + " does not exist.");
                 }
             }
             k += 1;
@@ -91,10 +92,10 @@ public class EventManager {
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
      */
-    public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException{
-        for (Room r: rooms) {
+    public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException {
+        for (Room r : rooms) {
             if (r.getRoomNumber() == roomNumber) {
-                throw new DuplicateRoomNoException("DuplicateRoomNo: " + String.valueOf(roomNumber));
+                throw new DuplicateRoomNoException("DuplicateRoomNo: " + roomNumber);
             }
         }
         Room n = new Room(roomNumber, size);
@@ -104,6 +105,7 @@ public class EventManager {
 
     /**
      * Get all the rooms in the conference.
+     *
      * @return a list of strings of Rooms.
      */
     public ArrayList<String> getAllRooms() {
@@ -116,6 +118,7 @@ public class EventManager {
 
     /**
      * given a room number, return a room.
+     *
      * @param roomNumber: The room number of the Room you are looking for.
      * @return Returns a room with the room number if the room exists.
      * @throws InvalidActivityException When the room number does not exist.
@@ -162,7 +165,8 @@ public class EventManager {
 
     /**
      * Make attendee sign out for an event.
-     * @param eventId Event id in string.
+     *
+     * @param eventId  Event id in string.
      * @param attendee Attendee with String.
      * @throws NoSuchEventException when the event does not exist.
      */
@@ -187,7 +191,7 @@ public class EventManager {
     public ArrayList<String> canSignUp(String attendee) {
         ArrayList<String> rslt = new ArrayList<String>();
         for (int i = 0; i < map.size(); i++) {
-            if (!map.get(i).getAttendees().contains(attendee)&&!this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+            if (!map.get(i).getAttendees().contains(attendee) && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
                 rslt.add(String.valueOf(map.get(i).getId()));
             }
         }
@@ -196,13 +200,14 @@ public class EventManager {
 
     /**
      * Return a list of times an attendee have signed up for events.
+     *
      * @param attendee Attendee to string
      * @return list of times this attendee is busy
      */
     private ArrayList<String> dontHaveTime(String attendee) {
         ArrayList<String> res = new ArrayList<String>();
-        for(Integer key: map.keySet()){
-            if(map.get(key).getAttendees().contains(attendee)){
+        for (Integer key : map.keySet()) {
+            if (map.get(key).getAttendees().contains(attendee)) {
                 res.add(map.get(key).getTime());
             }
         }
@@ -247,9 +252,9 @@ public class EventManager {
      * @throws InvalidActivityException: if cannot find a room with room number roomNo.
      */
     public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws InvalidActivityException {
-        System.out.println("Adding event to room "+roomNo+", time: "+time.toString()+" Duration: "+meetingLength);
+        System.out.println("Adding event to room " + roomNo + ", time: " + time.toString() + " Duration: " + meetingLength);
         try {
-            if (!inOfficeHour(time)){
+            if (!inOfficeHour(time)) {
                 System.out.println("Invalid time slot. Not in working hour.");
                 return;
             }
@@ -263,7 +268,7 @@ public class EventManager {
                     }
                 }
             } else {
-                System.out.println("Failed to add event to room "+roomNo+": Time has been taken by other events.");
+                System.out.println("Failed to add event to room " + roomNo + ": Time has been taken by other events.");
             }
         } catch (Exception e) {
             throw new InvalidActivityException();
@@ -272,18 +277,20 @@ public class EventManager {
 
     /**
      * Cancel the certain Event.
+     *
      * @param eventId: the id of the event in string.
      */
-    public void cancelEvent(String eventId) throws NoSuchEventException{
-        for (Integer id: map.keySet()) {
+    public void cancelEvent(String eventId) throws NoSuchEventException {
+        for (Integer id : map.keySet()) {
             if (id == Integer.parseInt(eventId)) {
                 map.remove(id);
-                for (Room r: rooms) {
+                for (Room r : rooms) {
                     if (r.getSchedule().contains(id)) {
                         r.removeEvent(id);
                     }
                 }
-            }System.out.println("Successfully cancel the event" + eventId);
+            }
+            System.out.println("Successfully cancel the event" + eventId);
             return;
         }
         throw new NoSuchEventException("NoSuchEvent: " + eventId);
@@ -298,21 +305,20 @@ public class EventManager {
      *
      * @param attendee Attendee but string.
      */
-    public void becomeSpeaker(String attendee){
+    public void becomeSpeaker(String attendee) {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
-        for(Event i :events){
-            if(i.getAttendees().contains(attendee)){
+        for (Event i : events) {
+            if (i.getAttendees().contains(attendee)) {
                 attended.add(i);
             }
         }
-        for(Event j :attended){
-            if(j.getSpeakStatus()){
-                System.out.println("event"+j.getId()+" already has a speaker. Unable to promote\n");
-            }
-            else{
+        for (Event j : attended) {
+            if (j.getSpeakStatus()) {
+                System.out.println("event" + j.getId() + " already has a speaker. Unable to promote\n");
+            } else {
                 j.setSpeaker(attendee);
-                System.out.println("Successfully set "+attendee+" to be the speaker of event"+j.getId()+"\n");
+                System.out.println("Successfully set " + attendee + " to be the speaker of event" + j.getId() + "\n");
             }
         }
     }
@@ -344,8 +350,8 @@ public class EventManager {
     public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
-        int event_size = map.get(eventNumber).getAttendees().size()+1;
-        if(event_size >= capacity){
+        int event_size = map.get(eventNumber).getAttendees().size() + 1;
+        if (event_size >= capacity) {
             throw new RoomIsFullException("Room is Full");
         }
         if (map.containsKey(eventNumber)) {
@@ -369,11 +375,12 @@ public class EventManager {
 
     /**
      * Get a hash map that keys are room numbers and values are their capacities.
+     *
      * @return A hashmap that maps room numbers to their capacities.
      */
-    public HashMap<Integer, Integer> getRoomNumberMapToCapacity(){
+    public HashMap<Integer, Integer> getRoomNumberMapToCapacity() {
         HashMap<Integer, Integer> result = new HashMap<>();
-        for(Room room : rooms){
+        for (Room room : rooms) {
             result.put(room.getRoomNumber(), room.getCapacity());
         }
         return result;
@@ -381,12 +388,13 @@ public class EventManager {
 
     /**
      * Get a hashmap that keys are eventID and values are room numbers.
+     *
      * @return a hashmap that keys are eventID and values are room numbers.
      */
-    public HashMap<Integer, Integer> getEventIDMapToRoomNumber(){
+    public HashMap<Integer, Integer> getEventIDMapToRoomNumber() {
         HashMap<Integer, Integer> result = new HashMap<>();
-        for(Room room: rooms){
-            for(Integer eventID: room.getSchedule()){
+        for (Room room : rooms) {
+            for (Integer eventID : room.getSchedule()) {
                 result.put(eventID, room.getRoomNumber());
             }
         }
@@ -429,18 +437,19 @@ public class EventManager {
 
     /**
      * Check if the time in office hour.
+     *
      * @param time: time want to be checked.
      * @return true or false.
      */
-    private boolean inOfficeHour(Timestamp time){
+    private boolean inOfficeHour(Timestamp time) {
         String t = time.toString();
-        int hour = Integer.parseInt(String.valueOf(t.charAt(11))+String.valueOf(t.charAt(12)));
-        int min = Integer.parseInt(String.valueOf(t.charAt(14))+String.valueOf(t.charAt(15)));
-        int sec = Integer.parseInt(String.valueOf(t.charAt(17))+String.valueOf(t.charAt(18)));
-        if(hour >=9){
-            if(hour == 16 && min == 0 && sec == 0){
+        int hour = Integer.parseInt(String.valueOf(t.charAt(11)) + t.charAt(12));
+        int min = Integer.parseInt(String.valueOf(t.charAt(14)) + t.charAt(15));
+        int sec = Integer.parseInt(String.valueOf(t.charAt(17)) + t.charAt(18));
+        if (hour >= 9) {
+            if (hour == 16 && min == 0 && sec == 0) {
                 return true;
-            }else{
+            } else {
                 return hour < 16;
             }
         }
@@ -449,6 +458,7 @@ public class EventManager {
 
     /**
      * Get the description from the event's id.
+     *
      * @param event: event's id.
      * @return the description of the event.
      */

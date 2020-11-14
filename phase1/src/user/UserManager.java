@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.Exception;
 
 
 public class UserManager {
 
-    private Map<String, User> userMapping;
+    private final Map<String, User> userMapping;
 
-    public UserManager(){
+    public UserManager() {
         this.userMapping = new HashMap<>();
         UserIterator userIterator = new UserIterator();
         EventIterator eventIterator = new EventIterator();
@@ -30,7 +29,7 @@ public class UserManager {
         UserIterator userIter = new UserIterator();
         while (userIter.hasNext()) {
             temp = userIter.next(); //do something
-            for(int i = 3; i < temp.length; i++){
+            for (int i = 3; i < temp.length; i++) {
                 this.addContactList(temp[i], temp[0]);
             }
         }
@@ -38,7 +37,7 @@ public class UserManager {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next(); //do something
-            for(int j = 4; j < temp2.length; j++){
+            for (int j = 4; j < temp2.length; j++) {
                 try {
                     this.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {
@@ -49,8 +48,8 @@ public class UserManager {
         }
     }
 
-    public void createUserAccount(String usertype, String username, String password) throws Exception{
-        if (username.length()<3){
+    public void createUserAccount(String usertype, String username, String password) throws Exception {
+        if (username.length() < 3) {
             throw new InvalidUsernameException("length of username should be at least 3");
         }
         if (userMapping.containsKey(username)) {
@@ -69,27 +68,27 @@ public class UserManager {
         }
     }
 
-    private void addUser(User user){
+    private void addUser(User user) {
         userMapping.put(user.getUserName(), user);
     }
 
-    private void deleteUser(String username){
+    private void deleteUser(String username) {
         userMapping.remove(username);
     }
 
-    public ArrayList<String> getSignedEventList(String username){
+    public ArrayList<String> getSignedEventList(String username) {
         return userMapping.get(username).getSignedEvent();
     }
 
-    public String getUserType(String username){
+    public String getUserType(String username) {
         return userMapping.get(username).getUserType();
     }
 
-    public ArrayList<String> getContactList(String username){
+    public ArrayList<String> getContactList(String username) {
         return userMapping.get(username).getContactList();
     }
 
-    public boolean getStatus(String username){
+    public boolean getStatus(String username) {
         return userMapping.get(username).getStatus();
     }
 
@@ -99,7 +98,7 @@ public class UserManager {
 
     public String logIn(String username, String password) throws Exception {
         User user = userMapping.get(username);
-        if (user.password.equals(password)){
+        if (user.password.equals(password)) {
             user.setStatus(true);
             return user.getUserType();
         } else {
@@ -107,23 +106,24 @@ public class UserManager {
         }
     }
 
-    public void logout(String username){
+    public void logout(String username) {
         try {
             User user = findUser(username);
             user.setStatus(false);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("The user doesn't exist.\n");
         }
     }
 
     /**
      * make attendee become Speaker
+     *
      * @param attendeeName Attendee username in String.
-     * @exception Exception throw an exception when necessary.
+     * @throws Exception throw an exception when necessary.
      */
 
     public ArrayList<String> becomeSpeaker(String attendeeName) throws Exception {
-        if (! userMapping.containsKey(attendeeName)) {
+        if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("NoSuchUser: " + attendeeName);
         } else {
             User attendee = userMapping.get(attendeeName);
@@ -149,13 +149,12 @@ public class UserManager {
     }
 
     /**
-     *
      * @return a list of speakers
      */
     public ArrayList<String> getSpeakers() {
         ArrayList<String> speaker = new ArrayList<>();
-        for (String username: userMapping.keySet()){
-            if (userMapping.get(username).getUserType().equals("Speaker")){
+        for (String username : userMapping.keySet()) {
+            if (userMapping.get(username).getUserType().equals("Speaker")) {
                 speaker.add(username);
             }
         }
@@ -163,13 +162,12 @@ public class UserManager {
     }
 
     /**
-     *
      * @return a list of Attendees
      */
     public ArrayList<String> getAttendees() {
         ArrayList<String> attendee = new ArrayList<>();
-        for (String username: userMapping.keySet()){
-            if (userMapping.get(username).getUserType().equals("Attendee")){
+        for (String username : userMapping.keySet()) {
+            if (userMapping.get(username).getUserType().equals("Attendee")) {
                 attendee.add(username);
             }
         }
@@ -190,8 +188,7 @@ public class UserManager {
 
     public void addContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
-        if(!(lst.contains(username)))
-        {
+        if (!(lst.contains(username))) {
             lst.add(contactName);
         }
         userMapping.get(username).setContactList(lst);
@@ -204,14 +201,13 @@ public class UserManager {
     }
 
     /**
-     *
      * @param userName username.
      * @return the password.
      */
 
     private User findUser(String userName) throws NoSuchUserException {
-        for(String name:userMapping.keySet()){
-            if(userName.equals(name)){
+        for (String name : userMapping.keySet()) {
+            if (userName.equals(name)) {
                 return userMapping.get(name);
             }
         }
