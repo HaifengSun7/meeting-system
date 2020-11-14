@@ -9,6 +9,12 @@ import presenter.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>Speaker System</h1>
+ * The SpeakerSystem program implements the system of Speaker user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class SpeakerSystem{
     private final String speaker;
     public Scanner reader = new Scanner(System.in);
@@ -20,6 +26,9 @@ public class SpeakerSystem{
         this.speaker = speaker;
     }
 
+    /**
+     * Run the Speaker System. Print out speaker's menu, and perform speaker's operations.
+     */
     public void run() {
         while (true) {
             Presenter.name(speaker);
@@ -60,7 +69,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * See Messages.
+     * See the messages that the speaker got from other users.
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(speaker);
@@ -71,6 +80,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * Send messages to all attendees.
+     */
     private void sendMessageToAll() {
         Presenter.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
@@ -90,6 +102,9 @@ public class SpeakerSystem{
         }
     }
 
+    /**
+     * Send messages to a specific person.
+     */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(speaker);
@@ -114,6 +129,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * Get the messages that the speaker has sent.
+     */
     private void getSentMessages(){
         ArrayList<String> messageList = messagemanager.getSent(speaker);
         addAllToMessageList();
@@ -124,6 +142,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * Add all senders of the inbox messages to speaker's contact list.
+     */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(speaker);
         for(String sender: inboxSenders){
@@ -132,6 +153,9 @@ public class SpeakerSystem{
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
+    /**
+     * Respond to an attendee who has sent message to the speaker.
+     */
     private void respondToAttendee(){
         Presenter.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
@@ -166,6 +190,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * Check the events that speaker gave.
+     */
     private void checkTalkedEvent(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(speaker);
         for (String s : eventsList) {

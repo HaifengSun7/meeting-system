@@ -146,11 +146,11 @@ public class EventManager {
     }
 
     /**
-     * Make attendee signup for an event.
+     * Make attendee sign up for an event.
      *
      * @param event    Event id in string.
      * @param attendee Attendee, but with String.
-     * @throws NoSuchEventException when needed. or not, I don't care. but you should tho.
+     * @throws NoSuchEventException when the event does not exist.
      */
     public void signUp(String event, String attendee) throws NoSuchEventException {
         if (map.containsKey(Integer.parseInt(event))) {
@@ -160,6 +160,12 @@ public class EventManager {
         }
     }
 
+    /**
+     * Make attendee sign out for an event.
+     * @param eventId Event id in string.
+     * @param attendee Attendee with String.
+     * @throws NoSuchEventException when the event does not exist.
+     */
     public void signOut(String eventId, String attendee) throws Exception {
         if (map.containsKey(Integer.parseInt(eventId))) {
             if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
@@ -264,6 +270,10 @@ public class EventManager {
         }
     }
 
+    /**
+     * Cancel the certain Event.
+     * @param eventId: the id of the event in string.
+     */
     public void cancelEvent(String eventId) throws NoSuchEventException{
         for (Integer id: map.keySet()) {
             if (id == Integer.parseInt(eventId)) {
@@ -417,6 +427,11 @@ public class EventManager {
         }
     }
 
+    /**
+     * Check if the time in office hour.
+     * @param time: time want to be checked.
+     * @return true or false.
+     */
     private boolean inOfficeHour(Timestamp time){
         String t = time.toString();
         int hour = Integer.parseInt(String.valueOf(t.charAt(11))+String.valueOf(t.charAt(12)));
@@ -432,7 +447,11 @@ public class EventManager {
         return false;
     }
 
-
+    /**
+     * Get the description from the event's id.
+     * @param event: event's id.
+     * @return the description of the event.
+     */
     public String getDescription(Integer event) {
         return map.get(event).getDescription();
     }

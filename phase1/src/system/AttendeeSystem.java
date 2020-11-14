@@ -9,6 +9,12 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>Attendee System</h1>
+ * The AttendeeSystem program implements the system of Attendee user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class AttendeeSystem{
     private final String attendee;
     public Scanner reader = new Scanner(System.in);
@@ -20,6 +26,9 @@ public class AttendeeSystem{
         this.attendee = attendee;
     }
 
+    /**
+     * Run the Attendee System. Print out attendee's menu, and perform attendee's operations.
+     */
     public void run() {
         String command;
         while (true){
@@ -56,6 +65,9 @@ public class AttendeeSystem{
         write.run();
     }
 
+    /**
+     * See the messages that the attendee got from other users.
+     */
     private void seeMessages() {
         addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(attendee);
@@ -65,6 +77,10 @@ public class AttendeeSystem{
         Presenter.continuePrompt();
         reader.nextLine();
     }
+
+    /**
+     * Add all senders of the inbox messages to attendee's contact list.
+     */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(attendee);
         for(String sender: inboxSenders){
@@ -73,6 +89,9 @@ public class AttendeeSystem{
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
+    /**
+     * Send messages to a specific person.
+     */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(attendee);
@@ -96,6 +115,9 @@ public class AttendeeSystem{
         }
     }
 
+    /**
+     * Print the events that attendee haven't signed up and choose one event to sign it up.
+     */
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
         Presenter.inputPrompt("signUp");
@@ -119,6 +141,9 @@ public class AttendeeSystem{
         }
     }
 
+    /**
+     * Check the events that attendee have signed up.
+     */
     private void checkSignedUp(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
         for (String s : eventsList) {

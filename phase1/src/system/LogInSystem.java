@@ -4,9 +4,19 @@ import presenter.*;
 
 import java.util.Scanner;
 
+/**
+ *<h1>Login System</h1>
+ *The LoginSystem program implements the system of login.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class LogInSystem {
 
     UserManager usermanager;
+
+    /**
+     * Run the Login System. Print out login menu, and initialize users' systems.
+     */
     public void run() {
         /*
           This method is in charge of logging in, separate the system and log out.

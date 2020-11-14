@@ -1,13 +1,25 @@
 package presenter;
 
+/**
+ * <h>Presenter</h>
+ * The Presenter program is used to print out information to the users.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class Presenter {
 
+    /**
+     * Print out the login information to the user.
+     */
     public static void login() {
         System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
                 "Press [e] to quit the system.\n" +
                 "Press anything else to log in.");
     }
 
+    /**
+     * Print out the menu of speaker.
+     */
     public static void speakerMenu() {
         System.out.println("[1] See a list of events the speaker gave.\n" +
                 "[2] See a list of messages the speaker gave.\n" +
@@ -18,6 +30,9 @@ public class Presenter {
                 "[e] Save and log out");
     }
 
+    /**
+     * Print out the menu of organizer.
+     */
     public static void organizerMenu() {
         System.out.println("[1] see and manage rooms\n" +
                 "[2] create/promote speaker account\n" +
@@ -29,6 +44,9 @@ public class Presenter {
                 "[e] Save and Log out");
     }
 
+    /**
+     * Print out the menu of attendee.
+     */
     public static void attendeeMenu() {
         System.out.println("[1] sign up for an event.\n" +
                 "[2] See events that I have signed up for\n" +
@@ -37,38 +55,69 @@ public class Presenter {
                 "[e] Save and log out.");
     }
 
+    /**
+     * Print out the name prompt.
+     * @param username the username of user.
+     */
     public static void name(String username) {
         System.out.println("Name: " + username);
     }
 
+    /**
+     * Print out the password prompt.
+     * @param password the password of user.
+     */
     public static void password(String password) {
         System.out.println("Password: " + password);
     }
 
+    /**
+     * Print out the type of user.
+     * @param usertype the usertype of user.
+     */
     public static void userType(String usertype) {
         System.out.println(usertype);
     }
 
+    /**
+     * Print out the prompt of wrong key pressing.
+     */
     public static void wrongKeyReminder() {
         System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in README.txt");
     }
 
+    /**
+     * Print out the prompt of exiting to main menu.
+     */
     public static void exitingToMainMenu() {
         System.out.println("Exiting to main menu.");
     }
 
+    /**
+     * Print out the prompt of press [e] to main menu.
+     */
     public static void exitToMainMenuPrompt() {
         System.out.println("Press [e] to exit to main menu");
     }
 
+    /**
+     * Print out the prompt of successful operations.
+     */
     public static void success() {
         System.out.println("Success!");
     }
 
+    /**
+     * Print out the prompt of pressing enter to continue operating system.
+     */
     public static void continuePrompt() {
         System.out.println("Press enter to continue.");
     }
 
+    /**
+     * Print out the prompt of input
+     * @param input the type of input to the corresponding prompt.
+     */
     public static void inputPrompt(String input) {
         switch (input) {
             case "message":
@@ -119,6 +168,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Print out the menus in SpeakerSystem.
+     * @param methodName the method name to the corresponding menu.
+     */
     public static void menusInSpeaker(String methodName) {
         switch (methodName) {
             case "manageRooms":
@@ -143,6 +196,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Print out the title in SpeakerSystem.
+     * @param methodName the method name to the corresponding title.
+     */
     public static void titlesInSpeaker(String methodName) {
         switch (methodName) {
             case "manageRooms":
@@ -165,22 +222,38 @@ public class Presenter {
         }
     }
 
+    /**
+     * Print out the prompt of input out of range.
+     */
     public static void inputOutOfRange() {
         System.out.println("Input out of range, exit to main menu and please try again");
     }
 
+    /**
+     * Print out the prompt of empty inbox.
+     */
     public static void emptyInbox() {
         System.out.println("Your inbox is empty. Press enter to exit to main menu.");
     }
 
+    /**
+     * Print out the prompt of the user is not a speaker.
+     */
     public static void notASpeaker() {
         System.out.println("This user is not a speaker.");
     }
 
+    /**
+     * Print out the prompt of no trials left as trying to login.
+     */
     public static void noTrials() {
         System.out.println("Sorry, you don't have any trials left.");
     }
 
+    /**
+     * Print out the prompt of invalid input.
+     * @param input the type of input to the corresponding prompt.
+     */
     public static void invalid(String input) {
         switch (input) {
             case "username":
@@ -210,6 +283,10 @@ public class Presenter {
         }
     }
 
+    /**
+     * Print out the prompt of duplicate invalid input.
+     * @param input the type of input to the corresponding prompt.
+     */
     public static void duplicateInvalid(String input) {
         switch (input) {
             case "newRoom":
@@ -221,8 +298,10 @@ public class Presenter {
         }
     }
 
-
-
+    /**
+     * Print out the default prompt.
+     * @param input the input that the method would print out.
+     */
     public static void defaultPrint(String input){
         System.out.println(input);
     }

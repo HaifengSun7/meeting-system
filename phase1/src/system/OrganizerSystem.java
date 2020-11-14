@@ -12,6 +12,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>Organizer System</h1>
+ * The OrganizerSystem program implements the system of Organizer user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class OrganizerSystem{
 
     private final String organizer;
@@ -24,6 +30,9 @@ public class OrganizerSystem{
         this.organizer = organizer;
     }
 
+    /**
+     * Run the Organizer System. Print out organizer's menu, and perform organizer's operations.
+     */
     public void run() {
         String command;
         while(true){
@@ -70,6 +79,9 @@ public class OrganizerSystem{
         write.run();
     }
 
+    /**
+     * See the messages that the organizer got from other users.
+     */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
         for(int i = 0; i < inbox.size(); i++){
@@ -79,9 +91,12 @@ public class OrganizerSystem{
         reader.nextLine();
     }
 
-    // Send messages to all speakers or all attendees
-    private void sendMessageToAll(String object) {
-        switch (object) {
+    /**
+     * Send messages to all users, either all speakers or all attendees.
+     * @param user type of user, either the String "speaker" or "attendee".
+     */
+    private void sendMessageToAll(String user) {
+        switch (user) {
             case "speaker":
                 ArrayList<String> speakers = usermanager.getSpeakers();
                 Presenter.inputPrompt("message");
@@ -100,7 +115,9 @@ public class OrganizerSystem{
 
     }
 
-    //Send message to a particular person
+    /**
+     * Send message to a specific person.
+     */
     private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
         Presenter.exitToMainMenuPrompt();
@@ -119,6 +136,10 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
+     * in a specific room.
+     */
     private void manageRooms(){
         Presenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
@@ -164,6 +185,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * Create a new room.
+     */
     private void addNewRoom(){
         Presenter.inputPrompt("newRoomNumber");
         String roomNumber = reader.nextLine();
@@ -177,6 +201,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * Check all scheduled events in a specific room.
+     */
     private void checkRoom(){
         Presenter.inputPrompt("roomNumber");
         String roomNumber = reader.nextLine();
@@ -197,6 +224,9 @@ public class OrganizerSystem{
         reader.nextLine();
     }
 
+    /**
+     * Create a new user to be the speaker.
+     */
     private void createSpeaker(){
         Presenter.menusInSpeaker("createSpeaker");
         String command = reader.nextLine();
@@ -220,6 +250,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * Promote a user to be a speaker.
+     */
     private void promoteExistingSpeaker(){
         Presenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
@@ -234,6 +267,9 @@ public class OrganizerSystem{
         eventmanager.becomeSpeaker(name);
     }
 
+    /**
+     * Schedule a speaker to an existing event or to a new event.
+     */
     private void scheduleSpeakers(){
         Presenter.inputPrompt("speakerName");
         String name = reader.nextLine();
@@ -326,6 +362,12 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * Add a new speaker to an existing event.
+     * @param allEvents all existing events.
+     * @param name the name of user who would be a speaker.
+     * @param command command that organizer choose.
+     */
     private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command){
         if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){
             try {
