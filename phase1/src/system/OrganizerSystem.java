@@ -116,7 +116,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * seed messages to a specific person
+     * seed message to a specific person
      */
     private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
@@ -136,6 +136,10 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
+     * in a specific room
+     */
     private void manageRooms(){
         Presenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
@@ -181,6 +185,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * create a new room
+     */
     private void addNewRoom(){
         Presenter.inputPrompt("newRoomNumber");
         String roomNumber = reader.nextLine();
@@ -194,6 +201,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * check all scheduled events in a specific room
+     */
     private void checkRoom(){
         Presenter.inputPrompt("roomNumber");
         String roomNumber = reader.nextLine();
@@ -214,6 +224,9 @@ public class OrganizerSystem{
         reader.nextLine();
     }
 
+    /**
+     * create a new user to be the speaker
+     */
     private void createSpeaker(){
         Presenter.menusInSpeaker("createSpeaker");
         String command = reader.nextLine();
@@ -237,6 +250,9 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * promote a user to be a speaker
+     */
     private void promoteExistingSpeaker(){
         Presenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
@@ -251,6 +267,9 @@ public class OrganizerSystem{
         eventmanager.becomeSpeaker(name);
     }
 
+    /**
+     * schedule a speaker to an existing event or to a new event
+     */
     private void scheduleSpeakers(){
         Presenter.inputPrompt("speakerName");
         String name = reader.nextLine();
@@ -343,6 +362,12 @@ public class OrganizerSystem{
         }
     }
 
+    /**
+     * add a new speaker to an existing event
+     * @param allEvents all existing events
+     * @param name the name of user who would be a speaker
+     * @param command command that organizer choose
+     */
     private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command){
         if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){
             try {

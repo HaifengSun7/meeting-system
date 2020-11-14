@@ -77,6 +77,10 @@ public class AttendeeSystem{
         Presenter.continuePrompt();
         reader.nextLine();
     }
+
+    /**
+     * add all senders of the inbox messages to attendee's contact list
+     */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(attendee);
         for(String sender: inboxSenders){
@@ -111,6 +115,9 @@ public class AttendeeSystem{
         }
     }
 
+    /**
+     * print the events that attendee haven't signed up and choose one event to sign it up
+     */
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
         Presenter.inputPrompt("signUp");
@@ -134,6 +141,9 @@ public class AttendeeSystem{
         }
     }
 
+    /**
+     * check the events that attendee have signed up
+     */
     private void checkSignedUp(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
         for (String s : eventsList) {

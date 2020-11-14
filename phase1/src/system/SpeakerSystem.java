@@ -129,6 +129,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * get the messages that the speaker has sent
+     */
     private void getSentMessages(){
         ArrayList<String> messageList = messagemanager.getSent(speaker);
         addAllToMessageList();
@@ -139,6 +142,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * add all senders of the inbox messages to speaker's contact list
+     */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(speaker);
         for(String sender: inboxSenders){
@@ -147,6 +153,9 @@ public class SpeakerSystem{
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
+    /**
+     * respond to an attendee who has sent message to the speaker
+     */
     private void respondToAttendee(){
         Presenter.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
@@ -181,6 +190,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * check the events that speaker gave
+     */
     private void checkTalkedEvent(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(speaker);
         for (String s : eventsList) {
