@@ -27,7 +27,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Run the Speaker System. Print out speaker's menu, and perform speaker's operations
+     * Run the Speaker System. Print out speaker's menu, and perform speaker's operations.
      */
     public void run() {
         while (true) {
@@ -69,7 +69,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * See the messages that the speaker got from other users
+     * See the messages that the speaker got from other users.
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(speaker);
@@ -81,7 +81,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Send messages to all attendees
+     * Send messages to all attendees.
      */
     private void sendMessageToAll() {
         Presenter.inputPrompt("eventIdSendMessage");
@@ -103,7 +103,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Send messages to a specific person
+     * Send messages to a specific person.
      */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
@@ -130,7 +130,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Get the messages that the speaker has sent
+     * Get the messages that the speaker has sent.
      */
     private void getSentMessages(){
         ArrayList<String> messageList = messagemanager.getSent(speaker);
@@ -143,7 +143,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Add all senders of the inbox messages to speaker's contact list
+     * Add all senders of the inbox messages to speaker's contact list.
      */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(speaker);
@@ -154,7 +154,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Respond to an attendee who has sent message to the speaker
+     * Respond to an attendee who has sent message to the speaker.
      */
     private void respondToAttendee(){
         Presenter.inputPrompt("messageToRespond");
@@ -191,7 +191,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * Check the events that speaker gave
+     * Check the events that speaker gave.
      */
     private void checkTalkedEvent(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(speaker);

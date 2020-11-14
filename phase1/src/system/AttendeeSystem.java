@@ -27,7 +27,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * Run the Attendee System. Print out attendee's menu, and perform attendee's operations
+     * Run the Attendee System. Print out attendee's menu, and perform attendee's operations.
      */
     public void run() {
         String command;
@@ -66,7 +66,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * See the messages that the attendee got from other users
+     * See the messages that the attendee got from other users.
      */
     private void seeMessages() {
         addAllToMessageList();
@@ -79,7 +79,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * Add all senders of the inbox messages to attendee's contact list
+     * Add all senders of the inbox messages to attendee's contact list.
      */
     private void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(attendee);
@@ -90,7 +90,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * Send messages to a specific person
+     * Send messages to a specific person.
      */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
@@ -116,7 +116,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * Print the events that attendee haven't signed up and choose one event to sign it up
+     * Print the events that attendee haven't signed up and choose one event to sign it up.
      */
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
@@ -142,7 +142,7 @@ public class AttendeeSystem{
     }
 
     /**
-     * Check the events that attendee have signed up
+     * Check the events that attendee have signed up.
      */
     private void checkSignedUp(){
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);

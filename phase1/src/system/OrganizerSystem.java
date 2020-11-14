@@ -31,7 +31,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Run the Organizer System. Print out organizer's menu, and perform organizer's operations
+     * Run the Organizer System. Print out organizer's menu, and perform organizer's operations.
      */
     public void run() {
         String command;
@@ -80,7 +80,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * See the messages that the organizer got from other users
+     * See the messages that the organizer got from other users.
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
@@ -92,8 +92,8 @@ public class OrganizerSystem{
     }
 
     /**
-     * Send messages to all users, either all speakers or all attendees
-     * @param user user, either the String "speaker" or "attendee"
+     * Send messages to all users, either all speakers or all attendees.
+     * @param user type of user, either the String "speaker" or "attendee".
      */
     private void sendMessageToAll(String user) {
         switch (user) {
@@ -116,7 +116,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Send message to a specific person
+     * Send message to a specific person.
      */
     private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
@@ -138,7 +138,7 @@ public class OrganizerSystem{
 
     /**
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
-     * in a specific room
+     * in a specific room.
      */
     private void manageRooms(){
         Presenter.titlesInSpeaker("manageRooms");
@@ -186,7 +186,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Create a new room
+     * Create a new room.
      */
     private void addNewRoom(){
         Presenter.inputPrompt("newRoomNumber");
@@ -202,7 +202,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Check all scheduled events in a specific room
+     * Check all scheduled events in a specific room.
      */
     private void checkRoom(){
         Presenter.inputPrompt("roomNumber");
@@ -225,7 +225,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Create a new user to be the speaker
+     * Create a new user to be the speaker.
      */
     private void createSpeaker(){
         Presenter.menusInSpeaker("createSpeaker");
@@ -251,7 +251,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Promote a user to be a speaker
+     * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker(){
         Presenter.titlesInSpeaker("promoteExistingSpeaker");
@@ -268,7 +268,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * Schedule a speaker to an existing event or to a new event
+     * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers(){
         Presenter.inputPrompt("speakerName");
@@ -363,10 +363,10 @@ public class OrganizerSystem{
     }
 
     /**
-     * Add a new speaker to an existing event
-     * @param allEvents all existing events
-     * @param name the name of user who would be a speaker
-     * @param command command that organizer choose
+     * Add a new speaker to an existing event.
+     * @param allEvents all existing events.
+     * @param name the name of user who would be a speaker.
+     * @param command command that organizer choose.
      */
     private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command){
         if(0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()){

@@ -15,7 +15,7 @@ public class LogInSystem {
     UserManager usermanager;
 
     /**
-     * Run the Login System. Print out login menu, and initialize users' systems
+     * Run the Login System. Print out login menu, and initialize users' systems.
      */
     public void run() {
         /*
