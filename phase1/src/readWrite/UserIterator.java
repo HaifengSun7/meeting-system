@@ -12,7 +12,7 @@ public class UserIterator implements Iterator<String[]> {
     private int current = 0;
 
     /**
-     * The prompt Strings are read from a file, student_properties.txt,
+     * The prompt Strings are read from a file, user.csv,
      * and added to the list of student properties.
      */
     public UserIterator() {
@@ -60,14 +60,5 @@ public class UserIterator implements Iterator<String[]> {
         current += 1;
         return res;
     }
-
-    /**
-     * Removes the prompt just returned. Unsupported.
-     */
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException("Not supported.");
-    }
-
 
 }

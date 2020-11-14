@@ -12,7 +12,7 @@ public class EventIterator implements Iterator<String[]> {
     private int current = 0;
 
     /**
-     * The prompt Strings are read from a file, event_properties.txt,
+     * The prompt Strings are read from a file, event.csv,
      * and added to the list of event properties.
      */
     public EventIterator() {
@@ -45,11 +45,6 @@ public class EventIterator implements Iterator<String[]> {
     @Override
     public String[] next() {
         String[] res;
-
-        // List.get(i) throws an IndexOutBoundsException if
-        // we call it with i >= properties.size().
-        // But Iterator's next() needs to throw a
-        // NoSuchElementException if there are no more elements.
         try {
             res = eventInfo.get(current);
         } catch (IndexOutOfBoundsException e) {
@@ -58,14 +53,5 @@ public class EventIterator implements Iterator<String[]> {
         current += 1;
         return res;
     }
-
-    /**
-     * Removes the prompt just returned. Unsupported.
-     */
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException("Not supported.");
-    }
-
 
 }

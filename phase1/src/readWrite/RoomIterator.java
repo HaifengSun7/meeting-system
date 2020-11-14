@@ -12,7 +12,7 @@ public class RoomIterator implements Iterator<String[]> {
     private int current = 0;
 
     /**
-     * The prompt Strings are read from a file, room_properties.txt,
+     * The prompt Strings are read from a file, room.csv,
      * and added to the list of room properties.
      */
     public RoomIterator() {
@@ -57,14 +57,6 @@ public class RoomIterator implements Iterator<String[]> {
         }
         current += 1;
         return res;
-    }
-
-    /**
-     * Removes the prompt just returned. Unsupported.
-     */
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException("Not supported.");
     }
 
 
