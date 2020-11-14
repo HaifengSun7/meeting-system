@@ -77,6 +77,14 @@ public class Event {
     }
 
     /**
+     * Remove Speaker from the event.
+     */
+    public void removeSpeaker() {
+        this.speaker = null;
+        this.speakStatus = false;
+    }
+
+    /**
      * Get the name of the Speaker.
      * @return the name of Speaker.
      * @throws NoSpeakerException when there is no speaker in the event.
