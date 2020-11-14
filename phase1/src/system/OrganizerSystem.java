@@ -12,6 +12,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *<h1>Organizer System</h1>
+ *The OrganizerSystem program implements the system of Organizer user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class OrganizerSystem{
 
     private final String organizer;
@@ -24,6 +30,9 @@ public class OrganizerSystem{
         this.organizer = organizer;
     }
 
+    /**
+     * Run the Organizer System. Print out organizer's menu, and perform organizer's operations
+     */
     public void run() {
         String command;
         while(true){
@@ -70,6 +79,9 @@ public class OrganizerSystem{
         write.run();
     }
 
+    /**
+     * see the messages that the organizer got from other users
+     */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
         for(int i = 0; i < inbox.size(); i++){
@@ -79,9 +91,12 @@ public class OrganizerSystem{
         reader.nextLine();
     }
 
-    // Send messages to all speakers or all attendees
-    private void sendMessageToAll(String object) {
-        switch (object) {
+    /**
+     * send messages to all users, either all speakers or all attendees
+     * @param user user, either the String "speaker" or "attendee"
+     */
+    private void sendMessageToAll(String user) {
+        switch (user) {
             case "speaker":
                 ArrayList<String> speakers = usermanager.getSpeakers();
                 Presenter.inputPrompt("message");
@@ -100,7 +115,9 @@ public class OrganizerSystem{
 
     }
 
-    //Send message to a particular person
+    /**
+     * seed messages to a specific person
+     */
     private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
         Presenter.exitToMainMenuPrompt();

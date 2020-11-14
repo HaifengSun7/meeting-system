@@ -9,6 +9,12 @@ import presenter.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *<h1>Speaker System</h1>
+ *The SpeakerSystem program implements the system of Speaker user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class SpeakerSystem{
     private final String speaker;
     public Scanner reader = new Scanner(System.in);
@@ -20,6 +26,9 @@ public class SpeakerSystem{
         this.speaker = speaker;
     }
 
+    /**
+     * Run the Speaker System. Print out speaker's menu, and perform speaker's operations
+     */
     public void run() {
         while (true) {
             Presenter.name(speaker);
@@ -60,7 +69,7 @@ public class SpeakerSystem{
     }
 
     /**
-     * See Messages.
+     * see the messages that the speaker got from other users
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(speaker);
@@ -71,6 +80,9 @@ public class SpeakerSystem{
         reader.nextLine();
     }
 
+    /**
+     * send messages to all attendees
+     */
     private void sendMessageToAll() {
         Presenter.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
@@ -90,6 +102,9 @@ public class SpeakerSystem{
         }
     }
 
+    /**
+     * seed messages to a specific person
+     */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(speaker);

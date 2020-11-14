@@ -9,6 +9,12 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *<h1>Attendee System</h1>
+ *The AttendeeSystem program implements the system of Attendee user.
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class AttendeeSystem{
     private final String attendee;
     public Scanner reader = new Scanner(System.in);
@@ -20,6 +26,9 @@ public class AttendeeSystem{
         this.attendee = attendee;
     }
 
+    /**
+     * Run the Attendee System. Print out attendee's menu, and perform attendee's operations
+     */
     public void run() {
         String command;
         while (true){
@@ -56,6 +65,9 @@ public class AttendeeSystem{
         write.run();
     }
 
+    /**
+     * see the messages that the attendee got from other users
+     */
     private void seeMessages() {
         addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(attendee);
@@ -73,6 +85,9 @@ public class AttendeeSystem{
         Presenter.defaultPrint("Added all senders to your contact list automatically.");
     }
 
+    /**
+     * seed messages to a specific person
+     */
     private void sendMessageToSomeone(){
         Presenter.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(attendee);
