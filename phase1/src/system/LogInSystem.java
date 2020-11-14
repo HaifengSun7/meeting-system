@@ -1,6 +1,6 @@
 package system;
 import user.UserManager;
-import presenter.*;
+import textUI.*;
 
 import java.util.Scanner;
 
@@ -27,28 +27,28 @@ public class LogInSystem {
             String user_type = "";
             String username = "";
             Scanner reader = new Scanner(System.in);// Reading from System.in
-            Presenter.login();
+            TextUI.login();
             String command = reader.nextLine();
             if ("e".equals(command)) {
                 break;
             }else{
                 for (int i = 0; i < 5; i++) {
-                    Presenter.defaultPrint("You have " + (5 - i) + " trials remaining \n");
-                    Presenter.name("");
+                    TextUI.defaultPrint("You have " + (5 - i) + " trials remaining \n");
+                    TextUI.name("");
                     username = reader.nextLine();
-                    Presenter.password("");
+                    TextUI.password("");
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (Exception e) {
-                        Presenter.invalid("login");
+                        TextUI.invalid("login");
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
                 if (!logged_in) {
-                    Presenter.noTrials();
+                    TextUI.noTrials();
                     return;
                 }
                 switch (user_type) {

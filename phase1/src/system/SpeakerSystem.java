@@ -4,7 +4,7 @@ import readWrite.Write;
 import event.EventManager;
 import message.MessageManager;
 import user.UserManager;
-import presenter.*;
+import textUI.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,9 +31,9 @@ public class SpeakerSystem{
      */
     public void run() {
         while (true) {
-            Presenter.name(speaker);
-            Presenter.userType("Speaker");
-            Presenter.speakerMenu();
+            TextUI.name(speaker);
+            TextUI.userType("Speaker");
+            TextUI.speakerMenu();
             String command = reader.nextLine();
 
             switch (command) {
@@ -59,7 +59,7 @@ public class SpeakerSystem{
                     seeMessages();
                     continue;
                 default:
-                    Presenter.wrongKeyReminder();
+                    TextUI.wrongKeyReminder();
                     continue;
             }
             break;
@@ -76,7 +76,7 @@ public class SpeakerSystem{
         for(int i = 0; i < inbox.size(); i++){
             System.out.println("[" + i + "] " + inbox.get(i));
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 
@@ -84,21 +84,21 @@ public class SpeakerSystem{
      * Send messages to all attendees.
      */
     private void sendMessageToAll() {
-        Presenter.inputPrompt("eventIdSendMessage");
+        TextUI.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
         if(eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(speaker)){
-            Presenter.inputPrompt("message");
+            TextUI.inputPrompt("message");
             String messageToAllAttendees = reader.nextLine();
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                 messagemanager.sendToList(speaker, attendeeList, messageToAllAttendees);
             } catch (Exception e) {
-                Presenter.invalid("eventId");
+                TextUI.invalid("eventId");
             }
-            Presenter.continuePrompt();
+            TextUI.continuePrompt();
             reader.nextLine();
         } else {
-            Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
+            TextUI.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
         }
     }
 
@@ -106,26 +106,26 @@ public class SpeakerSystem{
      * Send messages to a specific person.
      */
     private void sendMessageToSomeone(){
-        Presenter.inputPrompt("receiver");
+        TextUI.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(speaker);
         for(int i = 0; i < contactList.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + contactList.get(i));
+            TextUI.defaultPrint("[" + i + "] " + contactList.get(i));
         }
-        Presenter.exitToMainMenuPrompt();
+        TextUI.exitToMainMenuPrompt();
         String receive = reader.nextLine();
         try{
             if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
                 String receiver = contactList.get(Integer.parseInt(receive));
-                Presenter.inputPrompt("message");
+                TextUI.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendMessage(speaker, receiver, message);
             } else {
-                Presenter.inputOutOfRange();
+                TextUI.inputOutOfRange();
             }
         } catch(Exception e) {
-            Presenter.invalid("default");
+            TextUI.invalid("default");
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 
@@ -136,9 +136,9 @@ public class SpeakerSystem{
         ArrayList<String> messageList = messagemanager.getSent(speaker);
         addAllToMessageList();
         for (int i = 0; i < messageList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + messageList.get(i));
+            TextUI.defaultPrint("[" + i + "] " + messageList.get(i));
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 
@@ -150,43 +150,43 @@ public class SpeakerSystem{
         for(String sender: inboxSenders){
             usermanager.addContactList(sender, speaker);
         }
-        Presenter.defaultPrint("Added all senders to your contact list automatically.");
+        TextUI.defaultPrint("Added all senders to your contact list automatically.");
     }
 
     /**
      * Respond to an attendee who has sent message to the speaker.
      */
     private void respondToAttendee(){
-        Presenter.inputPrompt("messageToRespond");
+        TextUI.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(speaker);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(speaker);
         if(msgInbox.isEmpty()){
-            Presenter.emptyInbox();
-            Presenter.continuePrompt();
+            TextUI.emptyInbox();
+            TextUI.continuePrompt();
             reader.nextLine();
             return;
         }
         for(int i = 0; i < msgInbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + msgInbox.get(i));
+            TextUI.defaultPrint("[" + i + "] " + msgInbox.get(i));
         }
-        Presenter.exitToMainMenuPrompt();
+        TextUI.exitToMainMenuPrompt();
         String cmd = reader.nextLine();
         try{
         if(!("e".equals(cmd))&&Integer.parseInt(cmd)<msgInbox.size()&&Integer.parseInt(cmd)>=0){
             String receiver = inboxSender.get(Integer.parseInt(cmd));
-            Presenter.inputPrompt("message");
+            TextUI.inputPrompt("message");
             String message = reader.nextLine();
             messagemanager.sendMessage(speaker, receiver, message);
-            Presenter.success();
+            TextUI.success();
         } else if("e".equals(cmd)){
-            Presenter.exitingToMainMenu();
+            TextUI.exitingToMainMenu();
         } else {
-            Presenter.inputOutOfRange();
+            TextUI.inputOutOfRange();
         }
         } catch(Exception e) {
-            Presenter.invalid("default");
+            TextUI.invalid("default");
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 
@@ -200,7 +200,7 @@ public class SpeakerSystem{
                 System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
             }
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 }

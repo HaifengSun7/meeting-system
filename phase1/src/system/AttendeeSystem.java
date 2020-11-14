@@ -3,7 +3,7 @@ package system;
 import readWrite.Write;
 import event.EventManager;
 import message.MessageManager;
-import presenter.Presenter;
+import textUI.TextUI;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ public class AttendeeSystem{
     public void run() {
         String command;
         while (true){
-            Presenter.name(attendee);
-            Presenter.userType("Attendee");
-            Presenter.attendeeMenu();
+            TextUI.name(attendee);
+            TextUI.userType("Attendee");
+            TextUI.attendeeMenu();
             command = reader.nextLine();
             switch (command) {
                 case "e":
@@ -53,9 +53,9 @@ public class AttendeeSystem{
                     seeMessages();
                     continue;
                 default:
-                    Presenter.wrongKeyReminder();
-                    Presenter.invalid("");
-                    Presenter.continuePrompt();
+                    TextUI.wrongKeyReminder();
+                    TextUI.invalid("");
+                    TextUI.continuePrompt();
                     reader.nextLine();
                     continue;
             }
@@ -72,9 +72,9 @@ public class AttendeeSystem{
         addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(attendee);
         for(int i = 0; i < inbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+            TextUI.defaultPrint("[" + i + "] " + inbox.get(i));
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 
@@ -86,32 +86,32 @@ public class AttendeeSystem{
         for(String sender: inboxSenders){
             usermanager.addContactList(sender, attendee);
         }
-        Presenter.defaultPrint("Added all senders to your contact list automatically.");
+        TextUI.defaultPrint("Added all senders to your contact list automatically.");
     }
 
     /**
      * Send messages to a specific person.
      */
     private void sendMessageToSomeone(){
-        Presenter.inputPrompt("receiver");
+        TextUI.inputPrompt("receiver");
         ArrayList<String> contactList= usermanager.getContactList(attendee);
         for(int i = 0; i < contactList.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + contactList.get(i));
+            TextUI.defaultPrint("[" + i + "] " + contactList.get(i));
         }
-        Presenter.exitToMainMenuPrompt();
+        TextUI.exitToMainMenuPrompt();
         String receive = reader.nextLine();
         try{
         if (!("e".equals(receive))) {
             String receiver = contactList.get(Integer.parseInt(receive));
-            Presenter.inputPrompt("message");
+            TextUI.inputPrompt("message");
             String message = reader.nextLine();
             messagemanager.sendMessage(attendee, receiver, message);
-            Presenter.success();
+            TextUI.success();
         } else {
-            Presenter.exitingToMainMenu();
+            TextUI.exitingToMainMenu();
         }
         } catch(Exception e) {
-            Presenter.invalid("");
+            TextUI.invalid("");
         }
     }
 
@@ -120,24 +120,24 @@ public class AttendeeSystem{
      */
     private void SignUpForEvent(){
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
-        Presenter.inputPrompt("signUp");
+        TextUI.inputPrompt("signUp");
         for (int i = 0; i < example_list.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
+            TextUI.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
-        Presenter.exitToMainMenuPrompt();
+        TextUI.exitToMainMenuPrompt();
         String command = reader.nextLine();
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("attendee", attendee, Integer.parseInt(example_list.get(Integer.parseInt(command))));
             } catch (Exception e) {
-                Presenter.invalid("");
+                TextUI.invalid("");
                 return;
             }
             usermanager.addSignedEvent(command, attendee);
-            Presenter.success();
+            TextUI.success();
         }
         else{
-            Presenter.exitingToMainMenu();
+            TextUI.exitingToMainMenu();
         }
     }
 
@@ -149,7 +149,7 @@ public class AttendeeSystem{
         for (String s : eventsList) {
             System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
         }
-        Presenter.continuePrompt();
+        TextUI.continuePrompt();
         reader.nextLine();
     }
 }

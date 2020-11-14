@@ -1,12 +1,12 @@
-package presenter;
+package textUI;
 
 /**
- * <h>Presenter</h>
- * The Presenter program is used to print out information to the users.
+ * <h>UI</h>
+ * The TextUI class is used to print out information to the users.
  * @author Haifeng Sun, Wei Tao
  * @version 1.0.0
  */
-public class Presenter {
+public class TextUI {
 
     /**
      * Print out the login information to the user.
