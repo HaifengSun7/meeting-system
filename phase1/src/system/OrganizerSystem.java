@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *<h1>Organizer System</h1>
- *The OrganizerSystem program implements the system of Organizer user.
+ * <h1>Organizer System</h1>
+ * The OrganizerSystem program implements the system of Organizer user.
  * @author Haifeng Sun, Wei Tao
  * @version 1.0.0
  */
@@ -80,7 +80,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * see the messages that the organizer got from other users
+     * See the messages that the organizer got from other users
      */
     private void seeMessages() {
         ArrayList<String> inbox = messagemanager.getInbox(organizer);
@@ -92,7 +92,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * send messages to all users, either all speakers or all attendees
+     * Send messages to all users, either all speakers or all attendees
      * @param user user, either the String "speaker" or "attendee"
      */
     private void sendMessageToAll(String user) {
@@ -116,7 +116,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * seed message to a specific person
+     * Send message to a specific person
      */
     private void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
@@ -137,7 +137,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
+     * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room
      */
     private void manageRooms(){
@@ -186,7 +186,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * create a new room
+     * Create a new room
      */
     private void addNewRoom(){
         Presenter.inputPrompt("newRoomNumber");
@@ -202,7 +202,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * check all scheduled events in a specific room
+     * Check all scheduled events in a specific room
      */
     private void checkRoom(){
         Presenter.inputPrompt("roomNumber");
@@ -225,7 +225,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * create a new user to be the speaker
+     * Create a new user to be the speaker
      */
     private void createSpeaker(){
         Presenter.menusInSpeaker("createSpeaker");
@@ -251,7 +251,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * promote a user to be a speaker
+     * Promote a user to be a speaker
      */
     private void promoteExistingSpeaker(){
         Presenter.titlesInSpeaker("promoteExistingSpeaker");
@@ -268,7 +268,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * schedule a speaker to an existing event or to a new event
+     * Schedule a speaker to an existing event or to a new event
      */
     private void scheduleSpeakers(){
         Presenter.inputPrompt("speakerName");
@@ -363,7 +363,7 @@ public class OrganizerSystem{
     }
 
     /**
-     * add a new speaker to an existing event
+     * Add a new speaker to an existing event
      * @param allEvents all existing events
      * @param name the name of user who would be a speaker
      * @param command command that organizer choose

@@ -1,7 +1,16 @@
 package presenter;
 
+/**
+ * <h>Presenter</h>
+ * The Presenter program is used to print out information to the users
+ * @author Haifeng Sun, Wei Tao
+ * @version 1.0.0
+ */
 public class Presenter {
 
+    /**
+     * Print out the login information to the user
+     */
     public static void login() {
         System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
                 "Press [e] to quit the system.\n" +
