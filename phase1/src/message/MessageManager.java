@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MessageManager {
 
-    private final ArrayList<Message> messages = new ArrayList<Message>();
+    private final ArrayList<Message> messages = new ArrayList<>();
 
     /**
      * Initializes the MessageManager. Activates when being called new MessageManager.
@@ -53,7 +53,7 @@ public class MessageManager {
      * @return The list of sent messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getSent(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getSender().equals(username)) {
                 rtn_list.add(msg.toString());
@@ -69,7 +69,7 @@ public class MessageManager {
      * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getInbox(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.toString());
@@ -86,7 +86,7 @@ public class MessageManager {
      * messages' senders.
      */
     public ArrayList<String> getInboxSender(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.getSender());
