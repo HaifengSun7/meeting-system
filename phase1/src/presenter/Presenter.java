@@ -285,6 +285,9 @@ public class Presenter {
             case "login":
                 System.out.println("Wrong username or password");
                 break;
+            case "roomFull":
+                System.out.println("Sorry, you cannot add this event due to the room capacity.");
+                break;
             default:
                 System.out.println("Invalid input.");
                 break;

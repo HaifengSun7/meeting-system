@@ -4,7 +4,7 @@ import readWrite.MessageIterator;
 
 import java.util.ArrayList;
 
-/**
+/**<h1>Message Manager</h1>
  * The message manager that organizes sending, receiving of messages.
  */
 public class MessageManager {
@@ -29,7 +29,7 @@ public class MessageManager {
             try {
                 this.sendMessage(temp[0], temp[1], temp_str);
             } catch (Exception e) {
-                System.out.println("1");
+                System.out.println("This shouldn't happen");
             }
         }
     }

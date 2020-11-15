@@ -1,6 +1,6 @@
 Organizer,password,Organizer,Speaker1,Speaker2,Speaker3
-User2,password,Attendee,User1,User3,Speaker1,Speaker3,User1,User1
-User1,password,Attendee,User2,User3,Speaker1,Speaker2,User2
+User2,password,Attendee,User1,User3,Speaker1,Speaker3,User1,User1,Organizer
+User1,password,Attendee,User2,User3,Speaker1,Speaker2
 Speaker3,password,Speaker,Organizer,User2,User3,Speaker1,Speaker2
 User3,password,Attendee,User1,User2,Speaker2,Speaker3
 Speaker1,password,Speaker,Organizer,User1,User2,Speaker2,Speaker3

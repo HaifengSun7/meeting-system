@@ -86,6 +86,7 @@ public class EventManager {
      *
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
+     * @throws DuplicateRoomNoException when room number exists.
      */
     public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException {
         for (Room r : rooms) {
@@ -209,6 +210,7 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
+     * @throws Exception when the input were Invalid in some ways.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
@@ -308,6 +310,40 @@ public class EventManager {
         return map.get(event).getDescription();
     }
 
+
+    /**
+     * Create and add a event.
+     *
+     * @param roomNo:        room number.
+     * @param time:          time the meeting begins.
+     * @param meetingLength: time length of the event.
+     * @param description: description of event
+     * @throws NotInOfficeHourException if time out of working hour.
+     * @throws TimeNotAvailableException if time is not available.
+     * @throws InvalidActivityException if there's no such room.
+     */
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
+        try {
+            if (!inOfficeHour(time)) {
+                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
+            }
+            if (ifRoomAvailable(roomNo, time, meetingLength)) {
+                Event newEvent = new Event(time);
+                map.put(newEvent.getId(), newEvent);
+                newEvent.setDescription(description);
+                for (Room r : rooms) {
+                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
+                        r.addEvent(newEvent.getId());
+                    }
+                }
+            } else {
+                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
+            }
+        } catch (Exception e) {
+            throw new InvalidActivityException();
+        }
+    }
+
     /*
      * Make attendee sign up for an event.
      *
@@ -387,35 +423,6 @@ public class EventManager {
         throw new InvalidActivityException();
     }
 
-    /*
-     * Create and add a event.
-     *
-     * @param roomNo:        room number.
-     * @param time:          time the meeting begins.
-     * @param meetingLength: time length of the event.
-     * @throws Exception: if cannot find a room with room number roomNo.
-     */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
-        try {
-            if (!inOfficeHour(time)) {
-                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
-            }
-            if (ifRoomAvailable(roomNo, time, meetingLength)) {
-                Event newEvent = new Event(time);
-                map.put(newEvent.getId(), newEvent);
-                newEvent.setDescription(description);
-                for (Room r : rooms) {
-                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
-                        r.addEvent(newEvent.getId());
-                    }
-                }
-            } else {
-                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
-            }
-        } catch (Exception e) {
-            throw new InvalidActivityException();
-        }
-    }
 //
 //    /**
 //     * Cancel the certain Event.

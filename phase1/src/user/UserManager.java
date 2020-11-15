@@ -128,15 +128,16 @@ public class UserManager {
      * Log in a user, change the status of a user if he login successfully.
      * @param username: a User's username in string.
      * @param password: a User's password in string.
-     * @exception Exception, throw it when log in failed.
+     * @return the user's type
+     * @throws WrongLogInException when log in failed.
      */
-    public String logIn(String username, String password) throws Exception {
+    public String logIn(String username, String password) throws WrongLogInException {
         User user = userMapping.get(username);
         if (user.password.equals(password)) {
             user.setStatus(true);
             return user.getUserType();
         } else {
-            throw new Exception();
+            throw new WrongLogInException("Wrong Username or Password");
         }
     }
 
