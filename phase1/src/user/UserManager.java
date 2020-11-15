@@ -149,14 +149,12 @@ public class UserManager {
      * Log out a user, change the status of a user if he logout successfully.
      *
      * @param username: a User's username in string.
-     * @exception NoSuchUserException, throw it when log out failed.
      */
-    public void logout(String username) throws Exception {
+    public void logout(String username){
         try {
             User user = findUser(username);
             user.setStatus(false);
-        } catch (NoSuchUserException e) {
-            throw new NoSuchUserException("the user does not exist.\n");
+        } catch (NoSuchUserException ignored){
         }
     }
 
