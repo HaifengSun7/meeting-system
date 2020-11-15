@@ -1,7 +1,7 @@
 package presenter;
 
 /**
- * <h>UI</h>
+ *<h1>Presenter</h1>
  * The Presenter class is used to give out information. A textUI is included.
  *
  * @author Haifeng Sun, Wei Tao
@@ -305,6 +305,9 @@ public class Presenter {
                 System.out.println("Username already exists.");
                 break;
         }
+    }
+    public static void autoAddToMessageList(){
+        System.out.println("Added all senders to your contact list automatically.");
     }
 
     /**

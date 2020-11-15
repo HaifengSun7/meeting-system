@@ -27,6 +27,10 @@ public class OrganizerSystem {
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
+    /**
+     * Constructor for OrganizerSystem.
+     * @param organizer A String, which is the username of organizer who logged in.
+     */
     public OrganizerSystem(String organizer) {
         this.organizer = organizer;
     }

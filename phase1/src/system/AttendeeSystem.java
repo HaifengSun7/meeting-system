@@ -23,6 +23,10 @@ public class AttendeeSystem {
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
+    /**
+     * Constructor of AttendeeSystem
+     * @param attendee A String, which is the username of attendee who is logged in.
+     */
     public AttendeeSystem(String attendee) {
         this.attendee = attendee;
     }
@@ -87,7 +91,7 @@ public class AttendeeSystem {
         for (String sender : inboxSenders) {
             usermanager.addContactList(sender, attendee);
         }
-        Presenter.defaultPrint("Added all senders to your contact list automatically.");
+        Presenter.autoAddToMessageList();
     }
 
     /**

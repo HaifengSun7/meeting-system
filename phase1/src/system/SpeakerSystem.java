@@ -23,6 +23,10 @@ public class SpeakerSystem {
     public UserManager usermanager = new UserManager();
     public MessageManager messagemanager = new MessageManager();
 
+    /**
+     * Constructor for SpeakerSystem
+     * @param speaker A String, which is the username of speaker who logged in.
+     */
     public SpeakerSystem(String speaker) {
         this.speaker = speaker;
     }
@@ -151,7 +155,7 @@ public class SpeakerSystem {
         for (String sender : inboxSenders) {
             usermanager.addContactList(sender, speaker);
         }
-        Presenter.defaultPrint("Added all senders to your contact list automatically.");
+        Presenter.autoAddToMessageList();
     }
 
     /**

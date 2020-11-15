@@ -5,8 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * Iterates through a list of String prompts
+ * Iterates through a list of String prompts. This class is based off of ReadWriteEx on Quercus
+ * @author Haifeng Sun
  */
+
+// NOTE: This class is based off of ReadWriteEx on Quercus
 public class EventIterator implements Iterator<String[]> {
     private final List<String[]> eventInfo = new ArrayList<>();
     private int current = 0;
