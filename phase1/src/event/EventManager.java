@@ -346,7 +346,7 @@ public class EventManager {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
         int event_size = map.get(eventNumber).getAttendees().size() + 1;
-        if (event_size >= capacity) {
+        if (event_size > capacity) {
             throw new RoomIsFullException("Room is Full");
         }
         if (map.containsKey(eventNumber)) {
