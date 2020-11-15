@@ -50,9 +50,9 @@ public class UserManager {
 
     /**
      * Create a new user account.
-     * @param usertype: User's type.
-     * @param username: User's name.
-     * @param password: User's password.
+     * @param usertype: User's type in string.
+     * @param username: User's name in string.
+     * @param password: User's password in string.
      * @exception InvalidUsernameException throw this exception if usernsme is not qualified.
      * @exception DuplicateUserNameException throw this exception if username has exsited.
      */
@@ -86,8 +86,8 @@ public class UserManager {
 
     /**
      * Get a new user's signed event list
-     * @param username: a User's username.
-     * @return signedEvnet: a ArrayList of string.
+     * @param username: a User's username in string.
+     * @return a ArrayList of signed events in string.
      */
     public ArrayList<String> getSignedEventList(String username) {
         return userMapping.get(username).getSignedEvent();
@@ -95,8 +95,8 @@ public class UserManager {
 
     /**
      * Get a new user's user type
-     * @param username: a User's username.
-     * @return userType: a string, uesr's type.
+     * @param username: a User's username in string.
+     * @return userType: a string, user's type in string.
      */
     public String getUserType(String username) {
         return userMapping.get(username).getUserType();
@@ -104,8 +104,8 @@ public class UserManager {
 
     /**
      * Get a new user's contact list
-     * @param username: a User's username.
-     * @return contactList: a ArrayList of string.
+     * @param username: a User's username in string.
+     * @return a ArrayList of contact list in string.
      */
     public ArrayList<String> getContactList(String username) {
         return userMapping.get(username).getContactList();
@@ -113,8 +113,8 @@ public class UserManager {
 
     /**
      * Get a new user's status
-     * @param username: a User's username.
-     * @return boolean: User's status.
+     * @param username: a User's username in string.
+     * @return User's status in boolean.
      */
     public boolean getStatus(String username) {
         return userMapping.get(username).getStatus();
@@ -122,8 +122,8 @@ public class UserManager {
 
     /**
      * Get a new user's password
-     * @param username: a User's username.
-     * @return password: User's password.
+     * @param username: a User's username in string.
+     * @return password: User's password in string.
      */
     public String getPassword(String username) {
         return userMapping.get(username).password;
@@ -131,8 +131,8 @@ public class UserManager {
 
     /**
      * Log in a user, change the status of a user if he login successfully.
-     * @param username: a User's username.
-     * @param password: a User's password.
+     * @param username: a User's username in string.
+     * @param password: a User's password in string.
      * @exception Exception, throw it when log in failed.
      */
     public String logIn(String username, String password) throws Exception {
@@ -148,15 +148,15 @@ public class UserManager {
     /**
      * Log out a user, change the status of a user if he logout successfully.
      *
-     * @param username: a User's username.
-     * @exception Exception, throw it when log out failed.
+     * @param username: a User's username in string.
+     * @exception NoSuchUserException, throw it when log out failed.
      */
-    public void logout(String username) {
+    public void logout(String username) throws Exception {
         try {
             User user = findUser(username);
             user.setStatus(false);
-        } catch (Exception e) {
-            System.out.println("The user doesn't exist.\n");
+        } catch (NoSuchUserException e) {
+            throw new NoSuchUserException("the user does not exist.\n");
         }
     }
 
@@ -164,7 +164,7 @@ public class UserManager {
      * make attendee become Speaker
      *
      * @param attendeeName Attendee username in String.
-     * @return a list of String which is the signed evnet list of this attendee.
+     * @return a list of signed event list of this attendee in string.
      * @throws Exception throw an exception when necessary.
      */
 
@@ -182,14 +182,14 @@ public class UserManager {
             speaker.setContactList(contactlist);
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
-            return signedEvent; //TODO:Is this necessary?
+            return signedEvent;
         }
     }
 
     /**
      * get all usernames
      *
-     * @return a collection of all username.
+     * @return a collection of all username in string.
      */
     public Collection<String> getAllUsernames() {
         return userMapping.keySet();
@@ -198,7 +198,7 @@ public class UserManager {
     /**
      * get all speakers!
      *
-     * @return a Arraylist of all Speaker's name.
+     * @return a list of all Speaker's name in string.
      */
     public ArrayList<String> getSpeakers() {
         ArrayList<String> speaker = new ArrayList<>();
@@ -213,7 +213,7 @@ public class UserManager {
     /**
      * get all attendees!
      *
-     * @return a Arraylist of all Attendee's name.
+     * @return a list of all Attendee's name in string.
      */
     public ArrayList<String> getAttendees() {
         ArrayList<String> attendee = new ArrayList<>();
@@ -240,8 +240,8 @@ public class UserManager {
     /**
      * Delete a event from a user's signed event list.
      *
-     * @param eventId: a event's id.
-     * @param username: a User's username.
+     * @param eventId: a event's id in string.
+     * @param username: a User's username in string.
      */
     public void deleteSignedEvent(String eventId, String username) {
         ArrayList<String> lst = userMapping.get(username).getSignedEvent();
@@ -252,8 +252,8 @@ public class UserManager {
     /**
      * Add a new contact to a user's contect list.
      *
-     * @param contactName: another user's username.
-     * @param username: a User's username.
+     * @param contactName: another user's username in string.
+     * @param username: a User's username in string.
      */
     public void addContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
@@ -264,10 +264,10 @@ public class UserManager {
     }
 
     /**
-     * Delete a exist contact from a user's contect list.
+     * Delete a exist contact from a user's contact list.
      *
-     * @param contactName: another user's username.
-     * @param username: a User's username.
+     * @param contactName: another user's username in string.
+     * @param username: a User's username in string.
      */
     public void deleteContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
