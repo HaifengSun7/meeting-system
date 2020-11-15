@@ -171,11 +171,15 @@ public class OrganizerSystem {
                 String duration = reader.nextLine();
                 Presenter.inputPrompt("description");
                 String description = reader.nextLine();
-                try {
+                try {//TODO: (same for line 329 & 360)
+                    //System.out.println("Adding event to room " + room + ", time: " + time1 + " Duration: " + duration);
                     eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                     Presenter.continuePrompt();
                 } catch (Exception e) {
                     Presenter.invalid("addEvent");
+                    //TODO: there might be two different types of exceptions.
+                    //Not in office hour.
+                    //and System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
                 }
                 reader.nextLine();
                 break;
@@ -322,7 +326,7 @@ public class OrganizerSystem {
                         String duration = reader.nextLine();
                         Presenter.inputPrompt("description");
                         String description = reader.nextLine();
-                        try {
+                        try {//TODO:
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                             Presenter.continuePrompt();
                         } catch (Exception e) {
@@ -353,7 +357,7 @@ public class OrganizerSystem {
                         duration = reader.nextLine();
                         Presenter.inputPrompt("description");
                         description = reader.nextLine();
-                        try {
+                        try {//TODO:
                             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
                         } catch (Exception e) {
                             Presenter.invalid("addEvent");

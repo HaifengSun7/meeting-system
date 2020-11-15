@@ -241,14 +241,12 @@ public class EventManager {
      * @param roomNo:        room number.
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
-     * @throws InvalidActivityException: if cannot find a room with room number roomNo.
+     * @throws Exception: if cannot find a room with room number roomNo.
      */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws InvalidActivityException {
-        System.out.println("Adding event to room " + roomNo + ", time: " + time.toString() + " Duration: " + meetingLength);
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
         try {
             if (!inOfficeHour(time)) {
-                System.out.println("Invalid time slot. Not in working hour.");
-                return;
+                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
             }
             if (ifRoomAvailable(roomNo, time, meetingLength)) {
                 Event newEvent = new Event(time);
@@ -260,7 +258,7 @@ public class EventManager {
                     }
                 }
             } else {
-                System.out.println("Failed to add event to room " + roomNo + ": Time has been taken by other events.");
+                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
             }
         } catch (Exception e) {
             throw new InvalidActivityException();
