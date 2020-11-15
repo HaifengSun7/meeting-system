@@ -1,6 +1,6 @@
 package system;
 
-import event.EventManager;
+import event.*;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.Write;
@@ -132,9 +132,20 @@ public class AttendeeSystem {
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("attendee", attendee, Integer.parseInt(example_list.get(Integer.parseInt(command))));
-            } catch (Exception e) {
-                Presenter.invalid("");
+            } catch (RoomIsFullException e) {
+                Presenter.invalid("roomFull");
                 return;
+            } catch (InvalidUserException e) {
+                Presenter.invalid("username");
+                return;
+            } catch (NoSuchEventException e) {
+                Presenter.invalid("eventId");
+                return;
+            } catch (AlreadyHasSpeakerException e) {
+                Presenter.invalid("addSpeaker");
+                return;
+            } catch (Exception e){
+                Presenter.invalid("");
             }
             usermanager.addSignedEvent(command, attendee);
             Presenter.success();
