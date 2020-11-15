@@ -14,8 +14,8 @@ public class Presenter {
      */
     public static void logInPrompt() {
         System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
-                "Press [e] to quit the system.\n" +
-                "Press anything else to log in.");
+                "Input [e] to quit the system.\n" +
+                "Press enter to log in.");
     }
 
     /**
@@ -62,7 +62,7 @@ public class Presenter {
      * @param username the username of user.
      */
     public static void name(String username) {
-        System.out.println("Name: " + username);
+        System.out.println("UserName: " + username);
     }
 
     /**
@@ -98,10 +98,10 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of press [e] to main menu.
+     * Print out the prompt of Input [e] to main menu.
      */
     public static void exitToMainMenuPrompt() {
-        System.out.println("Press [e] to exit to main menu");
+        System.out.println("Input [e] to exit to main menu");
     }
 
     /**
@@ -168,7 +168,7 @@ public class Presenter {
                 System.out.println("Please enter the speaker's username:");
                 break;
             case "signUp":
-                System.out.println("Here are the events that you can sign up for. Enter serial number to choose the event.");
+                System.out.println("Here are the events that you can sign up for. Enter number in square brackets to choose the event.");
                 break;
         }
     }
@@ -240,7 +240,7 @@ public class Presenter {
      * Print out the prompt of empty inbox.
      */
     public static void emptyInbox() {
-        System.out.println("Your inbox is empty. Press enter to exit to main menu.");
+        System.out.println("Your inbox is empty.");
     }
 
     /**
