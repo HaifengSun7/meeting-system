@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>system.SpeakerSystem</OriginalElement>
+  <nodes>
+    <node x="288.875" y="1254.0">readWrite.Write</node>
+    <node x="781.4002976190477" y="990.0">presenter.Presenter</node>
+    <node x="384.875" y="1667.0">system.SpeakerSystem</node>
+    <node x="67.5" y="482.0">event.EventManager</node>
+    <node x="512.375" y="608.5">message.MessageManager</node>
+    <node x="84.68058035714296" y="0.0">user.UserManager</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Tree" zoom="0.5016987542468856" x="553.5" y="873.0" />
+  <SelectedNodes>
+    <node>presenter.Presenter</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

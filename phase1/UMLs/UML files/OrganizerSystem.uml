@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>system.OrganizerSystem</OriginalElement>
+  <nodes>
+    <node x="376.0" y="652.0">readWrite.Write</node>
+    <node x="796.0" y="652.0">system.OrganizerSystem</node>
+    <node x="0.0" y="0.0">presenter.Presenter</node>
+    <node x="303.0" y="0.0">event.EventManager</node>
+    <node x="0.0" y="652.0">message.MessageManager</node>
+    <node x="720.0" y="0.0">user.UserManager</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Tree" zoom="1.0" x="515.0" y="423.5" />
+  <SelectedNodes>
+    <node>presenter.Presenter</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

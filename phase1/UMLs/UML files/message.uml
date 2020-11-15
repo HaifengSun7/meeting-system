@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>message</OriginalElement>
+  <nodes>
+    <node x="0.0" y="434.0">readWrite.Write</node>
+    <node x="0.0" y="240.0">message.Message</node>
+    <node x="0.0" y="0.0">message.MessageManager</node>
+    <node x="274.0" y="240.0">readWrite.MessageIterator</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="221.0" y="256.5" />
+  <SelectedNodes>
+    <node>readWrite.Write</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

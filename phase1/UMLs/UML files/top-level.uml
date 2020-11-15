@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="282.0" y="657.0">system.OrganizerSystem</node>
+    <node x="334.82142857142856" y="-6.0">presenter.Presenter</node>
+    <node x="0.0" y="657.0">system.SpeakerSystem</node>
+    <node x="401.0" y="994.0">main</node>
+    <node x="564.0" y="657.0">system.AttendeeSystem</node>
+    <node x="410.5" y="889.0">system.LogInSystem</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="system.LogInSystem" target="system.SpeakerSystem">
+      <point x="-58.28571428571428" y="-27.5" />
+      <point x="420.2142857142857" y="869.0" />
+      <point x="65.5" y="869.0" />
+      <point x="-65.5" y="86.0" />
+    </edge>
+    <edge source="system.LogInSystem" target="presenter.Presenter">
+      <point x="58.28571428571422" y="-27.5" />
+      <point x="536.7857142857142" y="869.0" />
+      <point x="836.5" y="869.0" />
+      <point x="836.5" y="627.0" />
+      <point x="561.5714285714286" y="625.0" />
+      <point x="96.75000000000001" y="303.5" />
+    </edge>
+    <edge source="system.LogInSystem" target="system.OrganizerSystem">
+      <point x="-19.428571428571445" y="-27.5" />
+      <point x="459.07142857142856" y="849.0" />
+      <point x="347.5" y="849.0" />
+      <point x="-65.5" y="86.0" />
+    </edge>
+    <edge source="system.SpeakerSystem" target="presenter.Presenter">
+      <point x="0.0" y="-86.0" />
+      <point x="131.0" y="627.0" />
+      <point x="367.07142857142856" y="627.0" />
+      <point x="-96.75" y="303.5" />
+    </edge>
+    <edge source="system.AttendeeSystem" target="presenter.Presenter">
+      <point x="0.0" y="-86.0" />
+      <point x="695.0" y="637.0" />
+      <point x="497.07142857142856" y="634.0" />
+      <point x="32.25" y="303.5" />
+    </edge>
+    <edge source="main" target="system.LogInSystem">
+      <point x="38.75" y="-27.5" />
+      <point x="517.25" y="969.0" />
+      <point x="512.5" y="969.0" />
+      <point x="34.0" y="27.5" />
+    </edge>
+    <edge source="system.LogInSystem" target="system.AttendeeSystem">
+      <point x="19.428571428571445" y="-27.5" />
+      <point x="497.92857142857144" y="849.0" />
+      <point x="629.5" y="849.0" />
+      <point x="-65.5" y="86.0" />
+    </edge>
+    <edge source="system.OrganizerSystem" target="presenter.Presenter">
+      <point x="0.0" y="-86.0" />
+      <point x="413.0" y="637.0" />
+      <point x="432.57142857142856" y="636.0" />
+      <point x="-32.25" y="303.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9" x="602.222222222222" y="491.22222222222223" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
