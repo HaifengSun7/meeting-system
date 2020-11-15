@@ -176,6 +176,7 @@ public class Event {
      * Check if the event contradicts the other event in time.
      *
      * @param start: start time, length: length add in the start time.
+     * @param length: The length of the event.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
     public boolean contradicts(Timestamp start, int length) {

@@ -128,7 +128,8 @@ public class UserManager {
      * Log in a user, change the status of a user if he login successfully.
      * @param username: a User's username in string.
      * @param password: a User's password in string.
-     * @exception Exception, throw it when log in failed.
+     * @throws Exception: throw it when log in failed.
+     * @return the user's type
      */
     public String logIn(String username, String password) throws Exception {
         User user = userMapping.get(username);

@@ -86,6 +86,7 @@ public class EventManager {
      *
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
+     * @throws DuplicateRoomNoException when room number exists.
      */
     public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException {
         for (Room r : rooms) {
@@ -209,6 +210,7 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
+     * @throws Exception when the input were Invalid in some ways.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
