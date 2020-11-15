@@ -296,8 +296,9 @@ public class EventManager {
      * 3. make attendee speaker of all the rest of events.
      *
      * @param attendee Attendee but string.
+     * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) {
+    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException{
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for (Event i : events) {
@@ -307,10 +308,9 @@ public class EventManager {
         }
         for (Event j : attended) {
             if (j.getSpeakStatus()) {
-                System.out.println("event" + j.getId() + " already has a speaker. Unable to promote\n");
+                throw new AlreadyHasSpeakerException("CannotAddSpeaker: " + attendee);
             } else {
                 j.setSpeaker(attendee);
-                System.out.println("Successfully set " + attendee + " to be the speaker of event" + j.getId() + "\n");
             }
         }
     }
