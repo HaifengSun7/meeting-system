@@ -15,9 +15,6 @@ import java.util.Scanner;
 /**
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class OrganizerSystem {
 

@@ -12,9 +12,6 @@ import java.util.Scanner;
 /**
  * <h1>Attendee System</h1>
  * The AttendeeSystem program implements the system of Attendee user.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class AttendeeSystem {
     private final String attendee;

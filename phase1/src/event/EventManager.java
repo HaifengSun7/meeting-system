@@ -13,9 +13,6 @@ import java.util.Map;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
- *
- * @author Haifeng Sun, Are you sure?
- * @version 1.0.0
  */
 
 public class EventManager {
@@ -431,6 +428,16 @@ public class EventManager {
     }
 
     /**
+     * Get the description from the event's id.
+     *
+     * @param event: event's id.
+     * @return the description of the event.
+     */
+    public String getDescription(Integer event) {
+        return map.get(event).getDescription();
+    }
+
+    /**
      * Check if the time in office hour.
      *
      * @param time: time want to be checked.
@@ -449,15 +456,5 @@ public class EventManager {
             }
         }
         return false;
-    }
-
-    /**
-     * Get the description from the event's id.
-     *
-     * @param event: event's id.
-     * @return the description of the event.
-     */
-    public String getDescription(Integer event) {
-        return map.get(event).getDescription();
     }
 }
