@@ -320,6 +320,11 @@ public class Presenter {
         System.out.println(input);
     }
 
+    /**
+     * Cases where the eventManager couldn't add event.
+     * @param input the case of the failure.
+     * @param room the room number that the user tries to add event.
+     */
     public static void failureAddEvent(String input, String room){
         if(input.equals("NotOfficeHour")){
             System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
@@ -331,6 +336,12 @@ public class Presenter {
         }
     }
 
+    /**
+     * Prints the process of loading an event.
+     * @param room the room number of event.
+     * @param time the time of the event.
+     * @param duration the length of the event.
+     */
     public static void loadEvent(String room, String time, String duration){
         System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
     }

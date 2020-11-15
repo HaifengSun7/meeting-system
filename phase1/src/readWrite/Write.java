@@ -140,7 +140,9 @@ public class Write {
      * @param writer          The FileWriter.
      * @throws IOException should not happen.
      */
-    private void threeStringOneArrayListFileWriterHelper(ArrayList<String> stringArrayList, String string1, String string2, String string3, FileWriter writer) throws IOException {
+    private void threeStringOneArrayListFileWriterHelper(ArrayList<String> stringArrayList, String string1,
+                                                         String string2, String string3,
+                                                         FileWriter writer) throws IOException {
         writer.append(string1);
         writer.append(",");
         writer.append(string2);

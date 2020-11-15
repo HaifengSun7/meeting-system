@@ -12,7 +12,7 @@ public class MessageManager {
     private final ArrayList<Message> messages = new ArrayList<>();
 
     /**
-     * Initializes the MessageManager. Activates when being called new MessageManager.
+     * Initializes the MessageManager. Activates when being called new MessageManager. Reads file message.csv.
      */
     public MessageManager() {
         int j;
@@ -20,7 +20,7 @@ public class MessageManager {
         String[] temp;
         String temp_str;
         while (messageIterator.hasNext()) {
-            temp = messageIterator.next(); //do something
+            temp = messageIterator.next();
             StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
             for (j = 3; j < temp.length; j++) {
                 temp_strBuilder.append(',').append(temp[j]);

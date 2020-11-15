@@ -13,6 +13,9 @@ public class UserManager {
 
     private final Map<String, User> userMapping;
 
+    /**
+     * Initializes the user manager, reads from save file user.csv
+     */
     public UserManager() {
         this.userMapping = new HashMap<>();
         UserIterator userIterator = new UserIterator();
@@ -74,14 +77,6 @@ public class UserManager {
                 addUser(newUser);
             }
         }
-    }
-
-    private void addUser(User user) {
-        userMapping.put(user.getUserName(), user);
-    }
-
-    private void deleteUser(String username) {
-        userMapping.remove(username);
     }
 
     /**
@@ -281,4 +276,13 @@ public class UserManager {
         }
         throw new NoSuchUserException("the user does not exist.\n");
     }
+
+    private void addUser(User user) {
+        userMapping.put(user.getUserName(), user);
+    }
+
+    private void deleteUser(String username) {
+        userMapping.remove(username);
+    }
+
 }
