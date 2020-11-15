@@ -129,7 +129,7 @@ public class UserManager {
      * @param username: a User's username in string.
      * @param password: a User's password in string.
      * @return the user's type
-     * @throws WrongLogInException: when log in failed.
+     * @throws WrongLogInException when log in failed.
      */
     public String logIn(String username, String password) throws WrongLogInException {
         User user = userMapping.get(username);
