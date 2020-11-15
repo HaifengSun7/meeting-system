@@ -13,19 +13,16 @@ import java.util.Map;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
- *
- * @author Haifeng Sun, Are you sure?
- * @version 1.0.0
  */
 
 public class EventManager {
 
     private final ArrayList<Room> rooms;
-    private final Map<Integer, Event> map = new HashMap<Integer, Event>();
+    private final Map<Integer, Event> map = new HashMap<>();
 
     public EventManager() {
         Event.resetID();
-        rooms = new ArrayList<Room>();
+        rooms = new ArrayList<>();
         int j;
         int k = 0;
         EventIterator eventIterator = new EventIterator();
@@ -104,7 +101,7 @@ public class EventManager {
      * @return a list of strings of Rooms.
      */
     public ArrayList<String> getAllRooms() {
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         for (Room room : rooms) {
             result.add(room.toString());
         }
@@ -184,7 +181,7 @@ public class EventManager {
      * @return a list of Event ids in String that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee) {
-        ArrayList<String> rslt = new ArrayList<String>();
+        ArrayList<String> rslt = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             if (!map.get(i).getAttendees().contains(attendee) && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
                 rslt.add(String.valueOf(map.get(i).getId()));
@@ -200,7 +197,7 @@ public class EventManager {
      * @return list of times this attendee is busy
      */
     private ArrayList<String> dontHaveTime(String attendee) {
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         for (Integer key : map.keySet()) {
             if (map.get(key).getAttendees().contains(attendee)) {
                 res.add(map.get(key).getTime());
@@ -299,8 +296,9 @@ public class EventManager {
      * 3. make attendee speaker of all the rest of events.
      *
      * @param attendee Attendee but string.
+     * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) {
+    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException{
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for (Event i : events) {
@@ -310,10 +308,9 @@ public class EventManager {
         }
         for (Event j : attended) {
             if (j.getSpeakStatus()) {
-                System.out.println("event" + j.getId() + " already has a speaker. Unable to promote\n");
+                throw new AlreadyHasSpeakerException("CannotAddSpeaker: " + attendee);
             } else {
                 j.setSpeaker(attendee);
-                System.out.println("Successfully set " + attendee + " to be the speaker of event" + j.getId() + "\n");
             }
         }
     }
@@ -324,7 +321,7 @@ public class EventManager {
      * @return all events. Index = event number.
      */
     public ArrayList<String> getAllEvents() {
-        ArrayList<String> events = new ArrayList<String>();
+        ArrayList<String> events = new ArrayList<>();
         for (int i = 0; i < map.size() - 1; i++) {
             if (map.containsKey(i)) {
                 events.add(map.get(i).toString());
@@ -346,7 +343,7 @@ public class EventManager {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
         int event_size = map.get(eventNumber).getAttendees().size() + 1;
-        if (event_size >= capacity) {
+        if (event_size > capacity) {
             throw new RoomIsFullException("Room is Full");
         }
         if (map.containsKey(eventNumber)) {
@@ -431,6 +428,16 @@ public class EventManager {
     }
 
     /**
+     * Get the description from the event's id.
+     *
+     * @param event: event's id.
+     * @return the description of the event.
+     */
+    public String getDescription(Integer event) {
+        return map.get(event).getDescription();
+    }
+
+    /**
      * Check if the time in office hour.
      *
      * @param time: time want to be checked.
@@ -449,15 +456,5 @@ public class EventManager {
             }
         }
         return false;
-    }
-
-    /**
-     * Get the description from the event's id.
-     *
-     * @param event: event's id.
-     * @return the description of the event.
-     */
-    public String getDescription(Integer event) {
-        return map.get(event).getDescription();
     }
 }

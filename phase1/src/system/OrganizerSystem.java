@@ -15,9 +15,6 @@ import java.util.Scanner;
 /**
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class OrganizerSystem {
 
@@ -271,7 +268,12 @@ public class OrganizerSystem {
             reader.nextLine();
             return;
         }
-        eventmanager.becomeSpeaker(name);
+        try {
+            eventmanager.becomeSpeaker(name);
+            //System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
+        } catch (Exception e) {
+            //TODO:
+        }
     }
 
     /**

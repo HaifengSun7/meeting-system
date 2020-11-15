@@ -8,9 +8,6 @@ import java.util.Scanner;
 /**
  * <h1>Login System</h1>
  * The LoginSystem program implements the system of login.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class LogInSystem {
 

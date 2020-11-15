@@ -12,9 +12,6 @@ import java.util.Scanner;
 /**
  * <h1>Speaker System</h1>
  * The SpeakerSystem program implements the system of Speaker user.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class SpeakerSystem {
     private final String speaker;

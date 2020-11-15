@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 /**
  * The message manager that organizes sending, receiving of messages.
- *
- * @author Shaohong Chen, Haoyang Wang
- * @version 1.0.3
  */
 public class MessageManager {
 

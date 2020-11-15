@@ -2,9 +2,6 @@ package message;
 
 /**
  * Each Message entity stores the sender of the message, receiver of the message and the message text itself.
- *
- * @author Shaohong Chen
- * @version 1.0.0
  */
 public class Message {
 

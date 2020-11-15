@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 /**
  * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString
- *
- * @author Dechen Han, Shaohong Chen.
- * @version 1.0.3
  */
 //TODO: REMEMBER TO CHANGE THE AUTHOR AND REMOVE THE TODOS.
 public class Event {
