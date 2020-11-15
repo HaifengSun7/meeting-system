@@ -274,9 +274,9 @@ public class OrganizerSystem {
         }
         try {
             eventmanager.becomeSpeaker(name);
-            //System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
+            System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
         } catch (Exception e) {
-            //TODO:
+            System.out.println("This event already has a speaker");
         }
     }
 
