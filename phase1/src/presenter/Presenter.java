@@ -273,8 +273,8 @@ public class Presenter {
             case "eventId":
                 System.out.println("Event Id doesn't exist. Please enter a valid event Id.");
                 break;
-            case "addEvent":
-                System.out.println("Sorry, cannot add event! Room unavailable or time not in valid spot.");
+            case "addEventGeneral":
+                System.out.println("Sorry, cannot add event!");
                 break;
             case "getEventSchedule":
                 System.out.println("Sorry, cannot get event schedule. Event unavailable.");
@@ -318,5 +318,20 @@ public class Presenter {
      */
     public static void defaultPrint(String input) {
         System.out.println(input);
+    }
+
+    public static void failureAddEvent(String input, String room){
+        if(input.equals("NotOfficeHour")){
+            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
+                    "ensure meeting ends before 17:00");
+        } else if(input.equals("TimeNotAvailable")){
+            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
+        } else{
+            System.out.println("invalid room number");
+        }
+    }
+
+    public static void loadEvent(String room, String time, String duration){
+        System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
     }
 }

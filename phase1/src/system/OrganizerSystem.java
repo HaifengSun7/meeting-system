@@ -1,7 +1,9 @@
 package system;
 
-import event.DuplicateRoomNoException;
 import event.EventManager;
+import event.DuplicateRoomNoException;
+import event.TimeNotAvailableException;
+import event.NotInOfficeHourException;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.Write;
@@ -163,25 +165,7 @@ public class OrganizerSystem {
                 reader.nextLine();
                 break;
             case "c":
-                Presenter.inputPrompt("roomNumber");
-                String room = reader.nextLine();
-                Presenter.inputPrompt("startTime");
-                String time1 = reader.nextLine();
-                Presenter.inputPrompt("duration");
-                String duration = reader.nextLine();
-                Presenter.inputPrompt("description");
-                String description = reader.nextLine();
-                try {//TODO: (same for line 329 & 360)
-                    //System.out.println("Adding event to room " + room + ", time: " + time1 + " Duration: " + duration);
-                    eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
-                    Presenter.continuePrompt();
-                } catch (Exception e) {
-                    Presenter.invalid("addEvent");
-                    //TODO: there might be three different types of exceptions.
-                    //Not in office hour.
-                    //and System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
-                    //and InvalidActivityException thrown by method ifRoomAvailable due to invalid room number.
-                }
+                addingEvent();
                 reader.nextLine();
                 break;
             case "e":
@@ -319,21 +303,7 @@ public class OrganizerSystem {
                 String command4 = reader.nextLine();
                 switch (command4) {
                     case "a":
-                        Presenter.inputPrompt("roomNumber");
-                        String room = reader.nextLine();
-                        Presenter.inputPrompt("startTime");
-                        String time1 = reader.nextLine();
-                        Presenter.inputPrompt("duration");
-                        String duration = reader.nextLine();
-                        Presenter.inputPrompt("description");
-                        String description = reader.nextLine();
-                        try {//TODO:
-                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
-                            Presenter.continuePrompt();
-                        } catch (Exception e) {
-                            Presenter.invalid("addEvent");
-                            break;
-                        }
+                        addingEvent();
                         Presenter.continuePrompt();
                         reader.nextLine();
                         break;
@@ -350,21 +320,7 @@ public class OrganizerSystem {
                             Presenter.invalid("getEventSchedule");
                             break;
                         }
-                        Presenter.inputPrompt("roomNumber");
-                        room = reader.nextLine();
-                        Presenter.inputPrompt("startTime");
-                        time1 = reader.nextLine();
-                        Presenter.inputPrompt("duration");
-                        duration = reader.nextLine();
-                        Presenter.inputPrompt("description");
-                        description = reader.nextLine();
-                        try {//TODO:
-                            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
-                        } catch (Exception e) {
-                            Presenter.invalid("addEvent");
-                            break;
-                        }
-                        Presenter.success();
+                        addingEvent();
                         Presenter.continuePrompt();
                         reader.nextLine();
                         break;
@@ -393,6 +349,33 @@ public class OrganizerSystem {
             }
         } else {
             Presenter.invalid("eventId");
+        }
+    }
+
+    private void addingEvent(){
+        Presenter.inputPrompt("roomNumber");
+        String room = reader.nextLine();
+        Presenter.inputPrompt("startTime");
+        String time1 = reader.nextLine();
+        Presenter.inputPrompt("duration");
+        String duration = reader.nextLine();
+        Presenter.inputPrompt("description");
+        String description = reader.nextLine();
+        try {
+            Presenter.loadEvent(room, time1, duration);
+            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
+            Presenter.success();
+            Presenter.continuePrompt();
+        } catch (Exception e) {
+            if(e instanceof NotInOfficeHourException){
+                Presenter.failureAddEvent("NotOfficeHour", room);
+            } else if(e instanceof TimeNotAvailableException){
+                Presenter.failureAddEvent("TimeNotAvailable", room);
+            } else if(e instanceof InvalidActivityException){
+                Presenter.failureAddEvent("InvalidRoomNum", room);
+            } else {
+                Presenter.invalid("addEventGeneral");
+            }
         }
     }
 }
