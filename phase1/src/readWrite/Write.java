@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * Write to file.
+ *
  * @author Haifeng Sun.
  */
 public class Write {
@@ -22,8 +23,9 @@ public class Write {
 
     /**
      * Constructor of Write.
-     * @param userManager an UserManager.
-     * @param eventManager an EventManager.
+     *
+     * @param userManager    an UserManager.
+     * @param eventManager   an EventManager.
      * @param messageManager an MessageManager.
      */
     public Write(UserManager userManager, EventManager eventManager, MessageManager messageManager) {
@@ -132,11 +134,12 @@ public class Write {
 
     /**
      * A helper method that append 3 strings and 1 arraylist to FileWriter, with comma separations.
+     *
      * @param stringArrayList An ArrayList that goes last.
-     * @param string1 A String that goes first.
-     * @param string2 A String that goes second.
-     * @param string3 A String that goes third.
-     * @param writer The FileWriter.
+     * @param string1         A String that goes first.
+     * @param string2         A String that goes second.
+     * @param string3         A String that goes third.
+     * @param writer          The FileWriter.
      * @throws IOException should not happen.
      */
     private void threeStringOneArrayListFileWriterHelper(ArrayList<String> stringArrayList, String string1, String string2, String string3, FileWriter writer) throws IOException {

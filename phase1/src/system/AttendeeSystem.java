@@ -1,8 +1,8 @@
 package system;
 
-import presenter.Presenter;
 import event.EventManager;
 import message.MessageManager;
+import presenter.Presenter;
 import readWrite.Write;
 import user.UserManager;
 
@@ -25,6 +25,7 @@ public class AttendeeSystem {
 
     /**
      * Constructor of AttendeeSystem
+     *
      * @param attendee A String, which is the username of attendee who is logged in.
      */
     public AttendeeSystem(String attendee) {

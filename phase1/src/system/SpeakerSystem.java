@@ -1,8 +1,8 @@
 package system;
 
-import presenter.Presenter;
 import event.EventManager;
 import message.MessageManager;
+import presenter.Presenter;
 import readWrite.Write;
 import user.UserManager;
 
@@ -25,6 +25,7 @@ public class SpeakerSystem {
 
     /**
      * Constructor for SpeakerSystem
+     *
      * @param speaker A String, which is the username of speaker who logged in.
      */
     public SpeakerSystem(String speaker) {
