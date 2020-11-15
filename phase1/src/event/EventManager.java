@@ -18,11 +18,11 @@ import java.util.Map;
 public class EventManager {
 
     private final ArrayList<Room> rooms;
-    private final Map<Integer, Event> map = new HashMap<Integer, Event>();
+    private final Map<Integer, Event> map = new HashMap<>();
 
     public EventManager() {
         Event.resetID();
-        rooms = new ArrayList<Room>();
+        rooms = new ArrayList<>();
         int j;
         int k = 0;
         EventIterator eventIterator = new EventIterator();
@@ -101,7 +101,7 @@ public class EventManager {
      * @return a list of strings of Rooms.
      */
     public ArrayList<String> getAllRooms() {
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         for (Room room : rooms) {
             result.add(room.toString());
         }
@@ -181,7 +181,7 @@ public class EventManager {
      * @return a list of Event ids in String that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee) {
-        ArrayList<String> rslt = new ArrayList<String>();
+        ArrayList<String> rslt = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             if (!map.get(i).getAttendees().contains(attendee) && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
                 rslt.add(String.valueOf(map.get(i).getId()));
@@ -197,7 +197,7 @@ public class EventManager {
      * @return list of times this attendee is busy
      */
     private ArrayList<String> dontHaveTime(String attendee) {
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         for (Integer key : map.keySet()) {
             if (map.get(key).getAttendees().contains(attendee)) {
                 res.add(map.get(key).getTime());
@@ -321,7 +321,7 @@ public class EventManager {
      * @return all events. Index = event number.
      */
     public ArrayList<String> getAllEvents() {
-        ArrayList<String> events = new ArrayList<String>();
+        ArrayList<String> events = new ArrayList<>();
         for (int i = 0; i < map.size() - 1; i++) {
             if (map.containsKey(i)) {
                 events.add(map.get(i).toString());
