@@ -131,7 +131,7 @@ public class AttendeeSystem {
         String command = reader.nextLine();
         if (!("e".equals(command))) {
             try {
-                eventmanager.addUserToEvent("attendee", attendee, Integer.parseInt(example_list.get(Integer.parseInt(command))));
+                eventmanager.addUserToEvent("Attendee", attendee, Integer.parseInt(example_list.get(Integer.parseInt(command))));
             } catch (RoomIsFullException e) {
                 Presenter.invalid("roomFull");
                 return;
