@@ -14,16 +14,11 @@ import java.util.Map;
 /**
  * The manager that manages the scheduling of events with their rooms.
  *
- * @author Haifeng Sun
+ * @author Haifeng Sun, Are you sure?
  * @version 1.0.0
  */
 
 public class EventManager {
-    /*
-    What we need(for now):
-    1. Add events to the rooms.
-    2. getAttendees(eventID)
-     */
 
     private final ArrayList<Room> rooms;
     private final Map<Integer, Event> map = new HashMap<Integer, Event>();
@@ -155,7 +150,7 @@ public class EventManager {
      * @param attendee Attendee, but with String.
      * @throws NoSuchEventException when the event does not exist.
      */
-    public void signUp(String event, String attendee) throws NoSuchEventException {
+    private void signUp(String event, String attendee) throws NoSuchEventException {
         if (map.containsKey(Integer.parseInt(event))) {
             map.get(Integer.parseInt(event)).addAttendees(attendee);
         } else {
@@ -163,24 +158,24 @@ public class EventManager {
         }
     }
 
-    /**
-     * Make attendee sign out for an event.
-     *
-     * @param eventId  Event id in string.
-     * @param attendee Attendee with String.
-     * @throws NoSuchEventException when the event does not exist.
-     */
-    public void signOut(String eventId, String attendee) throws Exception {
-        if (map.containsKey(Integer.parseInt(eventId))) {
-            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
-                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
-            } else {
-                throw new InvalidActivityException();
-            }
-        } else {
-            throw new NoSuchEventException("NoSuchEvent: " + eventId);
-        }
-    }
+//    /**
+//     * Make attendee sign out for an event.
+//     *
+//     * @param eventId  Event id in string.
+//     * @param attendee Attendee with String.
+//     * @throws NoSuchEventException when the event does not exist.
+//     */
+//    public void signOut(String eventId, String attendee) throws Exception {
+//        if (map.containsKey(Integer.parseInt(eventId))) {
+//            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
+//                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
+//            } else {
+//                throw new InvalidActivityException();
+//            }
+//        } else {
+//            throw new NoSuchEventException("NoSuchEvent: " + eventId);
+//        }
+//    }
 
     /**
      * Return a list of Events.toString() that attendee can sign up for.
@@ -274,27 +269,27 @@ public class EventManager {
             throw new InvalidActivityException();
         }
     }
-
-    /**
-     * Cancel the certain Event.
-     *
-     * @param eventId: the id of the event in string.
-     */
-    public void cancelEvent(String eventId) throws NoSuchEventException {
-        for (Integer id : map.keySet()) {
-            if (id == Integer.parseInt(eventId)) {
-                map.remove(id);
-                for (Room r : rooms) {
-                    if (r.getSchedule().contains(id)) {
-                        r.removeEvent(id);
-                    }
-                }
-            }
-            System.out.println("Successfully cancel the event" + eventId);
-            return;
-        }
-        throw new NoSuchEventException("NoSuchEvent: " + eventId);
-    }
+//
+//    /**
+//     * Cancel the certain Event.
+//     *
+//     * @param eventId: the id of the event in string.
+//     */
+//    public void cancelEvent(String eventId) throws NoSuchEventException {
+//        for (Integer id : map.keySet()) {
+//            if (id == Integer.parseInt(eventId)) {
+//                map.remove(id);
+//                for (Room r : rooms) {
+//                    if (r.getSchedule().contains(id)) {
+//                        r.removeEvent(id);
+//                    }
+//                }
+//            }
+//            System.out.println("Successfully cancel the event" + eventId);
+//            return;
+//        }
+//        throw new NoSuchEventException("NoSuchEvent: " + eventId);
+//    }
 
     /**
      * Make attendee a speaker by updating all events related with them.
