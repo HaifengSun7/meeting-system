@@ -177,9 +177,10 @@ public class OrganizerSystem {
                     Presenter.continuePrompt();
                 } catch (Exception e) {
                     Presenter.invalid("addEvent");
-                    //TODO: there might be two different types of exceptions.
+                    //TODO: there might be three different types of exceptions.
                     //Not in office hour.
                     //and System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
+                    //and InvalidActivityException thrown by method ifRoomAvailable due to invalid room number.
                 }
                 reader.nextLine();
                 break;
