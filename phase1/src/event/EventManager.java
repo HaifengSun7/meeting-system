@@ -20,6 +20,9 @@ public class EventManager {
     private final ArrayList<Room> rooms;
     private final Map<Integer, Event> map = new HashMap<>();
 
+    /**
+     * Initializes the event manager. It goes through the saved files of event.csv.
+     */
     public EventManager() {
         Event.resetID();
         rooms = new ArrayList<>();
@@ -40,7 +43,7 @@ public class EventManager {
         }
         String[] temp2;
         while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next(); //do something
+            temp2 = eventIterator.next();
             try {
                 this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
             } catch (Exception e) {
@@ -141,40 +144,6 @@ public class EventManager {
     }
 
     /**
-     * Make attendee sign up for an event.
-     *
-     * @param event    Event id in string.
-     * @param attendee Attendee, but with String.
-     * @throws NoSuchEventException when the event does not exist.
-     */
-    private void signUp(String event, String attendee) throws NoSuchEventException {
-        if (map.containsKey(Integer.parseInt(event))) {
-            map.get(Integer.parseInt(event)).addAttendees(attendee);
-        } else {
-            throw new NoSuchEventException("NoSuchEvent: " + event);
-        }
-    }
-
-//    /**
-//     * Make attendee sign out for an event.
-//     *
-//     * @param eventId  Event id in string.
-//     * @param attendee Attendee with String.
-//     * @throws NoSuchEventException when the event does not exist.
-//     */
-//    public void signOut(String eventId, String attendee) throws Exception {
-//        if (map.containsKey(Integer.parseInt(eventId))) {
-//            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
-//                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
-//            } else {
-//                throw new InvalidActivityException();
-//            }
-//        } else {
-//            throw new NoSuchEventException("NoSuchEvent: " + eventId);
-//        }
-//    }
-
-    /**
      * Return a list of Events.toString() that attendee can sign up for.
      *
      * @param attendee Attendee, but string.
@@ -189,102 +158,6 @@ public class EventManager {
         }
         return rslt;
     }
-
-    /**
-     * Return a list of times an attendee have signed up for events.
-     *
-     * @param attendee Attendee to string
-     * @return list of times this attendee is busy
-     */
-    private ArrayList<String> dontHaveTime(String attendee) {
-        ArrayList<String> res = new ArrayList<>();
-        for (Integer key : map.keySet()) {
-            if (map.get(key).getAttendees().contains(attendee)) {
-                res.add(map.get(key).getTime());
-            }
-        }
-        return res;
-    }
-
-//    /**
-//     * Get a map that contains all events.
-//     * @return the map<eventId, correspondingEvent>.
-//     */
-//    public Map<Integer, Event> getMap() {return this.map;}
-
-    /**
-     * Check if the room is available or not at the input time.
-     *
-     * @param roomNo: room number of the given room.
-     * @param time:   start time of the event.
-     * @param length: number of hours the event will take.
-     * @return true or not
-     * @throws InvalidActivityException when the room number is invalid.
-     */
-    private boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
-        for (Room r : rooms) {
-            if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
-                for (int id : r.getSchedule()) {
-                    if (map.get(id).contradicts(time, length)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        throw new InvalidActivityException();
-    }
-
-    /**
-     * Create and add a event.
-     *
-     * @param roomNo:        room number.
-     * @param time:          time the meeting begins.
-     * @param meetingLength: time length of the event.
-     * @throws Exception: if cannot find a room with room number roomNo.
-     */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
-        try {
-            if (!inOfficeHour(time)) {
-                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
-            }
-            if (ifRoomAvailable(roomNo, time, meetingLength)) {
-                Event newEvent = new Event(time);
-                map.put(newEvent.getId(), newEvent);
-                newEvent.setDescription(description);
-                for (Room r : rooms) {
-                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
-                        r.addEvent(newEvent.getId());
-                    }
-                }
-            } else {
-                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
-            }
-        } catch (Exception e) {
-            throw new InvalidActivityException();
-        }
-    }
-//
-//    /**
-//     * Cancel the certain Event.
-//     *
-//     * @param eventId: the id of the event in string.
-//     */
-//    public void cancelEvent(String eventId) throws NoSuchEventException {
-//        for (Integer id : map.keySet()) {
-//            if (id == Integer.parseInt(eventId)) {
-//                map.remove(id);
-//                for (Room r : rooms) {
-//                    if (r.getSchedule().contains(id)) {
-//                        r.removeEvent(id);
-//                    }
-//                }
-//            }
-//            System.out.println("Successfully cancel the event" + eventId);
-//            return;
-//        }
-//        throw new NoSuchEventException("NoSuchEvent: " + eventId);
-//    }
 
     /**
      * Make attendee a speaker by updating all events related with them.
@@ -435,7 +308,137 @@ public class EventManager {
         return map.get(event).getDescription();
     }
 
-    /**
+    /*
+     * Make attendee sign up for an event.
+     *
+     * @param event    Event id in string.
+     * @param attendee Attendee, but with String.
+     * @throws NoSuchEventException when the event does not exist.
+     */
+    private void signUp(String event, String attendee) throws NoSuchEventException {
+        if (map.containsKey(Integer.parseInt(event))) {
+            map.get(Integer.parseInt(event)).addAttendees(attendee);
+        } else {
+            throw new NoSuchEventException("NoSuchEvent: " + event);
+        }
+    }
+
+//    /**
+//     * Make attendee sign out for an event.
+//     *
+//     * @param eventId  Event id in string.
+//     * @param attendee Attendee with String.
+//     * @throws NoSuchEventException when the event does not exist.
+//     */
+//    public void signOut(String eventId, String attendee) throws Exception {
+//        if (map.containsKey(Integer.parseInt(eventId))) {
+//            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
+//                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
+//            } else {
+//                throw new InvalidActivityException();
+//            }
+//        } else {
+//            throw new NoSuchEventException("NoSuchEvent: " + eventId);
+//        }
+//    }
+
+    /*
+     * Return a list of times an attendee have signed up for events.
+     *
+     * @param attendee Attendee to string
+     * @return list of times this attendee is busy
+     */
+    private ArrayList<String> dontHaveTime(String attendee) {
+        ArrayList<String> res = new ArrayList<>();
+        for (Integer key : map.keySet()) {
+            if (map.get(key).getAttendees().contains(attendee)) {
+                res.add(map.get(key).getTime());
+            }
+        }
+        return res;
+    }
+
+//    /**
+//     * Get a map that contains all events.
+//     * @return the map<eventId, correspondingEvent>.
+//     */
+//    public Map<Integer, Event> getMap() {return this.map;}
+
+    /*
+     * Check if the room is available or not at the input time.
+     *
+     * @param roomNo: room number of the given room.
+     * @param time:   start time of the event.
+     * @param length: number of hours the event will take.
+     * @return true or not
+     * @throws InvalidActivityException when the room number is invalid.
+     */
+    private boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
+        for (Room r : rooms) {
+            if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
+                for (int id : r.getSchedule()) {
+                    if (map.get(id).contradicts(time, length)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        throw new InvalidActivityException();
+    }
+
+    /*
+     * Create and add a event.
+     *
+     * @param roomNo:        room number.
+     * @param time:          time the meeting begins.
+     * @param meetingLength: time length of the event.
+     * @throws Exception: if cannot find a room with room number roomNo.
+     */
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
+        try {
+            if (!inOfficeHour(time)) {
+                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
+            }
+            if (ifRoomAvailable(roomNo, time, meetingLength)) {
+                Event newEvent = new Event(time);
+                map.put(newEvent.getId(), newEvent);
+                newEvent.setDescription(description);
+                for (Room r : rooms) {
+                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
+                        r.addEvent(newEvent.getId());
+                    }
+                }
+            } else {
+                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
+            }
+        } catch (Exception e) {
+            throw new InvalidActivityException();
+        }
+    }
+//
+//    /**
+//     * Cancel the certain Event.
+//     *
+//     * @param eventId: the id of the event in string.
+//     */
+//    public void cancelEvent(String eventId) throws NoSuchEventException {
+//        for (Integer id : map.keySet()) {
+//            if (id == Integer.parseInt(eventId)) {
+//                map.remove(id);
+//                for (Room r : rooms) {
+//                    if (r.getSchedule().contains(id)) {
+//                        r.removeEvent(id);
+//                    }
+//                }
+//            }
+//            System.out.println("Successfully cancel the event" + eventId);
+//            return;
+//        }
+//        throw new NoSuchEventException("NoSuchEvent: " + eventId);
+//    }
+
+    /*
      * Check if the time in office hour.
      *
      * @param time: time want to be checked.

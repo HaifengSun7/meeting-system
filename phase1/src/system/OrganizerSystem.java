@@ -84,7 +84,7 @@ public class OrganizerSystem {
         write.run();
     }
 
-    /**
+    /*
      * See the messages that the organizer got from other users.
      */
     private void seeMessages() {
@@ -96,9 +96,8 @@ public class OrganizerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Send messages to all users, either all speakers or all attendees.
-     *
      * @param user type of user, either the String "speaker" or "attendee".
      */
     private void sendMessageToAll(String user) {
@@ -121,7 +120,7 @@ public class OrganizerSystem {
 
     }
 
-    /**
+    /*
      * Send message to a specific person.
      */
     private void sendMessageToSomeone() {
@@ -142,7 +141,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room.
      */
@@ -178,7 +177,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Create a new room.
      */
     private void addNewRoom() {
@@ -194,7 +193,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Check all scheduled events in a specific room.
      */
     private void checkRoom() {
@@ -217,7 +216,7 @@ public class OrganizerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
@@ -243,7 +242,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker() {
@@ -265,7 +264,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
@@ -332,7 +331,7 @@ public class OrganizerSystem {
         }
     }
 
-    /**
+    /*
      * Add a new speaker to an existing event.
      *
      * @param allEvents all existing events.
@@ -352,6 +351,9 @@ public class OrganizerSystem {
         }
     }
 
+    /*
+    The action of adding an Event, with info from inputs.
+     */
     private void addingEvent(){
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
