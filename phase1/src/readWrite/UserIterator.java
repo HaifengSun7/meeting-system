@@ -6,8 +6,6 @@ import java.util.*;
 
 /**
  * Iterates through a list of String prompts. This class is based off of ReadWriteEx on Quercus
- *
- * @author Haifeng Sun
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus

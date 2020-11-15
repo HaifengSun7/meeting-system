@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString
  */
-//TODO: REMEMBER TO CHANGE THE AUTHOR AND REMOVE THE TODOS.
+
 public class Event {
 
     private static int eventNumber = 0;
@@ -25,7 +25,6 @@ public class Event {
      * @param time: The time the meeting begins.
      */
     public Event(Timestamp time) {
-        //TODO: Constructor, The input of time is an input made by users in string.
         //The input time needs to be in the form of 05:00, which means with length 5.
         this.time = time;
         this.id = eventNumber; //To be used in other useCases and entities.
@@ -177,6 +176,7 @@ public class Event {
      * Check if the event contradicts the other event in time.
      *
      * @param start: start time, length: length add in the start time.
+     * @param length: The length of the event.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
     public boolean contradicts(Timestamp start, int length) {
@@ -193,13 +193,14 @@ public class Event {
         }
     }
 
-    /**
+    /*
      * Get the length of the event.
      *
      * @return the length of the event.
-     */
+    */
+    /*
     private int getLength() {
         return this.length;
     }
-
+    */
 }

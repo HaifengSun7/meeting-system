@@ -13,6 +13,9 @@ public class UserManager {
 
     private final Map<String, User> userMapping;
 
+    /**
+     * Initializes the user manager, reads from save file user.csv
+     */
     public UserManager() {
         this.userMapping = new HashMap<>();
         UserIterator userIterator = new UserIterator();
@@ -53,8 +56,8 @@ public class UserManager {
      * @param usertype: User's type in string.
      * @param username: User's name in string.
      * @param password: User's password in string.
-     * @exception InvalidUsernameException throw this exception if usernsme is not qualified.
-     * @exception DuplicateUserNameException throw this exception if username has exsited.
+     * @exception InvalidUsernameException throw this exception if username is not qualified.
+     * @exception DuplicateUserNameException throw this exception if username has existed.
      */
     public void createUserAccount(String usertype, String username, String password) throws Exception {
         if (username.length() < 3) {
@@ -74,14 +77,6 @@ public class UserManager {
                 addUser(newUser);
             }
         }
-    }
-
-    private void addUser(User user) {
-        userMapping.put(user.getUserName(), user);
-    }
-
-    private void deleteUser(String username) {
-        userMapping.remove(username);
     }
 
     /**
@@ -133,15 +128,16 @@ public class UserManager {
      * Log in a user, change the status of a user if he login successfully.
      * @param username: a User's username in string.
      * @param password: a User's password in string.
-     * @exception Exception, throw it when log in failed.
+     * @return the user's type
+     * @throws WrongLogInException when log in failed.
      */
-    public String logIn(String username, String password) throws Exception {
+    public String logIn(String username, String password) throws WrongLogInException {
         User user = userMapping.get(username);
         if (user.password.equals(password)) {
             user.setStatus(true);
             return user.getUserType();
         } else {
-            throw new Exception();
+            throw new WrongLogInException("Wrong Username or Password");
         }
     }
 
@@ -162,25 +158,25 @@ public class UserManager {
      * make attendee become Speaker
      *
      * @param attendeeName Attendee username in String.
-     * @return a list of signed event list of this attendee in string.
      * @throws Exception throw an exception when necessary.
      */
+    //* @return a list of signed event list of this attendee in string.
 
-    public ArrayList<String> becomeSpeaker(String attendeeName) throws Exception {
+    public void becomeSpeaker(String attendeeName) throws Exception {
         if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("NoSuchUser: " + attendeeName);
         } else {
             User attendee = userMapping.get(attendeeName);
-            ArrayList<String> contactlist = attendee.getContactList();
+            ArrayList<String> contactList = attendee.getContactList();
             ArrayList<String> signedEvent = attendee.getSignedEvent();
             boolean status = attendee.getStatus();
             deleteUser(attendeeName);
             createUserAccount("Speaker", attendee.getUserName(), attendee.getPassword());
             User speaker = userMapping.get(attendeeName);
-            speaker.setContactList(contactlist);
+            speaker.setContactList(contactList);
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
-            return signedEvent;
+            //return signedEvent;
         }
     }
 
@@ -248,7 +244,7 @@ public class UserManager {
     }
 
     /**
-     * Add a new contact to a user's contect list.
+     * Add a new contact to a user's contact list.
      *
      * @param contactName: another user's username in string.
      * @param username: a User's username in string.
@@ -281,4 +277,13 @@ public class UserManager {
         }
         throw new NoSuchUserException("the user does not exist.\n");
     }
+
+    private void addUser(User user) {
+        userMapping.put(user.getUserName(), user);
+    }
+
+    private void deleteUser(String username) {
+        userMapping.remove(username);
+    }
+
 }

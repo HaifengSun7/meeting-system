@@ -71,7 +71,7 @@ public class SpeakerSystem {
         write.run();
     }
 
-    /**
+    /*
      * See the messages that the speaker got from other users.
      */
     private void seeMessages() {
@@ -83,7 +83,7 @@ public class SpeakerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Send messages to all attendees.
      */
     private void sendMessageToAll() {
@@ -105,7 +105,7 @@ public class SpeakerSystem {
         }
     }
 
-    /**
+    /*
      * Send messages to a specific person.
      */
     private void sendMessageToSomeone() {
@@ -132,7 +132,7 @@ public class SpeakerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Get the messages that the speaker has sent.
      */
     private void getSentMessages() {
@@ -145,7 +145,7 @@ public class SpeakerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Add all senders of the inbox messages to speaker's contact list.
      */
     private void addAllToMessageList() {
@@ -156,7 +156,7 @@ public class SpeakerSystem {
         Presenter.autoAddToMessageList();
     }
 
-    /**
+    /*
      * Respond to an attendee who has sent message to the speaker.
      */
     private void respondToAttendee() {
@@ -193,7 +193,7 @@ public class SpeakerSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Check the events that speaker gave.
      */
     private void checkTalkedEvent() {

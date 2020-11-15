@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>user</OriginalElement>
+  <nodes>
+    <node x="1440.0" y="284.0">readWrite.UserIterator</node>
+    <node x="332.54861111111114" y="0.0">user.User</node>
+    <node x="476.0" y="295.5">user.Attendee</node>
+    <node x="716.0" y="307.5">user.InvalidUsernameException</node>
+    <node x="1615.0" y="307.5">user.DuplicateUserNameException</node>
+    <node x="1178.0" y="307.5">user.NoSuchUserException</node>
+    <node x="248.0" y="295.5">user.Organizer</node>
+    <node x="0.0" y="295.5">user.Speaker</node>
+    <node x="1003.0" y="284.0">readWrite.EventIterator</node>
+    <node x="617.5" y="516.0">user.UserManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="user.Organizer" target="user.User">
+      <point x="-52.0" y="-39.5" />
+      <point x="300.0" y="254.0" />
+      <point x="413.43750000000006" y="254.0" />
+      <point x="-23.111111111111086" y="97.0" />
+    </edge>
+    <edge source="user.Speaker" target="user.User">
+      <point x="52.0" y="-39.5" />
+      <point x="156.0" y="244.0" />
+      <point x="390.3263888888889" y="244.0" />
+      <point x="-46.22222222222223" y="97.0" />
+    </edge>
+    <edge source="user.Attendee" target="user.User">
+      <point x="52.0" y="-39.5" />
+      <point x="632.0" y="254.0" />
+      <point x="482.77083333333337" y="254.0" />
+      <point x="46.22222222222223" y="97.0" />
+    </edge>
+  </edges>
+  <settings layout="Tree" zoom="0.7354024197790636" x="940.5" y="459.0" />
+  <SelectedNodes>
+    <node>user.User</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

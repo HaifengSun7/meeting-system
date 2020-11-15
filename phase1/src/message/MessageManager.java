@@ -4,15 +4,15 @@ import readWrite.MessageIterator;
 
 import java.util.ArrayList;
 
-/**
+/**<h1>Message Manager</h1>
  * The message manager that organizes sending, receiving of messages.
  */
 public class MessageManager {
 
-    private final ArrayList<Message> messages = new ArrayList<Message>();
+    private final ArrayList<Message> messages = new ArrayList<>();
 
     /**
-     * Initializes the MessageManager. Activates when being called new MessageManager.
+     * Initializes the MessageManager. Activates when being called new MessageManager. Reads file message.csv.
      */
     public MessageManager() {
         int j;
@@ -20,7 +20,7 @@ public class MessageManager {
         String[] temp;
         String temp_str;
         while (messageIterator.hasNext()) {
-            temp = messageIterator.next(); //do something
+            temp = messageIterator.next();
             StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
             for (j = 3; j < temp.length; j++) {
                 temp_strBuilder.append(',').append(temp[j]);
@@ -29,7 +29,7 @@ public class MessageManager {
             try {
                 this.sendMessage(temp[0], temp[1], temp_str);
             } catch (Exception e) {
-                System.out.println("1");
+                System.out.println("This shouldn't happen");
             }
         }
     }
@@ -53,7 +53,7 @@ public class MessageManager {
      * @return The list of sent messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getSent(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getSender().equals(username)) {
                 rtn_list.add(msg.toString());
@@ -69,7 +69,7 @@ public class MessageManager {
      * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getInbox(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.toString());
@@ -86,7 +86,7 @@ public class MessageManager {
      * messages' senders.
      */
     public ArrayList<String> getInboxSender(String username) {
-        ArrayList<String> rtn_list = new ArrayList<String>();
+        ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.messages) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.getSender());

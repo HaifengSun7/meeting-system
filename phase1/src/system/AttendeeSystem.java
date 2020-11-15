@@ -68,7 +68,7 @@ public class AttendeeSystem {
         write.run();
     }
 
-    /**
+    /*
      * See the messages that the attendee got from other users.
      */
     private void seeMessages() {
@@ -81,7 +81,7 @@ public class AttendeeSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Add all senders of the inbox messages to attendee's contact list.
      */
     private void addAllToMessageList() {
@@ -92,7 +92,7 @@ public class AttendeeSystem {
         Presenter.autoAddToMessageList();
     }
 
-    /**
+    /*
      * Send messages to a specific person.
      */
     private void sendMessageToSomeone() {
@@ -118,7 +118,7 @@ public class AttendeeSystem {
         }
     }
 
-    /**
+    /*
      * Print the events that attendee haven't signed up and choose one event to sign it up.
      */
     private void SignUpForEvent() {
@@ -143,7 +143,7 @@ public class AttendeeSystem {
         }
     }
 
-    /**
+    /*
      * Check the events that attendee have signed up.
      */
     private void checkSignedUp() {
