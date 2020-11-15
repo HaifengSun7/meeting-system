@@ -13,8 +13,6 @@ import java.util.Map;
 
 /**
  * Write to file.
- *
- * @author Haifeng Sun.
  */
 public class Write {
     private final UserManager usermanager;
