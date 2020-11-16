@@ -7,9 +7,7 @@ import user.UserManager;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
@@ -53,7 +51,7 @@ public class EventManager {
                 try {
                     this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, event" + e.getMessage());
+                    System.out.println("Failed to add User to Event, event" + k + " does not exist.");
                 }
             }
             k += 1;
@@ -216,7 +214,6 @@ public class EventManager {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
         int event_size = map.get(eventNumber).getAttendees().size();
-
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {
