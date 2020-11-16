@@ -149,6 +149,7 @@ public class AttendeeSystem {
                 return;
             } catch (Exception e){
                 Presenter.invalid("");
+                return;
             }
             usermanager.addSignedEvent(command, attendee);
             Presenter.success();
