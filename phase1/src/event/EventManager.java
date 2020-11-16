@@ -7,9 +7,7 @@ import user.UserManager;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
@@ -204,6 +202,7 @@ public class EventManager {
         return events;
     }
 
+
     /**
      * Add user to an event. MAKE SURE TO DOUBLE CHECK ALL CONDITIONS.
      *
@@ -225,6 +224,9 @@ public class EventManager {
         if (!has_speaker){
             int event_size = map.get(eventNumber).getAttendees().size();
             if (event_size >= capacity) {
+                throw new RoomIsFullException("Room is Full");
+            }
+            if (capacity - event_size == 1 && type.equals("Attendee")){
                 throw new RoomIsFullException("Room is Full");
             }
         }
