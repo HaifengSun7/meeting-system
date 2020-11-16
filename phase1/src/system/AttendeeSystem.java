@@ -55,6 +55,9 @@ public class AttendeeSystem {
                 case "4":
                     seeMessages();
                     continue;
+                case "5":
+                    cancelEnrollment();
+                    continue;
                 default:
                     Presenter.wrongKeyReminder();
                     Presenter.invalid("");
@@ -68,7 +71,7 @@ public class AttendeeSystem {
         write.run();
     }
 
-    /*
+    /**
      * See the messages that the attendee got from other users.
      */
     private void seeMessages() {
@@ -81,7 +84,7 @@ public class AttendeeSystem {
         reader.nextLine();
     }
 
-    /*
+    /**
      * Add all senders of the inbox messages to attendee's contact list.
      */
     private void addAllToMessageList() {
@@ -92,7 +95,7 @@ public class AttendeeSystem {
         Presenter.autoAddToMessageList();
     }
 
-    /*
+    /**
      * Send messages to a specific person.
      */
     private void sendMessageToSomeone() {
@@ -118,8 +121,8 @@ public class AttendeeSystem {
         }
     }
 
-    /*
-     * Print the events that attendee haven't signed up and choose one event to sign it up.
+    /**
+     * Print the events that attendee hasn't signed up and choose one event to sign it up.
      */
     private void SignUpForEvent() {
         ArrayList<String> example_list = eventmanager.canSignUp(attendee);
@@ -154,8 +157,8 @@ public class AttendeeSystem {
         }
     }
 
-    /*
-     * Check the events that attendee have signed up.
+    /**
+     * Check the events that attendee has signed up.
      */
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
@@ -164,5 +167,29 @@ public class AttendeeSystem {
         }
         Presenter.continuePrompt();
         reader.nextLine();
+    }
+
+    /**
+     * Cancel the enrollment in an event that attendee has signed it up
+     */
+    private void cancelEnrollment() {
+        ArrayList<String> eventsList = usermanager.getSignedEventList(attendee);
+        for (int i = 0; i < eventsList.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
+        }
+        Presenter.exitToMainMenuPrompt();
+        Presenter.inputPrompt("eventId");
+        String eventId = reader.nextLine();
+        if (!("e".equals(eventId))) {
+            try {
+                usermanager.deleteSignedEvent(eventId, attendee);
+                eventmanager.signOut(eventId, attendee);
+            } catch (Exception e){
+                Presenter.invalid("eventId");
+            }
+            Presenter.success();
+        } else {
+            Presenter.exitingToMainMenu();
+        }
     }
 }

@@ -53,6 +53,7 @@ public class Presenter {
                 "[2] See events that I have signed up for\n" +
                 "[3] Send a message\n" +
                 "[4] See messages\n" +
+                "[5] Cancel enrolment in an signed event\n" +
                 "[e] Save and log out.");
     }
 

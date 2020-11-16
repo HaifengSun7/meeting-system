@@ -357,24 +357,24 @@ public class EventManager {
         }
     }
 
-//    /**
-//     * Make attendee sign out for an event.
-//     *
-//     * @param eventId  Event id in string.
-//     * @param attendee Attendee with String.
-//     * @throws NoSuchEventException when the event does not exist.
-//     */
-//    public void signOut(String eventId, String attendee) throws Exception {
-//        if (map.containsKey(Integer.parseInt(eventId))) {
-//            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
-//                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
-//            } else {
-//                throw new InvalidActivityException();
-//            }
-//        } else {
-//            throw new NoSuchEventException("NoSuchEvent: " + eventId);
-//        }
-//    }
+    /**
+     * Make attendee sign out for an event.
+     *
+     * @param eventId  Event id in string.
+     * @param attendee Attendee with String.
+     * @throws NoSuchEventException when the event does not exist.
+     */
+    public void signOut(String eventId, String attendee) throws Exception {
+        if (map.containsKey(Integer.parseInt(eventId))) {
+            if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
+                map.get(Integer.parseInt(eventId)).removeAttendees(attendee);
+            } else {
+                throw new InvalidActivityException();
+            }
+        } else {
+            throw new NoSuchEventException("NoSuchEvent: " + eventId);
+        }
+    }
 
     /*
      * Return a list of times an attendee have signed up for events.
