@@ -193,7 +193,8 @@ public class Presenter {
                         "[b] creation");
                 break;
             case "scheduleSpeakers1":
-                System.out.println("Input the event number of an existing event to add speaker.\n");
+                System.out.println("Input the event number of an existing event to add speaker.\n" +
+                        "[r] to check schedules of rooms.");
                 break;
             case "scheduleSpeakers2":
                 System.out.println("Enter room number to check schedule of the room\n" +
@@ -225,6 +226,9 @@ public class Presenter {
                 break;
             case "scheduleSpeakers2":
                 System.out.println("Here are the rooms.");
+                break;
+            case "AddEvents":
+                System.out.println("Now please add the event.");
                 break;
         }
     }

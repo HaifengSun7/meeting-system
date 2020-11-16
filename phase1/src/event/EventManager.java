@@ -53,7 +53,7 @@ public class EventManager {
                 try {
                     this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, event" + k + " does not exist.");
+                    System.out.println("Failed to add User to Event, event" + e.getMessage());
                 }
             }
             k += 1;
@@ -215,10 +215,8 @@ public class EventManager {
     public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
-        int event_size = map.get(eventNumber).getAttendees().size() + 1;
-        if (event_size > capacity) {
-            throw new RoomIsFullException("Room is Full");
-        }
+        int event_size = map.get(eventNumber).getAttendees().size();
+
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {
@@ -228,6 +226,9 @@ public class EventManager {
                             map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
+                if (event_size >= capacity - 1) {
+                    throw new RoomIsFullException("Room is Full");
+                }
                 signUp(String.valueOf(eventNumber), username);
             } else {
                 throw new InvalidUserException("Invalid user type");

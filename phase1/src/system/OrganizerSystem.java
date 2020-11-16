@@ -310,15 +310,7 @@ public class OrganizerSystem {
                         Presenter.exitingToMainMenu();
                         break;
                     default:
-                        try {
-                            ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command4));
-                            for (Integer i : schedule) {
-                                Presenter.defaultPrint(eventmanager.findEventStr(i));
-                            }
-                        } catch (InvalidActivityException e) {
-                            Presenter.invalid("getEventSchedule");
-                            break;
-                        }
+                        showEvents(command4);
                         addingEvent();
                         Presenter.continuePrompt();
                         reader.nextLine();
@@ -344,6 +336,7 @@ public class OrganizerSystem {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 Presenter.invalid("addSpeaker");
             }
         } else {
@@ -355,6 +348,7 @@ public class OrganizerSystem {
     The action of adding an Event, with info from inputs.
      */
     private void addingEvent(){
+        Presenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
         Presenter.inputPrompt("startTime");
@@ -378,6 +372,17 @@ public class OrganizerSystem {
             } else {
                 Presenter.invalid("addEventGeneral");
             }
+        }
+    }
+
+    private void showEvents(String command){
+        try {
+            ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command));
+            for (Integer i : schedule) {
+                Presenter.defaultPrint(eventmanager.findEventStr(i));
+            }
+        } catch (InvalidActivityException e) {
+            Presenter.invalid("getEventSchedule");
         }
     }
 }
