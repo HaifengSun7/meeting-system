@@ -184,10 +184,10 @@ public class AttendeeSystem {
             try {
                 usermanager.deleteSignedEvent(eventId, attendee);
                 eventmanager.signOut(eventId, attendee);
+                Presenter.success();
             } catch (Exception e){
                 Presenter.invalid("eventId");
             }
-            Presenter.success();
         } else {
             Presenter.exitingToMainMenu();
         }
