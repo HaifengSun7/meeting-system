@@ -1,7 +1,6 @@
 package system;
 
 import presenter.Presenter;
-import readWrite.EventIterator;
 import readWrite.UserIterator;
 import readWrite.Iterator;
 import user.UserManager;
@@ -24,7 +23,7 @@ public class LogInSystem {
          */
         while (true) {
             usermanager = new UserManager();
-            initializeUserManager(usermanager);
+            getAccounts(usermanager);
             boolean logged_in = false;
             String user_type = "";
             String username = "";
@@ -52,56 +51,35 @@ public class LogInSystem {
                 if (!logged_in) {
                     Presenter.noTrials();
                     return;
-                }
-                switch (user_type) {
-                    case "Attendee":
-                        AttendeeSystem as = new AttendeeSystem(username);
-                        as.run();
-                        break;
-                    case "Organizer":
-                        OrganizerSystem os = new OrganizerSystem(username);
-                        os.run();
-                        break;
-                    case "Speaker":
-                        SpeakerSystem ss = new SpeakerSystem(username);
-                        ss.run();
-                        break;
+                } else {
+                    UserSystem system;
+                    switch (user_type) {
+                        case "Organizer":
+                            system = new OrganizerSystem(username);
+                            break;
+                        case "Speaker":
+                            system = new SpeakerSystem(username);
+                            break;
+                        default:
+                            system = new AttendeeSystem(username);
+                            break;
+                    }
+                    system.run();
                 }
             }
         }
     }
 
-    private void initializeUserManager(UserManager userManager){
+    private void getAccounts(UserManager userManager){
         Iterator userIterator = new UserIterator();
-        Iterator eventIterator = new EventIterator();
         String[] temp;
         while (userIterator.hasNext()) {
             temp = userIterator.next();
             try {
                 userManager.createUserAccount(temp[2], temp[0], temp[1]);
             } catch (Exception e) {
-                System.out.println("This should not be happening.");
+                Presenter.defaultPrint("This should not be happening.");
             }
-        }
-        Iterator userIter = new UserIterator();
-        while (userIter.hasNext()) {
-            temp = userIter.next();
-            for (int i = 3; i < temp.length; i++) {
-                userManager.addContactList(temp[i], temp[0]);
-            }
-        }
-        String[] temp2;
-        int k = 0;
-        while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next();
-            for (int j = 4; j < temp2.length; j++) {
-                try {
-                    userManager.addSignedEvent(String.valueOf(k), temp2[j]);
-                } catch (Exception e) {
-                    System.out.println("cannot add event (userManager). something went wrong.");
-                }
-            }
-            k += 1;
         }
     }
 }

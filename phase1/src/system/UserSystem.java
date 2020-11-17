@@ -27,6 +27,9 @@ public abstract class UserSystem {
         initializeManagers(usermanager, eventmanager, messagemanager);
     }
 
+    /**
+     * It is an abstract method and will call the run() methods of subclasses to run.
+     */
     public abstract void run();
 
     /*
