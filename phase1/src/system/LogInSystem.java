@@ -42,7 +42,7 @@ public class LogInSystem {
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
-                    } catch (WrongLogInException e) {
+                    } catch (WrongLogInException | NullPointerException e) {
                         Presenter.invalid("login");
                         continue;
                     }
