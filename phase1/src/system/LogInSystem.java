@@ -4,6 +4,7 @@ import presenter.Presenter;
 import readWrite.UserIterator;
 import readWrite.Iterator;
 import user.UserManager;
+import user.WrongLogInException;
 
 import java.util.Scanner;
 
@@ -34,14 +35,14 @@ public class LogInSystem {
                 break;
             } else {
                 for (int i = 0; i < 5; i++) {
-                    Presenter.defaultPrint("You have " + (5 - i) + " trials remaining \n");
+                    Presenter.trailsRemaining(5-i);
                     Presenter.name("");
                     username = reader.nextLine();
                     Presenter.password("");
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
-                    } catch (Exception e) {
+                    } catch (WrongLogInException e) {
                         Presenter.invalid("login");
                         continue;
                     }
@@ -49,7 +50,7 @@ public class LogInSystem {
                     break;
                 }
                 if (!logged_in) {
-                    Presenter.noTrials();
+                    Presenter.trailsRemaining(0);
                     return;
                 } else {
                     UserSystem system;
@@ -78,7 +79,7 @@ public class LogInSystem {
             try {
                 userManager.createUserAccount(temp[2], temp[0], temp[1]);
             } catch (Exception e) {
-                Presenter.defaultPrint("This should not be happening.");
+                Presenter.invalid("fileRead");
             }
         }
     }

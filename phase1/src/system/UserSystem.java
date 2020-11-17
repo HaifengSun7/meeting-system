@@ -123,7 +123,7 @@ public abstract class UserSystem {
                 try {
                     userManager.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {
-                    System.out.println("cannot add event (userManager). something went wrong.");
+                    Presenter.invalid("fileRead");
                 }
             }
             k += 1;
@@ -144,7 +144,8 @@ public abstract class UserSystem {
             try {
                 eventManager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
             } catch (Exception e) {
-                System.out.println("Failed to add room" + Integer.parseInt(temp[0]));
+                Presenter.invalid("fileRead");
+                Presenter.defaultPrint("Failed to add room" + Integer.parseInt(temp[0]));
             }
         }
         String[] temp2;
@@ -153,13 +154,15 @@ public abstract class UserSystem {
             try {
                 eventManager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
             } catch (Exception e) {
-                System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
+                Presenter.invalid("fileRead");
+                Presenter.defaultPrint("Failed to load event" + temp2[0] + "Invalid room number.");
             }
             for (j = 4; j < temp2.length; j++) {
                 try {
                     eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, "+e.getMessage());
+                    Presenter.invalid("fileRead");
+                    Presenter.defaultPrint("Failed to add User to Event, "+e.getMessage());
                 }
             }
             k += 1;
@@ -182,7 +185,7 @@ public abstract class UserSystem {
             try {
                 messageManager.sendMessage(temp[0], temp[1], temp_str);
             } catch (Exception e) {
-                System.out.println("This shouldn't happen");
+                Presenter.invalid("fileRead");
             }
         }
     }

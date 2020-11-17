@@ -213,7 +213,7 @@ public class OrganizerSystem extends UserSystem{
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
                 } catch (Exception e) {
-                    Presenter.duplicateInvalid("username");
+                    Presenter.duplicateInvalid("username"); //TODO: ?
                     break;
                 }
                 break;

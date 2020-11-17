@@ -252,12 +252,6 @@ public class Presenter {
         System.out.println("This user is not a speaker.");
     }
 
-    /**
-     * Print out the prompt of no trials left as trying to login.
-     */
-    public static void noTrials() {
-        System.out.println("Sorry, you don't have any trials left.");
-    }
 
     /**
      * Print out the prompt of invalid input.
@@ -290,6 +284,9 @@ public class Presenter {
             case "roomFull":
                 System.out.println("Sorry, you cannot add this event due to the room capacity.");
                 break;
+            case "fileRead":
+                System.out.println("The .csv files are corrupted.");
+                break;
             default:
                 System.out.println("Invalid input.");
                 break;
@@ -317,7 +314,7 @@ public class Presenter {
     }
 
     /**
-     * Print out the default prompt.
+     * Print out the default.
      *
      * @param input the input that the method would print out.
      */
@@ -350,4 +347,22 @@ public class Presenter {
     public static void loadEvent(String room, String time, String duration){
         System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
     }
+
+    /**
+     * Shows how many trails a user has.
+     * @param i number of trails.
+     */
+    public static void trailsRemaining(int i){
+        System.out.println("You have " +i+ " trials remaining \n");
+        if (i==0){
+            System.out.println("See README.txt for some login information. See user.csv file for all login information. Bye bye.");
+        }
+    }
+
+
+
+
+
+
+
 }

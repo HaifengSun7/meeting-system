@@ -129,7 +129,7 @@ public class AttendeeSystem extends UserSystem {
                 eventmanager.signOut(eventId, myName);
                 Presenter.success();
             } catch (Exception e){
-                Presenter.invalid("eventId");
+                Presenter.invalid("eventId"); //TODO: ?
             }
         } else {
             Presenter.exitingToMainMenu();
