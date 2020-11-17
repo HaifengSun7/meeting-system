@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <h1>User System</h1>
+ * The abstract class of different user systems. Initializes all the managers. Having abstract method run().
+ */
 public abstract class UserSystem {
 
     protected final String myName;
@@ -32,7 +36,7 @@ public abstract class UserSystem {
      */
     public abstract void run();
 
-    /*
+    /**
      * See the messages that the user got from other users.
      */
     protected void seeMessages() {
@@ -45,7 +49,7 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
-    /*
+    /**
      * Send messages to a specific person in the contact list.
      */
     protected void sendMessageToSomeone() {

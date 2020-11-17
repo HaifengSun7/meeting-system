@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 /**
  * Represents the Room that has certain Room number, capacity and schedules.
- *
- * @author Shaohong Chen
- * @version 1.0.0
  */
 public class Room {
 

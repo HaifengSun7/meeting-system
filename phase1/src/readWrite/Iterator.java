@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * The class that iterates through files to read.
+ */
 public class Iterator {
     protected List<String[]> info = new ArrayList<>();
     protected int current = 0;

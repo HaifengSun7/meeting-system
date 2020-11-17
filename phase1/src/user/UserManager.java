@@ -1,14 +1,13 @@
 package user;
 
-import readWrite.EventIterator;
-import readWrite.UserIterator;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * The manager of users. Arrange users with all the actions related to them.
+ */
 public class UserManager {
 
     private Map<String, User> userMapping;

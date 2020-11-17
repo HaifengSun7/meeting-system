@@ -3,9 +3,6 @@ package presenter;
 /**
  * <h1>Presenter</h1>
  * The Presenter class is used to give out information. A textUI is included.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class Presenter {
 

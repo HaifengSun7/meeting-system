@@ -1,10 +1,8 @@
 package message;
 
-import readWrite.MessageIterator;
-
 import java.util.ArrayList;
 
-/**<h1>Message Manager</h1>
+/**
  * The message manager that organizes sending, receiving of messages.
  */
 public class MessageManager {

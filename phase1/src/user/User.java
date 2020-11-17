@@ -2,6 +2,9 @@ package user;
 
 import java.util.ArrayList;
 
+/**
+ * The Abstract class representing all users.
+ */
 public abstract class User {
     protected String username;
     protected String password;
@@ -9,6 +12,12 @@ public abstract class User {
     protected ArrayList<String> contactList;
     protected boolean status;
 
+    /**
+     * The superclass constructor for User. Used in constructor of subclasses. Sets username, password
+     * log in status, and contact list.
+     * @param username the username of the User.
+     * @param password the password of the User.
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;

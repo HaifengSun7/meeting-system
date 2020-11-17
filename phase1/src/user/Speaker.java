@@ -2,9 +2,17 @@ package user;
 
 import java.util.ArrayList;
 
+/**
+ * An Speaker User of the conference.
+ */
 public class Speaker extends User {
     private ArrayList<String> signedEvent = new ArrayList<>();
 
+    /**
+     * Constructor for a Speaker object.
+     * @param username the username of the user.
+     * @param password the password for log in.
+     */
     public Speaker(String username, String password) {
         super(username, password);
         this.usertype = "Speaker";

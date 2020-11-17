@@ -75,13 +75,13 @@ public class Event {
         return speakStatus;
     }
 
-    /**
-     * Remove Speaker from the event.
-     */
-    public void removeSpeaker() {
-        this.speaker = null;
-        this.speakStatus = false;
-    }
+ //   /**
+ //    * Remove Speaker from the event.
+ //    */
+ //   public void removeSpeaker() {
+ //       this.speaker = null;
+ //       this.speakStatus = false;
+ //   }
 
     /**
      * Get the name of the Speaker.
@@ -165,12 +165,12 @@ public class Event {
         return length;
     }
 
-    /**
-     * @param n: The wanted length of the Event.
-     */
-    public void setMeetingLength(int n) {
-        this.length = n;
-    }
+ //   /**
+ //    * @param n: The wanted length of the Event.
+ //    */
+ //   public void setMeetingLength(int n) {
+ //       this.length = n;
+ //   }
 
     /**
      * Check if the event contradicts the other event in time.

@@ -1,10 +1,5 @@
 package event;
 
-
-import readWrite.EventIterator;
-import readWrite.RoomIterator;
-import user.UserManager;
-
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -12,7 +7,6 @@ import java.util.*;
 /**
  * The manager that manages the scheduling of events with their rooms.
  */
-
 public class EventManager {
 
     private ArrayList<Room> rooms;
@@ -309,21 +303,6 @@ public class EventManager {
         }
     }
 
-    /*
-     * Make attendee sign up for an event.
-     *
-     * @param event    Event id in string.
-     * @param attendee Attendee, but with String.
-     * @throws NoSuchEventException when the event does not exist.
-     */
-    private void signUp(String event, String attendee) throws NoSuchEventException {
-        if (map.containsKey(Integer.parseInt(event))) {
-            map.get(Integer.parseInt(event)).addAttendees(attendee);
-        } else {
-            throw new NoSuchEventException("NoSuchEvent: " + event);
-        }
-    }
-
     /**
      * Make attendee sign out for an event.
      *
@@ -340,6 +319,21 @@ public class EventManager {
             }
         } else {
             throw new NoSuchEventException("NoSuchEvent: " + eventId);
+        }
+    }
+
+    /*
+     * Make attendee sign up for an event.
+     *
+     * @param event    Event id in string.
+     * @param attendee Attendee, but with String.
+     * @throws NoSuchEventException when the event does not exist.
+     */
+    private void signUp(String event, String attendee) throws NoSuchEventException {
+        if (map.containsKey(Integer.parseInt(event))) {
+            map.get(Integer.parseInt(event)).addAttendees(attendee);
+        } else {
+            throw new NoSuchEventException("NoSuchEvent: " + event);
         }
     }
 
