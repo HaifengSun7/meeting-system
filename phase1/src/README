@@ -3,9 +3,10 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 
 - General Instructions:
     - To run the program, please run >src >Main.java.
-    - Assumptions: All events (or “talks”) are default by 1 hour long, when adding events, please enter 1 when being asked for durations.
-    - Meetings have to start after 9 a.m. and ends before 5 p.m. AKA we need to start the latest meeting in a day before 4 p.m.
+    - Assumptions: All events (or “talks”) are 1 hour long, when adding events, please enter 1 when being asked for durations.
+    - Meetings have to start after 9 a.m. and ends before 5 p.m., which means we need to start the latest meeting in a day before 4 p.m.
     - No comma is allowed in event descriptions.
+    - No comma is allowed in usernames.
 
 - Some other info:
     - All inputs are done through command line.
@@ -14,8 +15,6 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
         “[3] Send a message” requires the user to input “3” and press enter to send the line. Most inputs in the menus are done this way.
     - Another type of input is “press enter to do something”.
         User is required to press down enter, while other inputs are almost always ignored.
-    - "Press anything to continue".
-        That's straight forward, just press anything and then enter.
     - Choose from a specific event/room/anything:
         Enter the number representing the things listed. They should be in the form of "[number] choice"
     - Finally, the last type of input is “Enter something to do something”.
@@ -27,7 +26,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 
 Here is a list of users, rooms, events and messages that are stored in our .csv files.
 You can always access those through src > resources folder.
-We strongly suggest not to change any of the files by typing something into it. The program saves the file everytime the user logs off.
+We strongly suggest not to change any of the files externally. The program always saves the file when an user logs off.
 
 Users:
 Username: Organizer, Password: password, Type: Organizer, Can send messages to: Speaker1, User1, User2

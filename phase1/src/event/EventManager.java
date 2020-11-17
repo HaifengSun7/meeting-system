@@ -45,12 +45,12 @@ public class EventManager {
      *
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
-     * @throws DuplicateRoomNoException when room number exists.
+     * @throws DuplicateRoomNumberException when room number exists.
      */
-    public void addRoom(int roomNumber, int size) throws DuplicateRoomNoException {
+    public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
         for (Room r : rooms) {
             if (r.getRoomNumber() == roomNumber) {
-                throw new DuplicateRoomNoException("DuplicateRoomNo: " + roomNumber);
+                throw new DuplicateRoomNumberException("DuplicateRoomNo: " + roomNumber);
             }
         }
         Room n = new Room(roomNumber, size);

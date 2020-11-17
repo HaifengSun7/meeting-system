@@ -1,5 +1,6 @@
 package user;
 
+import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,9 +28,9 @@ public class UserManager {
      * @exception InvalidUsernameException throw this exception if username is not qualified.
      * @exception DuplicateUserNameException throw this exception if username has existed.
      */
-    public void createUserAccount(String usertype, String username, String password) throws Exception {
-        if (username.length() < 3) {
-            throw new InvalidUsernameException("length of username should be at least 3");
+    public void createUserAccount(String usertype, String username, String password) throws InvalidUsernameException, DuplicateUserNameException {
+        if (username.contains(",")) {
+            throw new InvalidUsernameException("no comma allowed in username");
         }
         if (userMapping.containsKey(username)) {
             throw new DuplicateUserNameException("DuplicateUserName : " + username);

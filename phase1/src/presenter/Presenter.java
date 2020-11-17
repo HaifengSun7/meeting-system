@@ -287,6 +287,8 @@ public class Presenter {
             case "fileRead":
                 System.out.println("The .csv files are corrupted.");
                 break;
+            case "createUsername":
+                System.out.println("Username should not contain a comma.");
             default:
                 System.out.println("Invalid input.");
                 break;

@@ -92,7 +92,7 @@ public class AttendeeSystem extends UserSystem {
                 Presenter.invalid("addSpeaker");
                 return;
             } catch (Exception e){
-                Presenter.invalid("");
+                Presenter.invalid(""); // Should never be called
                 return;
             }
             usermanager.addSignedEvent(command, myName);

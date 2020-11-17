@@ -1,8 +1,12 @@
 package system;
 
-import event.*;
+import event.DuplicateRoomNumberException;
+import event.NotInOfficeHourException;
+import event.TimeNotAvailableException;
 import presenter.Presenter;
 import readWrite.*;
+import user.DuplicateUserNameException;
+import user.InvalidUsernameException;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -166,7 +170,7 @@ public class OrganizerSystem extends UserSystem{
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
-        } catch (DuplicateRoomNoException e) {
+        } catch (DuplicateRoomNumberException e) {
             Presenter.duplicateInvalid("newRoom");
         }
     }
@@ -212,9 +216,11 @@ public class OrganizerSystem extends UserSystem{
                 try {
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
-                } catch (Exception e) {
-                    Presenter.duplicateInvalid("username"); //TODO: ?
+                } catch (DuplicateUserNameException e) {
+                    Presenter.duplicateInvalid("username");
                     break;
+                } catch (InvalidUsernameException e) {
+                    Presenter.invalid("createUsername");
                 }
                 break;
         }
