@@ -1,45 +1,36 @@
 package system;
 
 import event.*;
-import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
-import user.UserManager;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
  */
-public class OrganizerSystem {
-
-    private final String organizer;
-    public Scanner reader = new Scanner(System.in);
-    public EventManager eventmanager = new EventManager();
-    public UserManager usermanager = new UserManager();
-    public MessageManager messagemanager = new MessageManager();
+public class OrganizerSystem extends UserSystem{
 
     /**
      * Constructor for OrganizerSystem.
      *
-     * @param organizer A String, which is the username of organizer who logged in.
+     * @param myName A String, which is the username of organizer who logged in.
      */
-    public OrganizerSystem(String organizer) {
-        this.organizer = organizer;
+    public OrganizerSystem(String myName) {
+        super(myName);
     }
 
     /**
      * Run the Organizer System. Print out organizer's menu, and perform organizer's operations.
      */
+    @Override
     public void run() {
-        initializeManagers(usermanager, eventmanager,messagemanager);
         String command;
         while (true) {
-            Presenter.name(organizer);
+            Presenter.name(myName);
             Presenter.userType("Organizer");
             Presenter.organizerMenu();
             command = reader.nextLine();
@@ -66,7 +57,7 @@ public class OrganizerSystem {
                     seeMessages();
                     continue;
                 case "e":
-                    usermanager.logout(organizer);
+                    usermanager.logout(myName);
                     break;
                 default:
                     Presenter.wrongKeyReminder();
@@ -83,18 +74,6 @@ public class OrganizerSystem {
     }
 
     /*
-     * See the messages that the organizer got from other users.
-     */
-    private void seeMessages() {
-        ArrayList<String> inbox = messagemanager.getInbox(organizer);
-        for (int i = 0; i < inbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i) + "\n");
-        }
-        Presenter.exitToMainMenuPrompt();
-        reader.nextLine();
-    }
-
-    /*
      * Send messages to all users, either all speakers or all attendees.
      * @param user type of user, either the String "speaker" or "attendee".
      */
@@ -104,14 +83,14 @@ public class OrganizerSystem {
                 ArrayList<String> speakers = usermanager.getSpeakers();
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
-                messagemanager.sendToList(organizer, speakers, message);
+                messagemanager.sendToList(myName, speakers, message);
                 Presenter.continuePrompt();
                 break;
             case "attendee":
                 ArrayList<String> attendees = usermanager.getAttendees();
                 Presenter.inputPrompt("message");
                 String message2 = reader.nextLine();
-                messagemanager.sendToList(organizer, attendees, message2);
+                messagemanager.sendToList(myName, attendees, message2);
                 Presenter.continuePrompt();
                 break;
         }
@@ -121,7 +100,8 @@ public class OrganizerSystem {
     /*
      * Send message to a specific person.
      */
-    private void sendMessageToSomeone() {
+    @Override
+    protected void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
         Presenter.exitToMainMenuPrompt();
         String target = reader.nextLine();
@@ -131,7 +111,7 @@ public class OrganizerSystem {
             if (usermanager.getAllUsernames().contains(target)) {
                 Presenter.inputPrompt("message");
                 String msg = reader.nextLine();
-                messagemanager.sendMessage(organizer, target, msg);
+                messagemanager.sendMessage(myName, target, msg);
                 Presenter.success();
             } else {
                 Presenter.invalid("username");
@@ -381,103 +361,6 @@ public class OrganizerSystem {
             }
         } catch (InvalidActivityException e) {
             Presenter.invalid("getEventSchedule");
-        }
-    }
-
-    private void initializeManagers(UserManager userManager, EventManager eventManager, MessageManager messageManager){
-        initializeUserManager(userManager);
-        initializeEventManager(eventManager);
-        initializeMessageManager(messageManager);
-    }
-
-    private void initializeUserManager(UserManager userManager){
-        Iterator userIterator = new UserIterator();
-        Iterator eventIterator = new EventIterator();
-        String[] temp;
-        while (userIterator.hasNext()) {
-            temp = userIterator.next();
-            try {
-                userManager.createUserAccount(temp[2], temp[0], temp[1]);
-            } catch (Exception e) {
-                System.out.println("This should not be happening.");
-            }
-        }
-        Iterator userIter = new UserIterator();
-        while (userIter.hasNext()) {
-            temp = userIter.next();
-            for (int i = 3; i < temp.length; i++) {
-                userManager.addContactList(temp[i], temp[0]);
-            }
-        }
-        String[] temp2;
-        int k = 0;
-        while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next();
-            for (int j = 4; j < temp2.length; j++) {
-                try {
-                    userManager.addSignedEvent(String.valueOf(k), temp2[j]);
-                } catch (Exception e) {
-                    System.out.println("cannot add event (userManager). something went wrong.");
-                }
-            }
-            k += 1;
-        }
-    }
-
-    private void initializeEventManager(EventManager eventManager){
-        int j;
-        int k = 0;
-        Iterator eventIterator = new EventIterator();
-        Iterator roomIterator = new RoomIterator();
-        UserManager usermanager = new UserManager();
-        initializeUserManager(usermanager);
-        String[] temp;
-        System.out.println("loading existing events from file...");
-        while (roomIterator.hasNext()) {
-            temp = roomIterator.next();
-            try {
-                eventManager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-            } catch (Exception e) {
-                System.out.println("Failed to add room" + Integer.parseInt(temp[0]));
-            }
-        }
-        String[] temp2;
-        while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next();
-            try {
-                eventManager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
-            } catch (Exception e) {
-                System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
-            }
-            for (j = 4; j < temp2.length; j++) {
-                try {
-                    eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
-                } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, "+e.getMessage());
-                }
-            }
-            k += 1;
-        }
-        System.out.println("\n Load complete. Welcome to the system. \n");
-    }
-
-    private void initializeMessageManager(MessageManager messageManager){
-        int j;
-        MessageIterator messageIterator = new MessageIterator();
-        String[] temp;
-        String temp_str;
-        while (messageIterator.hasNext()) {
-            temp = messageIterator.next();
-            StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
-            for (j = 3; j < temp.length; j++) {
-                temp_strBuilder.append(',').append(temp[j]);
-            }
-            temp_str = temp_strBuilder.toString();
-            try {
-                messageManager.sendMessage(temp[0], temp[1], temp_str);
-            } catch (Exception e) {
-                System.out.println("This shouldn't happen");
-            }
         }
     }
 
