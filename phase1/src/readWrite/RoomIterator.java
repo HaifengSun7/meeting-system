@@ -9,10 +9,7 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class RoomIterator implements Iterator {
-    private final List<String[]> roominfo = new ArrayList<>();
-    private int current = 0;
-
+public class RoomIterator extends Iterator {
     /**
      * The prompt Strings are read from a file, room.csv,
      * and added to the list of room properties.
@@ -22,7 +19,7 @@ public class RoomIterator implements Iterator {
             Scanner myReader = new Scanner(new File("src/resources/room.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                roominfo.add(data.split(","));
+                info.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -30,38 +27,4 @@ public class RoomIterator implements Iterator {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Checks for subsequent prompts.
-     *
-     * @return true if there is prompt that has not yet been returned.
-     */
-    @Override
-    public boolean hasNext() {
-        return current < roominfo.size();
-    }
-
-    /**
-     * Returns the next prompt to be printed.
-     *
-     * @return the next prompt.
-     */
-    @Override
-    public String[] next() {
-        String[] res;
-
-        // List.get(i) throws an IndexOutBoundsException if
-        // we call it with i >= properties.size().
-        // But Iterator's next() needs to throw a
-        // NoSuchElementException if there are no more elements.
-        try {
-            res = roominfo.get(current);
-        } catch (IndexOutOfBoundsException e) {
-            throw new NoSuchElementException();
-        }
-        current += 1;
-        return res;
-    }
-
-
 }
