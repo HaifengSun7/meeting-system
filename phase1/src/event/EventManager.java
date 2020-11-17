@@ -281,7 +281,7 @@ public class EventManager {
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException if there's no such room.
      */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws Exception {
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
         try {
             if (!inOfficeHour(time)) {
                 throw new NotInOfficeHourException("NotInOfficeHour: " + time);
@@ -306,11 +306,12 @@ public class EventManager {
     /**
      * Make attendee sign out for an event.
      *
-     * @param eventId  Event id in string.
+     * @param eventId  Event id in String.
      * @param attendee Attendee with String.
      * @throws NoSuchEventException when the event does not exist.
+     * @throws InvalidActivityException when Attendee does not have that event.
      */
-    public void signOut(String eventId, String attendee) throws Exception {
+    public void signOut(String eventId, String attendee) throws InvalidActivityException, NoSuchEventException {
         if (map.containsKey(Integer.parseInt(eventId))) {
             if (map.get(Integer.parseInt(eventId)).getAttendees().contains(attendee)) {
                 map.get(Integer.parseInt(eventId)).removeAttendees(attendee);

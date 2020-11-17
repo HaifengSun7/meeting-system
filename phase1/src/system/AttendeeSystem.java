@@ -3,6 +3,8 @@ package system;
 import event.*;
 import readWrite.*;
 import presenter.Presenter;
+
+import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 
 /**
@@ -106,7 +108,7 @@ public class AttendeeSystem extends UserSystem {
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         for (String s : eventsList) {
-            System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
+            Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
         }
         Presenter.continuePrompt();
         reader.nextLine();
@@ -128,8 +130,10 @@ public class AttendeeSystem extends UserSystem {
                 usermanager.deleteSignedEvent(eventId, myName);
                 eventmanager.signOut(eventId, myName);
                 Presenter.success();
-            } catch (Exception e){
-                Presenter.invalid("eventId"); //TODO: ?
+            } catch (InvalidActivityException e){
+                 Presenter.invalid(""); // This should never happen.
+            } catch (NoSuchEventException e) {
+                Presenter.invalid("eventId");
             }
         } else {
             Presenter.exitingToMainMenu();
