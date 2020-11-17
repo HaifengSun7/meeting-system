@@ -12,29 +12,6 @@ public class MessageManager {
     private final ArrayList<Message> messages = new ArrayList<>();
 
     /**
-     * Initializes the MessageManager. Activates when being called new MessageManager. Reads file message.csv.
-     */
-    public MessageManager() {
-        int j;
-        MessageIterator messageIterator = new MessageIterator();
-        String[] temp;
-        String temp_str;
-        while (messageIterator.hasNext()) {
-            temp = messageIterator.next();
-            StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
-            for (j = 3; j < temp.length; j++) {
-                temp_strBuilder.append(',').append(temp[j]);
-            }
-            temp_str = temp_strBuilder.toString();
-            try {
-                this.sendMessage(temp[0], temp[1], temp_str);
-            } catch (Exception e) {
-                System.out.println("This shouldn't happen");
-            }
-        }
-    }
-
-    /**
      * Send a Message to receiver by sender. With the message text.
      *
      * @param sender   The Username of the sender.

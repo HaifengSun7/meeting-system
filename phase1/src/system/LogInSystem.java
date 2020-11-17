@@ -1,6 +1,9 @@
 package system;
 
 import presenter.Presenter;
+import readWrite.EventIterator;
+import readWrite.UserIterator;
+import readWrite.Iterator;
 import user.UserManager;
 
 import java.util.Scanner;
@@ -12,7 +15,6 @@ import java.util.Scanner;
 public class LogInSystem {
 
     UserManager usermanager;
-
     /**
      * Run the Login System. Print out login menu, and initialize users' systems.
      */
@@ -22,6 +24,7 @@ public class LogInSystem {
          */
         while (true) {
             usermanager = new UserManager();
+            initializeUserManager(usermanager);
             boolean logged_in = false;
             String user_type = "";
             String username = "";
@@ -65,6 +68,40 @@ public class LogInSystem {
                         break;
                 }
             }
+        }
+    }
+
+    private void initializeUserManager(UserManager userManager){
+        Iterator userIterator = new UserIterator();
+        Iterator eventIterator = new EventIterator();
+        String[] temp;
+        while (userIterator.hasNext()) {
+            temp = userIterator.next();
+            try {
+                userManager.createUserAccount(temp[2], temp[0], temp[1]);
+            } catch (Exception e) {
+                System.out.println("This should not be happening.");
+            }
+        }
+        Iterator userIter = new UserIterator();
+        while (userIter.hasNext()) {
+            temp = userIter.next();
+            for (int i = 3; i < temp.length; i++) {
+                userManager.addContactList(temp[i], temp[0]);
+            }
+        }
+        String[] temp2;
+        int k = 0;
+        while (eventIterator.hasNext()) {
+            temp2 = eventIterator.next();
+            for (int j = 4; j < temp2.length; j++) {
+                try {
+                    userManager.addSignedEvent(String.valueOf(k), temp2[j]);
+                } catch (Exception e) {
+                    System.out.println("cannot add event (userManager). something went wrong.");
+                }
+            }
+            k += 1;
         }
     }
 }

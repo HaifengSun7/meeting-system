@@ -24,39 +24,6 @@ public class EventManager {
     public EventManager() {
         Event.resetID();
         rooms = new ArrayList<>();
-        int j;
-        int k = 0;
-        EventIterator eventIterator = new EventIterator();
-        RoomIterator roomIterator = new RoomIterator();
-        UserManager usermanager = new UserManager();
-        String[] temp;
-        System.out.println("loading existing events from file...");
-        while (roomIterator.hasNext()) {
-            temp = roomIterator.next();
-            try {
-                this.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-            } catch (Exception e) {
-                System.out.println("Failed to add room" + Integer.parseInt(temp[0]));
-            }
-        }
-        String[] temp2;
-        while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next();
-            try {
-                this.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
-            } catch (Exception e) {
-                System.out.println("Failed to load event" + temp2[0] + "Invalid room number.");
-            }
-            for (j = 4; j < temp2.length; j++) {
-                try {
-                    this.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
-                } catch (Exception e) {
-                    System.out.println("Failed to add User to Event, event" + k + " does not exist.");
-                }
-            }
-            k += 1;
-        }
-        System.out.println("\n Load complete. Welcome to the system. \n");
     }
 
     /**

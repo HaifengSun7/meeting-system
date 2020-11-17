@@ -9,7 +9,7 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class MessageIterator implements Iterator<String[]> {
+public class MessageIterator implements Iterator {
     private final List<String[]> messageInfo = new ArrayList<>();
     private int current = 0;
 

@@ -9,7 +9,7 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class RoomIterator implements Iterator<String[]> {
+public class RoomIterator implements Iterator {
     private final List<String[]> roominfo = new ArrayList<>();
     private int current = 0;
 

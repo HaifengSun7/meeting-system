@@ -1,10 +1,6 @@
 User1,User2,Hello, User2.
 User2,User1,Hey!
 User1,User2,Nice to see you!
-Speaker1,Speaker2,Hey, bro. How's going today?
-Speaker2,Speaker1,Great! What about you?
-Speaker1,Speaker2,Cannot be better!
-Organizer,Speaker3,Get prepard!
-Organizer,User2,Hello, everyone! I am the organizer of this event!
-Organizer,User1,Hello, everyone! I am the organizer of this event!
-Organizer,User3,Hello, everyone! I am the organizer of this event!
+Organizer,User1,Hello everyone!
+Organizer,User2,Hello everyone!
+Organizer,Speaker1,Hello everyone!

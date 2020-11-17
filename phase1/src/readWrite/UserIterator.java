@@ -9,7 +9,7 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class UserIterator implements Iterator<String[]> {
+public class UserIterator implements Iterator {
     private final List<String[]> userinfo = new ArrayList<>();
     private int current = 0;
 

@@ -18,37 +18,6 @@ public class UserManager {
      */
     public UserManager() {
         this.userMapping = new HashMap<>();
-        UserIterator userIterator = new UserIterator();
-        EventIterator eventIterator = new EventIterator();
-        String[] temp;
-        while (userIterator.hasNext()) {
-            temp = userIterator.next(); //do something
-            try {
-                this.createUserAccount(temp[2], temp[0], temp[1]);
-            } catch (Exception e) {
-                System.out.println("This should not be happening.");
-            }
-        }
-        UserIterator userIter = new UserIterator();
-        while (userIter.hasNext()) {
-            temp = userIter.next(); //do something
-            for (int i = 3; i < temp.length; i++) {
-                this.addContactList(temp[i], temp[0]);
-            }
-        }
-        String[] temp2;
-        int k = 0;
-        while (eventIterator.hasNext()) {
-            temp2 = eventIterator.next(); //do something
-            for (int j = 4; j < temp2.length; j++) {
-                try {
-                    this.addSignedEvent(String.valueOf(k), temp2[j]);
-                } catch (Exception e) {
-                    System.out.println("cannot add event (userManager). something went wrong.");
-                }
-            }
-            k += 1;
-        }
     }
 
     /**

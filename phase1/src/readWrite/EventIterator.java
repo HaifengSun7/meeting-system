@@ -9,7 +9,7 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class EventIterator implements Iterator<String[]> {
+public class EventIterator implements Iterator {
     private final List<String[]> eventInfo = new ArrayList<>();
     private int current = 0;
 
