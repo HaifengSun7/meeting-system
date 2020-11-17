@@ -9,22 +9,17 @@ import java.util.*;
  */
 
 // NOTE: This class is based off of ReadWriteEx on Quercus
-public class UserIterator implements Iterator {
-    private final List<String[]> userinfo = new ArrayList<>();
-    private int current = 0;
-
+public class UserIterator extends Iterator {
     /**
      * The prompt Strings are read from a file, user.csv,
      * and added to the list of student properties.
      */
     public UserIterator() {
-
-
         try {
             Scanner myReader = new Scanner(new File("src/resources/user.csv"));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                userinfo.add(data.split(","));
+                info.add(data.split(","));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -32,37 +27,4 @@ public class UserIterator implements Iterator {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Checks for subsequent prompts.
-     *
-     * @return true if there is prompt that has not yet been returned.
-     */
-    @Override
-    public boolean hasNext() {
-        return current < userinfo.size();
-    }
-
-    /**
-     * Returns the next prompt to be printed.
-     *
-     * @return the next prompt.
-     */
-    @Override
-    public String[] next() {
-        String[] res;
-
-        // List.get(i) throws an IndexOutBoundsException if
-        // we call it with i >= properties.size().
-        // But Iterator's next() needs to throw a
-        // NoSuchElementException if there are no more elements.
-        try {
-            res = userinfo.get(current);
-        } catch (IndexOutOfBoundsException e) {
-            throw new NoSuchElementException();
-        }
-        current += 1;
-        return res;
-    }
-
 }

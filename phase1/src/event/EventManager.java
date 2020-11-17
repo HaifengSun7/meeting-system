@@ -15,8 +15,8 @@ import java.util.*;
 
 public class EventManager {
 
-    private final ArrayList<Room> rooms;
-    private final Map<Integer, Event> map = new HashMap<>();
+    private ArrayList<Room> rooms;
+    private Map<Integer, Event> map = new HashMap<>();
 
     /**
      * Initializes the event manager. It goes through the saved files of event.csv.

@@ -42,13 +42,13 @@ public class AttendeeSystem extends UserSystem {
                     checkSignedUp();
                     continue;
                 case "3":
-                    sendMessageToSomeone();
+                    cancelEnrollment();
                     continue;
                 case "4":
-                    seeMessages();
+                    sendMessageToSomeone();
                     continue;
                 case "5":
-                    cancelEnrollment();
+                    seeMessages();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
