@@ -33,7 +33,7 @@ public class UserManager {
             throw new InvalidUsernameException("no comma allowed in username");
         }
         if (userMapping.containsKey(username)) {
-            throw new DuplicateUserNameException("DuplicateUserName : " + username);
+            throw new DuplicateUserNameException("Duplicate User Name : " + username);
         } else {
             if (usertype.equals("Speaker")) {
                 Speaker newUser = new Speaker(username, password);
@@ -136,7 +136,7 @@ public class UserManager {
 
     public void becomeSpeaker(String attendeeName) throws NoSuchUserException, InvalidUsernameException, DuplicateUserNameException{
         if (!userMapping.containsKey(attendeeName)) {
-            throw new NoSuchUserException("NoSuchUser: " + attendeeName);
+            throw new NoSuchUserException("This user does not exist: " + attendeeName);
         } else {
             User attendee = userMapping.get(attendeeName);
             ArrayList<String> contactList = attendee.getContactList();

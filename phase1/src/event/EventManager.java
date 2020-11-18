@@ -50,7 +50,7 @@ public class EventManager {
     public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
         for (Room r : rooms) {
             if (r.getRoomNumber() == roomNumber) {
-                throw new DuplicateRoomNumberException("DuplicateRoomNo: " + roomNumber);
+                throw new DuplicateRoomNumberException("Duplicate Room Number: " + roomNumber);
             }
         }
         Room n = new Room(roomNumber, size);
@@ -84,7 +84,7 @@ public class EventManager {
                 return room;
             }
         }
-        throw new InvalidActivityException();
+        throw new InvalidActivityException("Room number does not exist.");
     }
 
     /**
@@ -95,12 +95,8 @@ public class EventManager {
      * @throws InvalidActivityException When the room number given is not valid.
      */
     public ArrayList<Integer> getSchedule(int roomNumber) throws InvalidActivityException {
-        try {
-            Room room = this.findRoom(roomNumber);
-            return room.getSchedule();
-        } catch (InvalidActivityException e) {
-            throw new InvalidActivityException();
-        }
+        Room room = this.findRoom(roomNumber);
+        return room.getSchedule();
     }
 
     /**
@@ -139,7 +135,7 @@ public class EventManager {
         }
         for (Event j : attended) {
             if (j.getSpeakStatus()) {
-                throw new AlreadyHasSpeakerException("Cannot Add Speaker: " + attendee);
+                throw new AlreadyHasSpeakerException("Cannot Add Speaker: " + attendee + ".\n There is already a speaker");
             } else {
                 j.setSpeaker(attendee);
             }
@@ -184,19 +180,19 @@ public class EventManager {
                 if (!map.get(eventNumber).getSpeakStatus()) {
                     map.get(eventNumber).setSpeaker(username);
                 } else {
-                    throw new AlreadyHasSpeakerException("AlreadyHasSpeaker: " +
+                    throw new AlreadyHasSpeakerException("Already Has Speaker: " +
                             map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
                 if (event_size >= capacity - 1) {
-                    throw new RoomIsFullException("Room is Full");
+                    throw new RoomIsFullException("Room: " + room_number + " is Full");
                 }
                 signUp(String.valueOf(eventNumber), username);
             } else {
-                throw new InvalidUserException("Invalid user type");
+                throw new InvalidUserException("Invalid user type.");
             }
         } else {
-            throw new NoSuchEventException("No Such Event: " + eventNumber);
+            throw new NoSuchEventException("There is not an event with event number " + eventNumber);
         }
     }
 
@@ -286,24 +282,20 @@ public class EventManager {
      * @throws InvalidActivityException if there's no such room.
      */
     public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
-        try {
-            if (!inOfficeHour(time)) {
-                throw new NotInOfficeHourException("NotInOfficeHour: " + time);
-            }
-            if (ifRoomAvailable(roomNo, time, meetingLength)) {
-                Event newEvent = new Event(time);
-                map.put(newEvent.getId(), newEvent);
-                newEvent.setDescription(description);
-                for (Room r : rooms) {
-                    if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
-                        r.addEvent(newEvent.getId());
-                    }
+        if (!inOfficeHour(time)) {
+            throw new NotInOfficeHourException("Invalid time. Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
+        }
+        if (ifRoomAvailable(roomNo, time, meetingLength)) {
+            Event newEvent = new Event(time);
+            map.put(newEvent.getId(), newEvent);
+            newEvent.setDescription(description);
+            for (Room r : rooms) {
+                if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
+                    r.addEvent(newEvent.getId());
                 }
-            } else {
-                throw new TimeNotAvailableException("TimeNotAvailable: " + time);
             }
-        } catch (Exception e) {
-            throw new InvalidActivityException();
+        } else {
+            throw new TimeNotAvailableException("Failed to add event to room " + roomNo + " : Time has been taken by other events.");
         }
     }
 
@@ -323,7 +315,7 @@ public class EventManager {
                 throw new InvalidActivityException();
             }
         } else {
-            throw new NoSuchEventException("NoSuchEvent: " + eventId);
+            throw new NoSuchEventException("This event does not exist: id: " + eventId);
         }
     }
 
@@ -338,7 +330,7 @@ public class EventManager {
         if (map.containsKey(Integer.parseInt(event))) {
             map.get(Integer.parseInt(event)).addAttendees(attendee);
         } else {
-            throw new NoSuchEventException("NoSuchEvent: " + event);
+            throw new NoSuchEventException("This event does not exist: id: " + event);
         }
     }
 
@@ -384,7 +376,7 @@ public class EventManager {
                 return true;
             }
         }
-        throw new InvalidActivityException();
+        throw new InvalidActivityException("invalid room number: " + roomNo);
     }
 
 //
