@@ -46,7 +46,7 @@ public class SpeakerSystem extends UserSystem{
                     sendMessageToEvent();
                     continue;
                 case "4": //send messages to a particular Attendee who signed up for a particular event
-                    sendMessageToSomeone();
+                    sendMessageToOneAttendee();
                     continue;
                 case "5": //respond to an Attendee
                     respondToAttendee();
@@ -65,9 +65,13 @@ public class SpeakerSystem extends UserSystem{
     }
 
     /*
-     * Send messages to all attendees.
+     * Send messages to all attendees in a particular event.
      */
     private void sendMessageToEvent() {
+        ArrayList<String> allEvents = eventmanager.getAllEvents();
+        for (int i = 0; i < allEvents.size(); i++) {
+            Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+        }
         Presenter.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
         if (eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(myName)) {
@@ -76,6 +80,42 @@ public class SpeakerSystem extends UserSystem{
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                 messagemanager.sendToList(myName, attendeeList, messageToAllAttendees);
+            } catch (NullPointerException e) {
+                Presenter.printErrorMessage(e.getMessage());
+            }
+            Presenter.continuePrompt();
+            reader.nextLine();
+        } else {
+            Presenter.printErrorMessage("This is not your event. Please check your input. Exiting to main menu.");
+        }
+    }
+
+    /*
+     * Send messages to one particular attendee in a particular event.
+     */
+    private void sendMessageToOneAttendee() {
+        ArrayList<String> allEvents = eventmanager.getAllEvents();
+        for (int i = 0; i < allEvents.size(); i++) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).equals(myName)) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+        }
+        Presenter.inputPrompt("eventIdSendMessage");
+        String eventId = reader.nextLine();
+        ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
+        for (String s : attendeeList) {
+            Presenter.defaultPrint(s);
+        }
+        Presenter.inputPrompt("receiver");
+        String receiver = reader.nextLine();
+        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(myName)) {
+            Presenter.inputPrompt("message");
+            String messageToOneAttendee = reader.nextLine();
+            try {if (attendeeList.contains(receiver)) {
+                    messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
+                } else {
+                Presenter.printErrorMessage("There is no such user in that event.");
+            }
             } catch (NullPointerException e) {
                 Presenter.printErrorMessage(e.getMessage());
             }
