@@ -73,7 +73,7 @@ public abstract class UserSystem {
                 Presenter.inputOutOfRange();
             }
         } catch (Exception e) {
-            Presenter.invalid("default");
+            Presenter.invalid("");
         }
         Presenter.continuePrompt();
         reader.nextLine();
@@ -144,8 +144,9 @@ public abstract class UserSystem {
             try {
                 eventManager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
             } catch (Exception e) {
-                Presenter.invalid("fileRead");
-                Presenter.defaultPrint("Failed to add room" + Integer.parseInt(temp[0]));
+//                Presenter.invalid("fileRead");
+//                Presenter.defaultPrint("Failed to add room" + Integer.parseInt(temp[0]));
+                e.printStackTrace();
             }
         }
         String[] temp2;
@@ -161,8 +162,9 @@ public abstract class UserSystem {
                 try {
                     eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
-                    Presenter.invalid("fileRead");
-                    Presenter.defaultPrint("Failed to add User to Event, "+e.getMessage());
+//                    Presenter.invalid("fileRead");
+//                    Presenter.defaultPrint("Failed to add User to Event, "+e.getMessage());
+                    e.printStackTrace();
                 }
             }
             k += 1;
@@ -185,7 +187,8 @@ public abstract class UserSystem {
             try {
                 messageManager.sendMessage(temp[0], temp[1], temp_str);
             } catch (Exception e) {
-                Presenter.invalid("fileRead");
+//                Presenter.invalid("fileRead");
+                e.printStackTrace();
             }
         }
     }

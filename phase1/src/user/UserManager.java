@@ -223,7 +223,7 @@ public class UserManager {
      */
     public void addContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
-        if (!(lst.contains(username))) {
+        if (!(lst.contains(contactName))) {
             lst.add(contactName);
         }
         userMapping.get(username).setContactList(lst);

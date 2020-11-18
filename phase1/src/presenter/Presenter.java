@@ -263,54 +263,54 @@ public class Presenter {
             case "username":
                 System.out.println("Username doesn't exist. Please enter a valid username.");
                 break;
-            case "roomNumber":
-                System.out.println("Room number doesn't exist. Please enter a valid room number.");
-                break;
+//            case "roomNumber":
+//                System.out.println("Room number doesn't exist. Please enter a valid room number.");
+//                break;
             case "eventId":
                 System.out.println("Event Id doesn't exist. Please enter a valid event Id.");
                 break;
             case "addEventGeneral":
                 System.out.println("Sorry, cannot add event!");
                 break;
-            case "getEventSchedule":
-                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
-                break;
-            case "addSpeaker":
-                System.out.println("Cannot add speaker to the event.");
-                break;
-            case "login":
-                System.out.println("Wrong username or password");
-                break;
-            case "roomFull":
-                System.out.println("Sorry, you cannot add this event due to the room capacity.");
-                break;
+//            case "getEventSchedule":
+//                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
+//                break;
+//            case "addSpeaker":
+//                System.out.println("Cannot add speaker to the event.");
+//                break;
+//            case "login":
+//                System.out.println("Wrong username or password");
+//                break;
+//            case "roomFull":
+//                System.out.println("Sorry, you cannot add this event due to the room capacity.");
+//                break;
             case "fileRead":
                 System.out.println("The .csv files are corrupted.");
                 break;
-            case "createUsername":
-                System.out.println("Username should not contain a comma.");
-                break;
+//            case "createUsername":
+//                System.out.println("Username should not contain a comma.");
+//                break;
             default:
                 System.out.println("Invalid input.");
                 break;
         }
     }
 
-    /**
-     * Print out the error message of duplicate invalid input.
-     *
-     * @param input the type of input to the corresponding prompt.
-     */
-    public static void duplicateInvalid(String input) {
-        switch (input) {
-            case "newRoom":
-                System.out.println("There is a duplicated Room");
-                break;
-            case "username":
-                System.out.println("Username already exists.");
-                break;
-        }
-    }
+//    /**
+//     * Print out the error message of duplicate invalid input.
+//     *
+//     * @param input the type of input to the corresponding prompt.
+//     */
+//    public static void duplicateInvalid(String input) {
+//        switch (input) {
+//            case "newRoom":
+//                System.out.println("There is a duplicated Room");
+//                break;
+//            case "username":
+//                System.out.println("Username already exists.");
+//                break;
+//        }
+//    }
 
     public static void autoAddToMessageList() {
         System.out.println("Added all senders to your contact list automatically.");
@@ -325,21 +325,21 @@ public class Presenter {
         System.out.println(input);
     }
 
-    /**
-     * Cases where the eventManager couldn't add event.
-     * @param input the case of the failure.
-     * @param room the room number that the user tries to add event.
-     */
-    public static void failureAddEvent(String input, String room){
-        if(input.equals("NotOfficeHour")){
-            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
-                    "ensure meeting ends before 17:00");
-        } else if(input.equals("TimeNotAvailable")){
-            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
-        } else{
-            System.out.println("invalid room number");
-        }
-    }
+//    /**
+//     * Cases where the eventManager couldn't add event.
+//     * @param input the case of the failure.
+//     * @param room the room number that the user tries to add event.
+//     */
+//    public static void failureAddEvent(String input, String room){
+//        if(input.equals("NotOfficeHour")){
+//            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
+//                    "ensure meeting ends before 17:00");
+//        } else if(input.equals("TimeNotAvailable")){
+//            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
+//        } else{
+//            System.out.println("invalid room number");
+//        }
+//    }
 
     /**
      * Prints the process of loading an event.

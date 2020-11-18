@@ -82,7 +82,7 @@ public class SpeakerSystem extends UserSystem{
             Presenter.continuePrompt();
             reader.nextLine();
         } else {
-            Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
+            Presenter.printErrorMessage("This is not your event. Please check your input. Exiting to main menu.");
         }
     }
 
