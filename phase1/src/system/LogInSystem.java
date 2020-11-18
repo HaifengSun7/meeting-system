@@ -1,8 +1,8 @@
 package system;
 
 import presenter.Presenter;
-import readWrite.UserIterator;
 import readWrite.Iterator;
+import readWrite.UserIterator;
 import user.UserManager;
 import user.WrongLogInException;
 
@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class LogInSystem {
 
     UserManager usermanager;
+
     /**
      * Run the Login System. Print out login menu, and initialize users' systems.
      */
@@ -35,7 +36,7 @@ public class LogInSystem {
                 break;
             } else {
                 for (int i = 0; i < 5; i++) {
-                    Presenter.trailsRemaining(5-i);
+                    Presenter.trailsRemaining(5 - i);
                     Presenter.name("");
                     username = reader.nextLine();
                     Presenter.password("");
@@ -71,7 +72,7 @@ public class LogInSystem {
         }
     }
 
-    private void getAccounts(UserManager userManager){
+    private void getAccounts(UserManager userManager) {
         Iterator userIterator = new UserIterator();
         String[] temp;
         while (userIterator.hasNext()) {

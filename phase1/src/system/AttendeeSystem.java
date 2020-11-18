@@ -1,8 +1,11 @@
 package system;
 
-import event.*;
-import readWrite.*;
+import event.AlreadyHasSpeakerException;
+import event.InvalidUserException;
+import event.NoSuchEventException;
+import event.RoomIsFullException;
 import presenter.Presenter;
+import readWrite.Write;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
@@ -84,7 +87,7 @@ public class AttendeeSystem extends UserSystem {
             } catch (RoomIsFullException | InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 return;
-            } catch (Exception e){
+            } catch (Exception e) {
                 Presenter.invalid(""); // Should never be called
                 return;
             }
@@ -123,10 +126,9 @@ public class AttendeeSystem extends UserSystem {
                 usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
                 eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
                 Presenter.success();
-            } catch (InvalidActivityException | NoSuchEventException e){
-                 Presenter.printErrorMessage(e.getMessage()); // This should never happen.
-            }
-            catch (IndexOutOfBoundsException | NullPointerException e){
+            } catch (InvalidActivityException | NoSuchEventException e) {
+                Presenter.printErrorMessage(e.getMessage()); // This should never happen.
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
                 Presenter.invalid("");
             }
         } else {

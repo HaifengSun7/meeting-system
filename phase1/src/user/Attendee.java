@@ -10,6 +10,7 @@ public class Attendee extends User {
 
     /**
      * Constructor for an Attendee object.
+     *
      * @param username the username of the attendee.
      * @param password the password for log in.
      */

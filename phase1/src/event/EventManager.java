@@ -2,15 +2,17 @@ package event;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The manager that manages the scheduling of events with their rooms.
  */
 public class EventManager {
 
-    private ArrayList<Room> rooms;
-    private Map<Integer, Event> map = new HashMap<>();
+    private final ArrayList<Room> rooms;
+    private final Map<Integer, Event> map = new HashMap<>();
 
     /**
      * Initializes the event manager. It goes through the saved files of event.csv.
@@ -125,7 +127,7 @@ public class EventManager {
      * @param attendee Attendee but string.
      * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException{
+    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for (Event i : events) {
@@ -166,10 +168,10 @@ public class EventManager {
      * @param username    username
      * @param eventNumber eventNumber.
      * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
-     * @throws RoomIsFullException if room is full.
-     * @throws InvalidUserException if input type is "Organizer".
-     * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
-     * @throws NoSpeakerException if event corresponding to the input eventNumber does not has speaker.
+     * @throws RoomIsFullException        if room is full.
+     * @throws InvalidUserException       if input type is "Organizer".
+     * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
+     * @throws NoSpeakerException         if event corresponding to the input eventNumber does not has speaker.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException, RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
@@ -276,10 +278,10 @@ public class EventManager {
      * @param roomNo:        room number.
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
-     * @param description: description of event
-     * @throws NotInOfficeHourException if time out of working hour.
+     * @param description:   description of event
+     * @throws NotInOfficeHourException  if time out of working hour.
      * @throws TimeNotAvailableException if time is not available.
-     * @throws InvalidActivityException if there's no such room.
+     * @throws InvalidActivityException  if there's no such room.
      */
     public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
         if (!inOfficeHour(time)) {
@@ -304,7 +306,7 @@ public class EventManager {
      *
      * @param eventId  Event id in String.
      * @param attendee Attendee with String.
-     * @throws NoSuchEventException when the event does not exist.
+     * @throws NoSuchEventException     when the event does not exist.
      * @throws InvalidActivityException when Attendee does not have that event.
      */
     public void signOut(String eventId, String attendee) throws InvalidActivityException, NoSuchEventException {

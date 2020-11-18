@@ -14,7 +14,7 @@ public class Message {
      *
      * @param sender   The Username of the user who sends the message.
      * @param receiver The Username of the receiver who gets the message.
-     * @param text The text of the message
+     * @param text     The text of the message
      */
     public Message(String sender, String receiver, String text) {
         this.sender = sender;

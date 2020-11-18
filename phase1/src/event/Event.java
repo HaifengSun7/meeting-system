@@ -14,7 +14,7 @@ public class Event {
     private final Timestamp time;
     private final int id;
     private final ArrayList<String> user_list;
-    private int length = 1;
+    private final int length = 1;
     private String speaker;
     private String description;
     private boolean speakStatus = false;
@@ -75,13 +75,13 @@ public class Event {
         return speakStatus;
     }
 
- //   /**
- //    * Remove Speaker from the event.
- //    */
- //   public void removeSpeaker() {
- //       this.speaker = null;
- //       this.speakStatus = false;
- //   }
+    //   /**
+    //    * Remove Speaker from the event.
+    //    */
+    //   public void removeSpeaker() {
+    //       this.speaker = null;
+    //       this.speakStatus = false;
+    //   }
 
     /**
      * Get the name of the Speaker.
@@ -165,17 +165,17 @@ public class Event {
         return length;
     }
 
- //   /**
- //    * @param n: The wanted length of the Event.
- //    */
- //   public void setMeetingLength(int n) {
- //       this.length = n;
- //   }
+    //   /**
+    //    * @param n: The wanted length of the Event.
+    //    */
+    //   public void setMeetingLength(int n) {
+    //       this.length = n;
+    //   }
 
     /**
      * Check if the event contradicts the other event in time.
      *
-     * @param start: start time, length: length add in the start time.
+     * @param start:  start time, length: length add in the start time.
      * @param length: The length of the event.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
@@ -197,7 +197,7 @@ public class Event {
      * Get the length of the event.
      *
      * @return the length of the event.
-    */
+     */
     /*
     private int getLength() {
         return this.length;

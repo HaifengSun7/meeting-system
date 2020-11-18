@@ -1,7 +1,7 @@
 package system;
 
 import presenter.Presenter;
-import readWrite.*;
+import readWrite.Write;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * <h1>Speaker System</h1>
  * The SpeakerSystem program implements the system of Speaker user.
  */
-public class SpeakerSystem extends UserSystem{
+public class SpeakerSystem extends UserSystem {
 
     /**
      * Constructor for SpeakerSystem
@@ -115,11 +115,12 @@ public class SpeakerSystem extends UserSystem{
         if (eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(myName)) {
             Presenter.inputPrompt("message");
             String messageToOneAttendee = reader.nextLine();
-            try {if (attendeeList.contains(receiver)) {
+            try {
+                if (attendeeList.contains(receiver)) {
                     messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
                 } else {
-                Presenter.printErrorMessage("There is no such user in that event.");
-            }
+                    Presenter.printErrorMessage("There is no such user in that event.");
+                }
             } catch (NullPointerException e) {
                 Presenter.printErrorMessage(e.getMessage());
             }

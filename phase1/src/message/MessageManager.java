@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class MessageManager {
 
-    private ArrayList<Message> messages = new ArrayList<>();
+    private final ArrayList<Message> messages = new ArrayList<>();
 
     /**
      * Send a Message to receiver by sender. With the message text.

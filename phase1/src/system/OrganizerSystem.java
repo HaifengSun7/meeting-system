@@ -2,7 +2,7 @@ package system;
 
 import event.*;
 import presenter.Presenter;
-import readWrite.*;
+import readWrite.Write;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.NoSuchUserException;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
  */
-public class OrganizerSystem extends UserSystem{
+public class OrganizerSystem extends UserSystem {
 
     /**
      * Constructor for OrganizerSystem.
@@ -255,7 +255,7 @@ public class OrganizerSystem extends UserSystem{
         if (!usermanager.getUserType(name).equals("Speaker")) {
             Presenter.notASpeaker();
             return;
-            }
+        }
         Presenter.titlesInSpeaker("scheduleSpeakers1");
         ArrayList<String> allEvents = eventmanager.getAllEvents();
         for (int i = 0; i < allEvents.size(); i++) {
@@ -313,7 +313,7 @@ public class OrganizerSystem extends UserSystem{
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
 
-        } catch (RoomIsFullException e) {
+            } catch (RoomIsFullException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("Room is full.");
             } catch (AlreadyHasSpeakerException e) {
@@ -328,15 +328,15 @@ public class OrganizerSystem extends UserSystem{
             } catch (InvalidUserException e) {
                 Presenter.printErrorMessage(e.getMessage());
             }
+        } else {
+            Presenter.invalid("eventId");
         }
-        else {
-            Presenter.invalid("eventId");}
     }
 
     /*
     The action of adding an Event, with info from inputs.
      */
-    private void addingEvent(){
+    private void addingEvent() {
         Presenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
@@ -352,13 +352,13 @@ public class OrganizerSystem extends UserSystem{
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {
-                Presenter.printErrorMessage(e.getMessage());
-            } catch (Exception e){
+            Presenter.printErrorMessage(e.getMessage());
+        } catch (Exception e) {
             Presenter.invalid("addEventGeneral"); // Should not be called
         }
     }
 
-    private void showEvents(String command){
+    private void showEvents(String command) {
         try {
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command));
             for (Integer i : schedule) {

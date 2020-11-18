@@ -10,6 +10,7 @@ public class Organizer extends User {
 
     /**
      * Constructor for a Organizer object.
+     *
      * @param username the username of the user.
      * @param password the password for log in.
      */

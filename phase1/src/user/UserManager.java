@@ -1,6 +1,5 @@
 package user;
 
-import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +10,7 @@ import java.util.Map;
  */
 public class UserManager {
 
-    private Map<String, User> userMapping;
+    private final Map<String, User> userMapping;
 
     /**
      * Initializes the user manager, reads from save file user.csv
@@ -22,11 +21,12 @@ public class UserManager {
 
     /**
      * Create a new user account.
+     *
      * @param usertype: User's type in string.
      * @param username: User's name in string.
      * @param password: User's password in string.
-     * @exception InvalidUsernameException throw this exception if username is not qualified.
-     * @exception DuplicateUserNameException throw this exception if username has existed.
+     * @throws InvalidUsernameException   throw this exception if username is not qualified.
+     * @throws DuplicateUserNameException throw this exception if username has existed.
      */
     public void createUserAccount(String usertype, String username, String password) throws InvalidUsernameException, DuplicateUserNameException {
         if (username.contains(",")) {
@@ -50,6 +50,7 @@ public class UserManager {
 
     /**
      * Get a new user's signed event list
+     *
      * @param username: a User's username in string.
      * @return a ArrayList of signed events in string.
      */
@@ -59,6 +60,7 @@ public class UserManager {
 
     /**
      * Get a new user's user type
+     *
      * @param username: a User's username in string.
      * @return userType: a string, user's type in string.
      */
@@ -68,6 +70,7 @@ public class UserManager {
 
     /**
      * Get a new user's contact list
+     *
      * @param username: a User's username in string.
      * @return a ArrayList of contact list in string.
      */
@@ -84,8 +87,10 @@ public class UserManager {
         return userMapping.get(username).getStatus();
     }
 */
+
     /**
      * Get a new user's password
+     *
      * @param username: a User's username in string.
      * @return password: User's password in string.
      */
@@ -95,21 +100,24 @@ public class UserManager {
 
     /**
      * Log in a user, change the status of a user if he login successfully.
+     *
      * @param username: a User's username in string.
      * @param password: a User's password in string.
      * @return the user's type
      * @throws WrongLogInException when log in failed.
      */
     public String logIn(String username, String password) throws WrongLogInException {
-        try{User user = userMapping.get(username);
+        try {
+            User user = userMapping.get(username);
 
-        if (user.password.equals(password)) {
-            user.setStatus(true);
-            return user.getUserType();
-        } else {
+            if (user.password.equals(password)) {
+                user.setStatus(true);
+                return user.getUserType();
+            } else {
+                throw new WrongLogInException("Wrong Username or Password");
+            }
+        } catch (NullPointerException e) {
             throw new WrongLogInException("Wrong Username or Password");
-        }
-        }catch (NullPointerException e){throw new WrongLogInException("Wrong Username or Password");
         }
     }
 
@@ -118,11 +126,11 @@ public class UserManager {
      *
      * @param username: a User's username in string.
      */
-    public void logout(String username){
+    public void logout(String username) {
         try {
             User user = findUser(username);
             user.setStatus(false);
-        } catch (NoSuchUserException ignored){
+        } catch (NoSuchUserException ignored) {
         }
     }
 
@@ -130,13 +138,12 @@ public class UserManager {
      * make attendee become Speaker
      *
      * @param attendeeName Attendee username in String.
-     * @throws NoSuchUserException throw an exception when necessary.
-     * @throws InvalidUsernameException throw an exception when necessary.
+     * @throws NoSuchUserException        throw an exception when necessary.
+     * @throws InvalidUsernameException   throw an exception when necessary.
      * @throws DuplicateUserNameException throw an exception when necessary.
      */
     //* @return a list of signed event list of this attendee in string.
-
-    public void becomeSpeaker(String attendeeName) throws NoSuchUserException, InvalidUsernameException, DuplicateUserNameException{
+    public void becomeSpeaker(String attendeeName) throws NoSuchUserException, InvalidUsernameException, DuplicateUserNameException {
         if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("This user does not exist: " + attendeeName);
         } else {
@@ -196,7 +203,7 @@ public class UserManager {
     /**
      * Add a new event to a user's signed event list.
      *
-     * @param eventId: a event's id.
+     * @param eventId:  a event's id.
      * @param username: a User's username.
      */
     public void addSignedEvent(String eventId, String username) {
@@ -208,7 +215,7 @@ public class UserManager {
     /**
      * Delete a event from a user's signed event list.
      *
-     * @param eventId: a event's id in string.
+     * @param eventId:  a event's id in string.
      * @param username: a User's username in string.
      */
     public void deleteSignedEvent(String eventId, String username) {
@@ -221,7 +228,7 @@ public class UserManager {
      * Add a new contact to a user's contact list.
      *
      * @param contactName: another user's username in string.
-     * @param username: a User's username in string.
+     * @param username:    a User's username in string.
      */
     public void addContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();
@@ -235,7 +242,7 @@ public class UserManager {
      * Delete a exist contact from a user's contact list.
      *
      * @param contactName: another user's username in string.
-     * @param username: a User's username in string.
+     * @param username:    a User's username in string.
      */
     public void deleteContactList(String contactName, String username) {
         ArrayList<String> lst = userMapping.get(username).getContactList();

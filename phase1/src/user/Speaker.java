@@ -10,6 +10,7 @@ public class Speaker extends User {
 
     /**
      * Constructor for a Speaker object.
+     *
      * @param username the username of the user.
      * @param password the password for log in.
      */

@@ -15,6 +15,7 @@ public abstract class User {
     /**
      * The superclass constructor for User. Used in constructor of subclasses. Sets username, password
      * log in status, and contact list.
+     *
      * @param username the username of the User.
      * @param password the password of the User.
      */

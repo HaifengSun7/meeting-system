@@ -2,7 +2,7 @@ package readWrite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Iterates through a list of String prompts. This class is based off of ReadWriteEx on Quercus

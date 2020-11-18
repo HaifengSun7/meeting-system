@@ -346,37 +346,35 @@ public class Presenter {
 
     /**
      * Prints the process of loading an event.
-     * @param room the room number of event.
-     * @param time the time of the event.
+     *
+     * @param room     the room number of event.
+     * @param time     the time of the event.
      * @param duration the length of the event.
      */
-    public static void loadEvent(String room, String time, String duration){
+    public static void loadEvent(String room, String time, String duration) {
         System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
     }
 
     /**
      * Shows how many trails a user has.
+     *
      * @param i number of trails.
      */
-    public static void trailsRemaining(int i){
-        System.out.println("You have " +i+ " trials remaining \n");
-        if (i==0){
+    public static void trailsRemaining(int i) {
+        System.out.println("You have " + i + " trials remaining \n");
+        if (i == 0) {
             System.out.println("See README.txt for some login information. See user.csv file for all login information. Bye bye.");
         }
     }
 
     /**
      * print error message.
+     *
      * @param s error message
      */
-    public static void printErrorMessage(String s){
+    public static void printErrorMessage(String s) {
         System.out.println(s);
     }
-
-
-
-
-
 
 
 }

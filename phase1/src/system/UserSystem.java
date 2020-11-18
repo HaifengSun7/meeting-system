@@ -24,6 +24,7 @@ public abstract class UserSystem {
 
     /**
      * Constructs the User System. Initializes the loading of managers.
+     *
      * @param myName the username of the user.
      */
     public UserSystem(String myName) {
@@ -66,7 +67,7 @@ public abstract class UserSystem {
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendMessage(myName, receiver, message);
-            } else if("e".equals(receive)) {
+            } else if ("e".equals(receive)) {
                 Presenter.exitingToMainMenu();
                 return;
             } else {
@@ -90,13 +91,13 @@ public abstract class UserSystem {
         Presenter.autoAddToMessageList();
     }
 
-    private void initializeManagers(UserManager userManager, EventManager eventManager, MessageManager messageManager){
+    private void initializeManagers(UserManager userManager, EventManager eventManager, MessageManager messageManager) {
         initializeUserManager(userManager);
         initializeEventManager(eventManager);
         initializeMessageManager(messageManager);
     }
 
-    private void initializeUserManager(UserManager userManager){
+    private void initializeUserManager(UserManager userManager) {
         Iterator userIterator = new UserIterator();
         Iterator eventIterator = new EventIterator();
         String[] temp;
@@ -130,7 +131,7 @@ public abstract class UserSystem {
         }
     }
 
-    private void initializeEventManager(EventManager eventManager){
+    private void initializeEventManager(EventManager eventManager) {
         int j;
         int k = 0;
         Iterator eventIterator = new EventIterator();
@@ -172,7 +173,7 @@ public abstract class UserSystem {
         System.out.println("\n Load complete. Welcome to the system. \n");
     }
 
-    private void initializeMessageManager(MessageManager messageManager){
+    private void initializeMessageManager(MessageManager messageManager) {
         int j;
         MessageIterator messageIterator = new MessageIterator();
         String[] temp;
