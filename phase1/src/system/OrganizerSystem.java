@@ -170,7 +170,7 @@ public class OrganizerSystem extends UserSystem{
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
         } catch (DuplicateRoomNumberException e) {
-            Presenter.duplicateInvalid("newRoom");
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
 
@@ -186,7 +186,7 @@ public class OrganizerSystem extends UserSystem{
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.invalid("roomNumber");
+            Presenter.printErrorMessage(e.getMessage());
             Presenter.continuePrompt();
             reader.nextLine();
             return;
@@ -216,10 +216,10 @@ public class OrganizerSystem extends UserSystem{
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
                 } catch (DuplicateUserNameException e) {
-                    Presenter.duplicateInvalid("username");
+                    Presenter.printErrorMessage(e.getMessage());
                     break;
                 } catch (InvalidUsernameException e) {
-                    Presenter.invalid("createUsername");
+                    Presenter.printErrorMessage(e.getMessage());
                 }
                 break;
         }
@@ -236,13 +236,13 @@ public class OrganizerSystem extends UserSystem{
         } catch (DuplicateUserNameException | InvalidUsernameException e) {
             // ignored
         } catch (NoSuchUserException e) {
-            Presenter.invalid("username");
+            Presenter.printErrorMessage(e.getMessage());
         }
         try {
             eventmanager.becomeSpeaker(name);
             System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
         } catch (AlreadyHasSpeakerException e) {
-            System.out.println("addSpeaker");
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
 
@@ -314,19 +314,19 @@ public class OrganizerSystem extends UserSystem{
                 Presenter.success();
 
         } catch (RoomIsFullException e) {
-                Presenter.invalid("addSpeaker");
+                Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("Room is full.");
             } catch (AlreadyHasSpeakerException e) {
-                Presenter.invalid("addSpeaker");
+                Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("Already has speaker.");
             } catch (NoSpeakerException e) {
-                Presenter.invalid("addSpeaker");
+                Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("not a speaker.");
             } catch (NoSuchEventException e) {
-                Presenter.invalid("addSpeaker");
+                Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("event not found");
             } catch (InvalidUserException e) {
-                Presenter.invalid("username");
+                Presenter.printErrorMessage(e.getMessage());
             }
         }
         else {
@@ -351,14 +351,9 @@ public class OrganizerSystem extends UserSystem{
             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
             Presenter.success();
             Presenter.continuePrompt();
-        } catch (NotInOfficeHourException e) {
-                Presenter.failureAddEvent("NotOfficeHour", room);
-            } catch (InvalidActivityException e) {
-            Presenter.failureAddEvent("InvalidRoomNum", room);
-        } catch (TimeNotAvailableException e) {
-            Presenter.failureAddEvent("TimeNotAvailable", room);
-        }
-        catch (Exception e){
+        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {
+                Presenter.printErrorMessage(e.getMessage());
+            } catch (Exception e){
             Presenter.invalid("addEventGeneral"); // Should not be called
         }
     }
@@ -370,7 +365,7 @@ public class OrganizerSystem extends UserSystem{
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.invalid("getEventSchedule");
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
 
