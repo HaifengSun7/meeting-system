@@ -362,6 +362,14 @@ public class Presenter {
         }
     }
 
+    /**
+     * print error message.
+     * @param s error message
+     */
+    public static void printErrorMessage(String s){
+        System.out.println(s);
+    }
+
 
 
 

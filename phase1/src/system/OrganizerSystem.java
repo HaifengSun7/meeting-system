@@ -1,9 +1,6 @@
 package system;
 
-import event.AlreadyHasSpeakerException;
-import event.DuplicateRoomNumberException;
-import event.NotInOfficeHourException;
-import event.TimeNotAvailableException;
+import event.*;
 import presenter.Presenter;
 import readWrite.*;
 import user.DuplicateUserNameException;
@@ -315,13 +312,25 @@ public class OrganizerSystem extends UserSystem{
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
-            } catch (Exception e) { //TODO:!!!!!!!!!!!!!!!!!!!!!!!
-                System.out.println(e.getMessage());
+
+        } catch (RoomIsFullException e) {
                 Presenter.invalid("addSpeaker");
+                Presenter.defaultPrint("Room is full.");
+            } catch (AlreadyHasSpeakerException e) {
+                Presenter.invalid("addSpeaker");
+                Presenter.defaultPrint("Already has speaker.");
+            } catch (NoSpeakerException e) {
+                Presenter.invalid("addSpeaker");
+                Presenter.defaultPrint("not a speaker.");
+            } catch (NoSuchEventException e) {
+                Presenter.invalid("addSpeaker");
+                Presenter.defaultPrint("event not found");
+            } catch (InvalidUserException e) {
+                Presenter.invalid("username");
             }
-        } else {
-            Presenter.invalid("eventId");
         }
+        else {
+            Presenter.invalid("eventId");}
     }
 
     /*

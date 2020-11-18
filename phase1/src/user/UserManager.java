@@ -101,12 +101,15 @@ public class UserManager {
      * @throws WrongLogInException when log in failed.
      */
     public String logIn(String username, String password) throws WrongLogInException {
-        User user = userMapping.get(username);
+        try{User user = userMapping.get(username);
+
         if (user.password.equals(password)) {
             user.setStatus(true);
             return user.getUserType();
         } else {
             throw new WrongLogInException("Wrong Username or Password");
+        }
+        }catch (NullPointerException e){throw new WrongLogInException("Wrong Username or Password");
         }
     }
 

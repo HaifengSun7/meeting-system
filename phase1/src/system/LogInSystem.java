@@ -42,8 +42,8 @@ public class LogInSystem {
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
-                    } catch (WrongLogInException | NullPointerException e) {
-                        Presenter.invalid("login");
+                    } catch (WrongLogInException e) {
+                        Presenter.printErrorMessage(e.getMessage());
                         continue;
                     }
                     logged_in = true;
