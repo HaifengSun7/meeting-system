@@ -24,7 +24,8 @@ public class Presenter {
                 "[3] Message all Attendees who signed up for a particular event\n" +
                 "[4] Message a particular Attendee who signed up for a particular event\n" +
                 "[5] Respond to an attendee\n" +
-                "[6] Check your inbox\n" +
+                "[6] Send a message to someone\n" +
+                "[7] Check your inbox\n" +
                 "[e] Save and log out");
     }
 

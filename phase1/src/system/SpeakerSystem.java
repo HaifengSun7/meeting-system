@@ -51,7 +51,9 @@ public class SpeakerSystem extends UserSystem{
                 case "5": //respond to an Attendee
                     respondToAttendee();
                     continue;
-                case "6": //see message inbox
+                case "6": // send message (regular)
+                    sendMessageToSomeone();
+                case "7": //see message inbox
                     seeMessages();
                     continue;
                 default:
