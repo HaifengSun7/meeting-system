@@ -130,7 +130,9 @@ public class UserManager {
      * make attendee become Speaker
      *
      * @param attendeeName Attendee username in String.
-     * @throws Exception throw an exception when necessary.
+     * @throws NoSuchUserException throw an exception when necessary.
+     * @throws InvalidUsernameException throw an exception when necessary.
+     * @throws DuplicateUserNameException throw an exception when necessary.
      */
     //* @return a list of signed event list of this attendee in string.
 
