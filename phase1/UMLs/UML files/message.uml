@@ -8,20 +8,11 @@
     <node x="16.5" y="194.0">message.MessageManager</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="message.MessageManager" target="message.Message">
-      <point x="0.0" y="-82.5" />
-      <point x="0.0" y="72.0" />
-    </edge>
-    <edge source="readWrite.Write" target="message.MessageManager">
-      <point x="-85.0" y="-38.5" />
-      <point x="85.0" y="384.0" />
-      <point x="93.25" y="384.0" />
-      <point x="-76.75" y="82.5" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="221.0" y="257.0" />
-  <SelectedNodes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="187.5" y="244.0" />
+  <SelectedNodes>
+    <node>readWrite.Write</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Methods</Category>

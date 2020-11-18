@@ -86,7 +86,7 @@ public class Presenter {
      * Print out the reminder of wrong key pressing.
      */
     public static void wrongKeyReminder() {
-        System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in README.txt");
+        System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in Readme.txt");
     }
 
     /**
@@ -363,7 +363,7 @@ public class Presenter {
     public static void trailsRemaining(int i) {
         System.out.println("You have " + i + " trials remaining \n");
         if (i == 0) {
-            System.out.println("See README.txt for some login information. See user.csv file for all login information. Bye bye.");
+            System.out.println("See Readme.txt for some login information. See user.csv file for all login information. Bye bye.");
         }
     }
 

@@ -3,53 +3,176 @@
   <ID>JAVA</ID>
   <OriginalElement>system.AttendeeSystem</OriginalElement>
   <nodes>
-    <node x="352.0" y="854.0">readWrite.Write</node>
-    <node x="411.0" y="731.0">readWrite.UserIterator</node>
-    <node x="747.0" y="731.0">readWrite.RoomIterator</node>
-    <node x="0.0" y="0.0">presenter.Presenter</node>
-    <node x="13.0" y="605.0">system.UserSystem</node>
-    <node x="287.0" y="0.0">event.EventManager</node>
-    <node x="0.0" y="854.0">message.MessageManager</node>
-    <node x="575.0" y="731.0">readWrite.EventIterator</node>
-    <node x="493.5" y="605.0">readWrite.Iterator</node>
-    <node x="672.0" y="0.0">user.UserManager</node>
-    <node x="223.0" y="731.0">readWrite.MessageIterator</node>
-    <node x="0.0" y="732.0">system.AttendeeSystem</node>
+    <node x="860.2833333333333" y="964.0">readWrite.Write</node>
+    <node x="349.99999999999994" y="589.0">user.Attendee</node>
+    <node x="188.0" y="1391.0">readWrite.RoomIterator</node>
+    <node x="1061.0" y="92.0">message.Message</node>
+    <node x="596.8499999999999" y="964.0">system.UserSystem</node>
+    <node x="1386.0" y="0.0">presenter.Presenter</node>
+    <node x="1010.0" y="543.0">message.MessageManager</node>
+    <node x="516.0" y="1391.0">readWrite.EventIterator</node>
+    <node x="20.0" y="427.5">user.UserManager</node>
+    <node x="591.25" y="0.0">event.Event</node>
+    <node x="0.0" y="1391.0">readWrite.MessageIterator</node>
+    <node x="624.8499999999999" y="1093.0">system.AttendeeSystem</node>
+    <node x="352.0" y="1391.0">readWrite.UserIterator</node>
+    <node x="209.4666666666667" y="69.5">user.User</node>
+    <node x="598.0" y="393.0">event.EventManager</node>
+    <node x="249.0" y="1243.0">readWrite.Iterator</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="readWrite.RoomIterator" target="readWrite.Iterator">
-      <point x="-5.6843418860808015E-14" y="-27.0" />
-      <point x="819.0" y="701.0" />
-      <point x="622.125" y="701.0" />
-      <point x="55.125" y="38.0" />
+    <edge source="readWrite.MessageIterator" target="readWrite.Iterator">
+      <point x="0.0" y="-27.5" />
+      <point x="84.0" y="1361.0" />
+      <point x="295.5" y="1361.0" />
+      <point x="-31.0" y="39.0" />
     </edge>
-    <edge source="system.AttendeeSystem" target="system.UserSystem">
-      <point x="0.0" y="-38.5" />
-      <point x="0.0" y="38.5" />
+    <edge source="readWrite.Write" target="event.EventManager">
+      <point x="0.0" y="-39.5" />
+      <point x="1047.7833333333333" y="904.0" />
+      <point x="908.0" y="904.0" />
+      <point x="124.0" y="235.5" />
+    </edge>
+    <edge source="system.AttendeeSystem" target="system.AttendeeSystem">
+      <point x="0.0" y="39.5" />
+      <point x="718.3499999999999" y="1192.0" />
+      <point x="604.8499999999999" y="1192.0" />
+      <point x="604.8499999999999" y="1132.5" />
+      <point x="-93.5" y="-0.0" />
+    </edge>
+    <edge source="readWrite.Write" target="user.UserManager">
+      <point x="-125.0" y="-39.5" />
+      <point x="922.7833333333333" y="914.0" />
+      <point x="278.33333333333326" y="914.0" />
+      <point x="103.33333333333326" y="201.0" />
+    </edge>
+    <edge source="system.UserSystem" target="message.MessageManager">
+      <point x="54.00000000000006" y="-39.5" />
+      <point x="731.85" y="934.0" />
+      <point x="1175.5" y="934.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="user.User" target="user.User">
+      <point x="-69.33333333333331" y="97.0" />
+      <point x="244.13333333333338" y="283.5" />
+      <point x="189.4666666666667" y="283.5" />
+      <point x="189.4666666666667" y="166.5" />
+      <point x="-104.0" y="-0.0" />
+    </edge>
+    <edge source="user.UserManager" target="user.User">
+      <point x="0.0" y="-201.0" />
+      <point x="175.0" y="373.0" />
+      <point x="313.4666666666667" y="373.0" />
+      <point x="0.0" y="97.0" />
+    </edge>
+    <edge source="readWrite.Write" target="readWrite.Write">
+      <point x="0.0" y="39.5" />
+      <point x="1047.7833333333333" y="1063.0" />
+      <point x="840.2833333333333" y="1063.0" />
+      <point x="840.2833333333333" y="1003.5" />
+      <point x="-187.5" y="-0.0" />
+    </edge>
+    <edge source="event.EventManager" target="event.Event">
+      <point x="0.0" y="-235.5" />
+      <point x="64.25" y="166.5" />
+    </edge>
+    <edge source="user.Attendee" target="user.User">
+      <point x="0.0" y="-39.5" />
+      <point x="453.99999999999994" y="373.0" />
+      <point x="382.79999999999995" y="373.0" />
+      <point x="69.33333333333326" y="97.0" />
     </edge>
     <edge source="readWrite.UserIterator" target="readWrite.Iterator">
-      <point x="0.0" y="-27.0" />
-      <point x="483.0" y="711.0" />
-      <point x="548.625" y="711.0" />
-      <point x="-18.375" y="38.0" />
+      <point x="0.0" y="-27.5" />
+      <point x="424.0" y="1371.0" />
+      <point x="357.5" y="1371.0" />
+      <point x="31.0" y="39.0" />
+    </edge>
+    <edge source="event.Event" target="event.Event">
+      <point x="-64.25" y="166.5" />
+      <point x="655.5" y="353.0" />
+      <point x="571.25" y="353.0" />
+      <point x="571.25" y="166.5" />
+      <point x="-128.5" y="-0.0" />
+    </edge>
+    <edge source="readWrite.Iterator" target="readWrite.Iterator">
+      <point x="-62.0" y="39.0" />
+      <point x="264.5" y="1341.0" />
+      <point x="229.0" y="1341.0" />
+      <point x="229.0" y="1282.0" />
+      <point x="-77.5" y="-0.0" />
+    </edge>
+    <edge source="system.UserSystem" target="event.EventManager">
+      <point x="5.6843418860808015E-14" y="-39.5" />
+      <point x="677.85" y="924.0" />
+      <point x="784.0" y="924.0" />
+      <point x="0.0" y="235.5" />
+    </edge>
+    <edge source="message.MessageManager" target="message.Message">
+      <point x="0.0" y="-85.5" />
+      <point x="0.0" y="74.5" />
+    </edge>
+    <edge source="system.AttendeeSystem" target="system.UserSystem">
+      <point x="0.0" y="-39.5" />
+      <point x="40.50000000000006" y="39.5" />
+    </edge>
+    <edge source="system.UserSystem" target="user.UserManager">
+      <point x="-53.99999999999994" y="-39.5" />
+      <point x="623.85" y="944.0" />
+      <point x="175.0" y="944.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="readWrite.Write" target="message.MessageManager">
+      <point x="125.0" y="-39.5" />
+      <point x="1172.7833333333333" y="944.0" />
+      <point x="1285.8333333333333" y="944.0" />
+      <point x="110.33333333333326" y="85.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.EventManager">
+      <point x="-124.0" y="235.5" />
+      <point x="660.0" y="884.0" />
+      <point x="578.0" y="884.0" />
+      <point x="578.0" y="628.5" />
+      <point x="-186.0" y="-0.0" />
     </edge>
     <edge source="readWrite.EventIterator" target="readWrite.Iterator">
-      <point x="0.0" y="-27.0" />
-      <point x="651.0" y="711.0" />
-      <point x="585.375" y="711.0" />
-      <point x="18.375" y="38.0" />
+      <point x="0.0" y="-27.5" />
+      <point x="592.0" y="1361.0" />
+      <point x="388.5" y="1361.0" />
+      <point x="62.0" y="39.0" />
     </edge>
-    <edge source="readWrite.MessageIterator" target="readWrite.Iterator">
-      <point x="0.0" y="-27.0" />
-      <point x="307.0" y="701.0" />
-      <point x="511.875" y="701.0" />
-      <point x="-55.125" y="38.0" />
+    <edge source="system.UserSystem" target="system.UserSystem">
+      <point x="-40.5" y="39.5" />
+      <point x="637.3499999999999" y="1063.0" />
+      <point x="576.8499999999999" y="1063.0" />
+      <point x="576.8499999999999" y="1003.5" />
+      <point x="-81.0" y="-0.0" />
+    </edge>
+    <edge source="readWrite.RoomIterator" target="readWrite.Iterator">
+      <point x="0.0" y="-27.5" />
+      <point x="260.0" y="1371.0" />
+      <point x="326.5" y="1371.0" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="message.MessageManager" target="message.MessageManager">
+      <point x="-110.33333333333331" y="85.5" />
+      <point x="1065.1666666666665" y="734.0" />
+      <point x="990.0" y="734.0" />
+      <point x="990.0" y="628.5" />
+      <point x="-165.5" y="-0.0" />
+    </edge>
+    <edge source="user.UserManager" target="user.UserManager">
+      <point x="-103.33333333333337" y="201.0" />
+      <point x="71.66666666666663" y="849.5" />
+      <point x="0.0" y="849.5" />
+      <point x="0.0" y="628.5" />
+      <point x="-155.0" y="-0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.6448508180943214" x="480.0" y="509.5" />
+  <settings layout="Hierarchic Group" zoom="0.6751196172248805" x="924.0786676116229" y="832.9617292700212" />
   <SelectedNodes>
-    <node>system.AttendeeSystem</node>
+    <node>readWrite.Iterator</node>
   </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
