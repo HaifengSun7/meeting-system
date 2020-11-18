@@ -68,7 +68,7 @@ public class AttendeeSystem extends UserSystem {
         write.run();
     }
 
-    /**
+    /*
      * Print the events that attendee hasn't signed up and choose one event to sign it up.
      */
     private void SignUpForEvent() {
@@ -91,14 +91,14 @@ public class AttendeeSystem extends UserSystem {
                 Presenter.invalid(""); // Should never be called
                 return;
             }
-            usermanager.addSignedEvent(command, myName);
+            usermanager.addSignedEvent(example_list.get(Integer.parseInt(command)), myName);
             Presenter.success();
         } else {
             Presenter.exitingToMainMenu();
         }
     }
 
-    /**
+    /*
      * Check the events that attendee has signed up.
      */
     private void checkSignedUp() {
@@ -110,7 +110,7 @@ public class AttendeeSystem extends UserSystem {
         reader.nextLine();
     }
 
-    /**
+    /*
      * Cancel the enrollment in an event that attendee has signed it up
      */
     private void cancelEnrollment() {
@@ -119,7 +119,7 @@ public class AttendeeSystem extends UserSystem {
             Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
         }
         Presenter.exitToMainMenuPrompt();
-        Presenter.inputPrompt("eventId");
+        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
         String number = reader.nextLine();
         if (!("e".equals(number))) {
             try {
