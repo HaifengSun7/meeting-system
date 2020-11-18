@@ -82,14 +82,14 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of wrong key pressing.
+     * Print out the reminder of wrong key pressing.
      */
     public static void wrongKeyReminder() {
         System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in README.txt");
     }
 
     /**
-     * Print out the prompt of exiting to main menu.
+     * Print out the information of exiting to main menu.
      */
     public static void exitingToMainMenu() {
         System.out.println("Exiting to main menu.");
@@ -103,7 +103,7 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of successful operations.
+     * Print out the information of successful operations.
      */
     public static void success() {
         System.out.println("Success!");
@@ -232,21 +232,21 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of input out of range.
+     * Print out the error message of input out of range.
      */
     public static void inputOutOfRange() {
         System.out.println("Input out of range, exit to main menu and please try again");
     }
 
     /**
-     * Print out the prompt of empty inbox.
+     * Print out the information of empty inbox.
      */
     public static void emptyInbox() {
         System.out.println("Your inbox is empty.");
     }
 
     /**
-     * Print out the prompt of the user is not a speaker.
+     * Print out the error message of the user is not a speaker.
      */
     public static void notASpeaker() {
         System.out.println("This user is not a speaker.");
@@ -256,7 +256,7 @@ public class Presenter {
     /**
      * Print out error messages of invalid input.
      *
-     * @param input the type of input to the corresponding prompt.
+     * @param input the type of input to the corresponding message.
      */
     public static void invalid(String input) {
         switch (input) {
@@ -297,7 +297,7 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of duplicate invalid input.
+     * Print out the error message of duplicate invalid input.
      *
      * @param input the type of input to the corresponding prompt.
      */
