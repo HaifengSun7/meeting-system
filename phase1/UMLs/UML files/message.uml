@@ -3,17 +3,25 @@
   <ID>JAVA</ID>
   <OriginalElement>message</OriginalElement>
   <nodes>
-    <node x="0.0" y="434.0">readWrite.Write</node>
-    <node x="0.0" y="240.0">message.Message</node>
-    <node x="0.0" y="0.0">message.MessageManager</node>
-    <node x="274.0" y="240.0">readWrite.MessageIterator</node>
+    <node x="0.0" y="409.0">readWrite.Write</node>
+    <node x="64.0" y="0.0">message.Message</node>
+    <node x="16.5" y="194.0">message.MessageManager</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="221.0" y="256.5" />
-  <SelectedNodes>
-    <node>readWrite.Write</node>
-  </SelectedNodes>
+  <edges>
+    <edge source="message.MessageManager" target="message.Message">
+      <point x="0.0" y="-82.5" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="readWrite.Write" target="message.MessageManager">
+      <point x="-85.0" y="-38.5" />
+      <point x="85.0" y="384.0" />
+      <point x="93.25" y="384.0" />
+      <point x="-76.75" y="82.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="221.0" y="257.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Methods</Category>

@@ -3,19 +3,138 @@
   <ID>JAVA</ID>
   <OriginalElement>system.OrganizerSystem</OriginalElement>
   <nodes>
-    <node x="376.0" y="652.0">readWrite.Write</node>
-    <node x="796.0" y="652.0">system.OrganizerSystem</node>
-    <node x="0.0" y="0.0">presenter.Presenter</node>
-    <node x="303.0" y="0.0">event.EventManager</node>
-    <node x="0.0" y="652.0">message.MessageManager</node>
-    <node x="720.0" y="0.0">user.UserManager</node>
+    <node x="247.60000000000002" y="846.0">readWrite.Write</node>
+    <node x="785.1" y="973.0">system.OrganizerSystem</node>
+    <node x="1183.0" y="409.0">readWrite.UserIterator</node>
+    <node x="1347.0" y="409.0">readWrite.RoomIterator</node>
+    <node x="837.6" y="846.0">system.UserSystem</node>
+    <node x="1684.0" y="156.0">presenter.Presenter</node>
+    <node x="0.0" y="210.0">event.EventManager</node>
+    <node x="668.0" y="353.5">message.MessageManager</node>
+    <node x="1511.0" y="409.0">readWrite.EventIterator</node>
+    <node x="1289.0839285714285" y="0.0">readWrite.Iterator</node>
+    <node x="360.0" y="243.0">user.UserManager</node>
+    <node x="995.0" y="409.0">readWrite.MessageIterator</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Tree" zoom="1.0" x="515.0" y="423.5" />
-  <SelectedNodes>
-    <node>presenter.Presenter</node>
-  </SelectedNodes>
+  <edges>
+    <edge source="system.UserSystem" target="readWrite.UserIterator">
+      <point x="33.25" y="-38.5" />
+      <point x="946.85" y="786.0" />
+      <point x="1255.0" y="786.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="system.UserSystem" target="readWrite.MessageIterator">
+      <point x="14.25" y="-38.5" />
+      <point x="927.85" y="766.0" />
+      <point x="1037.0" y="766.0" />
+      <point x="-42.0" y="27.0" />
+    </edge>
+    <edge source="readWrite.MessageIterator" target="readWrite.Iterator">
+      <point x="42.0" y="-27.0" />
+      <point x="1121.0" y="116.0" />
+      <point x="1313.5839285714285" y="116.0" />
+      <point x="-49.0" y="38.0" />
+    </edge>
+    <edge source="readWrite.Write" target="event.EventManager">
+      <point x="-141.66666666666652" y="-38.5" />
+      <point x="275.9333333333335" y="826.0" />
+      <point x="34.0" y="826.0" />
+      <point x="-136.0" y="226.0" />
+    </edge>
+    <edge source="system.UserSystem" target="event.EventManager">
+      <point x="-61.75" y="-38.5" />
+      <point x="851.85" y="796.0" />
+      <point x="238.0" y="796.0" />
+      <point x="68.0" y="226.0" />
+    </edge>
+    <edge source="readWrite.Write" target="user.UserManager">
+      <point x="-28.333333333333258" y="-38.5" />
+      <point x="-115.20000000000005" y="193.0" />
+    </edge>
+    <edge source="system.UserSystem" target="message.MessageManager">
+      <point x="-14.25" y="-38.5" />
+      <point x="899.35" y="746.0" />
+      <point x="821.5" y="746.0" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="system.UserSystem" target="presenter.Presenter">
+      <point x="71.25" y="-38.5" />
+      <point x="984.85" y="826.0" />
+      <point x="1744.5" y="826.0" />
+      <point x="-60.5" y="280.0" />
+    </edge>
+    <edge source="system.UserSystem" target="readWrite.EventIterator">
+      <point x="52.25" y="-38.5" />
+      <point x="965.85" y="806.0" />
+      <point x="1587.0" y="806.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="system.UserSystem" target="user.UserManager">
+      <point x="-42.75" y="-38.5" />
+      <point x="870.85" y="776.0" />
+      <point x="504.0" y="776.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="readWrite.Write" target="message.MessageManager">
+      <point x="85.0" y="-38.5" />
+      <point x="502.6" y="816.0" />
+      <point x="698.7" y="816.0" />
+      <point x="-122.79999999999995" y="82.5" />
+    </edge>
+    <edge source="system.OrganizerSystem" target="readWrite.Write">
+      <point x="-72.39999999999998" y="-38.5" />
+      <point x="803.2" y="953.0" />
+      <point x="332.6" y="953.0" />
+      <point x="-85.0" y="38.5" />
+    </edge>
+    <edge source="system.UserSystem" target="readWrite.RoomIterator">
+      <point x="42.75" y="-38.5" />
+      <point x="956.35" y="796.0" />
+      <point x="1419.0" y="796.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="readWrite.EventIterator" target="readWrite.Iterator">
+      <point x="38.0" y="-27.0" />
+      <point x="1625.0" y="106.0" />
+      <point x="1411.5839285714283" y="106.0" />
+      <point x="49.0" y="38.0" />
+    </edge>
+    <edge source="system.OrganizerSystem" target="system.UserSystem">
+      <point x="36.200000000000045" y="-38.5" />
+      <point x="911.8000000000001" y="943.0" />
+      <point x="951.6" y="943.0" />
+      <point x="38.0" y="38.5" />
+    </edge>
+    <edge source="readWrite.RoomIterator" target="readWrite.Iterator">
+      <point x="36.0" y="-27.0" />
+      <point x="1455.0" y="126.0" />
+      <point x="1378.9172619047617" y="126.0" />
+      <point x="16.33333333333337" y="38.0" />
+    </edge>
+    <edge source="readWrite.UserIterator" target="readWrite.Iterator">
+      <point x="-36.0" y="-27.0" />
+      <point x="1219.0" y="126.0" />
+      <point x="1329.9172619047617" y="126.0" />
+      <point x="-32.66666666666663" y="38.0" />
+    </edge>
+    <edge source="system.UserSystem" target="readWrite.Iterator">
+      <point x="61.75" y="-38.5" />
+      <point x="975.35" y="816.0" />
+      <point x="1673.5" y="816.0" />
+      <point x="1673.5" y="96.0" />
+      <point x="1427.9172619047617" y="96.0" />
+      <point x="65.33333333333334" y="38.0" />
+    </edge>
+    <edge source="system.OrganizerSystem" target="presenter.Presenter">
+      <point x="72.40000000000009" y="-38.5" />
+      <point x="948.0000000000001" y="953.0" />
+      <point x="1865.5" y="953.0" />
+      <point x="60.5" y="280.0" />
+    </edge>
+  </edges>
+  <settings layout="Tree" zoom="0.5795847750865052" x="634.0" y="558.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Methods</Category>

@@ -3,19 +3,49 @@
   <ID>JAVA</ID>
   <OriginalElement>system.SpeakerSystem</OriginalElement>
   <nodes>
-    <node x="288.875" y="1254.0">readWrite.Write</node>
-    <node x="781.4002976190477" y="990.0">presenter.Presenter</node>
-    <node x="384.875" y="1667.0">system.SpeakerSystem</node>
-    <node x="67.5" y="482.0">event.EventManager</node>
-    <node x="512.375" y="608.5">message.MessageManager</node>
-    <node x="84.68058035714296" y="0.0">user.UserManager</node>
+    <node x="0.0" y="1059.0">readWrite.Write</node>
+    <node x="771.0" y="960.0">readWrite.UserIterator</node>
+    <node x="187.0" y="960.0">readWrite.RoomIterator</node>
+    <node x="0.0" y="0.0">presenter.Presenter</node>
+    <node x="212.0" y="722.0">system.UserSystem</node>
+    <node x="0.0" y="605.0">system.SpeakerSystem</node>
+    <node x="287.0" y="0.0">event.EventManager</node>
+    <node x="960.0" y="844.0">message.MessageManager</node>
+    <node x="371.0" y="960.0">readWrite.EventIterator</node>
+    <node x="0.0" y="844.0">readWrite.Iterator</node>
+    <node x="672.0" y="0.0">user.UserManager</node>
+    <node x="563.0" y="960.0">readWrite.MessageIterator</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Tree" zoom="0.5016987542468856" x="553.5" y="873.0" />
-  <SelectedNodes>
-    <node>presenter.Presenter</node>
-  </SelectedNodes>
+  <edges>
+    <edge source="readWrite.MessageIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="647.0" y="882.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.EventIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="447.0" y="882.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="system.SpeakerSystem" target="system.UserSystem">
+      <point x="0.0" y="0.0" />
+      <point x="288.0" y="643.5" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.UserIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="843.0" y="882.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.RoomIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="259.0" y="882.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Tree" zoom="0.5795847750865052" x="634.4865671641791" y="558.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Methods</Category>
