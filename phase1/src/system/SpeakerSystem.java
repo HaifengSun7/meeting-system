@@ -72,7 +72,9 @@ public class SpeakerSystem extends UserSystem{
     private void sendMessageToEvent() {
         ArrayList<String> allEvents = eventmanager.getAllEvents();
         for (int i = 0; i < allEvents.size(); i++) {
-            Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).equals(myName)) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
         }
         Presenter.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
