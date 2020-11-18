@@ -89,7 +89,7 @@ public class Event {
      * @return the name of Speaker.
      * @throws NoSpeakerException when there is no speaker in the event.
      */
-    public String getSpeaker() throws Exception {
+    public String getSpeaker() throws NoSpeakerException {
         if (speakStatus) {
             return speaker;
         } else {

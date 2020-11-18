@@ -169,9 +169,13 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
-     * @throws Exception when the input were Invalid in some ways.
+     * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
+     * @throws RoomIsFullException if room is full.
+     * @throws InvalidUserException if input type is "Organizer".
+     * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
+     * @throws NoSpeakerException if event corresponding to the input eventNumber does not has speaker.
      */
-    public void addUserToEvent(String type, String username, int eventNumber) throws Exception {
+    public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException, RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
         int capacity = this.getRoomNumberMapToCapacity().get(room_number);
         int event_size = map.get(eventNumber).getAttendees().size();
