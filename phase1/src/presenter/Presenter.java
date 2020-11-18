@@ -254,7 +254,7 @@ public class Presenter {
 
 
     /**
-     * Print out the prompt of invalid input.
+     * Print out error messages of invalid input.
      *
      * @param input the type of input to the corresponding prompt.
      */
@@ -289,6 +289,7 @@ public class Presenter {
                 break;
             case "createUsername":
                 System.out.println("Username should not contain a comma.");
+                break;
             default:
                 System.out.println("Invalid input.");
                 break;

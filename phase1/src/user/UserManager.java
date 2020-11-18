@@ -131,7 +131,7 @@ public class UserManager {
      */
     //* @return a list of signed event list of this attendee in string.
 
-    public void becomeSpeaker(String attendeeName) throws Exception {
+    public void becomeSpeaker(String attendeeName) throws NoSuchUserException, InvalidUsernameException, DuplicateUserNameException{
         if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("NoSuchUser: " + attendeeName);
         } else {

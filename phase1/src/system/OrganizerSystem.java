@@ -1,5 +1,6 @@
 package system;
 
+import event.AlreadyHasSpeakerException;
 import event.DuplicateRoomNumberException;
 import event.NotInOfficeHourException;
 import event.TimeNotAvailableException;
@@ -7,6 +8,7 @@ import presenter.Presenter;
 import readWrite.*;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
+import user.NoSuchUserException;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -234,17 +236,16 @@ public class OrganizerSystem extends UserSystem{
         String name = reader.nextLine();
         try {
             usermanager.becomeSpeaker(name);
-        } catch (Exception e) {
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
+            // ignored
+        } catch (NoSuchUserException e) {
             Presenter.invalid("username");
-            Presenter.continuePrompt();
-            reader.nextLine();
-            return;
         }
         try {
             eventmanager.becomeSpeaker(name);
             System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
-        } catch (Exception e) {
-            System.out.println("This event already has a speaker");
+        } catch (AlreadyHasSpeakerException e) {
+            System.out.println("addSpeaker");
         }
     }
 
@@ -254,15 +255,10 @@ public class OrganizerSystem extends UserSystem{
     private void scheduleSpeakers() {
         Presenter.inputPrompt("speakerName");
         String name = reader.nextLine();
-        try {
-            if (!usermanager.getUserType(name).equals("Speaker")) {
-                Presenter.notASpeaker();
-                return;
-            }
-        } catch (Exception e) {
-            Presenter.invalid("username");
+        if (!usermanager.getUserType(name).equals("Speaker")) {
+            Presenter.notASpeaker();
             return;
-        }
+            }
         Presenter.titlesInSpeaker("scheduleSpeakers1");
         ArrayList<String> allEvents = eventmanager.getAllEvents();
         for (int i = 0; i < allEvents.size(); i++) {
@@ -319,7 +315,7 @@ public class OrganizerSystem extends UserSystem{
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
-            } catch (Exception e) {
+            } catch (Exception e) { //TODO:!!!!!!!!!!!!!!!!!!!!!!!
                 System.out.println(e.getMessage());
                 Presenter.invalid("addSpeaker");
             }
@@ -346,16 +342,15 @@ public class OrganizerSystem extends UserSystem{
             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
             Presenter.success();
             Presenter.continuePrompt();
-        } catch (Exception e) {
-            if(e instanceof NotInOfficeHourException){
+        } catch (NotInOfficeHourException e) {
                 Presenter.failureAddEvent("NotOfficeHour", room);
-            } else if(e instanceof TimeNotAvailableException){
-                Presenter.failureAddEvent("TimeNotAvailable", room);
-            } else if(e instanceof InvalidActivityException){
-                Presenter.failureAddEvent("InvalidRoomNum", room);
-            } else {
-                Presenter.invalid("addEventGeneral");
-            }
+            } catch (InvalidActivityException e) {
+            Presenter.failureAddEvent("InvalidRoomNum", room);
+        } catch (TimeNotAvailableException e) {
+            Presenter.failureAddEvent("TimeNotAvailable", room);
+        }
+        catch (Exception e){
+            Presenter.invalid("addEventGeneral"); // Should not be called
         }
     }
 
