@@ -76,7 +76,7 @@ public class SpeakerSystem extends UserSystem{
             try {
                 ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                 messagemanager.sendToList(myName, attendeeList, messageToAllAttendees);
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
                 Presenter.invalid("eventId"); //TODO: ?
             }
             Presenter.continuePrompt();
@@ -141,7 +141,7 @@ public class SpeakerSystem extends UserSystem{
                 Presenter.inputOutOfRange();
             }
         } catch (Exception e) {
-            Presenter.invalid("default");
+            Presenter.invalid("default"); //TODO:?
         }
         Presenter.continuePrompt();
         reader.nextLine();

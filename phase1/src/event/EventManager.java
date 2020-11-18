@@ -139,7 +139,7 @@ public class EventManager {
         }
         for (Event j : attended) {
             if (j.getSpeakStatus()) {
-                throw new AlreadyHasSpeakerException("CannotAddSpeaker: " + attendee);
+                throw new AlreadyHasSpeakerException("Cannot Add Speaker: " + attendee);
             } else {
                 j.setSpeaker(attendee);
             }
@@ -196,7 +196,7 @@ public class EventManager {
                 throw new InvalidUserException("Invalid user type");
             }
         } else {
-            throw new NoSuchEventException("NoSuchEvent: " + eventNumber);
+            throw new NoSuchEventException("No Such Event: " + eventNumber);
         }
     }
 
