@@ -93,7 +93,7 @@ public class Event {
         if (speakStatus) {
             return speaker;
         } else {
-            throw new NoSpeakerException("NoSpeaker: at " + this.id);
+            throw new NoSpeakerException("No Speaker: at " + this.id);
         }
     }
 
