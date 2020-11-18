@@ -166,8 +166,10 @@ public class Presenter {
                 System.out.println("Please enter the speaker's username:");
                 break;
             case "signUp":
-                System.out.println("Here are the events that you can sign up for. Enter number in square brackets to choose the event.");
+                System.out.println("Here are the events that you can sign up for.");
                 break;
+            case "enterNumberInSquareBracketsToChooseEvent":
+                System.out.println("Enter number in square brackets to choose the event.");
         }
     }
 

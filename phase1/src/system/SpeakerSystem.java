@@ -131,7 +131,6 @@ public class SpeakerSystem extends UserSystem{
      */
     private void getSentMessages() {
         ArrayList<String> messageList = messagemanager.getSent(myName);
-        addAllToMessageList();
         for (int i = 0; i < messageList.size(); i++) {
             Presenter.defaultPrint("[" + i + "] " + messageList.get(i));
         }
@@ -139,16 +138,6 @@ public class SpeakerSystem extends UserSystem{
         reader.nextLine();
     }
 
-    /*
-     * Add all senders of the inbox messages to speaker's contact list.
-     */
-    private void addAllToMessageList() {
-        ArrayList<String> inboxSenders = messagemanager.getInboxSender(myName);
-        for (String sender : inboxSenders) {
-            usermanager.addContactList(sender, myName);
-        }
-        Presenter.autoAddToMessageList();
-    }
 
     /*
      * Respond to an attendee who has sent message to the speaker.

@@ -71,6 +71,8 @@ public class AttendeeSystem extends UserSystem {
     private void SignUpForEvent() {
         ArrayList<String> example_list = eventmanager.canSignUp(myName);
         Presenter.inputPrompt("signUp");
+        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+
         for (int i = 0; i < example_list.size(); i++) {
             Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
@@ -115,14 +117,17 @@ public class AttendeeSystem extends UserSystem {
         }
         Presenter.exitToMainMenuPrompt();
         Presenter.inputPrompt("eventId");
-        String eventId = reader.nextLine();
-        if (!("e".equals(eventId))) {
+        String number = reader.nextLine();
+        if (!("e".equals(number))) {
             try {
-                usermanager.deleteSignedEvent(eventId, myName);
-                eventmanager.signOut(eventId, myName);
+                usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
+                eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
                 Presenter.success();
             } catch (InvalidActivityException | NoSuchEventException e){
                  Presenter.printErrorMessage(e.getMessage()); // This should never happen.
+            }
+            catch (IndexOutOfBoundsException | NullPointerException e){
+                Presenter.invalid("");
             }
         } else {
             Presenter.exitingToMainMenu();
