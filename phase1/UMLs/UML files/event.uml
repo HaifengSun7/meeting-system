@@ -17,8 +17,10 @@
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="0.7519640852974186" x="427.0" y="785.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.8459595959595959" x="427.0" y="386.0" />
+  <SelectedNodes>
+    <node>readWrite.Write</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Methods</Category>

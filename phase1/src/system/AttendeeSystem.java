@@ -123,8 +123,8 @@ public class AttendeeSystem extends UserSystem {
         String number = reader.nextLine();
         if (!("e".equals(number))) {
             try {
-                usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
                 eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
+                usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
                 Presenter.success();
             } catch (InvalidActivityException | NoSuchEventException e) {
                 Presenter.printErrorMessage(e.getMessage()); // This should never happen.
