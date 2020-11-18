@@ -79,17 +79,8 @@ public class AttendeeSystem extends UserSystem {
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("Attendee", myName, Integer.parseInt(example_list.get(Integer.parseInt(command))));
-            } catch (RoomIsFullException e) {
-                Presenter.invalid("roomFull");
-                return;
-            } catch (InvalidUserException e) {
-                Presenter.invalid("username");
-                return;
-            } catch (NoSuchEventException e) {
-                Presenter.invalid("eventId");
-                return;
-            } catch (AlreadyHasSpeakerException e) {
-                Presenter.invalid("addSpeaker");
+            } catch (RoomIsFullException | InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException e) {
+                Presenter.printErrorMessage(e.getMessage());
                 return;
             } catch (Exception e){
                 Presenter.invalid(""); // Should never be called
@@ -130,10 +121,8 @@ public class AttendeeSystem extends UserSystem {
                 usermanager.deleteSignedEvent(eventId, myName);
                 eventmanager.signOut(eventId, myName);
                 Presenter.success();
-            } catch (InvalidActivityException e){
-                 Presenter.invalid(""); // This should never happen.
-            } catch (NoSuchEventException e) {
-                Presenter.invalid("eventId");
+            } catch (InvalidActivityException | NoSuchEventException e){
+                 Presenter.printErrorMessage(e.getMessage()); // This should never happen.
             }
         } else {
             Presenter.exitingToMainMenu();
