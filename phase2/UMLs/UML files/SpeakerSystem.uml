@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>system.SpeakerSystem</OriginalElement>
+  <nodes>
+    <node x="355.0" y="629.0">readWrite.Write</node>
+    <node x="387.0" y="1263.0">readWrite.UserIterator</node>
+    <node x="571.0" y="1263.0">readWrite.RoomIterator</node>
+    <node x="0.0" y="0.0">presenter.Presenter</node>
+    <node x="1017.0" y="234.0">system.UserSystem</node>
+    <node x="720.0" y="0.0">system.SpeakerSystem</node>
+    <node x="303.0" y="0.0">event.EventManager</node>
+    <node x="968.0" y="1145.0">message.MessageManager</node>
+    <node x="0.0" y="1145.0">readWrite.Iterator</node>
+    <node x="195.0" y="1263.0">readWrite.EventIterator</node>
+    <node x="0.0" y="629.0">user.UserManager</node>
+    <node x="755.0" y="1263.0">readWrite.MessageIterator</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="readWrite.MessageIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="839.0" y="1184.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.EventIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="271.0" y="1184.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="system.SpeakerSystem" target="system.UserSystem">
+      <point x="0.0" y="0.0" />
+      <point x="1254.0" y="97.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.UserIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="459.0" y="1184.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="readWrite.RoomIterator" target="readWrite.Iterator">
+      <point x="0.0" y="0.0" />
+      <point x="643.0" y="1184.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Tree" zoom="0.7392055267702936" x="645.5" y="559.0" />
+  <SelectedNodes>
+    <node>system.SpeakerSystem</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

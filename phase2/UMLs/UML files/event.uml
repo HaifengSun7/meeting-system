@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>event</OriginalElement>
+  <nodes>
+    <node x="857.25" y="1079.0">readWrite.Write</node>
+    <node x="304.0" y="174.0">event.Room</node>
+    <node x="755.0" y="244.0">event.InvalidUserException</node>
+    <node x="1276.5" y="0.0">event.NoSpeakerException</node>
+    <node x="1799.0" y="244.0">event.TimeNotAvailableException</node>
+    <node x="796.75" y="548.0">event.EventManager</node>
+    <node x="0.0" y="244.0">event.AlreadyHasSpeakerException</node>
+    <node x="1533.0" y="244.0">event.NotInOfficeHourException</node>
+    <node x="1256.0" y="105.0">event.Event</node>
+    <node x="521.0" y="244.0">event.RoomIsFullException</node>
+    <node x="990.0" y="244.0">event.NoSuchEventException</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="event.Event" target="event.Event">
+      <point x="-96.375" y="166.5" />
+      <point x="1288.125" y="458.0" />
+      <point x="1236.0" y="458.0" />
+      <point x="1236.0" y="271.5" />
+      <point x="-128.5" y="-0.0" />
+    </edge>
+    <edge source="event.EventManager" target="event.Room">
+      <point x="-139.5" y="-235.5" />
+      <point x="843.25" y="518.0" />
+      <point x="377.875" y="518.0" />
+      <point x="-24.625" y="97.5" />
+    </edge>
+    <edge source="readWrite.Write" target="event.EventManager">
+      <point x="-93.75" y="-39.5" />
+      <point x="951.0" y="1059.0" />
+      <point x="982.75" y="1059.0" />
+      <point x="0.0" y="235.5" />
+    </edge>
+    <edge source="event.Event" target="event.NoSpeakerException">
+      <point x="0.0" y="-166.5" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.Room" target="event.Room">
+      <point x="-73.875" y="97.5" />
+      <point x="328.625" y="389.0" />
+      <point x="284.0" y="389.0" />
+      <point x="284.0" y="271.5" />
+      <point x="-98.5" y="-0.0" />
+    </edge>
+    <edge source="event.EventManager" target="event.AlreadyHasSpeakerException">
+      <point x="-170.5" y="-235.5" />
+      <point x="812.25" y="528.0" />
+      <point x="132.0" y="528.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.EventManager">
+      <point x="-124.0" y="235.5" />
+      <point x="858.75" y="1039.0" />
+      <point x="776.75" y="1039.0" />
+      <point x="776.75" y="783.5" />
+      <point x="-186.0" y="-0.0" />
+    </edge>
+    <edge source="readWrite.Write" target="readWrite.Write">
+      <point x="0.0" y="39.5" />
+      <point x="1044.75" y="1178.0" />
+      <point x="837.25" y="1178.0" />
+      <point x="837.25" y="1118.5" />
+      <point x="-187.5" y="-0.0" />
+    </edge>
+    <edge source="event.EventManager" target="event.Event">
+      <point x="46.5" y="-235.5" />
+      <point x="1029.25" y="488.0" />
+      <point x="1352.375" y="488.0" />
+      <point x="-32.125" y="166.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.NotInOfficeHourException">
+      <point x="139.5" y="-235.5" />
+      <point x="1122.25" y="518.0" />
+      <point x="1656.0" y="518.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.NoSuchEventException">
+      <point x="15.5" y="-235.5" />
+      <point x="998.25" y="478.0" />
+      <point x="1103.0" y="478.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.RoomIsFullException">
+      <point x="-46.5" y="-235.5" />
+      <point x="936.25" y="488.0" />
+      <point x="628.0" y="488.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.TimeNotAvailableException">
+      <point x="170.5" y="-235.5" />
+      <point x="1153.25" y="528.0" />
+      <point x="1925.0" y="528.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="event.EventManager" target="event.InvalidUserException">
+      <point x="-15.5" y="-235.5" />
+      <point x="967.25" y="478.0" />
+      <point x="862.5" y="478.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.42070116861435725" x="1025.5" y="589.0" />
+  <SelectedNodes>
+    <node>readWrite.Write</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>user</OriginalElement>
+  <nodes>
+    <node x="0.0" y="447.0">user.User</node>
+    <node x="496.0" y="681.0">user.Attendee</node>
+    <node x="311.0" y="805.0">user.InvalidUsernameException</node>
+    <node x="0.0" y="805.0">user.DuplicateUserNameException</node>
+    <node x="603.0" y="805.0">user.NoSuchUserException</node>
+    <node x="248.0" y="681.0">user.Organizer</node>
+    <node x="744.0" y="681.0">user.Speaker</node>
+    <node x="0.0" y="0.0">user.UserManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="user.Organizer" target="user.User">
+      <point x="0.0" y="0.0" />
+      <point x="352.0" y="544.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="user.Speaker" target="user.User">
+      <point x="0.0" y="0.0" />
+      <point x="848.0" y="544.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="user.Attendee" target="user.User">
+      <point x="0.0" y="0.0" />
+      <point x="600.0" y="544.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Tree" zoom="0.5894736842105263" x="453.5" y="407.50000000000006" />
+  <SelectedNodes>
+    <node>user.User</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
