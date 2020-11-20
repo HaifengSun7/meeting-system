@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * An Attendee User of the conference.
  */
 public class Attendee extends User {
-    private ArrayList<String> signedEvent = new ArrayList<>();
+    protected ArrayList<String> signedEvent = new ArrayList<>();
+    protected boolean VIPstatus = false;
 
     /**
      * Constructor for an Attendee object.
@@ -39,4 +40,7 @@ public class Attendee extends User {
         this.signedEvent = signedEvent;
     }
 
+    public boolean getVIPstatus(){
+        return this.VIPstatus;
+    }
 }

@@ -35,15 +35,27 @@ public class UserManager {
         if (userMapping.containsKey(username)) {
             throw new DuplicateUserNameException("Duplicate User Name : " + username);
         } else {
-            if (usertype.equals("Speaker")) {
-                Speaker newUser = new Speaker(username, password);
-                addUser(newUser);
-            } else if (usertype.equals("Organizer")) {
-                Organizer newUser = new Organizer(username, password);
-                addUser(newUser);
-            } else {
-                Attendee newUser = new Attendee(username, password);
-                addUser(newUser);
+            switch (usertype) {
+                case "Speaker": {
+                    Speaker newUser = new Speaker(username, password);
+                    addUser(newUser);
+                    break;
+                }
+                case "Organizer": {
+                    Organizer newUser = new Organizer(username, password);
+                    addUser(newUser);
+                    break;
+                }
+                case "VIP": {
+                    VIP newUser = new VIP(username, password);
+                    addUser(newUser);
+                    break;
+                }
+                default: {
+                    Attendee newUser = new Attendee(username, password);
+                    addUser(newUser);
+                    break;
+                }
             }
         }
     }
@@ -96,6 +108,15 @@ public class UserManager {
      */
     public String getPassword(String username) {
         return userMapping.get(username).password;
+    }
+
+    public boolean isVIP(String username) throws NotAttendeeException, NoSuchUserException {
+        if (!findUser(username).getUserType().equals("Attendee")) {
+            throw new NotAttendeeException("this is not a valid attendee");
+        } else {
+            Attendee attendee = (Attendee) userMapping.get(username);
+            return attendee.getVIPstatus();
+        }
     }
 
     /**
@@ -158,6 +179,25 @@ public class UserManager {
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
             //return signedEvent;
+        }
+    }
+
+    public void becomeVIP(String attendeeName) throws NoSuchUserException{
+        if (!userMapping.containsKey(attendeeName)) {
+            throw new NoSuchUserException("User " + attendeeName + " does not exist." );
+        } else {
+            User attendee = userMapping.get(attendeeName);
+            ArrayList<String> contactList = attendee.getContactList();
+            ArrayList<String> signedEvent = attendee.getSignedEvent();
+            boolean status = attendee.getStatus();
+            deleteUser(attendeeName);
+            try {
+                createUserAccount("VIP", attendee.getUserName(), attendee.getPassword());
+            } catch (InvalidUsernameException | DuplicateUserNameException ignored){}
+            User attendeeVIP = userMapping.get(attendeeName);
+            attendeeVIP.setContactList(contactList);
+            attendeeVIP.setStatus(status);
+            attendeeVIP.setSignedEvent(signedEvent);
         }
     }
 
