@@ -169,6 +169,9 @@ public class Presenter {
             case "signUp":
                 System.out.println("Here are the events that you can sign up for.");
                 break;
+            case "maximum people":
+                System.out.println("Please enter the maximum people in the event:");
+                break;
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
         }

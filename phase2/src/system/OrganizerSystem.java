@@ -344,11 +344,14 @@ public class OrganizerSystem extends UserSystem {
         String time1 = reader.nextLine();
         Presenter.inputPrompt("duration");
         String duration = reader.nextLine();
+        Presenter.inputPrompt("maximum people");
+        String maximumPeople = reader.nextLine();
         Presenter.inputPrompt("description");
         String description = reader.nextLine();
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
+            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration),
+                    Integer.parseInt(maximumPeople), description);
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {

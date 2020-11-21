@@ -283,7 +283,7 @@ public class EventManager {
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException  if there's no such room.
      */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
+    public void addEvent(String roomNo, Timestamp time, int meetingLength, int maximumPeople, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
         if (!inOfficeHour(time)) {
             throw new NotInOfficeHourException("Invalid time. Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
         }
@@ -291,6 +291,7 @@ public class EventManager {
             Event newEvent = new Event(time);
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
+            newEvent.setMaximumPeople(maximumPeople);
             for (Room r : rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                     r.addEvent(newEvent.getId());

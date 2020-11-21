@@ -18,6 +18,7 @@ public class Event {
     private String speaker;
     private String description;
     private boolean speakStatus = false;
+    private int maximumPeople;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -203,4 +204,12 @@ public class Event {
         return this.length;
     }
     */
+
+    public void setMaximumPeople(int number) {
+        this.maximumPeople = number;
+    }
+
+    public int getMaximumPeople() {
+        return maximumPeople;
+    }
 }

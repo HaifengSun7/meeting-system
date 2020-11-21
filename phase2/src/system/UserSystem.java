@@ -154,7 +154,8 @@ public abstract class UserSystem {
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next();
             try {
-                eventManager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]), temp2[3]);
+                eventManager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]),
+                        Integer.parseInt(temp2[3]), temp2[4]);
             } catch (Exception e) {
                 Presenter.invalid("fileRead");
                 Presenter.defaultPrint("Failed to load event" + temp2[0] + "Invalid room number.");
