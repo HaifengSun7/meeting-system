@@ -211,7 +211,7 @@ public class EventManager {
      * @throws InvalidNewMaxNumberException if the new maximum number of the event is less than the existing attendees in that event
      */
     public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
-            InvalidNewMaxNumberException, InvalidActivityException, NoSpeakerException {
+            InvalidNewMaxNumberException, InvalidActivityException {
         int eventSize = map.get(eventNumber).getAttendees().size();
         int speakerSize;
         if (map.get(eventNumber).getSpeakStatus()) {

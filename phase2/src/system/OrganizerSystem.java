@@ -198,8 +198,7 @@ public class OrganizerSystem extends UserSystem {
                             Integer.parseInt(command));
                     Presenter.success();
                     Presenter.continuePrompt();
-                } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException |
-                        NoSpeakerException e) {
+                } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException e) {
                     Presenter.printErrorMessage(e.getMessage());
                     Presenter.continuePrompt();
                 }
