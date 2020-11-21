@@ -160,7 +160,7 @@ public abstract class UserSystem {
                 Presenter.invalid("fileRead");
                 Presenter.defaultPrint("Failed to load event" + temp2[0] + "Invalid room number.");
             }
-            for (j = 4; j < temp2.length; j++) {
+            for (j = 5; j < temp2.length; j++) {
                 try {
                     eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {
