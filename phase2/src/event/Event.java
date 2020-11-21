@@ -133,8 +133,12 @@ public class Event {
      */
     public String toString() {
         String t = this.time.toString();
-        return "Event {" + "Id: " + this.getId() + ", Description: " + this.description + ", Time: " + t +
-                ", Speaker: " + speaker + ", Attendees: " + this.getAttendees() + "}";
+        return "Event {" + "Id: " + this.getId() +
+                ", Description: " + this.description +
+                ", Time: " + t +
+                ", Maximum people: " + maximumPeople +
+                ", Speaker: " + speaker +
+                ", Attendees: " + this.getAttendees() + "}";
     }
 
     /**
@@ -205,10 +209,18 @@ public class Event {
     }
     */
 
+    /**
+     * set the maximum number of people in the event.
+     * @param number the number of maximum people.
+     */
     public void setMaximumPeople(int number) {
         this.maximumPeople = number;
     }
 
+    /**
+     * get the maximum number of people in the event.
+     * @return an integer of the maximum number of people in the event.
+     */
     public int getMaximumPeople() {
         return maximumPeople;
     }

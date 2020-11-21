@@ -172,6 +172,7 @@ public class EventManager {
      * @throws InvalidUserException       if input type is "Organizer".
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
      * @throws NoSpeakerException         if event corresponding to the input eventNumber does not has speaker.
+     * @throws EventIsFullException       if event is full.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException,
             RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
@@ -202,6 +203,33 @@ public class EventManager {
         }
     }
 
+    /**
+     * set the maximum number of people in the selected event.
+     * @param newMaximum the new maximum number of people.
+     * @param eventNumber the event number of the selected event.
+     * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
+     * @throws InvalidNewMaxNumberException if the new maximum number of the event is less than the existing attendees in that event
+     */
+    public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
+            InvalidNewMaxNumberException, InvalidActivityException, NoSpeakerException {
+        int eventSize = map.get(eventNumber).getAttendees().size();
+        int speakerSize;
+        if (map.get(eventNumber).getSpeakStatus()) {
+            speakerSize = 1;
+        } else {
+            speakerSize = 0;
+        }
+        if (map.containsKey(eventNumber) && this.getSchedule(roomNumber).contains(eventNumber)) {
+            if (newMaximum >= (eventSize + speakerSize)) {
+                map.get(eventNumber).setMaximumPeople(newMaximum);
+            } else {
+                throw new InvalidNewMaxNumberException("Invalid input. The new maximum number of this event is " +
+                        "less than the existing attendees in that event.");
+            }
+        } else {
+            throw new NoSuchEventException("There is not an event with event number " + eventNumber);
+        }
+    }
 
     /**
      * Get a hash map that keys are room numbers and values are their capacities.

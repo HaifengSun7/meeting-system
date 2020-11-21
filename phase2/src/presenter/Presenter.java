@@ -172,6 +172,9 @@ public class Presenter {
             case "maximum people":
                 System.out.println("Please enter the maximum people in the event:");
                 break;
+            case "newMaxPeopleOfEvent":
+                System.out.println("Please enter the new maximum people in the event:");
+                break;
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
         }
@@ -189,6 +192,7 @@ public class Presenter {
                         "[a] add a new room\n" +
                         "[b] see schedule of a certain room\n" +
                         "[c] add a new event\n" +
+                        "[d] change the event's maximum number of people\n" +
                         "[e] exit to main menu.");
                 break;
             case "createSpeaker":

@@ -76,7 +76,7 @@ public class OrganizerSystem extends UserSystem {
         write.run();
     }
 
-    /*
+    /**
      * Send messages to all users, either all speakers or all attendees.
      * @param user type of user, either the String "speaker" or "attendee".
      */
@@ -100,7 +100,7 @@ public class OrganizerSystem extends UserSystem {
 
     }
 
-    /*
+    /**
      * Send message to a specific person.
      */
     @Override
@@ -122,7 +122,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room.
      */
@@ -148,6 +148,10 @@ public class OrganizerSystem extends UserSystem {
                 addingEvent();
                 reader.nextLine();
                 break;
+            case "d":
+                changeEventMaxNumberPeople();
+                reader.nextLine();
+                break;
             case "e":
                 break;
             default:
@@ -158,7 +162,52 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
+     * set the maximum number of people in the selected event.
+     */
+    private void changeEventMaxNumberPeople() {
+        Presenter.inputPrompt("roomNumber");
+        String roomNumber = reader.nextLine();
+        try {
+            ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
+            for (Integer integer : schedule) {
+                Presenter.defaultPrint("[" + integer + "] " + eventmanager.findEventStr(integer));
+            }
+            Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+            Presenter.exitToMainMenuPrompt();
+        } catch (InvalidActivityException e) {
+            Presenter.printErrorMessage(e.getMessage());
+            Presenter.continuePrompt();
+            reader.nextLine();
+            return;
+        } catch (NumberFormatException e) {
+            Presenter.invalid("");
+            Presenter.continuePrompt();
+            return;
+        }
+        String command = reader.nextLine();
+        Presenter.inputPrompt("newMaxPeopleOfEvent");
+        String newMax = reader.nextLine();
+        switch (command) {
+            case "e":
+                Presenter.exitingToMainMenu();
+                break;
+            default:
+                try {
+                    eventmanager.setMaximumPeople(Integer.parseInt(roomNumber), Integer.parseInt(newMax),
+                            Integer.parseInt(command));
+                    Presenter.success();
+                    Presenter.continuePrompt();
+                } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException |
+                        NoSpeakerException e) {
+                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.continuePrompt();
+                }
+                break;
+        }
+    }
+
+    /**
      * Create a new room.
      */
     private void addNewRoom() {
@@ -174,7 +223,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
      * Check all scheduled events in a specific room.
      */
     private void checkRoom() {
@@ -193,11 +242,9 @@ public class OrganizerSystem extends UserSystem {
         }
         Presenter.titlesInSpeaker("checkRoom");
         Presenter.continuePrompt();
-        Presenter.continuePrompt();
-        reader.nextLine();
     }
 
-    /*
+    /**
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
@@ -225,7 +272,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
      * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker() {
@@ -246,7 +293,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
@@ -300,7 +347,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
+    /**
      * Add a new speaker to an existing event.
      *
      * @param allEvents all existing events.
@@ -335,8 +382,8 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-    The action of adding an Event, with info from inputs.
+    /**
+     * The action of adding an Event, with info from inputs.
      */
     private void addingEvent() {
         Presenter.titlesInSpeaker("AddEvents");
@@ -363,6 +410,10 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
+    /**
+     * show the events in a selected room
+     * @param command the room number
+     */
     private void showEvents(String command) {
         try {
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command));
