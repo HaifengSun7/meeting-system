@@ -325,6 +325,8 @@ public class OrganizerSystem extends UserSystem {
             } catch (NoSuchEventException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("event not found");
+            } catch (EventIsFullException e) {
+                Presenter.defaultPrint("Event is full");
             } catch (InvalidUserException e) {
                 Presenter.printErrorMessage(e.getMessage());
             }

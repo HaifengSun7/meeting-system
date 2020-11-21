@@ -173,10 +173,12 @@ public class EventManager {
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
      * @throws NoSpeakerException         if event corresponding to the input eventNumber does not has speaker.
      */
-    public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException, RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException {
+    public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException,
+            RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
         int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
-        int capacity = this.getRoomNumberMapToCapacity().get(room_number);
+        int roomCapacity = this.getRoomNumberMapToCapacity().get(room_number);
         int event_size = map.get(eventNumber).getAttendees().size();
+        int maximumPeople = map.get(eventNumber).getMaximumPeople();
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {
@@ -186,10 +188,12 @@ public class EventManager {
                             map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
-                if (event_size >= capacity - 1) {
-                    throw new RoomIsFullException("Room: " + room_number + " is Full");
-                }
-                signUp(String.valueOf(eventNumber), username);
+                if (event_size >= roomCapacity - 1) {
+                    throw new RoomIsFullException("Room: " + room_number + " is Full!");
+                } else if (event_size >= maximumPeople - 1) {
+                    throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
+                            "You can't sign up this event!");
+                } signUp(String.valueOf(eventNumber), username);
             } else {
                 throw new InvalidUserException("Invalid user type.");
             }

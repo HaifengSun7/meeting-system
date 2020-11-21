@@ -120,7 +120,7 @@ public abstract class UserSystem {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next();
-            for (int j = 4; j < temp2.length; j++) {
+            for (int j = 5; j < temp2.length; j++) {
                 try {
                     userManager.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {

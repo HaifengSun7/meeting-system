@@ -1,9 +1,6 @@
 package system;
 
-import event.AlreadyHasSpeakerException;
-import event.InvalidUserException;
-import event.NoSuchEventException;
-import event.RoomIsFullException;
+import event.*;
 import presenter.Presenter;
 import readWrite.Write;
 
@@ -84,7 +81,7 @@ public class AttendeeSystem extends UserSystem {
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("Attendee", myName, Integer.parseInt(example_list.get(Integer.parseInt(command))));
-            } catch (RoomIsFullException | InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException e) {
+            } catch (RoomIsFullException | InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException | EventIsFullException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 return;
             } catch (Exception e) {
