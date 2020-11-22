@@ -10,5 +10,6 @@ public class MutiEvent extends Event {
      */
     public MutiEvent(Timestamp time) {
         super(time);
+        this.type = "Muti";
     }
 }
