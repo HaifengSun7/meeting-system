@@ -335,6 +335,27 @@ public class EventManager {
     }
 
     /**
+     * Cancel the certain Event.
+     *
+     * @param eventId: the id of the event in string.
+     * @throws NoSuchEventException if cannot find event with given eventId.
+     */
+    public void cancelEvent(String eventId) throws NoSuchEventException {
+        for (Integer id : map.keySet()) {
+            if (id == Integer.parseInt(eventId)) {
+                map.remove(id);
+                for (Room r : rooms) {
+                    if (r.getSchedule().contains(id)) {
+                        r.removeEvent(id);
+                    }
+                }
+            }
+            return;
+        }
+        throw new NoSuchEventException("NoSuchEvent: " + eventId);
+    }
+
+    /**
      * Make attendee sign out for an event.
      *
      * @param eventId  Event id in String.
@@ -414,27 +435,6 @@ public class EventManager {
         throw new InvalidActivityException("invalid room number: " + roomNo);
     }
 
-//
-//    /**
-//     * Cancel the certain Event.
-//     *
-//     * @param eventId: the id of the event in string.
-//     */
-//    public void cancelEvent(String eventId) throws NoSuchEventException {
-//        for (Integer id : map.keySet()) {
-//            if (id == Integer.parseInt(eventId)) {
-//                map.remove(id);
-//                for (Room r : rooms) {
-//                    if (r.getSchedule().contains(id)) {
-//                        r.removeEvent(id);
-//                    }
-//                }
-//            }
-//            System.out.println("Successfully cancel the event" + eventId);
-//            return;
-//        }
-//        throw new NoSuchEventException("NoSuchEvent: " + eventId);
-//    }
 
     /*
      * Check if the time in office hour.
