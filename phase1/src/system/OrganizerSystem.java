@@ -1,47 +1,39 @@
 package system;
 
-import event.EventManager;
-import event.DuplicateRoomNoException;
-import event.TimeNotAvailableException;
-import event.NotInOfficeHourException;
-import message.MessageManager;
+import event.*;
 import presenter.Presenter;
 import readWrite.Write;
-import user.UserManager;
+import user.DuplicateUserNameException;
+import user.InvalidUsernameException;
+import user.NoSuchUserException;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * <h1>Organizer System</h1>
  * The OrganizerSystem program implements the system of Organizer user.
  */
-public class OrganizerSystem {
-
-    private final String organizer;
-    public Scanner reader = new Scanner(System.in);
-    public EventManager eventmanager = new EventManager();
-    public UserManager usermanager = new UserManager();
-    public MessageManager messagemanager = new MessageManager();
+public class OrganizerSystem extends UserSystem {
 
     /**
      * Constructor for OrganizerSystem.
      *
-     * @param organizer A String, which is the username of organizer who logged in.
+     * @param myName A String, which is the username of organizer who logged in.
      */
-    public OrganizerSystem(String organizer) {
-        this.organizer = organizer;
+    public OrganizerSystem(String myName) {
+        super(myName);
     }
 
     /**
      * Run the Organizer System. Print out organizer's menu, and perform organizer's operations.
      */
+    @Override
     public void run() {
         String command;
         while (true) {
-            Presenter.name(organizer);
+            Presenter.name(myName);
             Presenter.userType("Organizer");
             Presenter.organizerMenu();
             command = reader.nextLine();
@@ -68,7 +60,7 @@ public class OrganizerSystem {
                     seeMessages();
                     continue;
                 case "e":
-                    usermanager.logout(organizer);
+                    usermanager.logout(myName);
                     break;
                 default:
                     Presenter.wrongKeyReminder();
@@ -85,18 +77,6 @@ public class OrganizerSystem {
     }
 
     /*
-     * See the messages that the organizer got from other users.
-     */
-    private void seeMessages() {
-        ArrayList<String> inbox = messagemanager.getInbox(organizer);
-        for (int i = 0; i < inbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i) + "\n");
-        }
-        Presenter.exitToMainMenuPrompt();
-        reader.nextLine();
-    }
-
-    /*
      * Send messages to all users, either all speakers or all attendees.
      * @param user type of user, either the String "speaker" or "attendee".
      */
@@ -106,14 +86,14 @@ public class OrganizerSystem {
                 ArrayList<String> speakers = usermanager.getSpeakers();
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
-                messagemanager.sendToList(organizer, speakers, message);
+                messagemanager.sendToList(myName, speakers, message);
                 Presenter.continuePrompt();
                 break;
             case "attendee":
                 ArrayList<String> attendees = usermanager.getAttendees();
                 Presenter.inputPrompt("message");
                 String message2 = reader.nextLine();
-                messagemanager.sendToList(organizer, attendees, message2);
+                messagemanager.sendToList(myName, attendees, message2);
                 Presenter.continuePrompt();
                 break;
         }
@@ -123,7 +103,8 @@ public class OrganizerSystem {
     /*
      * Send message to a specific person.
      */
-    private void sendMessageToSomeone() {
+    @Override
+    protected void sendMessageToSomeone() {
         Presenter.inputPrompt("receiver");
         Presenter.exitToMainMenuPrompt();
         String target = reader.nextLine();
@@ -133,7 +114,7 @@ public class OrganizerSystem {
             if (usermanager.getAllUsernames().contains(target)) {
                 Presenter.inputPrompt("message");
                 String msg = reader.nextLine();
-                messagemanager.sendMessage(organizer, target, msg);
+                messagemanager.sendMessage(myName, target, msg);
                 Presenter.success();
             } else {
                 Presenter.invalid("username");
@@ -188,8 +169,8 @@ public class OrganizerSystem {
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
-        } catch (DuplicateRoomNoException e) {
-            Presenter.duplicateInvalid("newRoom");
+        } catch (DuplicateRoomNumberException e) {
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
 
@@ -205,7 +186,7 @@ public class OrganizerSystem {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.invalid("roomNumber");
+            Presenter.printErrorMessage(e.getMessage());
             Presenter.continuePrompt();
             reader.nextLine();
             return;
@@ -234,9 +215,11 @@ public class OrganizerSystem {
                 try {
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
-                } catch (Exception e) {
-                    Presenter.duplicateInvalid("username");
+                } catch (DuplicateUserNameException e) {
+                    Presenter.printErrorMessage(e.getMessage());
                     break;
+                } catch (InvalidUsernameException e) {
+                    Presenter.printErrorMessage(e.getMessage());
                 }
                 break;
         }
@@ -250,17 +233,16 @@ public class OrganizerSystem {
         String name = reader.nextLine();
         try {
             usermanager.becomeSpeaker(name);
-        } catch (Exception e) {
-            Presenter.invalid("username");
-            Presenter.continuePrompt();
-            reader.nextLine();
-            return;
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
+            // ignored
+        } catch (NoSuchUserException e) {
+            Presenter.printErrorMessage(e.getMessage());
         }
         try {
             eventmanager.becomeSpeaker(name);
             System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
-        } catch (Exception e) {
-            System.out.println("This event already has a speaker");
+        } catch (AlreadyHasSpeakerException e) {
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
 
@@ -270,13 +252,8 @@ public class OrganizerSystem {
     private void scheduleSpeakers() {
         Presenter.inputPrompt("speakerName");
         String name = reader.nextLine();
-        try {
-            if (!usermanager.getUserType(name).equals("Speaker")) {
-                Presenter.notASpeaker();
-                return;
-            }
-        } catch (Exception e) {
-            Presenter.invalid("username");
+        if (!usermanager.getUserType(name).equals("Speaker")) {
+            Presenter.notASpeaker();
             return;
         }
         Presenter.titlesInSpeaker("scheduleSpeakers1");
@@ -335,9 +312,21 @@ public class OrganizerSystem {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                Presenter.invalid("addSpeaker");
+
+            } catch (RoomIsFullException e) {
+                Presenter.printErrorMessage(e.getMessage());
+                Presenter.defaultPrint("Room is full.");
+            } catch (AlreadyHasSpeakerException e) {
+                Presenter.printErrorMessage(e.getMessage());
+                Presenter.defaultPrint("Already has speaker.");
+            } catch (NoSpeakerException e) {
+                Presenter.printErrorMessage(e.getMessage());
+                Presenter.defaultPrint("not a speaker.");
+            } catch (NoSuchEventException e) {
+                Presenter.printErrorMessage(e.getMessage());
+                Presenter.defaultPrint("event not found");
+            } catch (InvalidUserException e) {
+                Presenter.printErrorMessage(e.getMessage());
             }
         } else {
             Presenter.invalid("eventId");
@@ -347,7 +336,7 @@ public class OrganizerSystem {
     /*
     The action of adding an Event, with info from inputs.
      */
-    private void addingEvent(){
+    private void addingEvent() {
         Presenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
@@ -362,27 +351,22 @@ public class OrganizerSystem {
             eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
             Presenter.success();
             Presenter.continuePrompt();
+        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {
+            Presenter.printErrorMessage(e.getMessage());
         } catch (Exception e) {
-            if(e instanceof NotInOfficeHourException){
-                Presenter.failureAddEvent("NotOfficeHour", room);
-            } else if(e instanceof TimeNotAvailableException){
-                Presenter.failureAddEvent("TimeNotAvailable", room);
-            } else if(e instanceof InvalidActivityException){
-                Presenter.failureAddEvent("InvalidRoomNum", room);
-            } else {
-                Presenter.invalid("addEventGeneral");
-            }
+            Presenter.invalid("addEventGeneral"); // Should not be called
         }
     }
 
-    private void showEvents(String command){
+    private void showEvents(String command) {
         try {
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(command));
             for (Integer i : schedule) {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.invalid("getEventSchedule");
+            Presenter.printErrorMessage(e.getMessage());
         }
     }
+
 }

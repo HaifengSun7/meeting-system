@@ -3,9 +3,6 @@ package presenter;
 /**
  * <h1>Presenter</h1>
  * The Presenter class is used to give out information. A textUI is included.
- *
- * @author Haifeng Sun, Wei Tao
- * @version 1.0.0
  */
 public class Presenter {
 
@@ -27,7 +24,8 @@ public class Presenter {
                 "[3] Message all Attendees who signed up for a particular event\n" +
                 "[4] Message a particular Attendee who signed up for a particular event\n" +
                 "[5] Respond to an attendee\n" +
-                "[6] Check your inbox\n" +
+                "[6] Send a message to someone\n" +
+                "[7] Check your inbox\n" +
                 "[e] Save and log out");
     }
 
@@ -51,9 +49,9 @@ public class Presenter {
     public static void attendeeMenu() {
         System.out.println("[1] sign up for an event.\n" +
                 "[2] See events that I have signed up for\n" +
-                "[3] Send a message\n" +
-                "[4] See messages\n" +
-                "[5] Cancel enrolment in an signed event\n" +
+                "[3] Cancel enrolment in an signed event\n" +
+                "[4] Send a message\n" +
+                "[5] See messages\n" +
                 "[e] Save and log out.");
     }
 
@@ -85,14 +83,14 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of wrong key pressing.
+     * Print out the reminder of wrong key pressing.
      */
     public static void wrongKeyReminder() {
-        System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in README.txt");
+        System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in Readme.txt");
     }
 
     /**
-     * Print out the prompt of exiting to main menu.
+     * Print out the information of exiting to main menu.
      */
     public static void exitingToMainMenu() {
         System.out.println("Exiting to main menu.");
@@ -106,7 +104,7 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of successful operations.
+     * Print out the information of successful operations.
      */
     public static void success() {
         System.out.println("Success!");
@@ -169,8 +167,10 @@ public class Presenter {
                 System.out.println("Please enter the speaker's username:");
                 break;
             case "signUp":
-                System.out.println("Here are the events that you can sign up for. Enter number in square brackets to choose the event.");
+                System.out.println("Here are the events that you can sign up for.");
                 break;
+            case "enterNumberInSquareBracketsToChooseEvent":
+                System.out.println("Enter number in square brackets to choose the event.");
         }
     }
 
@@ -235,92 +235,92 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of input out of range.
+     * Print out the error message of input out of range.
      */
     public static void inputOutOfRange() {
         System.out.println("Input out of range, exit to main menu and please try again");
     }
 
     /**
-     * Print out the prompt of empty inbox.
+     * Print out the information of empty inbox.
      */
     public static void emptyInbox() {
         System.out.println("Your inbox is empty.");
     }
 
     /**
-     * Print out the prompt of the user is not a speaker.
+     * Print out the error message of the user is not a speaker.
      */
     public static void notASpeaker() {
         System.out.println("This user is not a speaker.");
     }
 
-    /**
-     * Print out the prompt of no trials left as trying to login.
-     */
-    public static void noTrials() {
-        System.out.println("Sorry, you don't have any trials left.");
-    }
 
     /**
-     * Print out the prompt of invalid input.
+     * Print out error messages of invalid input.
      *
-     * @param input the type of input to the corresponding prompt.
+     * @param input the type of input to the corresponding message.
      */
     public static void invalid(String input) {
         switch (input) {
             case "username":
                 System.out.println("Username doesn't exist. Please enter a valid username.");
                 break;
-            case "roomNumber":
-                System.out.println("Room number doesn't exist. Please enter a valid room number.");
-                break;
+//            case "roomNumber":
+//                System.out.println("Room number doesn't exist. Please enter a valid room number.");
+//                break;
             case "eventId":
                 System.out.println("Event Id doesn't exist. Please enter a valid event Id.");
                 break;
             case "addEventGeneral":
                 System.out.println("Sorry, cannot add event!");
                 break;
-            case "getEventSchedule":
-                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
+//            case "getEventSchedule":
+//                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
+//                break;
+//            case "addSpeaker":
+//                System.out.println("Cannot add speaker to the event.");
+//                break;
+//            case "login":
+//                System.out.println("Wrong username or password");
+//                break;
+//            case "roomFull":
+//                System.out.println("Sorry, you cannot add this event due to the room capacity.");
+//                break;
+            case "fileRead":
+                System.out.println("The .csv files are corrupted.");
                 break;
-            case "addSpeaker":
-                System.out.println("Cannot add speaker to the event.");
-                break;
-            case "login":
-                System.out.println("Wrong username or password");
-                break;
-            case "roomFull":
-                System.out.println("Sorry, you cannot add this event due to the room capacity.");
-                break;
+//            case "createUsername":
+//                System.out.println("Username should not contain a comma.");
+//                break;
             default:
                 System.out.println("Invalid input.");
                 break;
         }
     }
 
-    /**
-     * Print out the prompt of duplicate invalid input.
-     *
-     * @param input the type of input to the corresponding prompt.
-     */
-    public static void duplicateInvalid(String input) {
-        switch (input) {
-            case "newRoom":
-                System.out.println("There is a duplicated Room");
-                break;
-            case "username":
-                System.out.println("Username already exists.");
-                break;
-        }
-    }
+//    /**
+//     * Print out the error message of duplicate invalid input.
+//     *
+//     * @param input the type of input to the corresponding prompt.
+//     */
+//    public static void duplicateInvalid(String input) {
+//        switch (input) {
+//            case "newRoom":
+//                System.out.println("There is a duplicated Room");
+//                break;
+//            case "username":
+//                System.out.println("Username already exists.");
+//                break;
+//        }
+//    }
 
     public static void autoAddToMessageList() {
         System.out.println("Added all senders to your contact list automatically.");
     }
 
     /**
-     * Print out the default prompt.
+     * Print out the default.
      *
      * @param input the input that the method would print out.
      */
@@ -328,29 +328,53 @@ public class Presenter {
         System.out.println(input);
     }
 
+//    /**
+//     * Cases where the eventManager couldn't add event.
+//     * @param input the case of the failure.
+//     * @param room the room number that the user tries to add event.
+//     */
+//    public static void failureAddEvent(String input, String room){
+//        if(input.equals("NotOfficeHour")){
+//            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
+//                    "ensure meeting ends before 17:00");
+//        } else if(input.equals("TimeNotAvailable")){
+//            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
+//        } else{
+//            System.out.println("invalid room number");
+//        }
+//    }
+
     /**
-     * Cases where the eventManager couldn't add event.
-     * @param input the case of the failure.
-     * @param room the room number that the user tries to add event.
+     * Prints the process of loading an event.
+     *
+     * @param room     the room number of event.
+     * @param time     the time of the event.
+     * @param duration the length of the event.
      */
-    public static void failureAddEvent(String input, String room){
-        if(input.equals("NotOfficeHour")){
-            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
-                    "ensure meeting ends before 17:00");
-        } else if(input.equals("TimeNotAvailable")){
-            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
-        } else{
-            System.out.println("invalid room number");
+    public static void loadEvent(String room, String time, String duration) {
+        System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
+    }
+
+    /**
+     * Shows how many trails a user has.
+     *
+     * @param i number of trails.
+     */
+    public static void trailsRemaining(int i) {
+        System.out.println("You have " + i + " trials remaining \n");
+        if (i == 0) {
+            System.out.println("See Readme.txt for some login information. See user.csv file for all login information. Bye bye.");
         }
     }
 
     /**
-     * Prints the process of loading an event.
-     * @param room the room number of event.
-     * @param time the time of the event.
-     * @param duration the length of the event.
+     * print error message.
+     *
+     * @param s error message
      */
-    public static void loadEvent(String room, String time, String duration){
-        System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
+    public static void printErrorMessage(String s) {
+        System.out.println(s);
     }
+
+
 }
