@@ -10,5 +10,6 @@ public class PartyEvent  extends Event {
      */
     public PartyEvent(Timestamp time) {
         super(time);
+        this.type = "Party";
     }
 }

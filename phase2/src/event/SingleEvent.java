@@ -10,5 +10,6 @@ public class SingleEvent extends Event{
      */
     public SingleEvent(Timestamp time) {
         super(time);
+        this.type = "Single";
     }
 }
