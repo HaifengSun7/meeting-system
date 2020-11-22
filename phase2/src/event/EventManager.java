@@ -340,7 +340,15 @@ public class EventManager {
      * @param eventId: the id of the event in string.
      * @throws NoSuchEventException if cannot find event with given eventId.
      */
-    public void cancelEvent(String eventId) throws NoSuchEventException {
+    public void cancelEvent(String eventId) throws NoSuchEventException, InvalidActivityException {
+        Integer i = Integer.parseInt(eventId);
+        if(!map.containsKey(i)){
+            throw new NoSuchEventException("This event does not exist: id: " + eventId);
+        }
+        ArrayList<String> attendees = this.getAttendees(eventId);
+        for(String a:attendees){
+            this.signOut(eventId, a);
+        }
         for (Integer id : map.keySet()) {
             if (id == Integer.parseInt(eventId)) {
                 map.remove(id);
