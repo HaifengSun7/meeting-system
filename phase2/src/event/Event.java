@@ -15,8 +15,9 @@ public class Event {
     private final int id;
     private final ArrayList<String> user_list;
     private final int length = 1;
-    private String speaker;
+    protected String speaker;
     private String description;
+    protected String type = "Event";
     private boolean speakStatus = false;
     private int maximumPeople;
 
