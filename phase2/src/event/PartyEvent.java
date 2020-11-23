@@ -12,4 +12,13 @@ public class PartyEvent  extends Event {
         super(time);
         this.type = "Party";
     }
+
+    @Override
+    public String getSpeaker() throws NoSpeakerException {
+        throw new NoSpeakerException("No Speaker" + this.id);
+    }
+
+    @Override
+    public void setSpeaker(String u) {
+    }
 }

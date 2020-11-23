@@ -8,18 +8,18 @@ import java.util.ArrayList;
  * Stores properties of events, with default 1 hour as length of the event. getAttendees and toString
  */
 
-public class Event {
+public abstract class Event {
 
     private static int eventNumber = 0;
     private final Timestamp time;
-    private final int id;
+    protected final int id;
     private final ArrayList<String> user_list;
     private final int length = 1;
-    protected String speaker;
     private String description;
-    protected String type = "Event";
-    private boolean speakStatus = false;
+    protected String type;
+    protected boolean speakStatus = false;
     private int maximumPeople;
+    protected Object speaker;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -91,23 +91,15 @@ public class Event {
      * @return the name of Speaker.
      * @throws NoSpeakerException when there is no speaker in the event.
      */
-    public String getSpeaker() throws NoSpeakerException {
-        if (speakStatus) {
-            return speaker;
-        } else {
-            throw new NoSpeakerException("No Speaker: at " + this.id);
-        }
-    }
+    public abstract String getSpeaker() throws NoSpeakerException;
 
     /**
      * Set Speaker to the event.
      *
      * @param u: Speaker's name.
      */
-    public void setSpeaker(String u) {
-        this.speaker = u;
-        this.speakStatus = true;
-    }
+    public abstract void setSpeaker(String u);
+
 
     /**
      * Get the description of the event.
