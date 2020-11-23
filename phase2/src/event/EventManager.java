@@ -320,7 +320,18 @@ public class EventManager {
             throw new NotInOfficeHourException("Invalid time. Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
         }
         if (ifRoomAvailable(roomNo, time, meetingLength)) {
-            Event newEvent = new Event(time);
+            // will update more cases soon, add speaker cannot be used now//
+            Event newEvent = new Event(time) {
+                @Override
+                public String getSpeaker() throws NoSpeakerException {
+                    return null;
+                }
+
+                @Override
+                public void setSpeaker(String u) {
+
+                }
+            };
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
             newEvent.setMaximumPeople(maximumPeople);
