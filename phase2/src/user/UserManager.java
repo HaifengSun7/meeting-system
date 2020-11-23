@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class UserManager {
 
-    private final Map<String, User> userMapping;
+    private Map<String, User> userMapping;
 
     /**
      * Initializes the user manager, reads from save file user.csv
