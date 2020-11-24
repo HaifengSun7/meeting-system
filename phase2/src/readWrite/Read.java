@@ -1,9 +1,9 @@
 package readWrite;
 
+import user.UserManager;
+
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * I read.
@@ -20,10 +20,28 @@ public class Read {
 
     }
 
+    private UserManager userManagerInitialize() {
+        UserManager usermanager = new UserManager();
+        String sql = "SELECT Username, Password, UserType FROM users";
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                System.out.println(rs.getString("Username") +  "\t" +
+                    rs.getString("Password") + "\t" +
+                    rs.getString("Usertype"));
+        }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usermanager;
+    }
 
 
 
-    private static void connect() {
+
+    private Connection connect(){
         Connection conn = null;
         File file = new File("src/resources/database.db");
         String url = file.getAbsolutePath();
@@ -38,8 +56,8 @@ public class Read {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-
         }
+        return conn;
 
     }
 }
