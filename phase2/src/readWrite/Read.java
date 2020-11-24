@@ -45,6 +45,7 @@ public class Read {
         } catch (InvalidUsernameException | DuplicateUserNameException e) {
             // ignored. should never happen.
         }
+        // Create User Accounts
         String sql2 = "SELECT Username, CanSendMessageTo FROM messageList";
         try(ResultSet rs2 = stmt.executeQuery(sql2)) {
             while (rs2.next()) {
@@ -52,8 +53,11 @@ public class Read {
             }
 
         } catch (SQLException e) {
-            System.out.println("i dont fucking know.");
+            System.out.println("i dont fucking know.2");
         }
+        // Create Message List
+        // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
+        // IF ANYTHING WENT WRONG, PLEASE TAKE A LOOK AT THE FOLLOWING LINES.
 
 
         return usermanager;

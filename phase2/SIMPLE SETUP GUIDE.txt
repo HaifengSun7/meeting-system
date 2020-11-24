@@ -1,0 +1,13 @@
+THIS IS A SIMPLE SETUP GUIDE FOR DATABASE
+go to https://github.com/xerial/sqlite-jdbc
+download.
+In YOUR INTELLLLIJ:
+FILE > PROJECT STRUCTURE > SDKs > add whatever you downloaded. (I mean the jar file)
+
+You should be able to run the database now.
+IF NOT:
+Right click at some folder on the left panel, new datasource sqlite.
+Give it a good name and find the database.db file.
+
+If you still can't run:
+tell me what the exception is.
