@@ -1,5 +1,7 @@
 package readWrite;
 
+import user.DuplicateUserNameException;
+import user.InvalidUsernameException;
 import user.UserManager;
 
 import java.io.File;
@@ -10,6 +12,16 @@ import java.sql.*;
  */
 public class Read {
 
+    private final Connection conn;
+    private Statement stmt;
+
+    public Read(){
+        this.conn = connect();
+        try{this.stmt = conn.createStatement();}
+        catch (SQLException e){
+            //ignored
+        }
+    }
     /**
      * run.
      */
@@ -23,18 +35,27 @@ public class Read {
     private UserManager userManagerInitialize() {
         UserManager usermanager = new UserManager();
         String sql = "SELECT Username, Password, UserType FROM users";
-        try (Connection conn = this.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                System.out.println(rs.getString("Username") +  "\t" +
-                    rs.getString("Password") + "\t" +
-                    rs.getString("Usertype"));
+                usermanager.createUserAccount(rs.getString("UserType"), rs.getString("Username"), rs.getString("Password"));
         }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("i dont fucking know.");
+        } catch (InvalidUsernameException | DuplicateUserNameException e) {
+            // ignored. should never happen.
         }
+        String sql2 = "SELECT Username, CanSendMessageTo FROM messageList";
+        try(ResultSet rs2 = stmt.executeQuery(sql2)) {
+            while (rs2.next()) {
+                usermanager.addContactList(rs2.getString("CanSendMessageTo"), rs2.getString("Username"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("i dont fucking know.");
+        }
+
+
         return usermanager;
     }
 
