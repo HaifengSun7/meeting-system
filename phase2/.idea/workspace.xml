@@ -19,12 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="fixed unused import">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/chinook.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/database.db" afterDir="false" />
+    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="delete sample database">
+      <change afterPath="$PROJECT_DIR$/src/readWrite/Read.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/user.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangeLog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChangeLog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/database.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +56,9 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/resources/user.csv" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/sqlite-jdbc-3.32.3.2.jar" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
@@ -67,7 +67,7 @@
       <recent name="event" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Java Scratch.Scratch">
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main" />
       <module name="phase2" />
@@ -86,8 +86,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Scratch" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="Application.main" />
       </list>
     </recent_temporary>
@@ -107,7 +115,21 @@
       <option name="project" value="LOCAL" />
       <updated>1606222103794</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="database initialized">
+      <created>1606240361501</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606240361501</updated>
+    </task>
+    <task id="LOCAL-00004" summary="delete sample database">
+      <created>1606240393231</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606240393231</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,13 +148,15 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Fixed maximum number of speakers and attendees in events" />
     <MESSAGE value="fixed unused import" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed unused import" />
+    <MESSAGE value="database initialized" />
+    <MESSAGE value="delete sample database" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete sample database" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606236187817">
+    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606243722753">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606236187817" />
+    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606243722753" />
     <state x="520" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606236163072">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -149,34 +173,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="663" y="390" key="#com.intellij.refactoring.memberPullUp.PullUpDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606212163825" />
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1606227448067">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227448067" />
-    <state x="549" y="129" key="FileChooserDialogImpl" timestamp="1606239118656">
+    <state x="74" y="73" width="1389" height="679" key="DiffContextDialog" timestamp="1606240681086">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="129" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606239118656" />
-    <state width="1024" height="203" key="GridCell.Tab.0.bottom" timestamp="1606239765880">
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227448067" />
+    <state x="74" y="73" width="1389" height="679" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1606240681086" />
+    <state x="549" y="129" key="FileChooserDialogImpl" timestamp="1606244138795">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="129" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606244138795" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1606244464248">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="938" height="311" key="GridCell.Tab.0.bottom/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
-    <state width="1024" height="203" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606239765880" />
-    <state width="1024" height="203" key="GridCell.Tab.0.center" timestamp="1606239765880">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606244464248" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1606244464248">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="938" height="311" key="GridCell.Tab.0.center/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
-    <state width="1024" height="203" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606239765880" />
-    <state width="1024" height="203" key="GridCell.Tab.0.left" timestamp="1606239765880">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606244464248" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1606244464248">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="938" height="311" key="GridCell.Tab.0.left/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
-    <state width="1024" height="203" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606239765880" />
-    <state width="1024" height="203" key="GridCell.Tab.0.right" timestamp="1606239765880">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606244464248" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1606244464248">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="938" height="311" key="GridCell.Tab.0.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
-    <state width="1024" height="203" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606239765880" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606244464248" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1606222427607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -205,22 +230,23 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="595" y="280" key="MultipleFileMergeDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221809532" />
-    <state x="249" y="0" key="SettingsEditor" timestamp="1606234688852">
+    <state x="249" y="0" key="SettingsEditor" timestamp="1606244140412">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606234688852" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1606222105945">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606244140412" />
+    <state x="442" y="200" key="Vcs.Push.Dialog.v2" timestamp="1606240395492">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222105945" />
+    <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606240395492" />
     <state x="631" y="299" width="312" height="244" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1606237166454">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="631" y="299" width="312" height="244" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1536.824@0.0.1536.824" timestamp="1606237166454" />
-    <state x="349" y="67" key="com.intellij.database.dbimport.ImportDialog" timestamp="1606239649845">
+    <state x="349" y="67" key="com.intellij.database.dbimport.ImportDialog" timestamp="1606240669865">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="349" y="67" key="com.intellij.database.dbimport.ImportDialog/0.0.1536.824@0.0.1536.824" timestamp="1606239649845" />
+    <state x="349" y="67" key="com.intellij.database.dbimport.ImportDialog/0.0.1536.824@0.0.1536.824" timestamp="1606240669865" />
     <state x="566" y="232" width="403" height="355" key="com.intellij.database.psi.DbRenamePsiElementProcessor.DbRenameDialog" timestamp="1606239167562">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -238,6 +264,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606218087329" />
+    <state x="783" y="0" width="767" height="596" key="dock-window-1" timestamp="1606240681086">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="783" y="0" width="767" height="596" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1606240681086" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

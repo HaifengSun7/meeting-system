@@ -7,16 +7,5 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:E:\things\gp\group_0229\phase2\src\resources\database.db</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="chinook" uuid="a2dbae60-3fbc-4406-aaff-d0afb302358c">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:E:\things\gp\group_0229\phase2\src\resources\chinook.db</jdbc-url>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.31.1/sqlite-jdbc-3.31.1.jar</url>
-        </library>
-      </libraries>
-    </data-source>
   </component>
 </project>

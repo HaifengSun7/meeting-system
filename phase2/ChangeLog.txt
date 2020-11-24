@@ -22,3 +22,11 @@
 
     -Finished implementing mandatory change 5
         Next objective: Tests.
+
+
+
+- Version by haifeng 2020
+    - started database
+
+
+IMPORTANT: please add jdbc to your library. you can download from: https://github.com/xerial/sqlite-jdbc
