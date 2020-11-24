@@ -120,7 +120,7 @@ public abstract class UserSystem {
         int k = 0;
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next();
-            for (int j = 5; j < temp2.length; j++) {
+            for (int j = 6; j < temp2.length; j++) {
                 try {
                     userManager.addSignedEvent(String.valueOf(k), temp2[j]);
                 } catch (Exception e) {
@@ -154,13 +154,13 @@ public abstract class UserSystem {
         while (eventIterator.hasNext()) {
             temp2 = eventIterator.next();
             try {
-                eventManager.addEvent(temp2[0], Timestamp.valueOf(temp2[1]), Integer.parseInt(temp2[2]),
-                        Integer.parseInt(temp2[3]), temp2[4]);
+                eventManager.addEvent(temp2[0], Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]),
+                        Timestamp.valueOf(temp2[3]), Integer.parseInt(temp2[4]), temp2[5]);
             } catch (Exception e) {
                 Presenter.invalid("fileRead");
                 Presenter.defaultPrint("Failed to load event" + temp2[0] + "Invalid room number.");
             }
-            for (j = 5; j < temp2.length; j++) {
+            for (j = 6; j < temp2.length; j++) {
                 try {
                     eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
                 } catch (Exception e) {

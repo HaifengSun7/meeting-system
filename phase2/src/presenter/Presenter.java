@@ -170,13 +170,24 @@ public class Presenter {
                 System.out.println("Here are the events that you can sign up for.");
                 break;
             case "maximum people":
-                System.out.println("Please enter the maximum people in the event:");
+                System.out.println("Please enter the maximum number of Attendees in the event:");
                 break;
             case "newMaxPeopleOfEvent":
                 System.out.println("Please enter the new maximum people in the event:");
                 break;
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
+                break;
+            case "eventType":
+                System.out.println("Available types: \n" +
+                        "[Single] Single Speaker Events\n" +
+                        "[Multi] Multi Speaker Events\n" +
+                        "[Party] Party with no speakers\n" +
+                        "Please enter the type of event you want:");
+                break;
+            case "numSpeaker":
+                System.out.println("Please enter the number of Speakers in the event:");
+                break;
         }
     }
 

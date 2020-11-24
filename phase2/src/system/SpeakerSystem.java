@@ -72,13 +72,13 @@ public class SpeakerSystem extends UserSystem {
     private void sendMessageToEvent() {
         ArrayList<String> allEvents = eventmanager.getAllEvents();
         for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).equals(myName)) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
                 Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
             }
         }
         Presenter.inputPrompt("eventIdSendMessage");
         String eventId = reader.nextLine();
-        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(myName)) {
+        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
             Presenter.inputPrompt("message");
             String messageToAllAttendees = reader.nextLine();
             try {
@@ -100,7 +100,7 @@ public class SpeakerSystem extends UserSystem {
     private void sendMessageToOneAttendee() {
         ArrayList<String> allEvents = eventmanager.getAllEvents();
         for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).equals(myName)) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
                 Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
             }
         }
@@ -112,7 +112,7 @@ public class SpeakerSystem extends UserSystem {
         }
         Presenter.inputPrompt("receiver");
         String receiver = reader.nextLine();
-        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).equals(myName)) {
+        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
             Presenter.inputPrompt("message");
             String messageToOneAttendee = reader.nextLine();
             try {
@@ -187,7 +187,7 @@ public class SpeakerSystem extends UserSystem {
     private void checkTalkedEvent() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         for (String s : eventsList) {
-            if (eventmanager.getSpeakers(Integer.valueOf(s)).equals(myName)) {
+            if (eventmanager.getSpeakers(Integer.valueOf(s)).contains(myName)) {
                 System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
             }
         }

@@ -1,6 +1,7 @@
 package readWrite;
 
 import event.EventManager;
+import javafx.util.Pair;
 import message.MessageManager;
 import user.UserManager;
 
@@ -87,29 +88,39 @@ public class Write {
         roomWriter.close();
     }
 
-    private void eventWriter() throws IOException {
+    private void eventWriter() throws IOException{
         FileWriter eventWriter = new FileWriter("src/resources/event.csv", false);
         HashMap<Integer, Integer> eventToRoom = eventmanager.getEventIDMapToRoomNumber();
         String time;
         String duration;
         ArrayList<String> attendees;
-        String speaker;
+        ArrayList<String> speakers;
         String description;
         int i = 0;
         for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
             Integer event = item.getKey();
+            Pair<Integer, Integer> capacity;
             Integer room2 = item.getValue();
             time = eventmanager.getTime(event);
             duration = eventmanager.getDuration(event);
             attendees = eventmanager.getAttendees(String.valueOf(event));
-            speaker = eventmanager.getSpeakers(event);
+            speakers = eventmanager.getSpeakers(event);
             description = eventmanager.getDescription(event);
+            capacity = eventmanager.getCapacity(event);
+            int numSpeakers = capacity.getKey();
+            int numAttendees = capacity.getValue();
             eventWriter.append(String.valueOf(room2));
             eventWriter.append(",");
+            eventWriter.append(String.valueOf(numSpeakers));
+            eventWriter.append(",");
+            eventWriter.append(String.valueOf(numAttendees));
+            eventWriter.append(",");
             threeStringOneArrayListFileWriterHelper(attendees, time, duration, description, eventWriter);
-            if (!(speaker.equals("(No speaker yet.)")) && !(speaker.equals(""))) {
-                eventWriter.append(",");
-                eventWriter.append(speaker);
+            if (!(speakers.size() == 0)) {
+                for (String speaker:speakers) {
+                    eventWriter.append(",");
+                    eventWriter.append(speaker);
+                }
             }
             i += 1;
             if (!(i == eventToRoom.entrySet().size())) {

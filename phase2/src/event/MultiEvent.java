@@ -3,15 +3,17 @@ package event;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class SingleEvent extends Event{
+public class MultiEvent extends Event {
+    private final int max_speakers;
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
      *
      * @param time : The time the meeting begins.
      */
-    public SingleEvent(Timestamp time) {
+    public MultiEvent(Timestamp time, int numSpeakers) {
         super(time);
-        this.type = "Single";
+        this.type = "Multi";
+        max_speakers = numSpeakers;
     }
 
     @Override
@@ -19,17 +21,16 @@ public class SingleEvent extends Event{
         return speakers;
     }
 
-
     @Override
     public void setSpeaker(String u) {
-        speakers = new ArrayList<String>();
-        speakers.add(u);
+        if(speakers.size()<max_speakers){
+            speakers.add(u);
+        }
         this.speakStatus = true;
     }
 
     @Override
     public int getMaximumSpeaker(){
-        return 1;
+        return max_speakers;
     }
-
 }
