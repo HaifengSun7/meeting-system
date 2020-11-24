@@ -17,3 +17,8 @@
     Haven't Done:
         Availability of setting maximum number of attendees for events.
         Checking whether the maximum exceeds capacity of room.
+
+- Version 2.0.01 By James. Nov24, 2020
+
+    -Finished implementing mandatory change 5
+        Next objective: Tests.

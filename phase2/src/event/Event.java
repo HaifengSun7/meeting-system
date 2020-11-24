@@ -220,7 +220,7 @@ public abstract class Event {
      * set the maximum number of people in the event.
      * @param number the number of maximum people.
      */
-    public void setMaximumPeople(int number) {
+    public void setMaximumAttendee(int number) {
         this.maximumPeople = number;
     }
 
@@ -228,7 +228,7 @@ public abstract class Event {
      * get the maximum number of people in the event.
      * @return an integer of the maximum number of people in the event.
      */
-    public int getMaximumPeople() {
+    public int getMaximumAttendee() {
         return maximumPeople;
     }
 

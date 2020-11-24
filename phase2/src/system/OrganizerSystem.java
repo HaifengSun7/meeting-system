@@ -132,7 +132,7 @@ public class OrganizerSystem extends UserSystem {
         for (String s : roomList) {
             Presenter.defaultPrint(s);
         }
-        Presenter.menusInSpeaker("manageRooms");
+        Presenter.menusInOrganizer("manageRooms");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -269,7 +269,7 @@ public class OrganizerSystem extends UserSystem {
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
-        Presenter.menusInSpeaker("createSpeaker");
+        Presenter.menusInOrganizer("createSpeaker");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -329,7 +329,7 @@ public class OrganizerSystem extends UserSystem {
         for (int i = 0; i < allEvents.size(); i++) {
             Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
         }
-        Presenter.menusInSpeaker("scheduleSpeakers1");
+        Presenter.menusInOrganizer("scheduleSpeakers1");
         Presenter.exitToMainMenuPrompt();
         String command = reader.nextLine();
         switch (command) {
@@ -342,7 +342,7 @@ public class OrganizerSystem extends UserSystem {
                 for (String s : roomLst) {
                     Presenter.defaultPrint(s);
                 }
-                Presenter.menusInSpeaker("scheduleSpeakers2");
+                Presenter.menusInOrganizer("scheduleSpeakers2");
                 Presenter.exitToMainMenuPrompt();
                 String command4 = reader.nextLine();
                 switch (command4) {
@@ -380,10 +380,9 @@ public class OrganizerSystem extends UserSystem {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
-
-            } catch (RoomIsFullException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("Room is full.");
+//            } catch (RoomIsFullException e) {
+//                Presenter.printErrorMessage(e.getMessage());
+//                Presenter.defaultPrint("Room is full.");
             } catch (AlreadyHasSpeakerException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("Already has speaker.");
@@ -451,7 +450,8 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
             Presenter.success();
             Presenter.continuePrompt();
-        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {
+        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
+                RoomIsFullException e) {
             Presenter.printErrorMessage(e.getMessage());
             Presenter.exitToMainMenuPrompt();
         } catch (Exception e) {

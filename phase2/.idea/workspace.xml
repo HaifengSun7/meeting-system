@@ -19,8 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="Fixed maximum number of speakers and attendees in events">
+    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="fixed unused import">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChangeLog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ChangeLog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/phase2/resources/message.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/resources/message.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/event/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/event/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/EventManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/presenter/Presenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presenter/Presenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/event.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/event.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/room.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/room.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/user.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/system/AttendeeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/AttendeeSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/system/OrganizerSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/OrganizerSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606221290548</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed unused import">
+      <created>1606222103794</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606222103794</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,7 +123,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed maximum number of speakers and attendees in events" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed maximum number of speakers and attendees in events" />
+    <MESSAGE value="fixed unused import" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed unused import" />
   </component>
   <component name="WindowStateProjectService">
     <state x="765" y="225" key="#com.intellij.ide.util.MemberChooser" timestamp="1606220852728">
@@ -121,38 +139,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="663" y="390" key="#com.intellij.refactoring.memberPullUp.PullUpDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606212163825" />
-    <state width="1877" height="311" key="GridCell.Tab.0.bottom" timestamp="1606219275375">
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1606227448067">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="311" key="GridCell.Tab.0.bottom/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219275375" />
-    <state width="1877" height="311" key="GridCell.Tab.0.center" timestamp="1606219275375">
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227448067" />
+    <state width="938" height="311" key="GridCell.Tab.0.bottom" timestamp="1606227833392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="311" key="GridCell.Tab.0.center/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219275375" />
-    <state width="1877" height="311" key="GridCell.Tab.0.left" timestamp="1606219275375">
+    <state width="938" height="311" key="GridCell.Tab.0.bottom/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
+    <state width="938" height="311" key="GridCell.Tab.0.center" timestamp="1606227833392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="311" key="GridCell.Tab.0.left/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219275375" />
-    <state width="1877" height="311" key="GridCell.Tab.0.right" timestamp="1606219275375">
+    <state width="938" height="311" key="GridCell.Tab.0.center/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
+    <state width="938" height="311" key="GridCell.Tab.0.left" timestamp="1606227833392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="311" key="GridCell.Tab.0.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219275375" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1606219186475">
+    <state width="938" height="311" key="GridCell.Tab.0.left/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
+    <state width="938" height="311" key="GridCell.Tab.0.right" timestamp="1606227833392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219186475" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1606219186474">
+    <state width="938" height="311" key="GridCell.Tab.0.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606227833392" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1606222427607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219186474" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1606219186474">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222427607" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1606222427607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219186474" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1606219186474">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222427607" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1606222427607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219186474" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222427607" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1606222427607">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222427607" />
     <state x="184" y="86" key="MergeDialog" timestamp="1606221809523">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -161,14 +183,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="595" y="280" key="MultipleFileMergeDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221809532" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1606221672795">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1606222105945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221672795" />
-    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606221827366">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222105945" />
+    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606221910226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221827366" />
+    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221910226" />
     <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1606218087329">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

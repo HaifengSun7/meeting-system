@@ -170,17 +170,14 @@ public class EventManager {
      * @param username    username
      * @param eventNumber eventNumber.
      * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
-     * @throws RoomIsFullException        if room is full.
      * @throws InvalidUserException       if input type is "Organizer".
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
      * @throws EventIsFullException       if event is full.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException,
-            RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
-        int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
-        int roomCapacity = this.getRoomNumberMapToCapacity().get(room_number);
+            NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
         int event_size = map.get(eventNumber).getAttendees().size();
-        int maximumPeople = map.get(eventNumber).getMaximumPeople();
+        int maximumAttendee = map.get(eventNumber).getMaximumAttendee();
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
                 if (!map.get(eventNumber).getSpeakStatus()) {   //TODO: We need to have cases for different types of events. i.e. numSpeaker=1, numSpeaker>1 and numSpeaker=0
@@ -190,9 +187,7 @@ public class EventManager {
                             map.get(eventNumber).getSpeakers().get(0) + " at " + map.get(eventNumber));
                 }
             } else if (type.equals("Attendee")) {
-                if (event_size >= roomCapacity - 1) {
-                    throw new RoomIsFullException("Room: " + room_number + " is Full!");
-                } else if (event_size >= maximumPeople - 1) {
+                if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
                             "You can't sign up this event!");
                 } signUp(String.valueOf(eventNumber), username);
@@ -222,7 +217,7 @@ public class EventManager {
         }
         if (map.containsKey(eventNumber) && this.getSchedule(roomNumber).contains(eventNumber)) {
             if (newMaximum >= (eventSize + speakerSize)) {
-                map.get(eventNumber).setMaximumPeople(newMaximum);
+                map.get(eventNumber).setMaximumAttendee(newMaximum);
             } else {
                 throw new InvalidNewMaxNumberException("Invalid input. The new maximum number of this event is " +
                         "less than the existing attendees in that event.");
@@ -239,7 +234,7 @@ public class EventManager {
      */
     public Pair<Integer, Integer> getCapacity(int id){
         int numSpeaker = map.get(id).getMaximumSpeaker();
-        int numPeople = map.get(id).getMaximumPeople();
+        int numPeople = map.get(id).getMaximumAttendee();
         return new Pair<>(numSpeaker, numPeople);
     }
 
@@ -350,7 +345,7 @@ public class EventManager {
             }
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
-            newEvent.setMaximumPeople(numAttendees+numSpeakers);
+            newEvent.setMaximumAttendee(numAttendees);
             for (Room r : rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
                     if(r.getCapacity() >= numAttendees+numSpeakers){
