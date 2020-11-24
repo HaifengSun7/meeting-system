@@ -1,6 +1,5 @@
 package system;
 
-import com.sun.codemodel.internal.JCatchBlock;
 import event.*;
 import presenter.Presenter;
 import readWrite.Write;

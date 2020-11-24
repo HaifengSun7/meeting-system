@@ -19,47 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ChangeLog.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/event/NoSuchTypeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../phase1/phase1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../phase1/phase1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="Fixed maximum number of speakers and attendees in events">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design3.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design4.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design5.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design6.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design7.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design8.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/design9.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/event/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/event/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/event/EventManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/event/EventManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/presenter/Presenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/presenter/Presenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/readWrite/Write.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/readWrite/Write.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/resources/event.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/resources/event.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/resources/room.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/resources/room.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/resources/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/resources/user.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/system/AttendeeSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/system/AttendeeSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/system/OrganizerSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/system/OrganizerSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/system/SpeakerSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/system/SpeakerSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/phase2/system/UserSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/phase2/system/UserSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/EventManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/MutiEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/MultiEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/PartyEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/PartyEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/SingleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/SingleEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/presenter/Presenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presenter/Presenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/readWrite/Write.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/readWrite/Write.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/event.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/event.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/message.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/message.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/room.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/room.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/user.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/system/OrganizerSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/OrganizerSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/system/SpeakerSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/SpeakerSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/system/UserSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/UserSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +36,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="ProjectId" id="1kdi3X8kMW8m7SnGwMqLX3JiBPP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -120,6 +82,14 @@
       <option name="presentableId" value="Default" />
       <updated>1606036672110</updated>
     </task>
+    <task id="LOCAL-00001" summary="Fixed maximum number of speakers and attendees in events">
+      <created>1606221290548</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606221290548</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,6 +103,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed maximum number of speakers and attendees in events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed maximum number of speakers and attendees in events" />
   </component>
   <component name="WindowStateProjectService">
     <state x="765" y="225" key="#com.intellij.ide.util.MemberChooser" timestamp="1606220852728">
@@ -179,10 +153,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606219186474" />
-    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606217384048">
+    <state x="184" y="86" key="MergeDialog" timestamp="1606221809523">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606217384048" />
+    <state x="184" y="86" key="MergeDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221809523" />
+    <state x="595" y="280" key="MultipleFileMergeDialog" timestamp="1606221809532">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="595" y="280" key="MultipleFileMergeDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221809532" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1606221672795">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221672795" />
+    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606221827366">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="763" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606221827366" />
     <state x="499" y="255" width="921" height="642" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1606218087329">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -195,11 +181,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/system/UserSystem.java</url>
-          <line>170</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
