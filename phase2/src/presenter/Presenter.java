@@ -188,6 +188,9 @@ public class Presenter {
             case "numSpeaker":
                 System.out.println("Please enter the number of Speakers in the event:");
                 break;
+            case "enterEventIdToCancelEvent":
+                System.out.println("Please enter the event id to cancel the event: ");
+                break;
         }
     }
 
@@ -203,6 +206,7 @@ public class Presenter {
                         "[a] add a new room\n" +
                         "[b] see schedule of a certain room\n" +
                         "[c] add a new event\n" +
+                        "[c2] cancel an event\n" +
                         "[d] change the event's maximum number of people\n" +
                         "[e] exit to main menu.");
                 break;

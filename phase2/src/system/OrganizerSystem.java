@@ -1,5 +1,6 @@
 package system;
 
+import com.sun.codemodel.internal.JCatchBlock;
 import event.*;
 import presenter.Presenter;
 import readWrite.Write;
@@ -148,6 +149,10 @@ public class OrganizerSystem extends UserSystem {
                 addingEvent();
                 reader.nextLine();
                 break;
+            case "c2":
+                cancelEvent();
+                reader.nextLine();
+                break;
             case "d":
                 changeEventMaxNumberPeople();
                 reader.nextLine();
@@ -159,6 +164,22 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.continuePrompt();
                 reader.nextLine();
                 break;
+        }
+    }
+
+    /**
+     * Cancel an event.
+     */
+    private void cancelEvent() {
+        Presenter.inputPrompt("enterEventIdToCancelEvent");
+        String eventId = reader.nextLine();
+        try {
+            eventmanager.cancelEvent(eventId);
+            Presenter.success();
+        } catch (NoSuchEventException | InvalidActivityException e) {
+            Presenter.printErrorMessage(e.getMessage());
+            Presenter.continuePrompt();
+            reader.nextLine();
         }
     }
 
