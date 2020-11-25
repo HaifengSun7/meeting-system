@@ -209,12 +209,7 @@ public class EventManager {
     public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
             InvalidNewMaxNumberException, InvalidActivityException {
         int eventSize = map.get(eventNumber).getAttendees().size();
-        int speakerSize;
-        if (map.get(eventNumber).getSpeakStatus()) {
-            speakerSize = 1;
-        } else {
-            speakerSize = 0;
-        }
+        int speakerSize = getSpeakers(eventNumber).size();
         if (map.containsKey(eventNumber) && this.getSchedule(roomNumber).contains(eventNumber)) {
             if (newMaximum >= (eventSize + speakerSize)) {
                 map.get(eventNumber).setMaximumAttendee(newMaximum);

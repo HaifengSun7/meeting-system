@@ -206,12 +206,13 @@ public class OrganizerSystem extends UserSystem {
             return;
         }
         String command = reader.nextLine();
-        Presenter.inputPrompt("newMaxPeopleOfEvent");
-        String newMax = reader.nextLine();
         if ("e".equals(command)) {
             Presenter.exitingToMainMenu();
+            Presenter.continuePrompt();
         } else {
             try {
+                Presenter.inputPrompt("newMaxPeopleOfEvent");
+                String newMax = reader.nextLine();
                 eventmanager.setMaximumPeople(Integer.parseInt(roomNumber), Integer.parseInt(newMax),
                         Integer.parseInt(command));
                 Presenter.success();
