@@ -1,9 +1,12 @@
 package readWrite;
 
+import event.*;
+import message.MessageManager;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.UserManager;
 
+import javax.activity.InvalidActivityException;
 import java.io.File;
 import java.sql.*;
 
@@ -12,11 +15,16 @@ import java.sql.*;
  */
 public class Read {
 
-    private final Connection conn;
+    public final UserManager usermanager;
+    public final EventManager eventmanager;
+    public final MessageManager messagemanager;
     private Statement stmt;
 
     public Read(){
-        this.conn = connect();
+        Connection conn = connect();
+        this.usermanager = new UserManager();
+        this.eventmanager = new EventManager();
+        this.messagemanager = new MessageManager();
         try{this.stmt = conn.createStatement();}
         catch (SQLException e){
             //ignored
@@ -27,13 +35,16 @@ public class Read {
      */
     public void run(){
         connect();
+        eventManagerInitialize();
+        userManagerInitialize();
+        messageManagerInitialize();
+
 
 
 
     }
 
-    private UserManager userManagerInitialize() {
-        UserManager usermanager = new UserManager();
+    private void userManagerInitialize() {
         String sql = "SELECT Username, Password, UserType FROM users";
         try (ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -58,9 +69,50 @@ public class Read {
         // Create Message List
         // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
         // IF ANYTHING WENT WRONG, PLEASE TAKE A LOOK AT THE FOLLOWING LINES.
+        String sql3 = "SELECT EventId, UserName FROM signedUp";
+        try(ResultSet rs3 = stmt.executeQuery(sql3)){
+            while(rs3.next()){
+                usermanager.addSignedEvent(String.valueOf(rs3.getInt("EventId")), rs3.getString("UserName"));
+            }
+        } catch (SQLException e) {
+            System.out.println("I don't fucking know 3");
+        }
+    }
 
 
-        return usermanager;
+    private void eventManagerInitialize(){
+        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceId FROM event";
+        try(ResultSet rs1 = stmt.executeQuery(sql)){
+            while(rs1.next()){
+                eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")), rs1.getInt("MaxNumberOfSpeakers"), rs1.getInt("MaxNumberOfAttendees"), rs1.getTimestamp("StartTime"), rs1.getInt("Duration"), rs1.getString("Description"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("I don't fucking know 4");
+        } catch (RoomIsFullException | InvalidActivityException | TimeNotAvailableException | NotInOfficeHourException e) {
+            //ignored, should never happen
+        }
+        String sql2 = "SELECT RoomNumber, Capacity FROM room";
+        try(ResultSet rs2 = stmt.executeQuery(sql2)){
+            while(rs2.next()){
+                eventmanager.addRoom(rs2.getInt("RoomNumber"), rs2.getInt("Capacity"));
+            }
+        } catch (SQLException e) {
+            System.out.println("I don't fucking know 5");
+        } catch (DuplicateRoomNumberException e) {
+            //ignored, should never happen.
+        }
+    }
+
+    private void messageManagerInitialize(){
+        String sql = "SELECT Sender, Receiver, MessageText FROM message";
+        try(ResultSet rs = stmt.executeQuery(sql)){
+            while(rs.next()){
+                messagemanager.sendMessage(rs.getString("Sender"), rs.getString("Receiver"), rs.getString("MessageText"));
+            }
+        } catch (SQLException e) {
+            System.out.println("I don't fucking know 6");
+        }
     }
 
 
