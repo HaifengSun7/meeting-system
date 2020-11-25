@@ -34,7 +34,6 @@ public class Read {
      * run.
      */
     public void run(){
-        connect();
         eventManagerInitialize();
         userManagerInitialize();
         messageManagerInitialize();
