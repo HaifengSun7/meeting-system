@@ -2,6 +2,7 @@ package system;
 
 import presenter.Presenter;
 import readWrite.Iterator;
+import readWrite.Read;
 import readWrite.UserIterator;
 import user.UserManager;
 import user.WrongLogInException;
@@ -25,7 +26,7 @@ public class LogInSystem {
          */
         while (true) {
             usermanager = new UserManager();
-            getAccounts(usermanager);
+            getAccounts();
             boolean logged_in = false;
             String user_type = "";
             String username = "";
@@ -72,17 +73,10 @@ public class LogInSystem {
         }
     }
 
-    private void getAccounts(UserManager userManager) {
-        Iterator userIterator = new UserIterator();
-        String[] temp;
-        while (userIterator.hasNext()) {
-            temp = userIterator.next();
-            try {
-                userManager.createUserAccount(temp[2], temp[0], temp[1]);
-            } catch (Exception e) {
-                Presenter.invalid("fileRead");
-            }
-        }
+    private void getAccounts() {
+        Read read = new Read();
+        read.run();
+        usermanager = read.usermanager;
     }
 }
 

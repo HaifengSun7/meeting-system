@@ -81,6 +81,16 @@ public class Read {
 
 
     private void eventManagerInitialize(){
+        String sql2 = "SELECT RoomNumber, Capacity FROM room";
+        try(ResultSet rs2 = stmt.executeQuery(sql2)){
+            while(rs2.next()){
+                eventmanager.addRoom(rs2.getInt("RoomNumber"), rs2.getInt("Capacity"));
+            }
+        } catch (SQLException e) {
+            System.out.println("I don't fucking know 5");
+        } catch (DuplicateRoomNumberException e) {
+            //ignored, should never happen.
+        }
         String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceId FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
@@ -91,16 +101,6 @@ public class Read {
             System.out.println("I don't fucking know 4");
         } catch (RoomIsFullException | InvalidActivityException | TimeNotAvailableException | NotInOfficeHourException e) {
             //ignored, should never happen
-        }
-        String sql2 = "SELECT RoomNumber, Capacity FROM room";
-        try(ResultSet rs2 = stmt.executeQuery(sql2)){
-            while(rs2.next()){
-                eventmanager.addRoom(rs2.getInt("RoomNumber"), rs2.getInt("Capacity"));
-            }
-        } catch (SQLException e) {
-            System.out.println("I don't fucking know 5");
-        } catch (DuplicateRoomNumberException e) {
-            //ignored, should never happen.
         }
     }
 

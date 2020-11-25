@@ -29,7 +29,7 @@ public abstract class UserSystem {
      */
     public UserSystem(String myName) {
         this.myName = myName;
-        initializeManagers(usermanager, eventmanager, messagemanager);
+        initializeManagers();
     }
 
     /**
@@ -91,10 +91,12 @@ public abstract class UserSystem {
         Presenter.autoAddToMessageList();
     }
 
-    private void initializeManagers(UserManager userManager, EventManager eventManager, MessageManager messageManager) {
-        initializeUserManager(userManager);
-        initializeEventManager(eventManager);
-        initializeMessageManager(messageManager);
+    private void initializeManagers() {
+        Read read = new Read();
+        read.run();
+        usermanager = read.usermanager;
+        eventmanager = read.eventmanager;
+        messagemanager = read.messagemanager;
     }
 
     private void initializeUserManager(UserManager userManager) {
