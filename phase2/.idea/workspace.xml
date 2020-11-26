@@ -19,14 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="database read finished">
-      <change afterPath="$PROJECT_DIR$/src/readWrite/Connecting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phase1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/message/MessageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/MessageManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/readWrite/Read.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/readWrite/Read.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/readWrite/TrueWrite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/readWrite/TrueWrite.java" afterDir="false" />
+    <list default="true" id="709cb423-29fd-4aba-b912-ea5d79e3da21" name="Default Changelist" comment="finished write">
+      <change afterPath="$PROJECT_DIR$/src/resources/backup/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/readWrite/TrueWrite.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/readWrite/Write.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/readWrite/Write.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1605896011040</updated>
       <workItem from="1606318721116" duration="9012000" />
-      <workItem from="1606334637314" duration="7525000" />
+      <workItem from="1606334637314" duration="7994000" />
     </task>
     <task id="LOCAL-00002" summary="fixed unused import">
       <created>1606222103794</created>
@@ -214,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606334889026</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="finished write">
+      <created>1606348920942</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1606348920942</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +258,8 @@
     <MESSAGE value="gitignore" />
     <MESSAGE value="finished read" />
     <MESSAGE value="database read finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="database read finished" />
+    <MESSAGE value="finished write" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished write" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="90" key="#Inspections" timestamp="1606348466239">
@@ -286,6 +290,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="663" y="390" key="#com.intellij.refactoring.memberPullUp.PullUpDialog/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606212163825" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606349251506">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1606349251506" />
     <state x="74" y="73" width="1389" height="679" key="DiffContextDialog" timestamp="1606240681086">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -351,11 +359,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606260995449" />
-    <state x="442" y="200" key="Vcs.Push.Dialog.v2" timestamp="1606334892403">
+    <state x="442" y="200" key="Vcs.Push.Dialog.v2" timestamp="1606348922781">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/-1920.-189.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606222105945" />
-    <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606334892403" />
+    <state x="442" y="200" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606348922781" />
     <state x="631" y="299" width="312" height="244" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1606237166454">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

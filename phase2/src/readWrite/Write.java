@@ -1,12 +1,15 @@
 package readWrite;
 
+import com.sun.java.accessibility.util.EventID;
 import event.EventManager;
 import javafx.util.Pair;
 import message.MessageManager;
 import user.UserManager;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,6 +22,8 @@ public class Write {
     private final UserManager usermanager;
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
+    private final Connection conn;
+    private Statement stmt;
 
     /**
      * Constructor of Write.
@@ -31,7 +36,10 @@ public class Write {
         this.usermanager = userManager;
         this.eventmanager = eventManager;
         this.messagemanager = messageManager;
-
+        Connecting cct = new Connecting();
+        this.conn = cct.run();
+        try{this.stmt = conn.createStatement();}
+        catch (SQLException e){}
     }
 
     /**
@@ -39,6 +47,7 @@ public class Write {
      */
     public void run() {
         try {
+            remover();
             userWriter();
             roomWriter();
             eventWriter();
@@ -48,54 +57,79 @@ public class Write {
         }
     }
 
-    private void userWriter() throws IOException {
+    private void remover() {
+        try {
+            stmt.execute("DELETE FROM users");
+            stmt.execute("DELETE FROM messageList");
+            stmt.execute("DELETE FROM event");
+            stmt.execute("DELETE FROM message");
+            stmt.execute("DELETE FROM request");
+            stmt.execute("DELETE FROM room");
+            stmt.execute("DELETE FROM signedUp");
+        } catch (SQLException e) {
+            //
+        }
+    }
+
+    private void userWriter() {
         String password;
         ArrayList<String> messageList;
         String type;
-        FileWriter userWriter = new FileWriter("src/resources/user.csv", false);
+
         Collection<String> usernames = usermanager.getAllUsernames();
-        int i = 0;
+
+        String sql = "INSERT INTO users(Username,Password,UserType) VALUES(?,?,?)";
+        String sql2 = "INSERT INTO messageList(Username,CanSendMessageTo) VALUES(?,?)";
+
         for (String username : usernames) {
             password = usermanager.getPassword(username);
             type = usermanager.getUserType(username);
             messageList = usermanager.getContactList(username);
-            threeStringOneArrayListFileWriterHelper(messageList, username, password, type, userWriter);
-            i += 1;
-            if (!(i == usernames.size())) {
-                userWriter.append("\n");
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, username);
+                pstmt.setString(2, password);
+                pstmt.setString(3, type);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            for (String username2 : messageList){
+                try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)){
+                    pstmt2.setString(1,username);
+                    pstmt2.setString(2,username2);
+                    pstmt2.execute();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        userWriter.flush();
-        userWriter.close();
     }
 
-    private void roomWriter() throws IOException{
-        FileWriter roomWriter = new FileWriter("src/resources/room.csv", false);
+    private void roomWriter(){
         HashMap<Integer, Integer> roomToCapacity = eventmanager.getRoomNumberMapToCapacity();
-        int i = 0;
+        String sql = "INSERT INTO room(RoomNumber,Capacity) VALUES(?,?)";
         for (Map.Entry<Integer, Integer> item : roomToCapacity.entrySet()) {
             Integer room = item.getKey();
             Integer capacity = item.getValue();
-            roomWriter.append(String.valueOf(room));
-            roomWriter.append(",");
-            roomWriter.append(String.valueOf(capacity));
-            i += 1;
-            if (!(i == roomToCapacity.entrySet().size())) {
-                roomWriter.append("\n");
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, room);
+                pstmt.setInt(2, capacity);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        roomWriter.flush();
-        roomWriter.close();
     }
 
-    private void eventWriter() throws IOException{
-        FileWriter eventWriter = new FileWriter("src/resources/event.csv", false);
+    private void eventWriter() {
         HashMap<Integer, Integer> eventToRoom = eventmanager.getEventIDMapToRoomNumber();
         String time;
         String duration;
         ArrayList<String> attendees;
         ArrayList<String> speakers;
         String description;
+        String sql = "INSERT INTO event(EventId,RoomNumber,MaxNumberOfSpeakers,MaxNumberOfAttendees,StartTime,Duration,Description,ConferenceId) VALUES(?,?,?,?,?,?,?,?)";
+        String sql2 = "INSERT INTO signedUp(EventId, UserName) VALUES (?,?)";
         int i = 0;
         for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
             Integer event = item.getKey();
@@ -109,68 +143,57 @@ public class Write {
             capacity = eventmanager.getCapacity(event);
             int numSpeakers = capacity.getKey();
             int numAttendees = capacity.getValue();
-            eventWriter.append(String.valueOf(room2));
-            eventWriter.append(",");
-            eventWriter.append(String.valueOf(numSpeakers));
-            eventWriter.append(",");
-            eventWriter.append(String.valueOf(numAttendees));
-            eventWriter.append(",");
-            threeStringOneArrayListFileWriterHelper(attendees, time, duration, description, eventWriter);
-            if (!(speakers.size() == 0)) {
-                for (String speaker:speakers) {
-                    eventWriter.append(",");
-                    eventWriter.append(speaker);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, i);
+                pstmt.setInt(2, room2);
+                pstmt.setInt(3, numSpeakers);
+                pstmt.setInt(4, numAttendees);
+                pstmt.setTimestamp(5, Timestamp.valueOf(time));
+                pstmt.setInt(6, Integer.parseInt(duration));
+                pstmt.setString(7, description);
+                pstmt.setInt(8, 0);//TODO: conference id
+                //TODO: vip
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            for (String attendee : attendees) {
+                try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
+                    pstmt2.setInt(1, i);
+                    pstmt2.setString(2, attendee);
+                    pstmt2.execute();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                for (String speaker : speakers) {
+                    try (PreparedStatement pstmt3 = conn.prepareStatement(sql2)) {
+                        pstmt3.setInt(1, i);
+                        pstmt3.setString(2, speaker);
+                        pstmt3.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             i += 1;
-            if (!(i == eventToRoom.entrySet().size())) {
-                eventWriter.append("\n");
-            }
         }
-        eventWriter.flush();
-        eventWriter.close();
     }
+
 
     private void messageWriter() throws IOException {
-        int i = 0;
-        FileWriter messageWriter = new FileWriter("src/resources/message.csv", false);
+        String sql = "INSERT INTO message(Sender,Receiver,Status,MessageText) VALUES(?,?,?,?)";
         ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
         for (ArrayList<String> messageInfo : allMessage) {
-            messageWriter.append(messageInfo.get(0));
-            messageWriter.append(",");
-            messageWriter.append(messageInfo.get(1));
-            messageWriter.append(",");
-            messageWriter.append(messageInfo.get(2));
-            i += 1;
-            if (!(i == allMessage.size())) {
-                messageWriter.append("\n");
+            try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
+                pstmt2.setString(1, messageInfo.get(0));
+                pstmt2.setString(2, messageInfo.get(1));
+                pstmt2.setString(3, "TODO");//TODO: STATUS
+                pstmt2.setString(4, messageInfo.get(2));
+                pstmt2.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        messageWriter.flush();
-        messageWriter.close();
     }
 
-    /*
-     * A helper method that append 3 strings and 1 arraylist to FileWriter, with comma separations.
-     *
-     * @param stringArrayList An ArrayList that goes last.
-     * @param string1         A String that goes first.
-     * @param string2         A String that goes second.
-     * @param string3         A String that goes third.
-     * @param writer          The FileWriter.
-     * @throws IOException should not happen.
-     */
-    private void threeStringOneArrayListFileWriterHelper(ArrayList<String> stringArrayList, String string1,
-                                                         String string2, String string3,
-                                                         FileWriter writer) throws IOException {
-        writer.append(string1);
-        writer.append(",");
-        writer.append(string2);
-        writer.append(",");
-        writer.append(string3);
-        for (String contactListedUser : stringArrayList) {
-            writer.append(",");
-            writer.append(contactListedUser);
-        }
-    }
 }
