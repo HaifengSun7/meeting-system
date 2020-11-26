@@ -181,7 +181,8 @@ public class OrganizerSystem extends UserSystem {
             Presenter.success();
         } catch (NoSuchEventException | InvalidActivityException e) {
             Presenter.printErrorMessage(e.getMessage());
-            Presenter.exitToMainMenuPrompt();
+            Presenter.continuePrompt();
+            reader.nextLine();
         }
     }
 
