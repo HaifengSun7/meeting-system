@@ -180,12 +180,18 @@ public class EventManager {
         int maximumAttendee = map.get(eventNumber).getMaximumAttendee();
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
-                if (!map.get(eventNumber).getSpeakStatus()) {   //TODO: We need to have cases for different types of events. i.e. numSpeaker=1, numSpeaker>1 and numSpeaker=0
-                    map.get(eventNumber).setSpeaker(username);
-                } else {
-                    throw new AlreadyHasSpeakerException("Already Has Speaker: " +
-                            map.get(eventNumber).getSpeakers().get(0) + " at " + map.get(eventNumber));
+                if (map.get(eventNumber).getMaximumSpeaker() == 0){
+                    throw new NoSpeakerException("No need for PartyEvent");
                 }
+                else {
+                    if (map.get(eventNumber).getMaximumSpeaker() > map.get(eventNumber).getSpeakers().size()){
+                        map.get(eventNumber).setSpeaker(username);
+                    }
+                    else{
+                        throw new AlreadyHasSpeakerException("Already Has Speaker: " +
+                                map.get(eventNumber).getSpeakers() + " at " + map.get(eventNumber));
+                        }
+                    }
             } else if (type.equals("Attendee")) {
                 if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
