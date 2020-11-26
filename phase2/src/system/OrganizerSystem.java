@@ -173,12 +173,15 @@ public class OrganizerSystem extends UserSystem {
         Presenter.inputPrompt("enterEventIdToCancelEvent");
         String eventId = reader.nextLine();
         try {
+            ArrayList<String> userList = new ArrayList<>(eventmanager.getAttendees(eventId));
+            for (String username: userList) {
+                usermanager.deleteSignedEvent(eventId, username);
+            }
             eventmanager.cancelEvent(eventId);
             Presenter.success();
         } catch (NoSuchEventException | InvalidActivityException e) {
             Presenter.printErrorMessage(e.getMessage());
-            Presenter.continuePrompt();
-            reader.nextLine();
+            Presenter.exitToMainMenuPrompt();
         }
     }
 
