@@ -21,7 +21,8 @@ public class Read {
     private Statement stmt;
 
     public Read(){
-        Connection conn = connect();
+        Connecting cct = new Connecting();
+        Connection conn = cct.run();
         this.usermanager = new UserManager();
         this.eventmanager = new EventManager();
         this.messagemanager = new MessageManager();
@@ -37,10 +38,6 @@ public class Read {
         eventManagerInitialize();
         userManagerInitialize();
         messageManagerInitialize();
-
-
-
-
     }
 
     private void userManagerInitialize() {
@@ -112,28 +109,5 @@ public class Read {
         } catch (SQLException e) {
             System.out.println("I don't fucking know 6");
         }
-    }
-
-
-
-
-    private Connection connect(){
-        Connection conn = null;
-        File file = new File("src/resources/database.db");
-        String url = file.getAbsolutePath();
-        url = "jdbc:sqlite:" + url;
-
-        try {
-            // db parameters
-            // create a connection to the database
-            conn = DriverManager.getConnection(url);
-
-            System.out.println("Connection to SQLite has been established.");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-
     }
 }
