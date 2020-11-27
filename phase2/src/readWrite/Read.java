@@ -14,7 +14,6 @@ import java.sql.*;
  * I read.
  */
 public class Read {
-
     public final UserManager usermanager;
     public final EventManager eventmanager;
     public final MessageManager messagemanager;
@@ -26,8 +25,9 @@ public class Read {
         this.usermanager = new UserManager();
         this.eventmanager = new EventManager();
         this.messagemanager = new MessageManager();
-        try{this.stmt = conn.createStatement();}
-        catch (SQLException e){
+        try{
+            this.stmt = conn.createStatement();
+        } catch (SQLException e){
             //ignored
         }
     }
@@ -87,14 +87,14 @@ public class Read {
         } catch (DuplicateRoomNumberException e) {
             //ignored, should never happen.
         }
-        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceId FROM event";
+        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
                 eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")), rs1.getInt("MaxNumberOfSpeakers"), rs1.getInt("MaxNumberOfAttendees"), rs1.getTimestamp("StartTime"), rs1.getInt("Duration"), rs1.getString("Description"));
             }
 
         } catch (SQLException e) {
-            System.out.println("I don't fucking know 4");
+            System.out.println("Wrong index in Database");
         } catch (RoomIsFullException | InvalidActivityException | TimeNotAvailableException | NotInOfficeHourException e) {
             //ignored, should never happen
         }

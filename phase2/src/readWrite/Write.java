@@ -39,7 +39,7 @@ public class Write {
         Connecting cct = new Connecting();
         this.conn = cct.run();
         try{this.stmt = conn.createStatement();}
-        catch (SQLException e){}
+        catch (SQLException ignored){}
     }
 
     /**
@@ -128,7 +128,7 @@ public class Write {
         ArrayList<String> attendees;
         ArrayList<String> speakers;
         String description;
-        String sql = "INSERT INTO event(EventId,RoomNumber,MaxNumberOfSpeakers,MaxNumberOfAttendees,StartTime,Duration,Description,ConferenceId) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO event(EventId,RoomNumber,MaxNumberOfSpeakers,MaxNumberOfAttendees,StartTime,Duration,Description,ConferenceName) VALUES(?,?,?,?,?,?,?,?)";
         String sql2 = "INSERT INTO signedUp(EventId, UserName) VALUES (?,?)";
         int i = 0;
         for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
