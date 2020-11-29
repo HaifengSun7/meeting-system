@@ -11,6 +11,7 @@ import java.sql.*;
 
 /**
  * I read.
+ * I also act as a BUILDER for the builder pattern
  */
 public class Read {
     private Statement stmt;
@@ -24,12 +25,11 @@ public class Read {
             //ignored
         }
     }
-    /**
-     * run.
-     */
-    public void run(){
-    }
 
+    /**
+     * build
+     * @return UserManager that is ready to go.
+     */
     public UserManager buildUserManager() {
         UserManager usermanager = new UserManager();
         String sql = "SELECT Username, Password, UserType FROM users";
