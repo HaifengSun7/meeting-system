@@ -93,10 +93,9 @@ public abstract class UserSystem {
 
     private void initializeManagers() {
         Read read = new Read();
-        read.run();
-        usermanager = read.usermanager;
-        eventmanager = read.eventmanager;
-        messagemanager = read.messagemanager;
+        usermanager = read.buildUserManager();
+        eventmanager = read.buildEventManager();
+        messagemanager = read.buildMessageManager();
     }
 
     private void initializeUserManager(UserManager userManager) {

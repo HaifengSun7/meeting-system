@@ -7,24 +7,17 @@ import user.InvalidUsernameException;
 import user.UserManager;
 
 import javax.activity.InvalidActivityException;
-import java.io.File;
 import java.sql.*;
 
 /**
  * I read.
  */
 public class Read {
-    public final UserManager usermanager;
-    public final EventManager eventmanager;
-    public final MessageManager messagemanager;
     private Statement stmt;
 
     public Read(){
         Connecting cct = new Connecting();
         Connection conn = cct.run();
-        this.usermanager = new UserManager();
-        this.eventmanager = new EventManager();
-        this.messagemanager = new MessageManager();
         try{
             this.stmt = conn.createStatement();
         } catch (SQLException e){
@@ -35,12 +28,10 @@ public class Read {
      * run.
      */
     public void run(){
-        eventManagerInitialize();
-        userManagerInitialize();
-        messageManagerInitialize();
     }
 
-    private void userManagerInitialize() {
+    public UserManager buildUserManager() {
+        UserManager usermanager = new UserManager();
         String sql = "SELECT Username, Password, UserType FROM users";
         try (ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -73,10 +64,12 @@ public class Read {
         } catch (SQLException e) {
             System.out.println("I don't fucking know 3");
         }
+        return usermanager;
     }
 
 
-    private void eventManagerInitialize(){
+    public EventManager buildEventManager(){
+        EventManager eventmanager = new EventManager();
         String sql2 = "SELECT RoomNumber, Capacity FROM room";
         try(ResultSet rs2 = stmt.executeQuery(sql2)){
             while(rs2.next()){
@@ -98,9 +91,11 @@ public class Read {
         } catch (RoomIsFullException | InvalidActivityException | TimeNotAvailableException | NotInOfficeHourException e) {
             //ignored, should never happen
         }
+        return eventmanager;
     }
 
-    private void messageManagerInitialize(){
+    public MessageManager buildMessageManager(){
+        MessageManager messagemanager = new MessageManager();
         String sql = "SELECT Sender, Receiver, MessageText FROM message";
         try(ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
@@ -109,5 +104,6 @@ public class Read {
         } catch (SQLException e) {
             System.out.println("I don't fucking know 6");
         }
+        return messagemanager;
     }
 }
