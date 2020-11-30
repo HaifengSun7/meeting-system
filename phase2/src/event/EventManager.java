@@ -179,6 +179,11 @@ public class EventManager {
         int event_size = map.get(eventNumber).getAttendees().size();
         int maximumAttendee = map.get(eventNumber).getMaximumAttendee();
         if (map.containsKey(eventNumber)) {
+            if(map.get(eventNumber).getType().equals("VIPEvent")){
+                if (!type.equals("VIP")){
+                    throw new InvalidUserException("Invalid user type.");
+                }
+            }
             if (type.equals("Speaker")) {
                 if (map.get(eventNumber).getMaximumSpeaker() == 0){
                     throw new NoSpeakerException("No need for PartyEvent");
@@ -192,7 +197,7 @@ public class EventManager {
                                 map.get(eventNumber).getSpeakers() + " at " + map.get(eventNumber));
                         }
                     }
-            } else if (type.equals("Attendee")) {
+            } else if (type.equals("Attendee") ||type.equals("VIP")) {
                 if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
                             "You can't sign up this event!");
