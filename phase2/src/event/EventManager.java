@@ -345,6 +345,9 @@ public class EventManager {
                 case 1:
                     newEvent = new SingleEvent(time);
                     break;
+                case 2:
+                    newEvent = new VIPEvent(time);
+                    break;
                 default:
                     newEvent = new MultiEvent(time, numSpeakers);
                     break;
