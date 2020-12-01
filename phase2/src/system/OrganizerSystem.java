@@ -73,7 +73,6 @@ public class OrganizerSystem extends UserSystem {
                     continue;
             }
             break;
-
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
         write.run();

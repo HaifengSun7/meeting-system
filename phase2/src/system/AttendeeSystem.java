@@ -38,46 +38,39 @@ public class AttendeeSystem extends UserSystem {
             Presenter.attendeeMenu();
             command = reader.nextLine();
             switch (command) {
-                case "e" -> usermanager.logout(myName);
-                case "1" -> {
+                case "e":
+                    usermanager.logout(myName);
+                    break;
+                case "1":
                     SignUpForEvent();
                     continue;
-                }
-                case "2" -> {
+                case "2":
                     checkSignedUp();
                     continue;
-                }
-                case "3" -> {
+                case "3":
                     cancelEnrollment();
                     continue;
-                }
-                case "4" -> {
+                case "4":
                     sendMessageToSomeone();
                     continue;
-                }
-                case "5" -> {
+                case "5":
                     seeMessages();
                     continue;
-                }
-                case "6" -> {
+                case "6":
                     makeNewRequest();
                     continue;
-                }
-                case "7" -> {
+                case "7":
                     seeMineRequests();
                     continue;
-                }
-                case "8" -> {
+                case "8":
                     deleteRequests();
                     continue;
-                }
-                default -> {
+                default:
                     Presenter.wrongKeyReminder();
                     Presenter.invalid("");
                     Presenter.continuePrompt();
                     reader.nextLine();
                     continue;
-                }
             }
             break;
         }
@@ -205,3 +198,4 @@ public class AttendeeSystem extends UserSystem {
         }
     }
 }
+
