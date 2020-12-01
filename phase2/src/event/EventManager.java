@@ -462,7 +462,8 @@ public class EventManager {
     protected boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
         try {
             for (int id : map.keySet()) {
-                if (roomManager.getSchedule(Integer.parseInt(roomNo)).contains(id) && map.get(id).contradicts(time, length))
+                if (roomManager.getSchedule(Integer.parseInt(roomNo)).contains(id) &&
+                        map.get(id).contradicts(time, length))
                     return false;
             }
             return true;
