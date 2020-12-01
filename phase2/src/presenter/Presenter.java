@@ -16,6 +16,13 @@ public class Presenter {
     }
 
     /**
+     * Print out the prompt of conference choosing to the user.
+     */
+    public static void conferenceChoose() {
+        System.out.println("Please choose a conference to participate");
+    }
+
+    /**
      * Print out the menu of speaker.
      */
     public static void speakerMenu() {
@@ -177,6 +184,9 @@ public class Presenter {
                 break;
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
+                break;
+            case "enterNumberInSquareBracketsToChooseConference":
+                System.out.println("Enter number in square brackets to choose the conference.");
                 break;
             case "eventType":
                 System.out.println("Available types: \n" +

@@ -457,7 +457,7 @@ public class OrganizerSystem extends UserSystem {
         }
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, false);
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |

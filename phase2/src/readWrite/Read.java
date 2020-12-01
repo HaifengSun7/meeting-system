@@ -90,7 +90,7 @@ public class Read {
         String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
-                eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")), rs1.getInt("MaxNumberOfSpeakers"), rs1.getInt("MaxNumberOfAttendees"), rs1.getTimestamp("StartTime"), rs1.getInt("Duration"), rs1.getString("Description"));
+                eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")), rs1.getInt("MaxNumberOfSpeakers"), rs1.getInt("MaxNumberOfAttendees"), rs1.getTimestamp("StartTime"), rs1.getInt("Duration"), rs1.getString("Description"), rs1.getBoolean("VIP"));
             }
 
         } catch (SQLException e) {
