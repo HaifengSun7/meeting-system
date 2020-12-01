@@ -1,6 +1,8 @@
 package system;
 
 import presenter.Presenter;
+import user.NoSuchUserException;
+import user.NotAttendeeException;
 import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
@@ -62,7 +64,16 @@ public class LogInSystem {
                             system = new SpeakerSystem(username);
                             break;
                         default:
-                            system = new AttendeeSystem(username);
+                            try {
+                                if (usermanager.isVIP(username)) {
+                                    system = new VIPSystem(username);
+                                } else {
+                                    system = new AttendeeSystem(username);
+                                }
+                            } catch (NotAttendeeException | NoSuchUserException e) {
+                                Presenter.printErrorMessage(e.getMessage());
+                                continue;
+                            }
                             break;
                     }
                     system.run();
