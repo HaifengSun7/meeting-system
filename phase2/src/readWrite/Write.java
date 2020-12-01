@@ -1,13 +1,10 @@
 package readWrite;
 
-import com.sun.java.accessibility.util.EventID;
 import event.EventManager;
 import javafx.util.Pair;
 import message.MessageManager;
 import user.UserManager;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -148,7 +145,7 @@ public class Write {
                 pstmt.setInt(2, room2);
                 pstmt.setInt(3, numSpeakers);
                 pstmt.setInt(4, numAttendees);
-                pstmt.setTimestamp(5, Timestamp.valueOf(time));
+                pstmt.setString(5, time);
                 pstmt.setInt(6, Integer.parseInt(duration));
                 pstmt.setString(7, description);
                 pstmt.setInt(8, 0);//TODO: conference id

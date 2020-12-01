@@ -1,11 +1,9 @@
 package system;
 
 import presenter.Presenter;
-import readWrite.Iterator;
-import readWrite.Read;
-import readWrite.UserIterator;
 import user.NoSuchUserException;
 import user.NotAttendeeException;
+import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
 
@@ -85,9 +83,9 @@ public class LogInSystem {
     }
 
     private void getAccounts() {
-        Read read = new Read();
-        read.run();
-        usermanager = read.usermanager;
+        ManagerBuilder managerBuilder = new ManagerBuilder();
+        managerBuilder.run();
+        usermanager = managerBuilder.getUserManager();
     }
 }
 

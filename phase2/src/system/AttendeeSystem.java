@@ -1,6 +1,9 @@
 package system;
 
-import event.*;
+import event.exceptions.AlreadyHasSpeakerException;
+import event.exceptions.EventIsFullException;
+import event.exceptions.InvalidUserException;
+import event.exceptions.NoSuchEventException;
 import presenter.Presenter;
 import readWrite.Write;
 
