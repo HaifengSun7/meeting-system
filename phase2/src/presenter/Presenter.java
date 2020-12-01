@@ -219,13 +219,13 @@ public class Presenter {
                     "Or, type in 'Recall all' to recall all requests: ");
                 break;
             case "recallRequestConfirm":
-                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No]");
+                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] or [No]");
                 break;
             case "deleteSuccess":
-                System.out.println("Delete success!");
+                System.out.println("Delete success!\n");
                 break;
             case "NoRequests":
-                System.out.println("You don't have any request record!");
+                System.out.println("You don't have any request record!\n");
                 break;
         }
     }
