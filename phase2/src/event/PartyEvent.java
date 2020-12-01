@@ -1,5 +1,7 @@
 package event;
 
+import event.exceptions.TooManySpeakerException;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -20,7 +22,8 @@ public class PartyEvent  extends Event {
     }
 
     @Override
-    public void setSpeaker(String u) {
+    public void setSpeaker(String u) throws TooManySpeakerException {
+        throw new TooManySpeakerException("This is a party event");
     }
 
     @Override

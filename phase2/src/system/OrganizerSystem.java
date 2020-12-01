@@ -10,6 +10,7 @@ import user.NoSuchUserException;
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.PropertyResourceBundle;
 
 /**
  * <h1>Organizer System</h1>
@@ -22,8 +23,8 @@ public class OrganizerSystem extends UserSystem {
      *
      * @param myName A String, which is the username of organizer who logged in.
      */
-    public OrganizerSystem(String myName, String conference) {
-        super(myName, conference);
+    public OrganizerSystem(String myName) {
+        super(myName);
     }
 
     /**
@@ -182,7 +183,7 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.cancelEvent(eventId);
             Presenter.success();
         } catch (NoSuchEventException | InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
         }
@@ -202,7 +203,7 @@ public class OrganizerSystem extends UserSystem {
             Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
             Presenter.exitToMainMenuPrompt();
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
             return;
@@ -224,7 +225,7 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.success();
                 Presenter.continuePrompt();
             } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException e) {
-                Presenter.printErrorMessage(e.getMessage());
+                Presenter.printErrorMessage(e);
                 Presenter.continuePrompt();
             }
         }
@@ -242,7 +243,7 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
         } catch (DuplicateRoomNumberException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 
@@ -258,13 +259,13 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
             return;
         } catch (Exception e){
             e.printStackTrace();
-            Presenter.printErrorMessage("Wrong input.");
+            Presenter.defaultPrint("Wrong input.");
             Presenter.continuePrompt();
             return;
         }
@@ -291,10 +292,10 @@ public class OrganizerSystem extends UserSystem {
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
                 } catch (DuplicateUserNameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                     break;
                 } catch (InvalidUsernameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                 }
                 break;
         }
@@ -311,13 +312,13 @@ public class OrganizerSystem extends UserSystem {
         } catch (DuplicateUserNameException | InvalidUsernameException e) {
             // ignored
         } catch (NoSuchUserException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
         try {
             eventmanager.becomeSpeaker(name);
             System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
-        } catch (AlreadyHasSpeakerException e) {
-            Presenter.printErrorMessage(e.getMessage());
+        } catch (TooManySpeakerException e) {
+            Presenter.printErrorMessage(e);
         }
     }
 
@@ -340,10 +341,10 @@ public class OrganizerSystem extends UserSystem {
                     usermanager.createUserAccount("VIP", username, password);
                     Presenter.success();
                 } catch (DuplicateUserNameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                     break;
                 } catch (InvalidUsernameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                 }
                 break;
         }
@@ -359,7 +360,7 @@ public class OrganizerSystem extends UserSystem {
             usermanager.becomeVIP(name);
             System.out.println("Successfully set " + name + " to be a VIP attendee.\n");
         } catch (NoSuchUserException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 
@@ -367,53 +368,57 @@ public class OrganizerSystem extends UserSystem {
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
-        Presenter.inputPrompt("speakerName");
-        String name = reader.nextLine();
-        if (!usermanager.getUserType(name).equals("Speaker")) {
-            Presenter.notASpeaker();
-            return;
-        }
-        Presenter.titlesInSpeaker("scheduleSpeakers1");
-        ArrayList<String> allEvents = eventmanager.getAllEvents();
-        for (int i = 0; i < allEvents.size(); i++) {
-            Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-        }
-        Presenter.menusInOrganizer("scheduleSpeakers1");
-        Presenter.exitToMainMenuPrompt();
-        String command = reader.nextLine();
-        switch (command) {
-            default:
-                addSpeakerToEvent(allEvents, name, command);
-                break;
-            case "r":
-                Presenter.titlesInSpeaker("scheduleSpeakers2");
-                ArrayList<String> roomLst = eventmanager.getAllRooms();
-                for (String s : roomLst) {
-                    Presenter.defaultPrint(s);
-                }
-                Presenter.menusInOrganizer("scheduleSpeakers2");
-                Presenter.exitToMainMenuPrompt();
-                String command4 = reader.nextLine();
-                switch (command4) {
-                    case "a":
-                        addingEvent();
-                        Presenter.continuePrompt();
-                        reader.nextLine();
-                        break;
-                    case "e":
-                        Presenter.exitingToMainMenu();
-                        break;
-                    default:
-                        showEvents(command4);
-                        addingEvent();
-                        Presenter.continuePrompt();
-                        reader.nextLine();
-                        break;
-                }
-                break;
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
+        try{
+            Presenter.inputPrompt("speakerName");
+            String name = reader.nextLine();
+            if (!usermanager.getUserType(name).equals("Speaker")) {
+                Presenter.notASpeaker();
+                return;
+            }
+            Presenter.titlesInSpeaker("scheduleSpeakers1");
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (int i = 0; i < allEvents.size(); i++) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+            Presenter.menusInOrganizer("scheduleSpeakers1");
+            Presenter.exitToMainMenuPrompt();
+            String command = reader.nextLine();
+            switch (command) {
+                default:
+                    addSpeakerToEvent(allEvents, name, command);
+                    break;
+                case "r":
+                    Presenter.titlesInSpeaker("scheduleSpeakers2");
+                    ArrayList<String> roomLst = eventmanager.getAllRooms();
+                    for (String s : roomLst) {
+                        Presenter.defaultPrint(s);
+                    }
+                    Presenter.menusInOrganizer("scheduleSpeakers2");
+                    Presenter.exitToMainMenuPrompt();
+                    String command4 = reader.nextLine();
+                    switch (command4) {
+                        case "a":
+                            addingEvent();
+                            Presenter.continuePrompt();
+                            reader.nextLine();
+                            break;
+                        case "e":
+                            Presenter.exitingToMainMenu();
+                            break;
+                        default:
+                            showEvents(command4);
+                            addingEvent();
+                            Presenter.continuePrompt();
+                            reader.nextLine();
+                            break;
+                    }
+                    break;
+                case "e":
+                    Presenter.exitingToMainMenu();
+                    break;
+            }
+        } catch (Exception e){
+            Presenter.defaultPrint(e.getMessage());
         }
     }
 
@@ -430,21 +435,15 @@ public class OrganizerSystem extends UserSystem {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
 //            } catch (RoomIsFullException e) {
-//                Presenter.printErrorMessage(e.getMessage());
+//                Presenter.printErrorMessage(e);
 //                Presenter.defaultPrint("Room is full.");
-            } catch (AlreadyHasSpeakerException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("Already has speaker.");
-            } catch (NoSpeakerException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("not a speaker.");
             } catch (NoSuchEventException e) {
-                Presenter.printErrorMessage(e.getMessage());
+                Presenter.printErrorMessage(e);
                 Presenter.defaultPrint("event not found");
             } catch (EventIsFullException e) {
                 Presenter.defaultPrint("Event is full");
-            } catch (InvalidUserException e) {
-                Presenter.printErrorMessage(e.getMessage());
+            } catch (InvalidUserException | TooManySpeakerException e) {
+                Presenter.printErrorMessage(e);
             }
         } else {
             Presenter.invalid("eventId");
@@ -497,7 +496,7 @@ public class OrganizerSystem extends UserSystem {
                     throw new NoSuchTypeException("Incorrect Event Type");
             }
         } catch (Exception e){
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.exitToMainMenuPrompt();
             return;
         }
@@ -508,7 +507,7 @@ public class OrganizerSystem extends UserSystem {
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
                 RoomIsFullException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.exitToMainMenuPrompt();
         } catch (Exception e) {
             Presenter.invalid("addEventGeneral"); // Should not be called
@@ -526,7 +525,7 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 

@@ -31,10 +31,10 @@ public abstract class UserSystem {
      *
      * @param myName the username of the user.
      */
-    public UserSystem(String myName, String conference) {
+    public UserSystem(String myName) {
         this.myName = myName;
-        this.conference = conference;
         initializeManagers();
+        this.conference = chooseConference();
     }
 
     /**
@@ -115,5 +115,16 @@ public abstract class UserSystem {
         usermanager = read.getUserManager();
         eventmanager = read.getEventManager();
         messagemanager = read.getMessageManager();
+    }
+
+    protected String chooseConference(){
+        Presenter.conferenceChoose();
+        ArrayList<String> conferenceList = eventmanager.getAllConference();
+        for (int i = 0; i < conferenceList.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
+        }
+        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
+        String number = reader.nextLine();
+        return conferenceList.get(Integer.parseInt(number));
     }
 }

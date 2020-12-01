@@ -6,8 +6,8 @@ import presenter.Presenter;
 import java.util.ArrayList;
 
 public class VIPSystem extends AttendeeSystem{
-    public VIPSystem(String myName, String conference) {
-        super(myName, conference);
+    public VIPSystem(String myName) {
+        super(myName);
     }
 
     @Override
@@ -24,8 +24,8 @@ public class VIPSystem extends AttendeeSystem{
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("Attendee", myName, Integer.parseInt(example_list.get(Integer.parseInt(command))));
-            } catch (InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException | EventIsFullException e) {
-                Presenter.printErrorMessage(e.getMessage());
+            } catch (InvalidUserException | NoSuchEventException | TooManySpeakerException | EventIsFullException e) {
+                Presenter.printErrorMessage(e);
                 return;
             } catch (Exception e) {
                 Presenter.invalid(""); // Should never be called

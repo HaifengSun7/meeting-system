@@ -49,21 +49,14 @@ public class LogInSystem {
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (WrongLogInException e) {
-                        Presenter.printErrorMessage(e.getMessage());
+                        Presenter.printErrorMessage(e);
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
-                Presenter.conferenceChoose();
-                eventmanager = new EventManager();
-                ArrayList<String> conferenceList = eventmanager.getAllConference();
-                for (int i = 0; i < conferenceList.size(); i++) {
-                    Presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
-                }
-                Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
-                String number = reader.nextLine();
-                String conference = conferenceList.get(Integer.parseInt(number));
+//
+                //TODO: Put this into different systems
 
                 if (!logged_in) {
                     Presenter.trailsRemaining(0);
@@ -72,20 +65,20 @@ public class LogInSystem {
                     UserSystem system;
                     switch (user_type) {
                         case "Organizer":
-                            system = new OrganizerSystem(username, conference);
+                            system = new OrganizerSystem(username);
                             break;
                         case "Speaker":
-                            system = new SpeakerSystem(username, conference);
+                            system = new SpeakerSystem(username);
                             break;
                         default:
                             try {
                                 if (usermanager.isVIP(username)) {
-                                    system = new VIPSystem(username, conference);
+                                    system = new VIPSystem(username);
                                 } else {
-                                    system = new AttendeeSystem(username, conference);
+                                    system = new AttendeeSystem(username);
                                 }
                             } catch (NotAttendeeException | NoSuchUserException e) {
-                                Presenter.printErrorMessage(e.getMessage());
+                                Presenter.printErrorMessage(e);
                                 continue;
                             }
                             break;

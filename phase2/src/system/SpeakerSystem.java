@@ -16,8 +16,8 @@ public class SpeakerSystem extends UserSystem {
      *
      * @param myName A String, which is the username of speaker who logged in.
      */
-    public SpeakerSystem(String myName, String conference) {
-        super(myName, conference);
+    public SpeakerSystem(String myName) {
+        super(myName);
     }
 
     /**
@@ -70,27 +70,31 @@ public class SpeakerSystem extends UserSystem {
      * Send messages to all attendees in a particular event.
      */
     private void sendMessageToEvent() {
-        ArrayList<String> allEvents = eventmanager.getAllEvents();
-        for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+        try{
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (int i = 0; i < allEvents.size(); i++) {
+                if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
+                    Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+                }
             }
-        }
-        Presenter.inputPrompt("eventIdSendMessage");
-        String eventId = reader.nextLine();
-        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
-            Presenter.inputPrompt("message");
-            String messageToAllAttendees = reader.nextLine();
-            try {
-                ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
-                messagemanager.sendToList(myName, attendeeList, messageToAllAttendees);
-            } catch (NullPointerException e) {
-                Presenter.printErrorMessage(e.getMessage());
+            Presenter.inputPrompt("eventIdSendMessage");
+            String eventId = reader.nextLine();
+            if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
+                Presenter.inputPrompt("message");
+                String messageToAllAttendees = reader.nextLine();
+                try {
+                    ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
+                    messagemanager.sendToList(myName, attendeeList, messageToAllAttendees);
+                } catch (NullPointerException e) {
+                    Presenter.printErrorMessage(e);
+                }
+                Presenter.continuePrompt();
+                reader.nextLine();
+            } else {
+                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
             }
-            Presenter.continuePrompt();
-            reader.nextLine();
-        } else {
-            Presenter.printErrorMessage("This is not your event. Please check your input. Exiting to main menu.");
+        } catch (Exception e){
+            Presenter.defaultPrint(e.getMessage());
         }
     }
 
@@ -98,36 +102,40 @@ public class SpeakerSystem extends UserSystem {
      * Send messages to one particular attendee in a particular event.
      */
     private void sendMessageToOneAttendee() {
-        ArrayList<String> allEvents = eventmanager.getAllEvents();
-        for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-            }
-        }
-        Presenter.inputPrompt("eventIdSendMessage");
-        String eventId = reader.nextLine();
-        ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
-        for (String s : attendeeList) {
-            Presenter.defaultPrint(s);
-        }
-        Presenter.inputPrompt("receiver");
-        String receiver = reader.nextLine();
-        if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
-            Presenter.inputPrompt("message");
-            String messageToOneAttendee = reader.nextLine();
-            try {
-                if (attendeeList.contains(receiver)) {
-                    messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
-                } else {
-                    Presenter.printErrorMessage("There is no such user in that event.");
+        try {
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (int i = 0; i < allEvents.size(); i++) {
+                if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
+                    Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
                 }
-            } catch (NullPointerException e) {
-                Presenter.printErrorMessage(e.getMessage());
             }
-            Presenter.continuePrompt();
-            reader.nextLine();
-        } else {
-            Presenter.printErrorMessage("This is not your event. Please check your input. Exiting to main menu.");
+            Presenter.inputPrompt("eventIdSendMessage");
+            String eventId = reader.nextLine();
+            ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
+            for (String s : attendeeList) {
+                Presenter.defaultPrint(s);
+            }
+            Presenter.inputPrompt("receiver");
+            String receiver = reader.nextLine();
+            if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
+                Presenter.inputPrompt("message");
+                String messageToOneAttendee = reader.nextLine();
+                try {
+                    if (attendeeList.contains(receiver)) {
+                        messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
+                    } else {
+                        Presenter.defaultPrint("There is no such user in that event.");
+                    }
+                } catch (NullPointerException e) {
+                    Presenter.printErrorMessage(e);
+                }
+                Presenter.continuePrompt();
+                reader.nextLine();
+            } else {
+                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
+            }
+        } catch (Exception e){
+            Presenter.defaultPrint(e.getMessage());
         }
     }
 
@@ -175,7 +183,7 @@ public class SpeakerSystem extends UserSystem {
                 Presenter.inputOutOfRange();
             }
         } catch (Exception e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
         Presenter.continuePrompt();
         reader.nextLine();

@@ -445,10 +445,10 @@ public class Presenter {
     /**
      * print error message.
      *
-     * @param s error message
+     * @param s The Exception
      */
-    public static void printErrorMessage(String s) {
-        System.out.println(s);
+    public static void printErrorMessage(Exception s) {
+        System.out.println(s.getMessage());
     }
 
 
