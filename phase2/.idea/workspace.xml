@@ -19,11 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf291dae-2ca2-4bfd-ba64-5ba7128a2fbd" name="Default Changelist" comment="delete idea">
+    <list default="true" id="5ef1a1d3-6e70-4f60-9fd0-3a4a2247a42d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/EventManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/EventManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/presenter/Presenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presenter/Presenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/system/OrganizerSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/OrganizerSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/readWrite/ManagerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/readWrite/ManagerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/system/VIPSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/system/VIPSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1l2l5n7PPkRm4Vnvs49CsvdUw26" />
+  <component name="ProjectId" id="1l30bR3u7ZYmZTkcpSzEiOx2etX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -63,20 +63,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cf291dae-2ca2-4bfd-ba64-5ba7128a2fbd" name="Default Changelist" comment="" />
-      <created>1606802888379</created>
+      <changelist id="5ef1a1d3-6e70-4f60-9fd0-3a4a2247a42d" name="Default Changelist" comment="" />
+      <created>1606810540373</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1606802888379</updated>
+      <updated>1606810540373</updated>
     </task>
-    <task id="LOCAL-00001" summary="delete idea">
-      <created>1606802933365</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1606802933365</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,22 +82,10 @@
       </map>
     </option>
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="delete idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete idea" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="249" y="0" key="SettingsEditor" timestamp="1606803106980">
+    <state x="249" y="0" key="SettingsEditor" timestamp="1606810628915">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606803106980" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1606802952812">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606802952812" />
-    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606808434170">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1606808434170" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1606810628915" />
   </component>
 </project>
