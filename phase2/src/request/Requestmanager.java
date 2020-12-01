@@ -89,7 +89,8 @@ public class Requestmanager {
         if (!userRequestMapping.get(username).contains(request)){
             throw new NoSuchRequestException("Cannot find such request in user-request mapping");
         }
-        recallRequest(username, title, request);
+        titleRequestMapping.remove(title);
+        userRequestMapping.get(username).remove(request);
     }
 
     private void addRequest(String username, String title, Request request){
@@ -99,9 +100,8 @@ public class Requestmanager {
         userRequestMapping.get(username).add(request);
         titleRequestMapping.put(title, request);
     }
-
-    private void recallRequest(String username, String title, Request request){
-            titleRequestMapping.remove(title);
-            userRequestMapping.get(username).remove(request);
-    }
+//    private void recallRequest(String username, String title, Request request){
+//            titleRequestMapping.remove(title);
+//            userRequestMapping.get(username).remove(request);
+//    }
 }
