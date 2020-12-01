@@ -1,9 +1,9 @@
 package system;
 
-import event.AlreadyHasSpeakerException;
-import event.EventIsFullException;
-import event.InvalidUserException;
-import event.NoSuchEventException;
+import event.exceptions.AlreadyHasSpeakerException;
+import event.exceptions.EventIsFullException;
+import event.exceptions.InvalidUserException;
+import event.exceptions.NoSuchEventException;
 import presenter.Presenter;
 
 import java.util.ArrayList;
