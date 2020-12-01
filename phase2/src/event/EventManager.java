@@ -368,7 +368,7 @@ public class EventManager {
      * @throws InvalidActivityException  if there's no such room.
      */
     public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, int meetingLength,
-                         String description, boolean vip)
+                         String description, String vip)
             throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException, RoomIsFullException {
         if (!inOfficeHour(time)) {
             throw new NotInOfficeHourException("Invalid time." +
@@ -390,7 +390,7 @@ public class EventManager {
             }
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
-            newEvent.setVip(vip);
+            newEvent.setVip(vip.equals("true"));
             newEvent.setMaximumAttendee(numAttendees);
             for (Room r : rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
