@@ -471,4 +471,9 @@ public class EventManager {
         }
     }
 
+    public ArrayList<String> getAllConference() {
+        //todo
+        // return a list contains all conferences
+        return null;
+    }
 }
