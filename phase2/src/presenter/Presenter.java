@@ -202,6 +202,28 @@ public class Presenter {
             case "enterEventIdToCancelEvent":
                 System.out.println("Please enter the event id to cancel the event: ");
                 break;
+            case "requestIntroduction":
+                System.out.println("Here is all requests you made before: ");
+                break;
+            case "makeRequestTitle":
+                System.out.println("Please type in the title of request:");
+                break;
+            case "makeRequestContext":
+                System.out.println("Please type in the content of request:");
+                break;
+            case "readRequest":
+                System.out.println("Please enter the index of request you want to read: ");
+                break;
+            case "recallRequest":
+                System.out.println("Please enter the index of request you want to recall. \n" +
+                    "Or, type in 'Recall all' to recall all requests: ");
+                break;
+            case "recallRequestConfirm":
+                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No] \n");
+                break;
+            case "deleteSuccess":
+                System.out.println("Delete success!");
+                break;
         }
     }
 
