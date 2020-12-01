@@ -111,7 +111,8 @@ public class ManagerBuilder {
                         rs1.getInt("MaxNumberOfAttendees"),
                         Timestamp.valueOf(rs1.getString("StartTime")),
                         rs1.getInt("Duration"),
-                        rs1.getString("Description"));
+                        rs1.getString("Description"),
+                        rs1.getString("VIP"));
             }
 
         } catch (SQLException e) {
