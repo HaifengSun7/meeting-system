@@ -26,12 +26,14 @@ public class Requestmanager {
     }
 
     public ArrayList<String[]> getRequestsFrom(String username){
-        ArrayList<String[]> allMineRequestList = new ArrayList<>();
-        for (Request request: userRequestMapping.get(username)){
-            String[] singleRequest = new String[] {request.getTitle(), request.getContent()};
-            allMineRequestList.add(singleRequest);
+        ArrayList<String[]> allMyRequestList = new ArrayList<>();
+        if (userRequestMapping.containsKey(username)){
+            for (Request request: userRequestMapping.get(username)){
+                String[] singleRequest = new String[] {request.getTitle(), request.getContent()};
+                allMyRequestList.add(singleRequest);
+            }
         }
-        return allMineRequestList;
+        return allMyRequestList;
     }
 
     public ArrayList<String[]> getAllRequests(){ //Need to be String in the future!!!!!!!
@@ -67,14 +69,14 @@ public class Requestmanager {
 
     public void recallAllRequestsFrom(String username) throws NoSuchRequestException {
         if (userRequestMapping.containsKey(username)){
-            ArrayList<Request> requestList = userRequestMapping.get(username);
-            for (Request request:requestList){
-                if (!titleRequestMapping.containsKey(request.getTitle())) {
-                    throw new NoSuchRequestException("Cannot find such request in title-request mapping");
+            for (Request request:userRequestMapping.get(username)){
+                if (titleRequestMapping.containsKey(request.getTitle())) {
+                    titleRequestMapping.remove(request.getTitle());
                 } else {
-                    recallRequest(username, request.getTitle(), request);
+                    throw new NoSuchRequestException("Cannot find such request in title-request mapping");
                 }
             }
+            userRequestMapping.remove(username);
         }
     }
 

@@ -224,6 +224,9 @@ public class Presenter {
             case "deleteSuccess":
                 System.out.println("Delete success!");
                 break;
+            case "NoRequests":
+                System.out.println("You don't have any request record!");
+                break;
         }
     }
 
