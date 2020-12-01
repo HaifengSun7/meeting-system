@@ -183,6 +183,7 @@ public class Presenter {
                         "[Single] Single Speaker Events\n" +
                         "[Multi] Multi Speaker Events\n" +
                         "[Party] Party with no speakers\n" +
+                        "[VIP] Event only for VIPs\n" +
                         "Please enter the type of event you want:");
                 break;
             case "numSpeaker":

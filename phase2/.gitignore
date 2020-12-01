@@ -1,6 +1,3 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-/out/
 /.idea/
-/phase2.iml
+/out/
+phase2.iml
