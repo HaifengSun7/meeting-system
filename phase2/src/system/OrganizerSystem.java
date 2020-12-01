@@ -1,6 +1,6 @@
 package system;
 
-import event.*;
+import event.exceptions.*;
 import presenter.Presenter;
 import readWrite.Write;
 import user.DuplicateUserNameException;

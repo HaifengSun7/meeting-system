@@ -6,7 +6,6 @@ import presenter.Presenter;
 import readWrite.*;
 import user.UserManager;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -92,11 +91,11 @@ public abstract class UserSystem {
     }
 
     private void initializeManagers() {
-        Read read = new Read();
+        ManagerBuilder read = new ManagerBuilder();
         read.run();
-        usermanager = read.usermanager;
-        eventmanager = read.eventmanager;
-        messagemanager = read.messagemanager;
+        usermanager = read.getUserManager();
+        eventmanager = read.getEventManager();
+        messagemanager = read.getMessageManager();
     }
 
 //    private void initializeUserManager(UserManager userManager) {

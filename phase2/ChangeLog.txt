@@ -30,3 +30,9 @@
 
 
 IMPORTANT: please add jdbc to your library. you can download from: https://github.com/xerial/sqlite-jdbc
+
+- Version 2020.12.1.1521 by James
+    Deleted previous Javadoc,
+    Created Room Manager for event manager
+    Fixed time issue in save file
+    Deleted useless iterators
