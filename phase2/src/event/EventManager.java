@@ -173,7 +173,6 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
-     * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
      * @throws InvalidUserException       if input type is "Organizer".
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
      * @throws EventIsFullException       if event is full.
@@ -331,7 +330,6 @@ public class EventManager {
                     newEvent = new MultiEvent(time, numSpeakers);
                     break;
             }
-            System.out.println(conferenceManager.hasConference(conferenceName));
             if (!conferenceManager.hasConference(conferenceName)) {
                 conferenceManager.createConference(conferenceName);
             }

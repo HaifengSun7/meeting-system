@@ -1,6 +1,5 @@
 package system;
 
-import event.Conference;
 import event.EventManager;
 import presenter.Presenter;
 import user.NoSuchUserException;
@@ -9,7 +8,6 @@ import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -22,12 +20,10 @@ public class LogInSystem {
     EventManager eventmanager;
 
     /**
-     * Run the Login System. Print out login menu, and initialize users' systems.
+     * Run the Login System. Print out login menu, initialize users' systems.
+     * It also does the job for logging out.
      */
     public void run() {
-        /*
-          This method is in charge of logging in, separate the system and log out.
-         */
         while (true) {
             usermanager = new UserManager();
             getAccounts();
@@ -55,9 +51,6 @@ public class LogInSystem {
                     logged_in = true;
                     break;
                 }
-//
-                //TODO: Put this into different systems
-
                 if (!logged_in) {
                     Presenter.trailsRemaining(0);
                     return;

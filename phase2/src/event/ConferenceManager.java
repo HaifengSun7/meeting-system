@@ -34,7 +34,6 @@ public class ConferenceManager {
     }
 
     protected ArrayList<String> getAllConferences(){
-        System.out.println(map.keySet());
         return new ArrayList<>(map.keySet());
     }
 

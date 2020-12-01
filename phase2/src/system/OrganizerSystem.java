@@ -8,6 +8,7 @@ import user.InvalidUsernameException;
 import user.NoSuchUserException;
 
 import javax.activity.InvalidActivityException;
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.PropertyResourceBundle;
@@ -80,30 +81,6 @@ public class OrganizerSystem extends UserSystem {
     }
 
     /**
-     * Send messages to all users, either all speakers or all attendees.
-     * @param user type of user, either the String "speaker" or "attendee".
-     */
-    private void sendMessageToAll(String user) {
-        switch (user) {
-            case "speaker":
-                ArrayList<String> speakers = usermanager.getSpeakers();
-                Presenter.inputPrompt("message");
-                String message = reader.nextLine();
-                messagemanager.sendToList(myName, speakers, message);
-                Presenter.continuePrompt();
-                break;
-            case "attendee":
-                ArrayList<String> attendees = usermanager.getAttendees();
-                Presenter.inputPrompt("message");
-                String message2 = reader.nextLine();
-                messagemanager.sendToList(myName, attendees, message2);
-                Presenter.continuePrompt();
-                break;
-        }
-
-    }
-
-    /**
      * Send message to a specific person.
      */
     @Override
@@ -125,7 +102,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room.
      */
@@ -169,7 +146,28 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
+     * Send messages to all users, either all speakers or all attendees.
+     * @param user type of user, either the String "speaker" or "attendee".
+     */
+    private void sendMessageToAll(String user) {
+        ArrayList<String> receivers = new ArrayList<>();
+        switch (user) {
+            case "speaker":
+                receivers = usermanager.getSpeakers();
+                break;
+            case "attendee":
+                receivers = usermanager.getAttendees();
+                break;
+        }
+        Presenter.inputPrompt("message");
+        String message = reader.nextLine();
+        messagemanager.sendToList(myName, receivers, message);
+        Presenter.continuePrompt();
+
+    }
+
+    /*
      * Cancel an event.
      */
     private void cancelEvent() {
@@ -189,7 +187,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * set the maximum number of people in the selected event.
      */
     private void changeEventMaxNumberPeople() {
@@ -231,7 +229,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Create a new room.
      */
     private void addNewRoom() {
@@ -247,7 +245,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Check all scheduled events in a specific room.
      */
     private void checkRoom() {
@@ -273,7 +271,7 @@ public class OrganizerSystem extends UserSystem {
         Presenter.continuePrompt();
     }
 
-    /**
+    /*
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
@@ -301,7 +299,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker() {
@@ -322,7 +320,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Create a new user to be the VIP attendee.
      */
     private void createVIP() {
@@ -350,7 +348,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Promote a attendee to be a VIP.
      */
     private void promoteExistingAttendee() {
@@ -364,7 +362,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
@@ -422,7 +420,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Add a new speaker to an existing event.
      *
      * @param allEvents all existing events.
@@ -450,7 +448,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * The action of adding an Event, with info from inputs.
      */
     private void addingEvent(){
@@ -514,7 +512,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * show the events in a selected room
      * @param command the room number
      */
