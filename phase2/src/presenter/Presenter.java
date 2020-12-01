@@ -19,7 +19,8 @@ public class Presenter {
      * Print out the menu of speaker.
      */
     public static void speakerMenu() {
-        System.out.println("[1] See a list of events the speaker gave.\n" +
+        System.out.println(
+                "[1] See a list of events the speaker gave.\n" +
                 "[2] See a list of messages the speaker gave.\n" +
                 "[3] Message all Attendees who signed up for a particular event\n" +
                 "[4] Message a particular Attendee who signed up for a particular event\n" +
@@ -33,7 +34,8 @@ public class Presenter {
      * Print out the menu of organizer.
      */
     public static void organizerMenu() {
-        System.out.println("[1] manage rooms and add events\n" +
+        System.out.println(
+                "[1] manage rooms and add events\n" +
                 "[2] create/promote speaker account\n" +
                 "[3] Schedule speakers and their events\n" +
                 "[4] Send message to a particular person\n" +
@@ -48,11 +50,15 @@ public class Presenter {
      * Print out the menu of attendee.
      */
     public static void attendeeMenu() {
-        System.out.println("[1] sign up for an event.\n" +
+        System.out.println(
+                "[1] sign up for an event.\n" +
                 "[2] See events that I have signed up for\n" +
                 "[3] Cancel enrolment in an signed event\n" +
                 "[4] Send a message\n" +
                 "[5] See messages\n" +
+                "[6] Make new request\n" +
+                "[7] See mine requests\n" +
+                "[8] Delete mine requests\n" +
                 "[e] Save and log out.");
     }
 
@@ -125,77 +131,41 @@ public class Presenter {
      */
     public static void inputPrompt(String input) {
         switch (input) {
-            case "message":
-                System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
-                break;
-            case "receiver":
-                System.out.println("Which person you want to send a message to?");
-                break;
-            case "eventId":
-                System.out.println("Enter event id to choose the event:");
-                break;
-            case "roomNumber":
-                System.out.println("Please enter a room number:");
-                break;
-            case "description":
-                System.out.println("Please input a short description that does not have a comma");
-                break;
-            case "vip" :
-                System.out.println("Please input 'true' or 'false' to indicate whether the event is for VIP only");
-                break;
-            case "newRoomNumber":
-                System.out.println("Please enter a new room number:");
-                break;
-            case "newUsername":
-                System.out.println("Please enter a new username:");
-                break;
-            case "startTime":
-                System.out.println("Please enter a start time. Format: yyyy-m[m]-d[d] hh:mm:ss");
-                break;
-            case "duration":
-                System.out.println("Please enter a duration:");
-                break;
-            case "password":
-                System.out.println("Please enter a password:");
-                break;
-            case "eventIdSendMessage":
-                System.out.println("Please enter event Id that you want to send messages:");
-                break;
-            case "messageToRespond":
-                System.out.println("Please enter the index of message that you would like to respond:");
-                break;
-            case "roomSize":
-                System.out.println("Please enter the room size:");
-                break;
-            case "speakerName":
-                System.out.println("Please enter the speaker's username:");
-                break;
-            case "signUp":
-                System.out.println("Here are the events that you can sign up for.");
-                break;
-            case "maximum people":
-                System.out.println("Please enter the maximum number of Attendees in the event:");
-                break;
-            case "newMaxPeopleOfEvent":
-                System.out.println("Please enter the new maximum people in the event:");
-                break;
-            case "enterNumberInSquareBracketsToChooseEvent":
-                System.out.println("Enter number in square brackets to choose the event.");
-                break;
-            case "eventType":
-                System.out.println("Available types: \n" +
-                        "[Single] Single Speaker Events\n" +
-                        "[Multi] Multi Speaker Events\n" +
-                        "[Party] Party with no speakers\n" +
-                        "[VIP] Event only for VIPs\n" +
-                        "Please enter the type of event you want:");
-                break;
-            case "numSpeaker":
-                System.out.println("Please enter the number of Speakers in the event:");
-                break;
-            case "enterEventIdToCancelEvent":
-                System.out.println("Please enter the event id to cancel the event: ");
-                break;
+            case "message" -> System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
+            case "receiver" -> System.out.println("Which person you want to send a message to?");
+            case "eventId" -> System.out.println("Enter event id to choose the event:");
+            case "roomNumber" -> System.out.println("Please enter a room number:");
+            case "description" -> System.out.println("Please input a short description that does not have a comma");
+            case "vip" -> System.out.println("Please input 'true' or 'false' to indicate whether the event is for VIP only");
+            case "newRoomNumber" -> System.out.println("Please enter a new room number:");
+            case "newUsername" -> System.out.println("Please enter a new username:");
+            case "startTime" -> System.out.println("Please enter a start time. Format: yyyy-m[m]-d[d] hh:mm:ss");
+            case "duration" -> System.out.println("Please enter a duration:");
+            case "password" -> System.out.println("Please enter a password:");
+            case "eventIdSendMessage" -> System.out.println("Please enter event Id that you want to send messages:");
+            case "messageToRespond" -> System.out.println("Please enter the index of message that you would like to respond:");
+            case "roomSize" -> System.out.println("Please enter the room size:");
+            case "speakerName" -> System.out.println("Please enter the speaker's username:");
+            case "signUp" -> System.out.println("Here are the events that you can sign up for.");
+            case "maximum people" -> System.out.println("Please enter the maximum number of Attendees in the event:");
+            case "newMaxPeopleOfEvent" -> System.out.println("Please enter the new maximum people in the event:");
+            case "enterNumberInSquareBracketsToChooseEvent" -> System.out.println("Enter number in square brackets to choose the event.");
+            case "eventType" -> System.out.println("Available types: \n" +
+                    "[Single] Single Speaker Events\n" +
+                    "[Multi] Multi Speaker Events\n" +
+                    "[Party] Party with no speakers\n" +
+                    "[VIP] Event only for VIPs\n" +
+                    "Please enter the type of event you want:");
+            case "numSpeaker" -> System.out.println("Please enter the number of Speakers in the event:");
+            case "enterEventIdToCancelEvent" -> System.out.println("Please enter the event id to cancel the event: ");
+            case "requestIntroduction" -> System.out.println("Here is all requests you made before: ");
+            case "makeRequestTitle" -> System.out.println("Please type in the title of request:");
+            case "makeRequestContext" -> System.out.println("Please type in the content of request:");
+            case "readRequest" -> System.out.println("Please enter the index of request you want to read: ");
+            case "recallRequest" -> System.out.println("Please enter the index of request you want to recall. \n" +
+                    "Or, type in 'Recall all' to recall all requests: ");
+            case "recallRequestConfirm" -> System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No] \n");
+            case "deleteSuccess" -> System.out.println("Delete success!");
         }
     }
 
@@ -206,33 +176,22 @@ public class Presenter {
      */
     public static void menusInOrganizer(String methodName) {
         switch (methodName) {
-            case "manageRooms":
-                System.out.println("Manage rooms:\n" +
-                        "[a] add a new room\n" +
-                        "[b] see schedule of a certain room\n" +
-                        "[c] add a new event\n" +
-                        "[c2] cancel an event\n" +
-                        "[d] change an event's maximum number of people\n" +
-                        "[e] exit to main menu.");
-                break;
-            case "createSpeaker":
-            case "createVIP":
-                System.out.println("You want a promotion or a creation?\n " +
-                        "[a] promotion\n " +
-                        "[b] creation");
-                break;
-            case "promoteExistingAttendee":
-                System.out.println("Note that promotion will make that attendee to be the VIP attendee.\n" +
-                        "Enter a username to promote him/her a VIP.");
-                break;
-            case "scheduleSpeakers1":
-                System.out.println("Input the event number of an existing event to add speaker.\n" +
-                        "[r] to check schedules of rooms.");
-                break;
-            case "scheduleSpeakers2":
-                System.out.println("Enter room number to check schedule of the room\n" +
-                        "[a] to add new event");
-                break;
+            case "manageRooms" -> System.out.println("Manage rooms:\n" +
+                    "[a] add a new room\n" +
+                    "[b] see schedule of a certain room\n" +
+                    "[c] add a new event\n" +
+                    "[c2] cancel an event\n" +
+                    "[d] change an event's maximum number of people\n" +
+                    "[e] exit to main menu.");
+            case "createSpeaker", "createVIP" -> System.out.println("You want a promotion or a creation?\n " +
+                    "[a] promotion\n " +
+                    "[b] creation");
+            case "promoteExistingAttendee" -> System.out.println("Note that promotion will make that attendee to be the VIP attendee.\n" +
+                    "Enter a username to promote him/her a VIP.");
+            case "scheduleSpeakers1" -> System.out.println("Input the event number of an existing event to add speaker.\n" +
+                    "[r] to check schedules of rooms.");
+            case "scheduleSpeakers2" -> System.out.println("Enter room number to check schedule of the room\n" +
+                    "[a] to add new event");
         }
     }
 
@@ -243,26 +202,14 @@ public class Presenter {
      */
     public static void titlesInSpeaker(String methodName) {
         switch (methodName) {
-            case "manageRooms":
-                System.out.println("Here is a list of rooms");
-                break;
-            case "checkRoom":
-                System.out.println("That's all events in this room.");
-                break;
-            case "promoteExistingSpeaker":
-                System.out.println("Note that promotion will make that user the speaker of all their " +
-                        "signed events.\n" +
-                        "Enter a username to promote him/her a speaker.");
-                break;
-            case "scheduleSpeakers1":
-                System.out.println("Showing all events:");
-                break;
-            case "scheduleSpeakers2":
-                System.out.println("Here are the rooms.");
-                break;
-            case "AddEvents":
-                System.out.println("Now please add the event.");
-                break;
+            case "manageRooms" -> System.out.println("Here is a list of rooms");
+            case "checkRoom" -> System.out.println("That's all events in this room.");
+            case "promoteExistingSpeaker" -> System.out.println("Note that promotion will make that user the speaker of all their " +
+                    "signed events.\n" +
+                    "Enter a username to promote him/her a speaker.");
+            case "scheduleSpeakers1" -> System.out.println("Showing all events:");
+            case "scheduleSpeakers2" -> System.out.println("Here are the rooms.");
+            case "AddEvents" -> System.out.println("Now please add the event.");
         }
     }
 
@@ -325,6 +272,11 @@ public class Presenter {
             case "createUsername":
                 System.out.println("Username should not contain a comma.");
                 break;
+            case "invalidRequestTitle":
+                System.out.println("This Request title already exist, please try another one!");
+                break;
+            case"noSuchRequest":
+                System.out.println("Cannot find such request");
             default:
                 System.out.println("Invalid input.");
                 break;

@@ -4,6 +4,8 @@ import event.EventManager;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
+import request.InvalidTitleException;
+import request.Requestmanager;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public abstract class UserSystem {
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
     protected MessageManager messagemanager = new MessageManager();
+    protected Requestmanager requestmanager = new Requestmanager();
 
     /**
      * Constructs the User System. Initializes the loading of managers.
@@ -79,6 +82,19 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
+    protected void makeNewRequest(){
+        Presenter.inputPrompt("makeRequestTitle");
+        String title = reader.nextLine();
+        Presenter.inputPrompt("makeRequestContext");
+        String contect = reader.nextLine();
+        try{
+            requestmanager.createNewRequest(myName, title, contect);
+        } catch (InvalidTitleException e) {
+            Presenter.invalid("invalidRequestTitle");
+        }
+
+    }
+
     /*
      * Add all senders of the inbox messages to user's contact list.
      */
@@ -97,103 +113,4 @@ public abstract class UserSystem {
         eventmanager = read.getEventManager();
         messagemanager = read.getMessageManager();
     }
-
-//    private void initializeUserManager(UserManager userManager) {
-//        Iterator userIterator = new UserIterator();
-//        Iterator eventIterator = new EventIterator();
-//        String[] temp;
-//        while (userIterator.hasNext()) {
-//            temp = userIterator.next();
-//            try {
-//                userManager.createUserAccount(temp[2], temp[0], temp[1]);
-//            } catch (Exception e) {
-//                System.out.println("This should not be happening.");
-//            }
-//        }
-//        Iterator userIter = new UserIterator();
-//        while (userIter.hasNext()) {
-//            temp = userIter.next();
-//            for (int i = 3; i < temp.length; i++) {
-//                userManager.addContactList(temp[i], temp[0]);
-//            }
-//        }
-//        String[] temp2;
-//        int k = 0;
-//        while (eventIterator.hasNext()) {
-//            temp2 = eventIterator.next();
-//            for (int j = 6; j < temp2.length; j++) {
-//                try {
-//                    userManager.addSignedEvent(String.valueOf(k), temp2[j]);
-//                } catch (Exception e) {
-//                    Presenter.invalid("fileRead");
-//                }
-//            }
-//            k += 1;
-//        }
-//    }
-//
-//    private void initializeEventManager(EventManager eventManager) {
-//        int j;
-//        int k = 0;
-//        Iterator eventIterator = new EventIterator();
-//        Iterator roomIterator = new RoomIterator();
-//        UserManager usermanager = new UserManager();
-//        initializeUserManager(usermanager);
-//        String[] temp;
-//        System.out.println("loading existing events from file...");
-//        while (roomIterator.hasNext()) {
-//            temp = roomIterator.next();
-//            try {
-//                eventManager.addRoom(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-//            } catch (Exception e) {
-////                Presenter.invalid("fileRead");
-////                Presenter.defaultPrint("Failed to add room" + Integer.parseInt(temp[0]));
-//                e.printStackTrace();
-//            }
-//        }
-//        String[] temp2;
-//        while (eventIterator.hasNext()) {
-//            temp2 = eventIterator.next();
-//            try {
-//                eventManager.addEvent(temp2[0], Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]),
-//                        Timestamp.valueOf(temp2[3]), Integer.parseInt(temp2[4]), temp2[5]);
-//            } catch (Exception e) {
-//                Presenter.invalid("fileRead");
-//                Presenter.defaultPrint("Failed to load event" + temp2[0] + "Invalid room number.");
-//            }
-//            for (j = 6; j < temp2.length; j++) {
-//                try {
-//                    eventManager.addUserToEvent(usermanager.getUserType(temp2[j]), temp2[j], k);
-//                } catch (Exception e) {
-////                    Presenter.invalid("fileRead");
-////                    Presenter.defaultPrint("Failed to add User to Event, "+e.getMessage());
-//                    e.printStackTrace();
-//                }
-//            }
-//            k += 1;
-//        }
-//        System.out.println("\n Load complete. Welcome to the system. \n");
-//    }
-//
-//    private void initializeMessageManager(MessageManager messageManager) {
-//        int j;
-//        MessageIterator messageIterator = new MessageIterator();
-//        String[] temp;
-//        String temp_str;
-//        while (messageIterator.hasNext()) {
-//            temp = messageIterator.next();
-//            StringBuilder temp_strBuilder = new StringBuilder(temp[2]);
-//            for (j = 3; j < temp.length; j++) {
-//                temp_strBuilder.append(',').append(temp[j]);
-//            }
-//            temp_str = temp_strBuilder.toString();
-//            try {
-//                messageManager.sendMessage(temp[0], temp[1], temp_str);
-//            } catch (Exception e) {
-////                Presenter.invalid("fileRead");
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
 }

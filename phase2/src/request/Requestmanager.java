@@ -19,7 +19,7 @@ public class Requestmanager {
         titleRequestMapping.get(title).setStatus(true);
     }
 
-    public ArrayList<String[]> getMineRequests(String username){
+    public ArrayList<String[]> getRequestsFrom(String username){
         ArrayList<String[]> allMineRequestList = new ArrayList<>();
         for (Request request: userRequestMapping.get(username)){
             String[] singleRequest = new String[] {request.getTitle(), request.getContent()};
