@@ -6,6 +6,7 @@ import event.exceptions.InvalidUserException;
 import event.exceptions.NoSuchEventException;
 import presenter.Presenter;
 import readWrite.Write;
+import request.NoSuchRequestException;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
@@ -54,6 +55,15 @@ public class AttendeeSystem extends UserSystem {
                     continue;
                 case "5":
                     seeMessages();
+                    continue;
+                case "6":
+                    makeNewRequest();
+                    continue;
+                case "7":
+                    seeMineRequests();
+                    continue;
+                case "8":
+                    deleteRequests();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
@@ -136,4 +146,55 @@ public class AttendeeSystem extends UserSystem {
         }
     }
 
+    protected void seeMineRequests(){
+        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
+        Presenter.inputPrompt("requestIntroduction");
+        for (int i = 0; i < requestList.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
+        }
+        Presenter.exitToMainMenuPrompt();
+        Presenter.inputPrompt("readRequest");
+        String number = reader.nextLine();
+        if (!("e".equals(number))) {
+            Presenter.defaultPrint(requestList.get(Integer.parseInt(number))[1]);
+        } else {
+            Presenter.exitingToMainMenu();
+        }
+    }
+
+    private void deleteRequests(){
+        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
+        Presenter.inputPrompt("requestIntroduction");
+        for (int i = 0; i < requestList.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
+        }
+        Presenter.inputPrompt("recallRequest");
+        Presenter.exitToMainMenuPrompt();
+        String number = reader.nextLine();
+        if ("e".equals(number)) {
+            Presenter.exitingToMainMenu();
+        } else {
+            Presenter.inputPrompt("recallRequestConfirm");
+            String confirm = reader.nextLine();
+            if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
+                if (!number.equals("Recall all")) {
+                    try {
+                        requestmanager.recallSingleRequest(requestList.get(Integer.parseInt(number))[0]);
+                        Presenter.inputPrompt("deleteSuccess");
+                    } catch (NoSuchRequestException e) {
+                        Presenter.invalid("noSuchRequest");
+                    }
+                } else {
+                    try {
+                        requestmanager.recallAllRequestsFrom(myName);
+                        Presenter.inputPrompt("deleteSuccess");
+                    } catch (NoSuchRequestException e) {
+                        Presenter.invalid("noSuchRequest");
+                    }
+                }
+            }
+            Presenter.exitingToMainMenu();
+        }
+    }
 }
+

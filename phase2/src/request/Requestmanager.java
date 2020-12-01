@@ -1,25 +1,31 @@
 package request;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Requestmanager {
     private Map<String, ArrayList<Request>> userRequestMapping; // key: username; value: a list of Requests;
     private Map<String, Request> titleRequestMapping; // key: title; value: Request;
 
+    public Requestmanager(){
+        this.userRequestMapping = new HashMap<>();
+        this.titleRequestMapping = new HashMap<>();
+    }
     public void createNewRequest(String username, String title, String content) throws InvalidTitleException {
         if (titleRequestMapping.containsKey(title)) {
             throw new InvalidTitleException("Already exist such request title.");
+        } else {
+            Request request = new Request(username, title, content);
+            addRequest(username, title, request);
         }
-        Request request = new Request(username, title, content);
-        addRequest(username, title, request);
     }
 
     public void changeStatus(String title){
         titleRequestMapping.get(title).setStatus(true);
     }
 
-    public ArrayList<String[]> getMineRequests(String username){
+    public ArrayList<String[]> getRequestsFrom(String username){
         ArrayList<String[]> allMineRequestList = new ArrayList<>();
         for (Request request: userRequestMapping.get(username)){
             String[] singleRequest = new String[] {request.getTitle(), request.getContent()};

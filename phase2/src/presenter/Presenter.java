@@ -16,17 +16,11 @@ public class Presenter {
     }
 
     /**
-     * Print out the prompt of conference choosing to the user.
-     */
-    public static void conferenceChoose() {
-        System.out.println("Please choose a conference to participate");
-    }
-
-    /**
      * Print out the menu of speaker.
      */
     public static void speakerMenu() {
-        System.out.println("[1] See a list of events the speaker gave.\n" +
+        System.out.println(
+                "[1] See a list of events the speaker gave.\n" +
                 "[2] See a list of messages the speaker gave.\n" +
                 "[3] Message all Attendees who signed up for a particular event\n" +
                 "[4] Message a particular Attendee who signed up for a particular event\n" +
@@ -40,7 +34,8 @@ public class Presenter {
      * Print out the menu of organizer.
      */
     public static void organizerMenu() {
-        System.out.println("[1] manage rooms and add events\n" +
+        System.out.println(
+                "[1] manage rooms and add events\n" +
                 "[2] create/promote speaker account\n" +
                 "[3] Schedule speakers and their events\n" +
                 "[4] Send message to a particular person\n" +
@@ -55,11 +50,15 @@ public class Presenter {
      * Print out the menu of attendee.
      */
     public static void attendeeMenu() {
-        System.out.println("[1] sign up for an event.\n" +
+        System.out.println(
+                "[1] sign up for an event.\n" +
                 "[2] See events that I have signed up for\n" +
                 "[3] Cancel enrolment in an signed event\n" +
                 "[4] Send a message\n" +
                 "[5] See messages\n" +
+                "[6] Make new request\n" +
+                "[7] See my requests\n" +
+                "[8] Delete my requests\n" +
                 "[e] Save and log out.");
     }
 
@@ -189,9 +188,6 @@ public class Presenter {
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
                 break;
-            case "enterNumberInSquareBracketsToChooseConference":
-                System.out.println("Enter number in square brackets to choose the conference.");
-                break;
             case "eventType":
                 System.out.println("Available types: \n" +
                         "[Single] Single Speaker Events\n" +
@@ -205,6 +201,28 @@ public class Presenter {
                 break;
             case "enterEventIdToCancelEvent":
                 System.out.println("Please enter the event id to cancel the event: ");
+                break;
+            case "requestIntroduction":
+                System.out.println("Here is all requests you made before: ");
+                break;
+            case "makeRequestTitle":
+                System.out.println("Please type in the title of request:");
+                break;
+            case "makeRequestContext":
+                System.out.println("Please type in the content of request:");
+                break;
+            case "readRequest":
+                System.out.println("Please enter the index of request you want to read: ");
+                break;
+            case "recallRequest":
+                System.out.println("Please enter the index of request you want to recall. \n" +
+                    "Or, type in 'Recall all' to recall all requests: ");
+                break;
+            case "recallRequestConfirm":
+                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No]");
+                break;
+            case "deleteSuccess":
+                System.out.println("Delete success!");
                 break;
         }
     }
@@ -335,6 +353,11 @@ public class Presenter {
             case "createUsername":
                 System.out.println("Username should not contain a comma.");
                 break;
+            case "invalidRequestTitle":
+                System.out.println("This Request title already exist, please try another one!");
+                break;
+            case"noSuchRequest":
+                System.out.println("Cannot find such request");
             default:
                 System.out.println("Invalid input.");
                 break;
