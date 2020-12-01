@@ -1,5 +1,7 @@
 package event;
 
+import javafx.util.Pair;
+
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -168,30 +170,35 @@ public class EventManager {
      * @param username    username
      * @param eventNumber eventNumber.
      * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
-     * @throws RoomIsFullException        if room is full.
      * @throws InvalidUserException       if input type is "Organizer".
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
-     * @throws NoSpeakerException         if event corresponding to the input eventNumber does not has speaker.
      * @throws EventIsFullException       if event is full.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException,
-            RoomIsFullException, NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
-        int room_number = this.getEventIDMapToRoomNumber().get(eventNumber);
-        int roomCapacity = this.getRoomNumberMapToCapacity().get(room_number);
+            NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
         int event_size = map.get(eventNumber).getAttendees().size();
-        int maximumPeople = map.get(eventNumber).getMaximumPeople();
+        int maximumAttendee = map.get(eventNumber).getMaximumAttendee();
         if (map.containsKey(eventNumber)) {
-            if (type.equals("Speaker")) {
-                if (!map.get(eventNumber).getSpeakStatus()) {
-                    map.get(eventNumber).setSpeaker(username);
-                } else {
-                    throw new AlreadyHasSpeakerException("Already Has Speaker: " +
-                            map.get(eventNumber).getSpeaker() + " at " + map.get(eventNumber));
+            if(map.get(eventNumber).getType().equals("VIPEvent")){
+                if (!type.equals("VIP")){
+                    throw new InvalidUserException("Invalid user type.");
                 }
-            } else if (type.equals("Attendee")) {
-                if (event_size >= roomCapacity - 1) {
-                    throw new RoomIsFullException("Room: " + room_number + " is Full!");
-                } else if (event_size >= maximumPeople - 1) {
+            }
+            if (type.equals("Speaker")) {
+                if (map.get(eventNumber).getMaximumSpeaker() == 0){
+                    throw new NoSpeakerException("No need for PartyEvent");
+                }
+                else {
+                    if (map.get(eventNumber).getMaximumSpeaker() > map.get(eventNumber).getSpeakers().size()){
+                        map.get(eventNumber).setSpeaker(username);
+                    }
+                    else{
+                        throw new AlreadyHasSpeakerException("Already Has Speaker: " +
+                                map.get(eventNumber).getSpeakers() + " at " + map.get(eventNumber));
+                        }
+                    }
+            } else if (type.equals("Attendee") ||type.equals("VIP")) {
+                if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
                             "You can't sign up this event!");
                 } signUp(String.valueOf(eventNumber), username);
@@ -213,15 +220,10 @@ public class EventManager {
     public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
             InvalidNewMaxNumberException, InvalidActivityException {
         int eventSize = map.get(eventNumber).getAttendees().size();
-        int speakerSize;
-        if (map.get(eventNumber).getSpeakStatus()) {
-            speakerSize = 1;
-        } else {
-            speakerSize = 0;
-        }
+        int speakerSize = getSpeakers(eventNumber).size();
         if (map.containsKey(eventNumber) && this.getSchedule(roomNumber).contains(eventNumber)) {
             if (newMaximum >= (eventSize + speakerSize)) {
-                map.get(eventNumber).setMaximumPeople(newMaximum);
+                map.get(eventNumber).setMaximumAttendee(newMaximum);
             } else {
                 throw new InvalidNewMaxNumberException("Invalid input. The new maximum number of this event is " +
                         "less than the existing attendees in that event.");
@@ -229,6 +231,17 @@ public class EventManager {
         } else {
             throw new NoSuchEventException("There is not an event with event number " + eventNumber);
         }
+    }
+
+    /**
+     * Get the capacity of an event
+     * @param id the event ID.
+     * @return a pair of integers that the first is number of speakers, while the second is the number of attendees.
+     */
+    public Pair<Integer, Integer> getCapacity(int id){
+        int numSpeaker = map.get(id).getMaximumSpeaker();
+        int numPeople = map.get(id).getMaximumAttendee();
+        return new Pair<>(numSpeaker, numPeople);
     }
 
     /**
@@ -285,11 +298,11 @@ public class EventManager {
      * @param eventNum the eventNumber of the event that we are looking for.
      * @return the speaker of the event with the eventNum
      */
-    public String getSpeakers(Integer eventNum) {
+    public ArrayList<String> getSpeakers(Integer eventNum) {
         try {
-            return map.get(eventNum).getSpeaker();
+            return map.get(eventNum).getSpeakers();
         } catch (Exception e) {
-            return "(No speaker yet.)";
+            return new ArrayList<>();
         }
     }
 
@@ -315,33 +328,45 @@ public class EventManager {
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException  if there's no such room.
      */
-    public void addEvent(String roomNo, Timestamp time, int meetingLength, int maximumPeople, String description) throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException {
+    public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, int meetingLength,
+                         String description)
+            throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException, RoomIsFullException {
         if (!inOfficeHour(time)) {
-            throw new NotInOfficeHourException("Invalid time. Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
+            throw new NotInOfficeHourException("Invalid time." +
+                    " Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
         }
         if (ifRoomAvailable(roomNo, time, meetingLength)) {
             // will update more cases soon, add speaker cannot be used now//
-            Event newEvent = new Event(time) {
-                @Override
-                public String getSpeaker() throws NoSpeakerException {
-                    return null;
-                }
-
-                @Override
-                public void setSpeaker(String u) {
-
-                }
-            };
+            Event newEvent;
+            switch (numSpeakers){
+                case 0:
+                    newEvent = new PartyEvent(time);
+                    break;
+                case 1:
+                    newEvent = new SingleEvent(time);
+                    break;
+                case 2:
+                    newEvent = new VIPEvent(time);
+                    break;
+                default:
+                    newEvent = new MultiEvent(time, numSpeakers);
+                    break;
+            }
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
-            newEvent.setMaximumPeople(maximumPeople);
+            newEvent.setMaximumAttendee(numAttendees);
             for (Room r : rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
-                    r.addEvent(newEvent.getId());
+                    if(r.getCapacity() >= numAttendees+numSpeakers){
+                        r.addEvent(newEvent.getId());
+                    } else {
+                        throw new RoomIsFullException("Room is not big enough.");
+                    }
                 }
             }
         } else {
-            throw new TimeNotAvailableException("Failed to add event to room " + roomNo + " : Time has been taken by other events.");
+            throw new TimeNotAvailableException("Failed to add event to room "
+                    + roomNo + " : Time has been taken by other events.");
         }
     }
 
@@ -356,10 +381,10 @@ public class EventManager {
         if(!map.containsKey(i)){
             throw new NoSuchEventException("This event does not exist: id: " + eventId);
         }
-        ArrayList<String> attendees = this.getAttendees(eventId);
-        for(String a:attendees){
-            this.signOut(eventId, a);
-        }
+//        ArrayList<String> attendees = this.getAttendees(eventId);
+//        for(String a:attendees){
+//            this.signOut(eventId, a);
+//        }
         for (Integer id : map.keySet()) {
             if (id == Integer.parseInt(eventId)) {
                 map.remove(id);
@@ -475,4 +500,5 @@ public class EventManager {
         }
         return false;
     }
+
 }

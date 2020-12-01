@@ -33,7 +33,7 @@ public class Presenter {
      * Print out the menu of organizer.
      */
     public static void organizerMenu() {
-        System.out.println("[1] see and manage rooms\n" +
+        System.out.println("[1] manage rooms and add events\n" +
                 "[2] create/promote speaker account\n" +
                 "[3] Schedule speakers and their events\n" +
                 "[4] Send message to a particular person\n" +
@@ -170,29 +170,45 @@ public class Presenter {
                 System.out.println("Here are the events that you can sign up for.");
                 break;
             case "maximum people":
-                System.out.println("Please enter the maximum people in the event:");
+                System.out.println("Please enter the maximum number of Attendees in the event:");
                 break;
             case "newMaxPeopleOfEvent":
                 System.out.println("Please enter the new maximum people in the event:");
                 break;
             case "enterNumberInSquareBracketsToChooseEvent":
                 System.out.println("Enter number in square brackets to choose the event.");
+                break;
+            case "eventType":
+                System.out.println("Available types: \n" +
+                        "[Single] Single Speaker Events\n" +
+                        "[Multi] Multi Speaker Events\n" +
+                        "[Party] Party with no speakers\n" +
+                        "[VIP] Event only for VIPs\n" +
+                        "Please enter the type of event you want:");
+                break;
+            case "numSpeaker":
+                System.out.println("Please enter the number of Speakers in the event:");
+                break;
+            case "enterEventIdToCancelEvent":
+                System.out.println("Please enter the event id to cancel the event: ");
+                break;
         }
     }
 
     /**
-     * Print out the menus in SpeakerSystem.
+     * Print out the menus in OrganizerSystem.
      *
      * @param methodName the method name to the corresponding menu.
      */
-    public static void menusInSpeaker(String methodName) {
+    public static void menusInOrganizer(String methodName) {
         switch (methodName) {
             case "manageRooms":
                 System.out.println("Manage rooms:\n" +
                         "[a] add a new room\n" +
                         "[b] see schedule of a certain room\n" +
                         "[c] add a new event\n" +
-                        "[d] change the event's maximum number of people\n" +
+                        "[c2] cancel an event\n" +
+                        "[d] change an event's maximum number of people\n" +
                         "[e] exit to main menu.");
                 break;
             case "createSpeaker":
@@ -273,33 +289,33 @@ public class Presenter {
             case "username":
                 System.out.println("Username doesn't exist. Please enter a valid username.");
                 break;
-//            case "roomNumber":
-//                System.out.println("Room number doesn't exist. Please enter a valid room number.");
-//                break;
+            case "roomNumber":
+                System.out.println("Room number doesn't exist. Please enter a valid room number.");
+                break;
             case "eventId":
                 System.out.println("Event Id doesn't exist. Please enter a valid event Id.");
                 break;
             case "addEventGeneral":
                 System.out.println("Sorry, cannot add event!");
                 break;
-//            case "getEventSchedule":
-//                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
-//                break;
-//            case "addSpeaker":
-//                System.out.println("Cannot add speaker to the event.");
-//                break;
-//            case "login":
-//                System.out.println("Wrong username or password");
-//                break;
-//            case "roomFull":
-//                System.out.println("Sorry, you cannot add this event due to the room capacity.");
-//                break;
+            case "getEventSchedule":
+                System.out.println("Sorry, cannot get event schedule. Event unavailable.");
+                break;
+            case "addSpeaker":
+                System.out.println("Cannot add speaker to the event.");
+                break;
+            case "login":
+                System.out.println("Wrong username or password");
+                break;
+            case "roomFull":
+                System.out.println("Sorry, you cannot add this event due to the room capacity.");
+                break;
             case "fileRead":
                 System.out.println("The .csv files are corrupted.");
                 break;
-//            case "createUsername":
-//                System.out.println("Username should not contain a comma.");
-//                break;
+            case "createUsername":
+                System.out.println("Username should not contain a comma.");
+                break;
             default:
                 System.out.println("Invalid input.");
                 break;
@@ -335,21 +351,21 @@ public class Presenter {
         System.out.println(input);
     }
 
-//    /**
-//     * Cases where the eventManager couldn't add event.
-//     * @param input the case of the failure.
-//     * @param room the room number that the user tries to add event.
-//     */
-//    public static void failureAddEvent(String input, String room){
-//        if(input.equals("NotOfficeHour")){
-//            System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
-//                    "ensure meeting ends before 17:00");
-//        } else if(input.equals("TimeNotAvailable")){
-//            System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
-//        } else{
-//            System.out.println("invalid room number");
+//        /**
+//         * Cases where the eventManager couldn't add event.
+//         * @param input the case of the failure.
+//         * @param room the room number that the user tries to add event.
+//         */
+//        public static void failureAddEvent(String input, String room){
+//            if(input.equals("NotOfficeHour")){
+//                System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
+//                        "ensure meeting ends before 17:00");
+//            } else if(input.equals("TimeNotAvailable")){
+//                System.out.println("Failed to add event to room " + room + ": Time has been taken by other events.");
+//            } else{
+//                System.out.println("invalid room number");
+//            }
 //        }
-//    }
 
     /**
      * Prints the process of loading an event.

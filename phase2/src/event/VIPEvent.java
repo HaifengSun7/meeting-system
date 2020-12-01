@@ -3,22 +3,21 @@ package event;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class SingleEvent extends Event{
+public class VIPEvent  extends SingleEvent {
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
      *
      * @param time : The time the meeting begins.
      */
-    public SingleEvent(Timestamp time) {
+    public VIPEvent(Timestamp time) {
         super(time);
-        this.type = "Single";
+        this.type = "VIP";
     }
 
     @Override
     public ArrayList<String> getSpeakers(){
         return speakers;
     }
-
 
     @Override
     public void setSpeaker(String u) {
@@ -31,5 +30,4 @@ public class SingleEvent extends Event{
     public int getMaximumSpeaker(){
         return 1;
     }
-
 }

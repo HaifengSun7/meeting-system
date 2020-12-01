@@ -132,7 +132,7 @@ public class OrganizerSystem extends UserSystem {
         for (String s : roomList) {
             Presenter.defaultPrint(s);
         }
-        Presenter.menusInSpeaker("manageRooms");
+        Presenter.menusInOrganizer("manageRooms");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -148,6 +148,10 @@ public class OrganizerSystem extends UserSystem {
                 addingEvent();
                 reader.nextLine();
                 break;
+            case "c2":
+                cancelEvent();
+                reader.nextLine();
+                break;
             case "d":
                 changeEventMaxNumberPeople();
                 reader.nextLine();
@@ -159,6 +163,26 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.continuePrompt();
                 reader.nextLine();
                 break;
+        }
+    }
+
+    /**
+     * Cancel an event.
+     */
+    private void cancelEvent() {
+        Presenter.inputPrompt("enterEventIdToCancelEvent");
+        String eventId = reader.nextLine();
+        try {
+            ArrayList<String> userList = new ArrayList<>(eventmanager.getAttendees(eventId));
+            for (String username: userList) {
+                usermanager.deleteSignedEvent(eventId, username);
+            }
+            eventmanager.cancelEvent(eventId);
+            Presenter.success();
+        } catch (NoSuchEventException | InvalidActivityException e) {
+            Presenter.printErrorMessage(e.getMessage());
+            Presenter.continuePrompt();
+            reader.nextLine();
         }
     }
 
@@ -186,23 +210,21 @@ public class OrganizerSystem extends UserSystem {
             return;
         }
         String command = reader.nextLine();
-        Presenter.inputPrompt("newMaxPeopleOfEvent");
-        String newMax = reader.nextLine();
-        switch (command) {
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
-            default:
-                try {
-                    eventmanager.setMaximumPeople(Integer.parseInt(roomNumber), Integer.parseInt(newMax),
-                            Integer.parseInt(command));
-                    Presenter.success();
-                    Presenter.continuePrompt();
-                } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException e) {
-                    Presenter.printErrorMessage(e.getMessage());
-                    Presenter.continuePrompt();
-                }
-                break;
+        if ("e".equals(command)) {
+            Presenter.exitingToMainMenu();
+            Presenter.continuePrompt();
+        } else {
+            try {
+                Presenter.inputPrompt("newMaxPeopleOfEvent");
+                String newMax = reader.nextLine();
+                eventmanager.setMaximumPeople(Integer.parseInt(roomNumber), Integer.parseInt(newMax),
+                        Integer.parseInt(command));
+                Presenter.success();
+                Presenter.continuePrompt();
+            } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException e) {
+                Presenter.printErrorMessage(e.getMessage());
+                Presenter.continuePrompt();
+            }
         }
     }
 
@@ -238,6 +260,11 @@ public class OrganizerSystem extends UserSystem {
             Presenter.continuePrompt();
             reader.nextLine();
             return;
+        } catch (Exception e){
+            e.printStackTrace();
+            Presenter.printErrorMessage("Wrong input.");
+            Presenter.continuePrompt();
+            return;
         }
         Presenter.titlesInSpeaker("checkRoom");
         Presenter.continuePrompt();
@@ -247,7 +274,7 @@ public class OrganizerSystem extends UserSystem {
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
-        Presenter.menusInSpeaker("createSpeaker");
+        Presenter.menusInOrganizer("createSpeaker");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -307,7 +334,7 @@ public class OrganizerSystem extends UserSystem {
         for (int i = 0; i < allEvents.size(); i++) {
             Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
         }
-        Presenter.menusInSpeaker("scheduleSpeakers1");
+        Presenter.menusInOrganizer("scheduleSpeakers1");
         Presenter.exitToMainMenuPrompt();
         String command = reader.nextLine();
         switch (command) {
@@ -320,7 +347,7 @@ public class OrganizerSystem extends UserSystem {
                 for (String s : roomLst) {
                     Presenter.defaultPrint(s);
                 }
-                Presenter.menusInSpeaker("scheduleSpeakers2");
+                Presenter.menusInOrganizer("scheduleSpeakers2");
                 Presenter.exitToMainMenuPrompt();
                 String command4 = reader.nextLine();
                 switch (command4) {
@@ -358,10 +385,9 @@ public class OrganizerSystem extends UserSystem {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
-
-            } catch (RoomIsFullException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("Room is full.");
+//            } catch (RoomIsFullException e) {
+//                Presenter.printErrorMessage(e.getMessage());
+//                Presenter.defaultPrint("Room is full.");
             } catch (AlreadyHasSpeakerException e) {
                 Presenter.printErrorMessage(e.getMessage());
                 Presenter.defaultPrint("Already has speaker.");
@@ -384,7 +410,7 @@ public class OrganizerSystem extends UserSystem {
     /**
      * The action of adding an Event, with info from inputs.
      */
-    private void addingEvent() {
+    private void addingEvent(){
         Presenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
@@ -392,18 +418,52 @@ public class OrganizerSystem extends UserSystem {
         String time1 = reader.nextLine();
         Presenter.inputPrompt("duration");
         String duration = reader.nextLine();
-        Presenter.inputPrompt("maximum people");
-        String maximumPeople = reader.nextLine();
         Presenter.inputPrompt("description");
         String description = reader.nextLine();
+        Presenter.inputPrompt("eventType");
+        String type = reader.nextLine();
+        int maxSpeaker;
+        int maxAttendee;
+        try {
+            switch (type){
+                case ("Party"):
+                    maxSpeaker = 0;
+                    Presenter.inputPrompt("maximum people");
+                    maxAttendee = Integer.parseInt(reader.nextLine());
+                    break;
+                case("Single"):
+                    maxSpeaker = 1;
+                    Presenter.inputPrompt("maximum people");
+                    maxAttendee = Integer.parseInt(reader.nextLine());
+                    break;
+                case("Multi"):
+                    Presenter.inputPrompt("numSpeaker");
+                    maxSpeaker = Integer.parseInt(reader.nextLine());
+                    Presenter.inputPrompt("maximum people");
+                    maxAttendee = Integer.parseInt(reader.nextLine());
+                    break;
+                case("VIP"):
+                    maxSpeaker = 1;
+                    Presenter.inputPrompt("maximum people");
+                    maxAttendee = Integer.parseInt(reader.nextLine());
+                    break;
+                default:
+                    throw new NoSuchTypeException("Incorrect Event Type");
+            }
+        } catch (Exception e){
+            Presenter.printErrorMessage(e.getMessage());
+            Presenter.exitToMainMenuPrompt();
+            return;
+        }
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, Timestamp.valueOf(time1), Integer.parseInt(duration),
-                    Integer.parseInt(maximumPeople), description);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description);
             Presenter.success();
             Presenter.continuePrompt();
-        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException e) {
+        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
+                RoomIsFullException e) {
             Presenter.printErrorMessage(e.getMessage());
+            Presenter.exitToMainMenuPrompt();
         } catch (Exception e) {
             Presenter.invalid("addEventGeneral"); // Should not be called
         }

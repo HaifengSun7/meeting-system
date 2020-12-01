@@ -1,6 +1,7 @@
 package event;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class PartyEvent  extends Event {
     /**
@@ -14,11 +15,16 @@ public class PartyEvent  extends Event {
     }
 
     @Override
-    public String getSpeaker() throws NoSpeakerException {
-        throw new NoSpeakerException("No Speaker" + this.id);
+    public ArrayList<String> getSpeakers(){
+        return new ArrayList<>();
     }
 
     @Override
     public void setSpeaker(String u) {
+    }
+
+    @Override
+    public int getMaximumSpeaker(){
+        return 0;
     }
 }

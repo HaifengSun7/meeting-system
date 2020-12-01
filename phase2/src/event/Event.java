@@ -19,7 +19,7 @@ public abstract class Event {
     protected String type;
     protected boolean speakStatus = false;
     private int maximumPeople;
-    protected Object speaker;
+    protected ArrayList<String> speakers = new ArrayList<>();
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -89,9 +89,8 @@ public abstract class Event {
      * Get the name of the Speaker.
      *
      * @return the name of Speaker.
-     * @throws NoSpeakerException when there is no speaker in the event.
      */
-    public abstract String getSpeaker() throws NoSpeakerException;
+    public abstract ArrayList<String> getSpeakers();
 
     /**
      * Set Speaker to the event.
@@ -100,6 +99,9 @@ public abstract class Event {
      */
     public abstract void setSpeaker(String u);
 
+    public String getType(){
+        return type;
+    }
 
     /**
      * Get the description of the event.
@@ -126,11 +128,23 @@ public abstract class Event {
      */
     public String toString() {
         String t = this.time.toString();
+        StringBuilder speakerString = new StringBuilder();
+        for(String s: this.speakers){
+            speakerString.append(s);
+            speakerString.append(",");
+        }
+        String sub;
+        if(speakerString.length() != 0){
+            sub = speakerString.substring(0, speakerString.length() - 1);
+        } else {
+            sub = "null";
+        }
         return "Event {" + "Id: " + this.getId() +
+                ", Type:" + this.type +
                 ", Description: " + this.description +
                 ", Time: " + t +
                 ", Maximum people: " + maximumPeople +
-                ", Speaker: " + speaker +
+                ", Speaker: " + sub +
                 ", Attendees: " + this.getAttendees() + "}";
     }
 
@@ -206,7 +220,7 @@ public abstract class Event {
      * set the maximum number of people in the event.
      * @param number the number of maximum people.
      */
-    public void setMaximumPeople(int number) {
+    public void setMaximumAttendee(int number) {
         this.maximumPeople = number;
     }
 
@@ -214,7 +228,9 @@ public abstract class Event {
      * get the maximum number of people in the event.
      * @return an integer of the maximum number of people in the event.
      */
-    public int getMaximumPeople() {
+    public int getMaximumAttendee() {
         return maximumPeople;
     }
+
+    public abstract int getMaximumSpeaker();
 }
