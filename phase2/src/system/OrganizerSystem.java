@@ -1,6 +1,6 @@
 package system;
 
-import event.*;
+import event.exceptions.*;
 import presenter.Presenter;
 import readWrite.Write;
 import user.DuplicateUserNameException;
@@ -58,6 +58,9 @@ public class OrganizerSystem extends UserSystem {
                     continue;
                 case "7":
                     seeMessages();
+                    continue;
+                case "8":
+                    createVIP();
                     continue;
                 case "e":
                     usermanager.logout(myName);
@@ -320,6 +323,48 @@ public class OrganizerSystem extends UserSystem {
     }
 
     /**
+     * Create a new user to be the VIP attendee.
+     */
+    private void createVIP() {
+        Presenter.menusInOrganizer("createVIP");
+        String command = reader.nextLine();
+        switch (command) {
+            case "a":
+                promoteExistingAttendee();
+                break;
+            case "b":
+                Presenter.inputPrompt("newUsername");
+                String username = reader.nextLine();
+                Presenter.inputPrompt("password");
+                String password = reader.nextLine();
+                try {
+                    usermanager.createUserAccount("VIP", username, password);
+                    Presenter.success();
+                } catch (DuplicateUserNameException e) {
+                    Presenter.printErrorMessage(e.getMessage());
+                    break;
+                } catch (InvalidUsernameException e) {
+                    Presenter.printErrorMessage(e.getMessage());
+                }
+                break;
+        }
+    }
+
+    /**
+     * Promote a attendee to be a VIP.
+     */
+    private void promoteExistingAttendee() {
+        Presenter.menusInOrganizer("promoteExistingAttendee");
+        String name = reader.nextLine();
+        try {
+            usermanager.becomeVIP(name);
+            System.out.println("Successfully set " + name + " to be a VIP attendee.\n");
+        } catch (NoSuchUserException e) {
+            Presenter.printErrorMessage(e.getMessage());
+        }
+    }
+
+    /**
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
@@ -422,6 +467,8 @@ public class OrganizerSystem extends UserSystem {
         String description = reader.nextLine();
         Presenter.inputPrompt("eventType");
         String type = reader.nextLine();
+        Presenter.inputPrompt("vip");
+        String vip = reader.nextLine();
         int maxSpeaker;
         int maxAttendee;
         try {
@@ -457,7 +504,7 @@ public class OrganizerSystem extends UserSystem {
         }
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, false);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip);
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |

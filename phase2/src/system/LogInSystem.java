@@ -1,12 +1,9 @@
 package system;
 
-import event.EventManager;
 import presenter.Presenter;
-import readWrite.Iterator;
-import readWrite.Read;
-import readWrite.UserIterator;
 import user.NoSuchUserException;
 import user.NotAttendeeException;
+import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
 
@@ -18,8 +15,7 @@ import java.util.Scanner;
  */
 public class LogInSystem {
 
-    UserManager userManager;
-    EventManager eventManager;
+    UserManager usermanager;
 
     /**
      * Run the Login System. Print out login menu, and initialize users' systems.
@@ -29,8 +25,8 @@ public class LogInSystem {
           This method is in charge of logging in, separate the system and log out.
          */
         while (true) {
-            userManager = new UserManager();
-            getAccountsAndConference();
+            usermanager = new UserManager();
+            getAccounts();
             boolean logged_in = false;
             String user_type = "";
             String username = "";
@@ -47,7 +43,7 @@ public class LogInSystem {
                     Presenter.password("");
                     String password = reader.nextLine();
                     try {
-                        user_type = userManager.logIn(username, password);
+                        user_type = usermanager.logIn(username, password);
                     } catch (WrongLogInException e) {
                         Presenter.printErrorMessage(e.getMessage());
                         continue;
@@ -55,9 +51,6 @@ public class LogInSystem {
                     logged_in = true;
                     break;
                 }
-                Presenter.conferenceChoose();
-                Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
-
                 if (!logged_in) {
                     Presenter.trailsRemaining(0);
                     return;
@@ -72,7 +65,7 @@ public class LogInSystem {
                             break;
                         default:
                             try {
-                                if (userManager.isVIP(username)) {
+                                if (usermanager.isVIP(username)) {
                                     system = new VIPSystem(username);
                                 } else {
                                     system = new AttendeeSystem(username);
@@ -89,11 +82,10 @@ public class LogInSystem {
         }
     }
 
-    private void getAccountsAndConference() {
-        Read read = new Read();
-        read.run();
-        userManager = read.usermanager;
-        eventManager = read.eventmanager;
+    private void getAccounts() {
+        ManagerBuilder managerBuilder = new ManagerBuilder();
+        managerBuilder.run();
+        usermanager = managerBuilder.getUserManager();
     }
 }
 

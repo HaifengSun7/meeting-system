@@ -47,6 +47,7 @@ public class Presenter {
                 "[5] Send message to all speakers\n" +
                 "[6] Send message to all attendees\n" +
                 "[7] See messages\n" +
+                "[8] create/promote VIP account\n" +
                 "[e] Save and Log out");
     }
 
@@ -146,6 +147,9 @@ public class Presenter {
             case "description":
                 System.out.println("Please input a short description that does not have a comma");
                 break;
+            case "vip" :
+                System.out.println("Please input 'true' or 'false' to indicate whether the event is for VIP only");
+                break;
             case "newRoomNumber":
                 System.out.println("Please enter a new room number:");
                 break;
@@ -222,9 +226,14 @@ public class Presenter {
                         "[e] exit to main menu.");
                 break;
             case "createSpeaker":
+            case "createVIP":
                 System.out.println("You want a promotion or a creation?\n " +
                         "[a] promotion\n " +
                         "[b] creation");
+                break;
+            case "promoteExistingAttendee":
+                System.out.println("Note that promotion will make that attendee to be the VIP attendee.\n" +
+                        "Enter a username to promote him/her a VIP.");
                 break;
             case "scheduleSpeakers1":
                 System.out.println("Input the event number of an existing event to add speaker.\n" +
