@@ -57,8 +57,8 @@ public class Presenter {
                 "[4] Send a message\n" +
                 "[5] See messages\n" +
                 "[6] Make new request\n" +
-                "[7] See mine requests\n" +
-                "[8] Delete mine requests\n" +
+                "[7] See my requests\n" +
+                "[8] Delete my requests\n" +
                 "[e] Save and log out.");
     }
 
@@ -219,7 +219,7 @@ public class Presenter {
                     "Or, type in 'Recall all' to recall all requests: ");
                 break;
             case "recallRequestConfirm":
-                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No] \n");
+                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] \n" + "[No]");
                 break;
             case "deleteSuccess":
                 System.out.println("Delete success!");

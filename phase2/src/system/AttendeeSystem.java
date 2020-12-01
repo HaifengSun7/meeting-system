@@ -168,7 +168,6 @@ public class AttendeeSystem extends UserSystem {
         for (int i = 0; i < requestList.size(); i++) {
             Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
         }
-        Presenter.exitToMainMenuPrompt();
         Presenter.inputPrompt("recallRequest");
         Presenter.exitToMainMenuPrompt();
         String number = reader.nextLine();

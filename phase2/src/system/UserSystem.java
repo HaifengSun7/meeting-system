@@ -86,9 +86,9 @@ public abstract class UserSystem {
         Presenter.inputPrompt("makeRequestTitle");
         String title = reader.nextLine();
         Presenter.inputPrompt("makeRequestContext");
-        String contect = reader.nextLine();
+        String content = reader.nextLine();
         try{
-            requestmanager.createNewRequest(myName, title, contect);
+            requestmanager.createNewRequest(myName, title, content);
         } catch (InvalidTitleException e) {
             Presenter.invalid("invalidRequestTitle");
         }
