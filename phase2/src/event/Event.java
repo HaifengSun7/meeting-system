@@ -16,6 +16,7 @@ public abstract class Event {
     private final ArrayList<String> user_list;
     private final int length = 1;
     private String description;
+    private boolean vip = false;
     protected String type;
     protected boolean speakStatus = false;
     private int maximumPeople;
@@ -121,6 +122,14 @@ public abstract class Event {
         this.description = description;
     }
 
+    public boolean getVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip_status) {
+        vip = vip_status;
+    }
+
     /**
      * Get's everything of the event.
      *
@@ -145,6 +154,7 @@ public abstract class Event {
                 ", Time: " + t +
                 ", Maximum people: " + maximumPeople +
                 ", Speaker: " + sub +
+                ", VIP only: " + vip +
                 ", Attendees: " + this.getAttendees() + "}";
     }
 

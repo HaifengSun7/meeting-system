@@ -68,7 +68,7 @@ public class AttendeeSystem extends UserSystem {
     /*
      * Print the events that attendee hasn't signed up and choose one event to sign it up.
      */
-    private void SignUpForEvent() {
+    protected void SignUpForEvent() {
         ArrayList<String> example_list = eventmanager.canSignUp(myName);
         Presenter.inputPrompt("signUp");
         Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");

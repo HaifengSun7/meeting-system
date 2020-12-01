@@ -109,11 +109,36 @@ public class EventManager {
      * @param attendee Attendee, but string.
      * @return a list of Event ids in String that attendee can sign up for.
      */
+    public ArrayList<String> canSignUp(String attendee, boolean vip) {
+        ArrayList<String> rslt = new ArrayList<>();
+        if (vip) {
+            for (int i = 0; i < map.size(); i++) {
+                if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
+                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                    rslt.add(String.valueOf(map.get(i).getId()));
+                }
+            }
+        } else {
+            for (int i = 0; i < map.size(); i++) {
+                if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
+                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                    if (!map.get(i).getVip()) {
+                        rslt.add(String.valueOf(map.get(i).getId()));
+                    }
+                }
+            }
+        }
+        return rslt;
+    }
+
     public ArrayList<String> canSignUp(String attendee) {
         ArrayList<String> rslt = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
-            if (!map.get(i).getAttendees().contains(attendee) && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
-                rslt.add(String.valueOf(map.get(i).getId()));
+            if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
+                    && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                if (!map.get(i).getVip()) {
+                    rslt.add(String.valueOf(map.get(i).getId()));
+                }
             }
         }
         return rslt;
@@ -161,6 +186,24 @@ public class EventManager {
             }
         }
         return events;
+    }
+
+    public ArrayList<String> getLimitedEvents() {
+        ArrayList<String> events = new ArrayList<>();
+        for (int i = 0; i < map.size() - 1; i++) {
+            if (map.containsKey(i)) {
+                if (! map.get(i).getVip()) {
+                    events.add(map.get(i).toString());
+                }
+            } else {
+                events.add("cancelled");
+            }
+        }
+        return events;
+    }
+
+    public void switchVipEvent(int eventNumber, boolean vip) {
+        map.get(eventNumber).setVip(vip);
     }
 
     /**
@@ -319,12 +362,13 @@ public class EventManager {
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
      * @param description:   description of event
+     * @param vip:   whether the event is for VIP only.
      * @throws NotInOfficeHourException  if time out of working hour.
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException  if there's no such room.
      */
     public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, int meetingLength,
-                         String description)
+                         String description, boolean vip)
             throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException, RoomIsFullException {
         if (!inOfficeHour(time)) {
             throw new NotInOfficeHourException("Invalid time." +
@@ -346,6 +390,7 @@ public class EventManager {
             }
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
+            newEvent.setVip(vip);
             newEvent.setMaximumAttendee(numAttendees);
             for (Room r : rooms) {
                 if (r.getRoomNumber() == Integer.parseInt(roomNo)) {
