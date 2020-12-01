@@ -324,7 +324,7 @@ public class EventManager {
      * @throws InvalidActivityException  if there's no such room.
      */
     public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, int meetingLength,
-                         String description, String vip)
+                         String description, String vip, String conferenceName)
             throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException, RoomIsFullException {
         if (!inOfficeHour(time)) {
             throw new NotInOfficeHourException("Invalid time." +
@@ -475,6 +475,6 @@ public class EventManager {
     public ArrayList<String> getAllConference() {
         //todo
         // return a list contains all conferences
-        return null;
+        return new ArrayList<>();
     }
 }

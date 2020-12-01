@@ -102,7 +102,7 @@ public class ManagerBuilder {
         } catch (DuplicateRoomNumberException e) {
             //ignored, should never happen.
         }
-        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName FROM event";
+        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName, VIPS FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
                 System.out.println(rs1.getString("StartTime"));
@@ -112,7 +112,8 @@ public class ManagerBuilder {
                         Timestamp.valueOf(rs1.getString("StartTime")),
                         rs1.getInt("Duration"),
                         rs1.getString("Description"),
-                        rs1.getString("VIP"));
+                        rs1.getString("VIPS"),
+                        rs1.getString("ConferenceName"));
             }
 
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package system;
 
+import event.Conference;
 import event.EventManager;
 import presenter.Presenter;
 import user.NoSuchUserException;
@@ -62,6 +63,7 @@ public class LogInSystem {
                 }
                 Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
                 String number = reader.nextLine();
+                String conference = conferenceList.get(Integer.parseInt(number));
 
                 if (!logged_in) {
                     Presenter.trailsRemaining(0);
@@ -70,17 +72,17 @@ public class LogInSystem {
                     UserSystem system;
                     switch (user_type) {
                         case "Organizer":
-                            system = new OrganizerSystem(username);
+                            system = new OrganizerSystem(username, conference);
                             break;
                         case "Speaker":
-                            system = new SpeakerSystem(username);
+                            system = new SpeakerSystem(username, conference);
                             break;
                         default:
                             try {
                                 if (usermanager.isVIP(username)) {
-                                    system = new VIPSystem(username);
+                                    system = new VIPSystem(username, conference);
                                 } else {
-                                    system = new AttendeeSystem(username);
+                                    system = new AttendeeSystem(username, conference);
                                 }
                             } catch (NotAttendeeException | NoSuchUserException e) {
                                 Presenter.printErrorMessage(e.getMessage());

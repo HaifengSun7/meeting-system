@@ -22,8 +22,8 @@ public class AttendeeSystem extends UserSystem {
      *
      * @param myName A String, which is the username of attendee who is logged in.
      */
-    public AttendeeSystem(String myName) {
-        super(myName);
+    public AttendeeSystem(String myName, String conference) {
+        super(myName, conference);
     }
 
     /**

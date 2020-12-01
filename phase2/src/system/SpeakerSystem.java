@@ -16,8 +16,8 @@ public class SpeakerSystem extends UserSystem {
      *
      * @param myName A String, which is the username of speaker who logged in.
      */
-    public SpeakerSystem(String myName) {
-        super(myName);
+    public SpeakerSystem(String myName, String conference) {
+        super(myName, conference);
     }
 
     /**

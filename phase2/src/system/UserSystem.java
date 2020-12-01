@@ -1,5 +1,6 @@
 package system;
 
+import com.sun.xml.internal.stream.StaxErrorReporter;
 import event.EventManager;
 import message.MessageManager;
 import presenter.Presenter;
@@ -23,14 +24,16 @@ public abstract class UserSystem {
     protected UserManager usermanager = new UserManager();
     protected MessageManager messagemanager = new MessageManager();
     protected Requestmanager requestmanager = new Requestmanager();
+    protected String conference;
 
     /**
      * Constructs the User System. Initializes the loading of managers.
      *
      * @param myName the username of the user.
      */
-    public UserSystem(String myName) {
+    public UserSystem(String myName, String conference) {
         this.myName = myName;
+        this.conference = conference;
         initializeManagers();
     }
 

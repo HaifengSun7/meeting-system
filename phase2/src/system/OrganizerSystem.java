@@ -22,8 +22,8 @@ public class OrganizerSystem extends UserSystem {
      *
      * @param myName A String, which is the username of organizer who logged in.
      */
-    public OrganizerSystem(String myName) {
-        super(myName);
+    public OrganizerSystem(String myName, String conference) {
+        super(myName, conference);
     }
 
     /**
@@ -503,7 +503,7 @@ public class OrganizerSystem extends UserSystem {
         }
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conference);
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |

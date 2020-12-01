@@ -6,8 +6,8 @@ import presenter.Presenter;
 import java.util.ArrayList;
 
 public class VIPSystem extends AttendeeSystem{
-    public VIPSystem(String myName) {
-        super(myName);
+    public VIPSystem(String myName, String conference) {
+        super(myName, conference);
     }
 
     @Override
