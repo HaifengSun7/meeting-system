@@ -122,10 +122,12 @@ public class Write {
         HashMap<Integer, Integer> eventToRoom = eventmanager.getEventIDMapToRoomNumber();
         String time;
         String duration;
+        String conferenceName;
+        String vipStatus;
         ArrayList<String> attendees;
         ArrayList<String> speakers;
         String description;
-        String sql = "INSERT INTO event(EventId,RoomNumber,MaxNumberOfSpeakers,MaxNumberOfAttendees,StartTime,Duration,Description,ConferenceName) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO event(EventId,RoomNumber,MaxNumberOfSpeakers,MaxNumberOfAttendees,StartTime,Duration,Description,ConferenceName,VIPS) VALUES(?,?,?,?,?,?,?,?,?)";
         String sql2 = "INSERT INTO signedUp(EventId, UserName) VALUES (?,?)";
         int i = 0;
         for (Map.Entry<Integer, Integer> item : eventToRoom.entrySet()) {
@@ -138,6 +140,8 @@ public class Write {
             speakers = eventmanager.getSpeakers(event);
             description = eventmanager.getDescription(event);
             capacity = eventmanager.getCapacity(event);
+            conferenceName = eventmanager.getConferenceOfEvent(event);
+            vipStatus = String.valueOf(eventmanager.getVipStatus(event));
             int numSpeakers = capacity.getKey();
             int numAttendees = capacity.getValue();
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -148,8 +152,8 @@ public class Write {
                 pstmt.setString(5, time);
                 pstmt.setInt(6, Integer.parseInt(duration));
                 pstmt.setString(7, description);
-                pstmt.setInt(8, 0);//TODO: conference id
-                //TODO: vip
+                pstmt.setString(8, conferenceName);
+                pstmt.setString(9, vipStatus);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -162,14 +166,14 @@ public class Write {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                for (String speaker : speakers) {
-                    try (PreparedStatement pstmt3 = conn.prepareStatement(sql2)) {
-                        pstmt3.setInt(1, i);
-                        pstmt3.setString(2, speaker);
-                        pstmt3.execute();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+            }
+            for (String speaker : speakers) {
+                try (PreparedStatement pstmt3 = conn.prepareStatement(sql2)) {
+                    pstmt3.setInt(1, i);
+                    pstmt3.setString(2, speaker);
+                    pstmt3.execute();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             i += 1;

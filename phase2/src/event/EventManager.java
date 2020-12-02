@@ -2,6 +2,7 @@ package event;
 
 import event.exceptions.*;
 import javafx.util.Pair;
+import presenter.Presenter;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -16,6 +17,7 @@ public class EventManager {
 
     private final Map<Integer, Event> map = new HashMap<>();
     private final RoomManager roomManager = new RoomManager();
+    private final ConferenceManager conferenceManager = new ConferenceManager();
 
     /**
      * Initializes the event manager. It goes through the saved files of event.csv.
@@ -115,9 +117,8 @@ public class EventManager {
      * 3. make attendee speaker of all the rest of events.
      *
      * @param attendee Attendee but string.
-     * @throws AlreadyHasSpeakerException if the event already has a speaker.
      */
-    public void becomeSpeaker(String attendee) throws AlreadyHasSpeakerException {
+    public void becomeSpeaker(String attendee) throws TooManySpeakerException {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
         ArrayList<Event> attended = new ArrayList<>();
         for (Event i : events) {
@@ -126,11 +127,7 @@ public class EventManager {
             }
         }
         for (Event j : attended) {
-            if (j.getSpeakStatus()) {
-                throw new AlreadyHasSpeakerException("Cannot Add Speaker: " + attendee + ".\n There is already a speaker");
-            } else {
-                j.setSpeaker(attendee);
-            }
+            j.setSpeaker(attendee);
         }
     }
 
@@ -139,9 +136,10 @@ public class EventManager {
      *
      * @return all events. Index = event number.
      */
-    public ArrayList<String> getAllEvents() {
+    public ArrayList<String> getAllEvents(String conference) throws NoSuchConferenceException {
+        ArrayList<Integer> eventIDs = conferenceManager.getEventOfConference(conference);
         ArrayList<String> events = new ArrayList<>();
-        for (int i = 0; i < map.size() - 1; i++) {
+        for (int i : eventIDs) {
             if (map.containsKey(i)) {
                 events.add(map.get(i).toString());
             } else {
@@ -175,29 +173,17 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
-     * @throws AlreadyHasSpeakerException if want to set speaker for the event but event already has one.
      * @throws InvalidUserException       if input type is "Organizer".
      * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
      * @throws EventIsFullException       if event is full.
      */
-    public void addUserToEvent(String type, String username, int eventNumber) throws AlreadyHasSpeakerException,
-            NoSuchEventException, InvalidUserException, NoSpeakerException, EventIsFullException {
+    public void addUserToEvent(String type, String username, int eventNumber) throws NoSuchEventException,
+            InvalidUserException, EventIsFullException, TooManySpeakerException {
         int event_size = map.get(eventNumber).getAttendees().size();
         int maximumAttendee = map.get(eventNumber).getMaximumAttendee();
         if (map.containsKey(eventNumber)) {
             if (type.equals("Speaker")) {
-                if (map.get(eventNumber).getMaximumSpeaker() == 0){
-                    throw new NoSpeakerException("No need for PartyEvent");
-                }
-                else {
-                    if (map.get(eventNumber).getMaximumSpeaker() > map.get(eventNumber).getSpeakers().size()){
-                        map.get(eventNumber).setSpeaker(username);
-                    }
-                    else{
-                        throw new AlreadyHasSpeakerException("Already Has Speaker: " +
-                                map.get(eventNumber).getSpeakers() + " at " + map.get(eventNumber));
-                        }
-                    }
+                map.get(eventNumber).setSpeaker(username);
             } else if (type.equals("Attendee")) {
                 if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
@@ -324,14 +310,14 @@ public class EventManager {
      * @throws InvalidActivityException  if there's no such room.
      */
     public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, int meetingLength,
-                         String description, String vip)
-            throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException, RoomIsFullException {
+                         String description, String vip, String conferenceName)
+            throws NotInOfficeHourException, TimeNotAvailableException, InvalidActivityException,
+            RoomIsFullException, NoSuchConferenceException {
         if (!inOfficeHour(time)) {
             throw new NotInOfficeHourException("Invalid time." +
                     " Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
         }
         if (ifRoomAvailable(roomNo, time, meetingLength)) {
-            // will update more cases soon, add speaker cannot be used now//
             Event newEvent;
             switch (numSpeakers){
                 case 0:
@@ -344,9 +330,13 @@ public class EventManager {
                     newEvent = new MultiEvent(time, numSpeakers);
                     break;
             }
+            if (!conferenceManager.hasConference(conferenceName)) {
+                conferenceManager.createConference(conferenceName);
+            }
+            conferenceManager.addEvent(conferenceName, newEvent.getId());
             map.put(newEvent.getId(), newEvent);
             newEvent.setDescription(description);
-            newEvent.setVip(vip.equals("true"));
+            newEvent.setVip(Boolean.parseBoolean(vip));
             newEvent.setMaximumAttendee(numAttendees);
             roomManager.addEvent(Integer.parseInt(roomNo), newEvent.getId(), numAttendees + numSpeakers);
         } else {
@@ -473,8 +463,15 @@ public class EventManager {
     }
 
     public ArrayList<String> getAllConference() {
-        //todo
-        // return a list contains all conferences
-        return null;
+        return conferenceManager.getAllConferences();
     }
+
+    public String getConferenceOfEvent(int eventID){
+        return conferenceManager.getConferenceOfEvent(eventID);
+    }
+
+    public boolean getVipStatus(int eventID){
+        return map.get(eventID).getVip();
+    }
+
 }

@@ -1,6 +1,8 @@
 package event;
 
 
+import event.exceptions.TooManySpeakerException;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -98,7 +100,7 @@ public abstract class Event {
      *
      * @param u: Speaker's name.
      */
-    public abstract void setSpeaker(String u);
+    public abstract void setSpeaker(String u) throws TooManySpeakerException;
 
     public String getType(){
         return type;

@@ -1,11 +1,9 @@
 package system;
 
 import event.exceptions.*;
-import presenter.Presenter;
+import presenter.*;
 import readWrite.Write;
-import user.DuplicateUserNameException;
-import user.InvalidUsernameException;
-import user.NoSuchUserException;
+import user.*;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -32,10 +30,10 @@ public class OrganizerSystem extends UserSystem {
     @Override
     public void run() {
         String command;
-        while (true) {
+        while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Organizer");
-            Presenter.organizerMenu();
+            OrganizerPresenter.organizerMenu();
             command = reader.nextLine();
             switch (command) {
                 case "1":
@@ -79,30 +77,6 @@ public class OrganizerSystem extends UserSystem {
     }
 
     /**
-     * Send messages to all users, either all speakers or all attendees.
-     * @param user type of user, either the String "speaker" or "attendee".
-     */
-    private void sendMessageToAll(String user) {
-        switch (user) {
-            case "speaker":
-                ArrayList<String> speakers = usermanager.getSpeakers();
-                Presenter.inputPrompt("message");
-                String message = reader.nextLine();
-                messagemanager.sendToList(myName, speakers, message);
-                Presenter.continuePrompt();
-                break;
-            case "attendee":
-                ArrayList<String> attendees = usermanager.getAttendees();
-                Presenter.inputPrompt("message");
-                String message2 = reader.nextLine();
-                messagemanager.sendToList(myName, attendees, message2);
-                Presenter.continuePrompt();
-                break;
-        }
-
-    }
-
-    /**
      * Send message to a specific person.
      */
     @Override
@@ -124,17 +98,17 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
      * in a specific room.
      */
     private void manageRooms() {
-        Presenter.titlesInSpeaker("manageRooms");
+        SpeakerPresenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
         for (String s : roomList) {
             Presenter.defaultPrint(s);
         }
-        Presenter.menusInOrganizer("manageRooms");
+        OrganizerPresenter.menusInOrganizer("manageRooms");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -168,7 +142,28 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
+     * Send messages to all users, either all speakers or all attendees.
+     * @param user type of user, either the String "speaker" or "attendee".
+     */
+    private void sendMessageToAll(String user) {
+        ArrayList<String> receivers = new ArrayList<>();
+        switch (user) {
+            case "speaker":
+                receivers = usermanager.getSpeakers();
+                break;
+            case "attendee":
+                receivers = usermanager.getAttendees();
+                break;
+        }
+        Presenter.inputPrompt("message");
+        String message = reader.nextLine();
+        messagemanager.sendToList(myName, receivers, message);
+        Presenter.continuePrompt();
+
+    }
+
+    /*
      * Cancel an event.
      */
     private void cancelEvent() {
@@ -182,13 +177,13 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.cancelEvent(eventId);
             Presenter.success();
         } catch (NoSuchEventException | InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
         }
     }
 
-    /**
+    /*
      * set the maximum number of people in the selected event.
      */
     private void changeEventMaxNumberPeople() {
@@ -202,7 +197,7 @@ public class OrganizerSystem extends UserSystem {
             Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
             Presenter.exitToMainMenuPrompt();
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
             return;
@@ -224,13 +219,13 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.success();
                 Presenter.continuePrompt();
             } catch (NoSuchEventException | InvalidNewMaxNumberException | InvalidActivityException e) {
-                Presenter.printErrorMessage(e.getMessage());
+                Presenter.printErrorMessage(e);
                 Presenter.continuePrompt();
             }
         }
     }
 
-    /**
+    /*
      * Create a new room.
      */
     private void addNewRoom() {
@@ -242,11 +237,11 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
         } catch (DuplicateRoomNumberException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 
-    /**
+    /*
      * Check all scheduled events in a specific room.
      */
     private void checkRoom() {
@@ -258,25 +253,25 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
             return;
         } catch (Exception e){
             e.printStackTrace();
-            Presenter.printErrorMessage("Wrong input.");
+            Presenter.defaultPrint("Wrong input.");
             Presenter.continuePrompt();
             return;
         }
-        Presenter.titlesInSpeaker("checkRoom");
+        SpeakerPresenter.titlesInSpeaker("checkRoom");
         Presenter.continuePrompt();
     }
 
-    /**
+    /*
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
-        Presenter.menusInOrganizer("createSpeaker");
+        OrganizerPresenter.menusInOrganizer("createSpeaker");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -291,41 +286,41 @@ public class OrganizerSystem extends UserSystem {
                     usermanager.createUserAccount("Speaker", username, password);
                     Presenter.success();
                 } catch (DuplicateUserNameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                     break;
                 } catch (InvalidUsernameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                 }
                 break;
         }
     }
 
-    /**
+    /*
      * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker() {
-        Presenter.titlesInSpeaker("promoteExistingSpeaker");
+        SpeakerPresenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
         try {
             usermanager.becomeSpeaker(name);
         } catch (DuplicateUserNameException | InvalidUsernameException e) {
             // ignored
         } catch (NoSuchUserException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
         try {
             eventmanager.becomeSpeaker(name);
             System.out.println("Successfully set " + name + " to be the speaker of the event.\n");
-        } catch (AlreadyHasSpeakerException e) {
-            Presenter.printErrorMessage(e.getMessage());
+        } catch (TooManySpeakerException e) {
+            Presenter.printErrorMessage(e);
         }
     }
 
-    /**
+    /*
      * Create a new user to be the VIP attendee.
      */
     private void createVIP() {
-        Presenter.menusInOrganizer("createVIP");
+        OrganizerPresenter.menusInOrganizer("createVIP");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -340,84 +335,88 @@ public class OrganizerSystem extends UserSystem {
                     usermanager.createUserAccount("VIP", username, password);
                     Presenter.success();
                 } catch (DuplicateUserNameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                     break;
                 } catch (InvalidUsernameException e) {
-                    Presenter.printErrorMessage(e.getMessage());
+                    Presenter.printErrorMessage(e);
                 }
                 break;
         }
     }
 
-    /**
+    /*
      * Promote a attendee to be a VIP.
      */
     private void promoteExistingAttendee() {
-        Presenter.menusInOrganizer("promoteExistingAttendee");
+        OrganizerPresenter.menusInOrganizer("promoteExistingAttendee");
         String name = reader.nextLine();
         try {
             usermanager.becomeVIP(name);
             System.out.println("Successfully set " + name + " to be a VIP attendee.\n");
         } catch (NoSuchUserException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 
-    /**
+    /*
      * Schedule a speaker to an existing event or to a new event.
      */
     private void scheduleSpeakers() {
-        Presenter.inputPrompt("speakerName");
-        String name = reader.nextLine();
-        if (!usermanager.getUserType(name).equals("Speaker")) {
-            Presenter.notASpeaker();
-            return;
-        }
-        Presenter.titlesInSpeaker("scheduleSpeakers1");
-        ArrayList<String> allEvents = eventmanager.getAllEvents();
-        for (int i = 0; i < allEvents.size(); i++) {
-            Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-        }
-        Presenter.menusInOrganizer("scheduleSpeakers1");
-        Presenter.exitToMainMenuPrompt();
-        String command = reader.nextLine();
-        switch (command) {
-            default:
-                addSpeakerToEvent(allEvents, name, command);
-                break;
-            case "r":
-                Presenter.titlesInSpeaker("scheduleSpeakers2");
-                ArrayList<String> roomLst = eventmanager.getAllRooms();
-                for (String s : roomLst) {
-                    Presenter.defaultPrint(s);
-                }
-                Presenter.menusInOrganizer("scheduleSpeakers2");
-                Presenter.exitToMainMenuPrompt();
-                String command4 = reader.nextLine();
-                switch (command4) {
-                    case "a":
-                        addingEvent();
-                        Presenter.continuePrompt();
-                        reader.nextLine();
-                        break;
-                    case "e":
-                        Presenter.exitingToMainMenu();
-                        break;
-                    default:
-                        showEvents(command4);
-                        addingEvent();
-                        Presenter.continuePrompt();
-                        reader.nextLine();
-                        break;
-                }
-                break;
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
+        try{
+            Presenter.inputPrompt("speakerName");
+            String name = reader.nextLine();
+            if (!usermanager.getUserType(name).equals("Speaker")) {
+                Presenter.notASpeaker();
+                return;
+            }
+            SpeakerPresenter.titlesInSpeaker("scheduleSpeakers1");
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (int i = 0; i < allEvents.size(); i++) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+            OrganizerPresenter.menusInOrganizer("scheduleSpeakers1");
+            Presenter.exitToMainMenuPrompt();
+            String command = reader.nextLine();
+            switch (command) {
+                default:
+                    addSpeakerToEvent(allEvents, name, command);
+                    break;
+                case "r":
+                    SpeakerPresenter.titlesInSpeaker("scheduleSpeakers2");
+                    ArrayList<String> roomLst = eventmanager.getAllRooms();
+                    for (String s : roomLst) {
+                        Presenter.defaultPrint(s);
+                    }
+                    OrganizerPresenter.menusInOrganizer("scheduleSpeakers2");
+                    Presenter.exitToMainMenuPrompt();
+                    String command4 = reader.nextLine();
+                    switch (command4) {
+                        case "a":
+                            addingEvent();
+                            Presenter.continuePrompt();
+                            reader.nextLine();
+                            break;
+                        case "e":
+                            Presenter.exitingToMainMenu();
+                            break;
+                        default:
+                            showEvents(command4);
+                            addingEvent();
+                            Presenter.continuePrompt();
+                            reader.nextLine();
+                            break;
+                    }
+                    break;
+                case "e":
+                    Presenter.exitingToMainMenu();
+                    break;
+            }
+        } catch (Exception e){
+            Presenter.defaultPrint(e.getMessage());
         }
     }
 
-    /**
+    /*
      * Add a new speaker to an existing event.
      *
      * @param allEvents all existing events.
@@ -430,32 +429,26 @@ public class OrganizerSystem extends UserSystem {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 Presenter.success();
 //            } catch (RoomIsFullException e) {
-//                Presenter.printErrorMessage(e.getMessage());
+//                Presenter.printErrorMessage(e);
 //                Presenter.defaultPrint("Room is full.");
-            } catch (AlreadyHasSpeakerException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("Already has speaker.");
-            } catch (NoSpeakerException e) {
-                Presenter.printErrorMessage(e.getMessage());
-                Presenter.defaultPrint("not a speaker.");
             } catch (NoSuchEventException e) {
-                Presenter.printErrorMessage(e.getMessage());
+                Presenter.printErrorMessage(e);
                 Presenter.defaultPrint("event not found");
             } catch (EventIsFullException e) {
                 Presenter.defaultPrint("Event is full");
-            } catch (InvalidUserException e) {
-                Presenter.printErrorMessage(e.getMessage());
+            } catch (InvalidUserException | TooManySpeakerException e) {
+                Presenter.printErrorMessage(e);
             }
         } else {
             Presenter.invalid("eventId");
         }
     }
 
-    /**
+    /*
      * The action of adding an Event, with info from inputs.
      */
     private void addingEvent(){
-        Presenter.titlesInSpeaker("AddEvents");
+        SpeakerPresenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
         Presenter.inputPrompt("startTime");
@@ -488,34 +481,29 @@ public class OrganizerSystem extends UserSystem {
                     Presenter.inputPrompt("maximum people");
                     maxAttendee = Integer.parseInt(reader.nextLine());
                     break;
-                case("VIP"):
-                    maxSpeaker = 1;
-                    Presenter.inputPrompt("maximum people");
-                    maxAttendee = Integer.parseInt(reader.nextLine());
-                    break;
                 default:
                     throw new NoSuchTypeException("Incorrect Event Type");
             }
         } catch (Exception e){
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.exitToMainMenuPrompt();
             return;
         }
         try {
             Presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conference);
             Presenter.success();
             Presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
                 RoomIsFullException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
             Presenter.exitToMainMenuPrompt();
         } catch (Exception e) {
             Presenter.invalid("addEventGeneral"); // Should not be called
         }
     }
 
-    /**
+    /*
      * show the events in a selected room
      * @param command the room number
      */
@@ -526,7 +514,7 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.defaultPrint(eventmanager.findEventStr(i));
             }
         } catch (InvalidActivityException e) {
-            Presenter.printErrorMessage(e.getMessage());
+            Presenter.printErrorMessage(e);
         }
     }
 

@@ -1,5 +1,7 @@
 package event;
 
+import event.exceptions.TooManySpeakerException;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -22,9 +24,11 @@ public class MultiEvent extends Event {
     }
 
     @Override
-    public void setSpeaker(String u) {
+    public void setSpeaker(String u) throws TooManySpeakerException {
         if(speakers.size()<max_speakers){
             speakers.add(u);
+        } else {
+            throw new TooManySpeakerException("Number of speakers exceeds maximum");
         }
         this.speakStatus = true;
     }

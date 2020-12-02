@@ -1,5 +1,7 @@
 package event;
 
+import event.exceptions.TooManySpeakerException;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -21,7 +23,10 @@ public class SingleEvent extends Event{
 
 
     @Override
-    public void setSpeaker(String u) {
+    public void setSpeaker(String u) throws TooManySpeakerException {
+        if(this.speakStatus){
+            throw new TooManySpeakerException("Already has speaker");
+        }
         speakers = new ArrayList<String>();
         speakers.add(u);
         this.speakStatus = true;

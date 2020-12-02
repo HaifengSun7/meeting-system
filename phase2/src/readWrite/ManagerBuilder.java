@@ -1,16 +1,12 @@
 package readWrite;
 
 import event.*;
-import event.exceptions.DuplicateRoomNumberException;
-import event.exceptions.NotInOfficeHourException;
-import event.exceptions.RoomIsFullException;
-import event.exceptions.TimeNotAvailableException;
+import event.exceptions.*;
 import message.MessageManager;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.UserManager;
 
-import javax.activity.InvalidActivityException;
 import java.sql.*;
 
 /**
@@ -102,22 +98,22 @@ public class ManagerBuilder {
         } catch (DuplicateRoomNumberException e) {
             //ignored, should never happen.
         }
-        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName FROM event";
+        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName, VIPS FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
-                System.out.println(rs1.getString("StartTime"));
                 eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")),
                         rs1.getInt("MaxNumberOfSpeakers"),
                         rs1.getInt("MaxNumberOfAttendees"),
                         Timestamp.valueOf(rs1.getString("StartTime")),
                         rs1.getInt("Duration"),
                         rs1.getString("Description"),
-                        rs1.getString("VIP"));
+                        rs1.getString("VIPS"),
+                        rs1.getString("ConferenceName"));
             }
 
         } catch (SQLException e) {
             System.out.println("Wrong index in Database");
-        } catch (RoomIsFullException | InvalidActivityException | TimeNotAvailableException | NotInOfficeHourException e) {
+        } catch (Exception e) {
             //ignored, should never happen
             System.out.println(e.getMessage());
         }

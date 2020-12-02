@@ -1,6 +1,8 @@
 package system;
 
+import com.sun.xml.internal.stream.StaxErrorReporter;
 import event.EventManager;
+import event.exceptions.NoSuchConferenceException;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
@@ -23,6 +25,7 @@ public abstract class UserSystem {
     protected UserManager usermanager = new UserManager();
     protected MessageManager messagemanager = new MessageManager();
     protected Requestmanager requestmanager = new Requestmanager();
+    protected String conference;
 
     /**
      * Constructs the User System. Initializes the loading of managers.
@@ -32,6 +35,11 @@ public abstract class UserSystem {
     public UserSystem(String myName) {
         this.myName = myName;
         initializeManagers();
+        try {
+            this.conference = chooseConference();
+        } catch (NoSuchConferenceException e) {
+            Presenter.printErrorMessage(e);
+        }
     }
 
     /**
@@ -112,5 +120,22 @@ public abstract class UserSystem {
         usermanager = read.getUserManager();
         eventmanager = read.getEventManager();
         messagemanager = read.getMessageManager();
+    }
+
+    protected String chooseConference() throws NoSuchConferenceException {
+        Presenter.conferenceChoose();
+        ArrayList<String> conferenceList = eventmanager.getAllConference();
+        for (int i = 0; i < conferenceList.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
+        }
+        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
+        String number = reader.nextLine();
+        String chosenConference = null;
+        try {
+            chosenConference = conferenceList.get(Integer.parseInt(number));
+        } catch (Exception e) {
+            Presenter.invalid("conference");
+        }
+        return chosenConference;
     }
 }

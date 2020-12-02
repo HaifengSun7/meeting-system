@@ -1,10 +1,7 @@
 package system;
 
-import event.exceptions.AlreadyHasSpeakerException;
-import event.exceptions.EventIsFullException;
-import event.exceptions.InvalidUserException;
-import event.exceptions.NoSuchEventException;
-import presenter.Presenter;
+import event.exceptions.*;
+import presenter.*;
 import readWrite.Write;
 import request.NoSuchRequestException;
 
@@ -32,10 +29,10 @@ public class AttendeeSystem extends UserSystem {
     @Override
     public void run() {
         String command;
-        while (true) {
+        while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Attendee");
-            Presenter.attendeeMenu();
+            AttendeePresenter.attendeeMenu();
             command = reader.nextLine();
             switch (command) {
                 case "e":
@@ -94,8 +91,8 @@ public class AttendeeSystem extends UserSystem {
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("Attendee", myName, Integer.parseInt(example_list.get(Integer.parseInt(command))));
-            } catch (InvalidUserException | NoSuchEventException | AlreadyHasSpeakerException | EventIsFullException e) {
-                Presenter.printErrorMessage(e.getMessage());
+            } catch (InvalidUserException | NoSuchEventException | TooManySpeakerException | EventIsFullException e) {
+                Presenter.printErrorMessage(e);
                 return;
             } catch (Exception e) {
                 Presenter.invalid(""); // Should never be called
@@ -137,7 +134,7 @@ public class AttendeeSystem extends UserSystem {
                 usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
                 Presenter.success();
             } catch (InvalidActivityException | NoSuchEventException e) {
-                Presenter.printErrorMessage(e.getMessage()); // This should never happen.
+                Presenter.printErrorMessage(e); // This should never happen.
             } catch (IndexOutOfBoundsException | NullPointerException e) {
                 Presenter.invalid("");
             }

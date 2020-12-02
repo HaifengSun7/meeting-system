@@ -8,7 +8,6 @@ import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,15 +17,12 @@ import java.util.Scanner;
 public class LogInSystem {
 
     UserManager usermanager;
-    EventManager eventmanager;
 
     /**
-     * Run the Login System. Print out login menu, and initialize users' systems.
+     * Run the Login System. Print out login menu, initialize users' systems.
+     * It also does the job for logging out.
      */
     public void run() {
-        /*
-          This method is in charge of logging in, separate the system and log out.
-         */
         while (true) {
             usermanager = new UserManager();
             getAccounts();
@@ -48,21 +44,12 @@ public class LogInSystem {
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (WrongLogInException e) {
-                        Presenter.printErrorMessage(e.getMessage());
+                        Presenter.printErrorMessage(e);
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
-                Presenter.conferenceChoose();
-                eventmanager = new EventManager();
-                ArrayList<String> conferenceList = eventmanager.getAllConference();
-                for (int i = 0; i < conferenceList.size(); i++) {
-                    Presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
-                }
-                Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
-                String number = reader.nextLine();
-
                 if (!logged_in) {
                     Presenter.trailsRemaining(0);
                     return;
@@ -83,7 +70,7 @@ public class LogInSystem {
                                     system = new AttendeeSystem(username);
                                 }
                             } catch (NotAttendeeException | NoSuchUserException e) {
-                                Presenter.printErrorMessage(e.getMessage());
+                                Presenter.printErrorMessage(e);
                                 continue;
                             }
                             break;
@@ -98,7 +85,6 @@ public class LogInSystem {
         ManagerBuilder managerBuilder = new ManagerBuilder();
         managerBuilder.run();
         usermanager = managerBuilder.getUserManager();
-        eventmanager = managerBuilder.getEventManager();
     }
 }
 
