@@ -7,6 +7,7 @@ import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
 import request.InvalidTitleException;
+import request.NoSuchRequestException;
 import request.Requestmanager;
 import user.UserManager;
 
@@ -90,19 +91,6 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
-    protected void makeNewRequest(){
-        Presenter.inputPrompt("makeRequestTitle");
-        String title = reader.nextLine();
-        Presenter.inputPrompt("makeRequestContext");
-        String content = reader.nextLine();
-        try{
-            requestmanager.createNewRequest(myName, title, content);
-        } catch (InvalidTitleException e) {
-            Presenter.invalid("invalidRequestTitle");
-        }
-
-    }
-
     /*
      * Add all senders of the inbox messages to user's contact list.
      */
@@ -137,5 +125,91 @@ public abstract class UserSystem {
             Presenter.invalid("conference");
         }
         return chosenConference;
+    }
+
+    protected void makeNewRequest(){
+        Presenter.inputPrompt("makeRequestTitle");
+        String title = reader.nextLine();
+        Presenter.inputPrompt("makeRequestContext");
+        String content = reader.nextLine();
+        try{
+            requestmanager.createNewRequest(myName, title, content);
+        } catch (InvalidTitleException e) {
+            Presenter.invalid("invalidRequestTitle");
+        }
+    }
+
+    protected void seeMyRequests(){
+        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
+        if (requestList.size() == 0){
+            Presenter.inputPrompt("NoRequests");
+        } else {
+            Presenter.inputPrompt("requestIntroduction");
+            for (int i = 0; i < requestList.size(); i++) {
+                Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
+            }
+            Presenter.exitToMainMenuPrompt();
+            Presenter.inputPrompt("readRequest");
+            String command = reader.nextLine();
+            try {
+                int input = Integer.parseInt(command);
+                if ((0 <= input) && (input < requestList.size())) {
+                    Presenter.defaultPrint(requestList.get(input)[1]);
+                } else {
+                    Presenter.invalid("");
+                    Presenter.exitingToMainMenu();
+                }
+            } catch (NumberFormatException e) {
+                if (!"e".equals(command)) {
+                    Presenter.invalid("");
+                }
+                Presenter.exitingToMainMenu();
+            }
+        }
+    }
+
+    protected void deleteRequests(){
+        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
+        if (requestList.size() == 0){
+            Presenter.inputPrompt("NoRequests");
+        } else {
+            Presenter.inputPrompt("requestIntroduction");
+            for (int i = 0; i < requestList.size(); i++) {
+                Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
+            }
+            Presenter.inputPrompt("recallRequest");
+            Presenter.exitToMainMenuPrompt();
+            String command = reader.nextLine();
+            try {
+                int input = Integer.parseInt(command);
+                if ((0 <= input) && (input < requestList.size())) {
+                    try{
+                        requestmanager.recallSingleRequest(requestList.get(Integer.parseInt(command))[0]);
+                        Presenter.inputPrompt("deleteSuccess");
+                    } catch (NoSuchRequestException e) {
+                        Presenter.invalid("noSuchRequest");
+                    }
+                } else {
+                    Presenter.invalid("");
+                    Presenter.exitingToMainMenu();
+                }
+            } catch (NumberFormatException e) {
+                if ("R".equals(command)) {
+                    Presenter.inputPrompt("recallRequestConfirm");
+                    String confirm = reader.nextLine();
+                    if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
+                        try {
+                            requestmanager.recallAllRequestsFrom(myName);
+                            Presenter.inputPrompt("deleteSuccess");
+                        } catch (NoSuchRequestException f) {
+                            Presenter.invalid("noSuchRequest");
+                        }
+                    }
+                } else if (!"e".equals(command)) {
+                    Presenter.invalid("");
+                }
+                Presenter.exitingToMainMenu();
+            }
+        }
     }
 }

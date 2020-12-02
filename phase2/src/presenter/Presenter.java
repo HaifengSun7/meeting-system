@@ -177,11 +177,11 @@ public class Presenter {
                 System.out.println("Please enter the index of request you want to read: ");
                 break;
             case "recallRequest":
-                System.out.println("Please enter the index of request you want to recall. \n" +
-                    "Or, type in 'Recall all' to recall all requests: ");
+                System.out.println("[R] Recall all requests.");
                 break;
             case "recallRequestConfirm":
-                System.out.println("Are you sure you want to recall it/them? \n" + "[Yes] or [No]");
+                System.out.println("Are you sure you want to recall them all? \n" +
+                        "Type in [Yes] to recall all or anything else to return.");
                 break;
             case "deleteSuccess":
                 System.out.println("Delete success!\n");

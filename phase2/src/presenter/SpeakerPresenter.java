@@ -13,6 +13,9 @@ public class SpeakerPresenter extends Presenter{
                         "[5] Respond to an attendee\n" +
                         "[6] Send a message to someone\n" +
                         "[7] Check your inbox\n" +
+                        "[8] Make new request\n" +
+                        "[9] See my requests\n" +
+                        "[10] Delete my requests\n" +
                         "[e] Save and log out");
     }
 

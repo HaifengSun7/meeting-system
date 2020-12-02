@@ -56,6 +56,15 @@ public class SpeakerSystem extends UserSystem {
                 case "7": //see message inbox
                     seeMessages();
                     continue;
+                case "8":
+                    makeNewRequest();
+                    continue;
+                case "9":
+                    seeMyRequests();
+                    continue;
+                case "10":
+                    deleteRequests();
+                    continue;
                 default:
                     Presenter.wrongKeyReminder();
                     continue;
