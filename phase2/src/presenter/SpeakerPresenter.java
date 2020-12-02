@@ -1,6 +1,6 @@
 package presenter;
 
-public class SpeakerPresenter {
+public class SpeakerPresenter extends Presenter{
     /**
      * Print out the menu of speaker.
      */
