@@ -8,6 +8,7 @@ public class Message {
     private final String sender;
     private final String receiver;
     private final String text;
+    private boolean unReadStatus;
 
     /**
      * The constructor for Message entity. Stores sender, receiver, and message text as Strings.
@@ -24,6 +25,7 @@ public class Message {
         } else {
             this.text = text;
         }
+        this.unReadStatus = true; //TODO: we need to write this into csv
     }
 
     /**
@@ -51,6 +53,20 @@ public class Message {
      */
     public String getText() {
         return this.text;
+    }
+    /**
+     * Get's whether the text is unread or not
+     * @return unReadStatus.
+     */
+    public boolean getUnReadStatus() {
+        return this.unReadStatus;
+    }
+
+    /**
+     * @param status the unReadStatus to set
+     */
+    public void setUnreadStatus(boolean status) {
+        this.unReadStatus = status;
     }
 
     /**

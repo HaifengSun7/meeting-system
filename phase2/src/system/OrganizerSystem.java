@@ -75,6 +75,9 @@ public class OrganizerSystem extends UserSystem {
                 case "13":
                     seeSolvedRequest();
                     continue;
+                case "14":
+                    markUnreadMessages(); //TODO: add case 14 to presenter
+                    continue;
                 case "e":
                     usermanager.logout(myName);
                     break;

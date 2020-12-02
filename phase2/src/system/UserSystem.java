@@ -220,4 +220,32 @@ public abstract class UserSystem {
             }
         }
     }
+    protected void markUnreadMessages() {
+        //addAllToMessageList(); //TODO: do we need this
+        ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
+        Presenter.inputPrompt("enter number in square bracket to mark message as read");
+        for (int i = 0; i < unreadInbox.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + unreadInbox.get(i));
+        }
+        Presenter.defaultPrint("[a] mark all as read");
+        Presenter.defaultPrint("[e] exit");
+        String command = reader.nextLine();
+
+        if (!("e".equals(command)&&!("a".equals(command)))) {
+            try {
+                messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
+            } catch (Exception e) {
+                Presenter.invalid(""); // TODO: input out of range, handle this
+                return;
+            }
+            Presenter.success();
+        } else if ("e".equals(command)) {
+            Presenter.exitingToMainMenu();
+        } else if ("a".equals(command)) {
+            messagemanager.markAllAsRead(myName);
+            Presenter.success();
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
 }

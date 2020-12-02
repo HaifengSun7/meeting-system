@@ -65,6 +65,9 @@ public class SpeakerSystem extends UserSystem {
                 case "10":
                     deleteRequests();
                     continue;
+                case "11":
+                    markUnreadMessages();
+                    continue;
                 default:
                     Presenter.wrongKeyReminder();
                     continue;
