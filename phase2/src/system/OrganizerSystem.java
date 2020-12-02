@@ -481,11 +481,6 @@ public class OrganizerSystem extends UserSystem {
                     Presenter.inputPrompt("maximum people");
                     maxAttendee = Integer.parseInt(reader.nextLine());
                     break;
-                case("VIP"):
-                    maxSpeaker = 1;
-                    Presenter.inputPrompt("maximum people");
-                    maxAttendee = Integer.parseInt(reader.nextLine());
-                    break;
                 default:
                     throw new NoSuchTypeException("Incorrect Event Type");
             }
