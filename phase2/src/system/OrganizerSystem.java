@@ -60,6 +60,21 @@ public class OrganizerSystem extends UserSystem {
                 case "8":
                     createVIP();
                     continue;
+                case "9":
+                    // leaving for Fred
+                    continue;
+                case "10":
+                    // Leaving for Fred
+                    continue;
+                case "11":
+                    seeAllRequest();
+                    continue;
+                case "12":
+                    seeUnsolvedRequest();
+                    continue;
+                case "13":
+                    seeSolvedRequest();
+                    continue;
                 case "e":
                     usermanager.logout(myName);
                     break;
@@ -74,6 +89,18 @@ public class OrganizerSystem extends UserSystem {
         }
         Write write = new Write(usermanager, eventmanager, messagemanager);
         write.run();
+    }
+
+    private void seeAllRequest() {
+
+    }
+
+    private void seeUnsolvedRequest() {
+
+    }
+
+    private void seeSolvedRequest() {
+
     }
 
     /**
