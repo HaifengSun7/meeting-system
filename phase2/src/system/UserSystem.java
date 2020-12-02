@@ -2,6 +2,7 @@ package system;
 
 import com.sun.xml.internal.stream.StaxErrorReporter;
 import event.EventManager;
+import event.exceptions.NoSuchConferenceException;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
@@ -34,7 +35,11 @@ public abstract class UserSystem {
     public UserSystem(String myName) {
         this.myName = myName;
         initializeManagers();
-        this.conference = chooseConference();
+        try {
+            this.conference = chooseConference();
+        } catch (NoSuchConferenceException e) {
+            Presenter.printErrorMessage(e);
+        }
     }
 
     /**
@@ -117,7 +122,7 @@ public abstract class UserSystem {
         messagemanager = read.getMessageManager();
     }
 
-    protected String chooseConference(){
+    protected String chooseConference() throws NoSuchConferenceException {
         Presenter.conferenceChoose();
         ArrayList<String> conferenceList = eventmanager.getAllConference();
         for (int i = 0; i < conferenceList.size(); i++) {
@@ -125,6 +130,12 @@ public abstract class UserSystem {
         }
         Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
         String number = reader.nextLine();
-        return conferenceList.get(Integer.parseInt(number));
+        String chosenConference = null;
+        try {
+            chosenConference = conferenceList.get(Integer.parseInt(number));
+        } catch (Exception e) {
+            Presenter.invalid("conference");
+        }
+        return chosenConference;
     }
 }

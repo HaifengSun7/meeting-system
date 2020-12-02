@@ -366,6 +366,9 @@ public class Presenter {
             case "invalidRequestTitle":
                 System.out.println("This Request title already exist, please try another one!");
                 break;
+            case "conference":
+                System.out.println("Please input a valid conference!");
+                break;
             case"noSuchRequest":
                 System.out.println("Cannot find such request");
             default:

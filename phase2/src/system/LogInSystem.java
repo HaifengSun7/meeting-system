@@ -17,7 +17,6 @@ import java.util.Scanner;
 public class LogInSystem {
 
     UserManager usermanager;
-    EventManager eventmanager;
 
     /**
      * Run the Login System. Print out login menu, initialize users' systems.
@@ -86,7 +85,6 @@ public class LogInSystem {
         ManagerBuilder managerBuilder = new ManagerBuilder();
         managerBuilder.run();
         usermanager = managerBuilder.getUserManager();
-        eventmanager = managerBuilder.getEventManager();
     }
 }
 
