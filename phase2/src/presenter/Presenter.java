@@ -184,11 +184,13 @@ public class Presenter {
                         "Type in [Yes] to recall all or anything else to return.");
                 break;
             case "deleteSuccess":
-                System.out.println("Delete success!\n");
+                System.out.println("Recall success! \n");
                 break;
             case "NoRequests":
-                System.out.println("You don't have any request record!\n");
+                System.out.println("You don't have any request record! \n");
                 break;
+            case "addSuccess":
+                System.out.println("Request sent! \n");
         }
     }
 

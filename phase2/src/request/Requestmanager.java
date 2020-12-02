@@ -12,6 +12,7 @@ public class Requestmanager {
         this.userRequestMapping = new HashMap<>();
         this.titleRequestMapping = new HashMap<>();
     }
+
     public void createNewRequest(String username, String title, String content) throws InvalidTitleException {
         if (titleRequestMapping.containsKey(title)) {
             throw new InvalidTitleException("Already exist such request title.");
@@ -23,6 +24,9 @@ public class Requestmanager {
 
     public void changeStatus(String title){
         titleRequestMapping.get(title).setStatus(true);
+    }
+    public boolean getRequestStatus(String title) {
+        return titleRequestMapping.get(title).getStatus();
     }
 
     public ArrayList<String[]> getRequestsFrom(String username){

@@ -12,7 +12,7 @@ public class AttendeePresenter extends Presenter{
                         "[4] Send a message\n" +
                         "[5] See messages\n" +
                         "[6] Make new request\n" +
-                        "[7] See my requests\n" +
+                        "[7] Check my requests\n" +
                         "[8] Delete my requests\n" +
                         "[e] Save and log out.");
     }

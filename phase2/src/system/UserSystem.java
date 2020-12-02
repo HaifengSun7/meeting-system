@@ -134,6 +134,7 @@ public abstract class UserSystem {
         String content = reader.nextLine();
         try{
             requestmanager.createNewRequest(myName, title, content);
+            Presenter.inputPrompt("addSuccess");
         } catch (InvalidTitleException e) {
             Presenter.invalid("invalidRequestTitle");
         }
@@ -146,7 +147,14 @@ public abstract class UserSystem {
         } else {
             Presenter.inputPrompt("requestIntroduction");
             for (int i = 0; i < requestList.size(); i++) {
-                Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
+                String requestTitle = requestList.get(i)[0];
+                String status;
+                if (requestmanager.getRequestStatus(requestTitle)){
+                    status = "[Status: Addressed] ";
+                } else {
+                    status = "[Status: Pending]   ";
+                }
+                Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
             }
             Presenter.exitToMainMenuPrompt();
             Presenter.inputPrompt("readRequest");
