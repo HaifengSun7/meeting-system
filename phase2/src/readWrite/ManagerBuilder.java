@@ -3,11 +3,14 @@ package readWrite;
 import event.*;
 import event.exceptions.*;
 import message.MessageManager;
+import request.InvalidTitleException;
+import request.RequestManager;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.UserManager;
 
 import java.sql.*;
+import java.util.Objects;
 
 /**
  * I read.
@@ -16,6 +19,7 @@ public class ManagerBuilder {
     private final UserManager usermanager;
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
+    private final RequestManager requestmanager;
     private Statement stmt;
 
     public ManagerBuilder(){
@@ -24,6 +28,7 @@ public class ManagerBuilder {
         this.usermanager = new UserManager();
         this.eventmanager = new EventManager();
         this.messagemanager = new MessageManager();
+        this.requestmanager = new RequestManager();
         try{
             this.stmt = conn.createStatement();
         } catch (SQLException e){
@@ -37,7 +42,10 @@ public class ManagerBuilder {
         eventManagerInitialize();
         userManagerInitialize();
         messageManagerInitialize();
+        requestManagerInitialize();
     }
+
+
 
     public EventManager getEventManager(){
         return this.eventmanager;
@@ -49,6 +57,10 @@ public class ManagerBuilder {
 
     public MessageManager getMessageManager(){
         return this.messagemanager;
+    }
+
+    public RequestManager getRequestManager(){
+        return this.requestmanager;
     }
 
     private void userManagerInitialize() {
@@ -120,12 +132,25 @@ public class ManagerBuilder {
     }
 
     private void messageManagerInitialize(){
-        String sql = "SELECT Sender, Receiver, MessageText FROM message";
+        String sql = "SELECT Sender, Receiver, MessageText FROM message"; //TODO: status?
         try(ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
                 messagemanager.sendMessage(rs.getString("Sender"), rs.getString("Receiver"), rs.getString("MessageText"));
             }
         } catch (SQLException e) {
+            System.out.println("I don't fucking know 6");
+        }
+    }
+    private void requestManagerInitialize() {
+        String sql = "SELECT Sender, Status, RequestText, RequestTitle FROM request";
+        try(ResultSet rs = stmt.executeQuery(sql)){
+            while(rs.next()){
+                requestmanager.createNewRequest(rs.getString("Sender"), rs.getString("RequestTitle"), rs.getString("RequestText"));
+                if (Objects.equals(rs.getString("Status"), "Addressed")){
+                    requestmanager.changeStatus(rs.getString("RequestTitle"));
+                }
+            }
+        } catch (SQLException | InvalidTitleException e) {
             System.out.println("I don't fucking know 6");
         }
     }

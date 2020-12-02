@@ -65,14 +65,16 @@ public class SpeakerSystem extends UserSystem {
                 case "10":
                     deleteRequests();
                     continue;
+                case "save":
+                    save();
+                    continue;
                 default:
                     Presenter.wrongKeyReminder();
                     continue;
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
     }
 
     /*

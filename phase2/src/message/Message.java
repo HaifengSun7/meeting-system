@@ -62,4 +62,9 @@ public class Message {
     public String toString() {
         return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + this.text;
     }
+
+    public String getStatus() {
+        //TODO:
+        return "yes.";
+    }
 }

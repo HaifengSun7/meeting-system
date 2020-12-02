@@ -1,6 +1,5 @@
 package system;
 
-import com.sun.xml.internal.stream.StaxErrorReporter;
 import event.EventManager;
 import event.exceptions.NoSuchConferenceException;
 import message.MessageManager;
@@ -8,7 +7,7 @@ import presenter.Presenter;
 import readWrite.*;
 import request.InvalidTitleException;
 import request.NoSuchRequestException;
-import request.Requestmanager;
+import request.RequestManager;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public abstract class UserSystem {
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
     protected MessageManager messagemanager = new MessageManager();
-    protected Requestmanager requestmanager = new Requestmanager();
+    protected RequestManager requestmanager = new RequestManager();
     protected String conference;
 
     /**
@@ -108,6 +107,7 @@ public abstract class UserSystem {
         usermanager = read.getUserManager();
         eventmanager = read.getEventManager();
         messagemanager = read.getMessageManager();
+        requestmanager = read.getRequestManager();
     }
 
     protected String chooseConference() throws NoSuchConferenceException {
@@ -219,5 +219,10 @@ public abstract class UserSystem {
                 Presenter.exitingToMainMenu();
             }
         }
+    }
+
+    protected void save(){
+        Write write = new Write(usermanager, eventmanager, messagemanager, requestmanager);
+        write.run();
     }
 }

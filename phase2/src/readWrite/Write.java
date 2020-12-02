@@ -3,9 +3,9 @@ package readWrite;
 import event.EventManager;
 import javafx.util.Pair;
 import message.MessageManager;
+import request.RequestManager;
 import user.UserManager;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +20,7 @@ public class Write {
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
     private final Connection conn;
+    private final RequestManager requestmanager;
     private Statement stmt;
 
     /**
@@ -29,10 +30,11 @@ public class Write {
      * @param eventManager   an EventManager.
      * @param messageManager an MessageManager.
      */
-    public Write(UserManager userManager, EventManager eventManager, MessageManager messageManager) {
+    public Write(UserManager userManager, EventManager eventManager, MessageManager messageManager, RequestManager requestmanager) {
         this.usermanager = userManager;
         this.eventmanager = eventManager;
         this.messagemanager = messageManager;
+        this.requestmanager = requestmanager;
         Connecting cct = new Connecting();
         this.conn = cct.run();
         try{this.stmt = conn.createStatement();}
@@ -43,16 +45,14 @@ public class Write {
      * Write to save files.
      */
     public void run() {
-        try {
-            remover();
-            userWriter();
-            roomWriter();
-            eventWriter();
-            messageWriter();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        remover();
+        userWriter();
+        roomWriter();
+        eventWriter();
+        messageWriter();
+        requestWriter();
     }
+
 
     private void remover() {
         try {
@@ -181,20 +181,36 @@ public class Write {
     }
 
 
-    private void messageWriter() throws IOException {
+    private void messageWriter() {
         String sql = "INSERT INTO message(Sender,Receiver,Status,MessageText) VALUES(?,?,?,?)";
         ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
         for (ArrayList<String> messageInfo : allMessage) {
             try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
                 pstmt2.setString(1, messageInfo.get(0));
                 pstmt2.setString(2, messageInfo.get(1));
-                pstmt2.setString(3, "TODO");//TODO: STATUS
-                pstmt2.setString(4, messageInfo.get(2));
+                pstmt2.setString(3, messageInfo.get(2));//TODO: STATUS
+                pstmt2.setString(4, messageInfo.get(3));
                 pstmt2.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+    private void requestWriter() {
+        String sql = "INSERT INTO request(Sender,Status,RequestText,RequestTitle) VALUES(?,?,?,?)";
+        ArrayList<ArrayList<String>> allrequests = requestmanager.getAllRequest();
+        for (ArrayList<String> requestInfo : allrequests) {
+            try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
+                pstmt2.setString(1, requestInfo.get(0));
+                pstmt2.setString(2, requestInfo.get(1));
+                pstmt2.setString(3, requestInfo.get(2));
+                pstmt2.setString(4, requestInfo.get(3));
+                pstmt2.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }

@@ -75,6 +75,9 @@ public class OrganizerSystem extends UserSystem {
                 case "13":
                     seeSolvedRequest();
                     continue;
+                case "save":
+                    save();
+                    continue;
                 case "e":
                     usermanager.logout(myName);
                     break;
@@ -87,8 +90,7 @@ public class OrganizerSystem extends UserSystem {
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
     }
 
     private void seeAllRequest() {

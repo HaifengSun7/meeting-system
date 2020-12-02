@@ -62,6 +62,9 @@ public class AttendeeSystem extends UserSystem {
                 case "8":
                     deleteRequests();
                     continue;
+                case "save":
+                    save();
+                    continue;
                 default:
                     Presenter.wrongKeyReminder();
                     Presenter.invalid("");
@@ -71,8 +74,7 @@ public class AttendeeSystem extends UserSystem {
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
     }
 
     /*

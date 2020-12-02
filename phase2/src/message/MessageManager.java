@@ -87,9 +87,9 @@ public class MessageManager {
 
     /**
      * The method used to save all sent Messages in the system. Stores each message in the form of
-     * [sender's username, receiver's username, message] and put them into a list.
+     * [sender's username, receiver's username, status, message] and put them into a list.
      *
-     * @return A list of lists that has each element in form of [sender's username, receiver's username, message]
+     * @return A list of lists that has each element in form of [sender's username, receiver's username, status, message]
      */
     public ArrayList<ArrayList<String>> getAllMessage() {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
@@ -97,6 +97,7 @@ public class MessageManager {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(message.getSender());
             temp.add(message.getReceiver());
+            temp.add(message.getStatus()); ///TODO: will wang what the fuck.
             temp.add(message.getText());
             result.add(temp);
         }

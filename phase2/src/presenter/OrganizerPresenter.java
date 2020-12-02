@@ -19,6 +19,7 @@ public class OrganizerPresenter extends Presenter{
                         "[11] Read/tag all requests [Not done Yet]\n" +
                         "[12] Read/tag all pending requests [Not done Yet]\n" +
                         "[13] Read/tag all addressed requests [Not done Yet]\n" +
+                        "[save] Save.\n" +
                         "[e] Save and Log out");
     }
 
