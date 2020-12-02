@@ -14,6 +14,11 @@ public class OrganizerPresenter extends Presenter{
                         "[6] Send message to all attendees\n" +
                         "[7] See messages\n" +
                         "[8] create/promote VIP account\n" +
+                        "[9] create new attendee account [Not done Yet]\n" +
+                        "[10] create new organizer account [Not done Yet]\n" +
+                        "[11] Read/tag all requests [Not done Yet]\n" +
+                        "[12] Read/tag all pending requests [Not done Yet]\n" +
+                        "[13] Read/tag all addressed requests [Not done Yet]\n" +
                         "[e] Save and Log out");
     }
 
