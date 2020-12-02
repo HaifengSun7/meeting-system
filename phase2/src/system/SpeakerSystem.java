@@ -1,6 +1,6 @@
 package system;
 
-import presenter.Presenter;
+import presenter.*;
 import readWrite.Write;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class SpeakerSystem extends UserSystem {
         while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Speaker");
-            Presenter.speakerMenu();
+            SpeakerPresenter.speakerMenu();
             String command = reader.nextLine();
 
             switch (command) {

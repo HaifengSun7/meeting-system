@@ -1,17 +1,13 @@
 package system;
 
 import event.exceptions.*;
-import presenter.Presenter;
+import presenter.*;
 import readWrite.Write;
-import user.DuplicateUserNameException;
-import user.InvalidUsernameException;
-import user.NoSuchUserException;
+import user.*;
 
 import javax.activity.InvalidActivityException;
-import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.PropertyResourceBundle;
 
 /**
  * <h1>Organizer System</h1>
@@ -37,7 +33,7 @@ public class OrganizerSystem extends UserSystem {
         while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Organizer");
-            Presenter.organizerMenu();
+            OrganizerPresenter.organizerMenu();
             command = reader.nextLine();
             switch (command) {
                 case "1":
@@ -107,12 +103,12 @@ public class OrganizerSystem extends UserSystem {
      * in a specific room.
      */
     private void manageRooms() {
-        Presenter.titlesInSpeaker("manageRooms");
+        SpeakerPresenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
         for (String s : roomList) {
             Presenter.defaultPrint(s);
         }
-        Presenter.menusInOrganizer("manageRooms");
+        OrganizerPresenter.menusInOrganizer("manageRooms");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -267,7 +263,7 @@ public class OrganizerSystem extends UserSystem {
             Presenter.continuePrompt();
             return;
         }
-        Presenter.titlesInSpeaker("checkRoom");
+        SpeakerPresenter.titlesInSpeaker("checkRoom");
         Presenter.continuePrompt();
     }
 
@@ -275,7 +271,7 @@ public class OrganizerSystem extends UserSystem {
      * Create a new user to be the speaker.
      */
     private void createSpeaker() {
-        Presenter.menusInOrganizer("createSpeaker");
+        OrganizerPresenter.menusInOrganizer("createSpeaker");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -303,7 +299,7 @@ public class OrganizerSystem extends UserSystem {
      * Promote a user to be a speaker.
      */
     private void promoteExistingSpeaker() {
-        Presenter.titlesInSpeaker("promoteExistingSpeaker");
+        SpeakerPresenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
         try {
             usermanager.becomeSpeaker(name);
@@ -324,7 +320,7 @@ public class OrganizerSystem extends UserSystem {
      * Create a new user to be the VIP attendee.
      */
     private void createVIP() {
-        Presenter.menusInOrganizer("createVIP");
+        OrganizerPresenter.menusInOrganizer("createVIP");
         String command = reader.nextLine();
         switch (command) {
             case "a":
@@ -352,7 +348,7 @@ public class OrganizerSystem extends UserSystem {
      * Promote a attendee to be a VIP.
      */
     private void promoteExistingAttendee() {
-        Presenter.menusInOrganizer("promoteExistingAttendee");
+        OrganizerPresenter.menusInOrganizer("promoteExistingAttendee");
         String name = reader.nextLine();
         try {
             usermanager.becomeVIP(name);
@@ -373,12 +369,12 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.notASpeaker();
                 return;
             }
-            Presenter.titlesInSpeaker("scheduleSpeakers1");
+            SpeakerPresenter.titlesInSpeaker("scheduleSpeakers1");
             ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
             for (int i = 0; i < allEvents.size(); i++) {
                 Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
             }
-            Presenter.menusInOrganizer("scheduleSpeakers1");
+            OrganizerPresenter.menusInOrganizer("scheduleSpeakers1");
             Presenter.exitToMainMenuPrompt();
             String command = reader.nextLine();
             switch (command) {
@@ -386,12 +382,12 @@ public class OrganizerSystem extends UserSystem {
                     addSpeakerToEvent(allEvents, name, command);
                     break;
                 case "r":
-                    Presenter.titlesInSpeaker("scheduleSpeakers2");
+                    SpeakerPresenter.titlesInSpeaker("scheduleSpeakers2");
                     ArrayList<String> roomLst = eventmanager.getAllRooms();
                     for (String s : roomLst) {
                         Presenter.defaultPrint(s);
                     }
-                    Presenter.menusInOrganizer("scheduleSpeakers2");
+                    OrganizerPresenter.menusInOrganizer("scheduleSpeakers2");
                     Presenter.exitToMainMenuPrompt();
                     String command4 = reader.nextLine();
                     switch (command4) {
@@ -452,7 +448,7 @@ public class OrganizerSystem extends UserSystem {
      * The action of adding an Event, with info from inputs.
      */
     private void addingEvent(){
-        Presenter.titlesInSpeaker("AddEvents");
+        SpeakerPresenter.titlesInSpeaker("AddEvents");
         Presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
         Presenter.inputPrompt("startTime");

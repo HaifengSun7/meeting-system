@@ -1,7 +1,7 @@
 package system;
 
 import event.exceptions.*;
-import presenter.Presenter;
+import presenter.*;
 import readWrite.Write;
 import request.NoSuchRequestException;
 
@@ -32,7 +32,7 @@ public class AttendeeSystem extends UserSystem {
         while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Attendee");
-            Presenter.attendeeMenu();
+            AttendeePresenter.attendeeMenu();
             command = reader.nextLine();
             switch (command) {
                 case "e":
