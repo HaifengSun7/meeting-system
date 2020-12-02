@@ -26,7 +26,7 @@ public class SpeakerSystem extends UserSystem {
     @Override
     public void run() {
 
-        while (true) {
+        while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Speaker");
             Presenter.speakerMenu();

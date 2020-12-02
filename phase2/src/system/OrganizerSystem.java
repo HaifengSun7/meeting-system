@@ -34,7 +34,7 @@ public class OrganizerSystem extends UserSystem {
     @Override
     public void run() {
         String command;
-        while (true) {
+        while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Organizer");
             Presenter.organizerMenu();

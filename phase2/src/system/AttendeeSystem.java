@@ -29,7 +29,7 @@ public class AttendeeSystem extends UserSystem {
     @Override
     public void run() {
         String command;
-        while (true) {
+        while (conference != null) {
             Presenter.name(myName);
             Presenter.userType("Attendee");
             Presenter.attendeeMenu();
