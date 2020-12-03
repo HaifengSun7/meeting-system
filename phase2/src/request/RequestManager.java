@@ -13,6 +13,12 @@ public class RequestManager {
         this.titleRequestMapping = new HashMap<>();
     }
 
+    /**
+     * Create new request.
+     * @param username: a User's username in string.
+     * @param title: a request's title in string.
+     * @param content: a request's content in string.
+     */
     public void createNewRequest(String username, String title, String content) throws InvalidTitleException {
         if (titleRequestMapping.containsKey(title)) {
             throw new InvalidTitleException("Already exist such request title.");
@@ -22,15 +28,29 @@ public class RequestManager {
         }
     }
 
+    /**
+     * change the status of a request to its opposite.
+     * @param title: a request's title in string.
+     */
     public void changeStatus(String title){
         boolean status = titleRequestMapping.get(title).getStatus();
         titleRequestMapping.get(title).setStatus(!status);
     }
 
+    /**
+     * change the status of a request to its opposite.
+     * @param title: a request's title in string.
+     * @return a boolean represent the status of request, e.g ture - addressed or false - pending
+     */
     public boolean getRequestStatus(String title) {
         return titleRequestMapping.get(title).getStatus();
     }
 
+    /**
+     * return all requests from single user.
+     * @param username: a user's username in string.
+     * @return an array list of list of Strings which include title and content of each request from this user.
+     */
     public ArrayList<String[]> getRequestsFrom(String username){
         ArrayList<String[]> allMyRequestList = new ArrayList<>();
         if (userRequestMapping.containsKey(username)){
@@ -42,6 +62,10 @@ public class RequestManager {
         return allMyRequestList;
     }
 
+    /**
+     * return all requests in the system.
+     * @return an array list of list of Strings which include title and content of each requests in this system.
+     */
     public ArrayList<String[]> getAllRequests(){
         ArrayList<String[]> allRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
@@ -51,6 +75,10 @@ public class RequestManager {
         return allRequestList;
     }
 
+    /**
+     * return all requests in the system.
+     * @return an array list of list of Strings which include title and content of each pending requests in this system.
+     */
     public ArrayList<String[]> getAllUnsolvedRequests(){
         ArrayList<String[]> unsolvedRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
@@ -62,6 +90,10 @@ public class RequestManager {
         return unsolvedRequestList;
     }
 
+    /**
+     * return all requests in the system.
+     * @return an array list of list of Strings which include title and content of each addressed requests in this system.
+     */
     public ArrayList<String[]> getAllSolvedRequests(){ //Need to be String in the future!!!!!!!
         ArrayList<String[]> solvedRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
@@ -73,6 +105,10 @@ public class RequestManager {
         return solvedRequestList;
     }
 
+    /**
+     * recall all request from one single user.
+     * @param username: a user's username in string.
+     */
     public void recallAllRequestsFrom(String username) throws NoSuchRequestException {
         if (userRequestMapping.containsKey(username)){
             for (Request request:userRequestMapping.get(username)){
@@ -86,6 +122,10 @@ public class RequestManager {
         }
     }
 
+    /**
+     * recall one specific request from one user.
+     * @param title: the title of a request in string.
+     */
     public void recallSingleRequest(String title) throws NoSuchRequestException {
         if (!titleRequestMapping.containsKey(title)) {
             throw new NoSuchRequestException("Cannot find such request in title-request mapping");
@@ -106,6 +146,7 @@ public class RequestManager {
         userRequestMapping.get(username).add(request);
         titleRequestMapping.put(title, request);
     }
+
 //    private void recallRequest(String username, String title, Request request){
 //            titleRequestMapping.remove(title);
 //            userRequestMapping.get(username).remove(request);
@@ -114,7 +155,7 @@ public class RequestManager {
     //Do not change the following method. Contact Haifeng for any modification.
     /**
      * Return all requests, with format as follows:
-     * @return An Arraylist, each element with format: [Sender, Status Title, Content]
+     * @return An Arraylist, each element with format: [Sender, Status, Title, Content]
      */
     public ArrayList<ArrayList<String>> getAllRequest(){
     ArrayList<ArrayList<String>> result = new ArrayList<>();
