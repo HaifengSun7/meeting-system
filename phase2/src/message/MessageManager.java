@@ -1,14 +1,18 @@
 package message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The message manager that organizes sending, receiving of messages.
  */
 public class MessageManager {
 
-    private final ArrayList<Message> messages = new ArrayList<>();
+    private final HashMap<Integer, Message> map = new HashMap<>();
 
+    public MessageManager(){
+        Message.resetID();
+    }
     /**
      * Send a Message to receiver by sender. With the message text.
      *
@@ -18,7 +22,7 @@ public class MessageManager {
      */
     public void sendMessage(String sender, String receiver, String text) {
         Message message = new Message(sender, receiver, text);
-        messages.add(message);
+        map.put(message.getID(), message);
     }
 
     /**
@@ -29,7 +33,7 @@ public class MessageManager {
      */
     public ArrayList<String> getSent(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
-        for (Message msg : this.messages) {
+        for (Message msg : this.map.values()) {
             if (msg.getSender().equals(username)) {
                 rtn_list.add(msg.toString());
             }
@@ -41,16 +45,73 @@ public class MessageManager {
      * Get the inbox messages of the user.
      *
      * @param username The username of the user that we are looking for.
-     * @return The list of inbox messages, in form of a list of Strings, each element is the string form of the Message.
+     * @return The list of inbox messages, the list would include unread messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getInbox(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
-        for (Message msg : this.messages) {
+        for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.toString());
             }
         }
         return rtn_list;
+    }
+
+    /**
+     * Get the inbox messages of the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of unread messages, in form of a list of Strings, each element is the string form of the Message.
+     */
+    public ArrayList<String> getUnread(String username) {
+        ArrayList<String> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
+                rtn_list.add(msg.toString());
+            }
+        }
+        return rtn_list;
+    }
+
+    /*
+     * Get the inbox messages of the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of unread messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getUnreadMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
+                rtn_list.add(msg);
+            }
+        }
+        return rtn_list;
+    }
+
+    /**
+     * Read message
+     * @param username the username we need to change its message status
+     * @param k the index of the message we need to change its status
+     */
+    public void markKthAsRead(String username, Integer k) {
+        this.getUnreadMessages(username).get(k).setUnreadStatus(false);
+    }
+
+    /**
+     * Read messages
+     * @param username the username we need to change its message status
+     */
+    public void markAllAsRead(String username) throws NoSuchMessageException{
+        try {
+            for (Message msg: map.values()) {
+                if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
+                    msg.setUnreadStatus(false);
+                }
+            }
+        } catch (Exception e){
+            throw new NoSuchMessageException("Failed to mark all as read.");
+        }
     }
 
     /**
@@ -62,7 +123,7 @@ public class MessageManager {
      */
     public ArrayList<String> getInboxSender(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
-        for (Message msg : this.messages) {
+        for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
                 rtn_list.add(msg.getSender());
             }
@@ -93,14 +154,35 @@ public class MessageManager {
      */
     public ArrayList<ArrayList<String>> getAllMessage() {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
-        for (Message message : messages) {
+        for (Message message : map.values()) {
             ArrayList<String> temp = new ArrayList<>();
+            temp.add(String.valueOf(message.getID()));
             temp.add(message.getSender());
-            temp.add(message.getReceiver());
-            temp.add(message.getStatus()); ///TODO: will wang what the fuck.
+            temp.add(message.getReceiver());//TODO: will wang what the fuck.
             temp.add(message.getText());
+            temp.addAll(message.getAllStatus());
             result.add(temp);
         }
         return result;
     }//TODO: STATUS?
+
+    /**
+     * Initialize the message's status.
+     * @param ID message ID
+     * @param Unread unread status, true for unread.
+     * @param ReceiverDeleteStatus whether the receiver has deleted the message.
+     * @param ReceiverArchiveStatus whether the receiver has archived the message.
+     * @param SenderDeleteStatus whether the sender has delete the message.
+     * @param SenderArchiveStatus whether the sender has archived the message.
+     */
+    public void initializeStatus(int ID, boolean Unread, boolean ReceiverDeleteStatus,
+                                 boolean ReceiverArchiveStatus,boolean SenderDeleteStatus,
+                                 boolean SenderArchiveStatus){
+        Message msg = map.get(ID);
+        msg.setUnreadStatus(Unread);
+        msg.setReceiverArchiveStatus(ReceiverArchiveStatus);
+        msg.setSenderArchiveStatus(SenderArchiveStatus);
+        msg.setReceiverDeleteStatus(ReceiverDeleteStatus);
+        msg.setSenderDeleteStatus(SenderDeleteStatus);
+    }
 }

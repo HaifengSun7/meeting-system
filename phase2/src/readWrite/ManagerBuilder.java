@@ -10,6 +10,7 @@ import user.InvalidUsernameException;
 import user.UserManager;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -132,11 +133,22 @@ public class ManagerBuilder {
     }
 
     private void messageManagerInitialize(){
-        String sql = "SELECT Sender, Receiver, MessageText FROM message"; //TODO: status?
+        String sql = "SELECT ID, Sender, Receiver, MessageText," +
+                " Unread, ReceiverDeleteStatus, ReceiverArchiveStatus," +
+                " SenderDeleteStatus, SenderArchiveStatus FROM message";
         try(ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
-                messagemanager.sendMessage(rs.getString("Sender"), rs.getString("Receiver"), rs.getString("MessageText"));
+                messagemanager.sendMessage(rs.getString("Sender"),
+                        rs.getString("Receiver"),
+                        rs.getString("MessageText"));
+                messagemanager.initializeStatus(rs.getInt("ID"),
+                        rs.getBoolean("Unread"),
+                        rs.getBoolean("ReceiverDeleteStatus"),
+                        rs.getBoolean("ReceiverArchiveStatus"),
+                        rs.getBoolean("SenderDeleteStatus"),
+                        rs.getBoolean("SenderArchiveStatus"));
             }
+
         } catch (SQLException e) {
             System.out.println("I don't fucking know 6");
         }
