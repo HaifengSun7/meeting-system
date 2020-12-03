@@ -100,6 +100,9 @@ public class Presenter {
             case "eventId":
                 System.out.println("Enter event id to choose the event:");
                 break;
+            case "promote event":
+                System.out.println("Enter eventID of the event you want to promote");
+                break;
             case "roomNumber":
                 System.out.println("Please enter a room number:");
                 break;
