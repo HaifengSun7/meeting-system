@@ -61,10 +61,10 @@ public class OrganizerSystem extends UserSystem {
                     createVIP();
                     continue;
                 case "9":
-                    // leaving for Fred
+                    createAttendee();
                     continue;
                 case "10":
-                    // Leaving for Fred
+                    createOrganizer();
                     continue;
                 case "11":
                     seeAllRequest();
@@ -74,6 +74,9 @@ public class OrganizerSystem extends UserSystem {
                     continue;
                 case "13":
                     seeSolvedRequest();
+                    continue;
+                case "14":
+                    promoteVIPEvent();
                     continue;
                 case "save":
                     save();
@@ -124,6 +127,36 @@ public class OrganizerSystem extends UserSystem {
             } else {
                 Presenter.invalid("username");
             }
+        }
+    }
+
+    private void promoteVIPEvent() {
+        try {
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (String allEvent : allEvents) {
+                Presenter.defaultPrint(allEvent);
+            }
+            Presenter.inputPrompt("promote event");
+            String eventId = reader.nextLine();
+            try {
+                ArrayList<String> userList = new ArrayList<>(eventmanager.getAttendees(eventId));
+                for (String username : userList) {
+                    if (!usermanager.isVIP(username)) {
+                        usermanager.deleteSignedEvent(eventId, username);
+                        eventmanager.signOut(eventId, username);
+                    }
+                }
+                eventmanager.switchVipEvent(eventId, true);
+                Presenter.success();
+            } catch (NoSuchEventException | NoSuchUserException | NotAttendeeException | InvalidActivityException e) {
+                Presenter.printErrorMessage(e);
+                Presenter.continuePrompt();
+                reader.nextLine();
+            }
+        } catch (NoSuchConferenceException e) {
+            Presenter.printErrorMessage(e);
+            Presenter.continuePrompt();
+            reader.nextLine();
         }
     }
 
@@ -383,6 +416,38 @@ public class OrganizerSystem extends UserSystem {
             usermanager.becomeVIP(name);
             System.out.println("Successfully set " + name + " to be a VIP attendee.\n");
         } catch (NoSuchUserException e) {
+            Presenter.printErrorMessage(e);
+        }
+    }
+
+    /*
+     * Create a new attendee account.
+     */
+    private void createAttendee() {
+        Presenter.inputPrompt("newUsername");
+        String username = reader.nextLine();
+        Presenter.inputPrompt("password");
+        String password = reader.nextLine();
+        try {
+            usermanager.createUserAccount("Attendee", username, password);
+            Presenter.success();
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
+            Presenter.printErrorMessage(e);
+        }
+    }
+
+    /*
+     * Create a new Organizer account.
+     */
+    private void createOrganizer() {
+        Presenter.inputPrompt("newUsername");
+        String username = reader.nextLine();
+        Presenter.inputPrompt("password");
+        String password = reader.nextLine();
+        try {
+            usermanager.createUserAccount("Organizer", username, password);
+            Presenter.success();
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
             Presenter.printErrorMessage(e);
         }
     }

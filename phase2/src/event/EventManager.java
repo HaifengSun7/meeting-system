@@ -149,23 +149,25 @@ public class EventManager {
         return events;
     }
 
-    public ArrayList<String> getLimitedEvents() {
-        ArrayList<String> events = new ArrayList<>();
-        for (int i = 0; i < map.size() - 1; i++) {
-            if (map.containsKey(i)) {
-                if (! map.get(i).getVip()) {
-                    events.add(map.get(i).toString());
-                }
-            } else {
-                events.add("cancelled");
-            }
-        }
-        return events;
+//    public ArrayList<String> getLimitedEvents() {
+//        ArrayList<String> events = new ArrayList<>();
+//        for (int i = 0; i < map.size() - 1; i++) {
+//            if (map.containsKey(i)) {
+//                if (! map.get(i).getVip()) {
+//                    events.add(map.get(i).toString());
+//                }
+//            } else {
+//                events.add("cancelled");
+//            }
+//        }
+//        return events;
+//    }
+
+    public void switchVipEvent(String eventId, boolean vip) {
+        map.get(Integer.parseInt(eventId)).setVip(vip);
     }
 
-    public void switchVipEvent(int eventNumber, boolean vip) {
-        map.get(eventNumber).setVip(vip);
-    }
+
 
     /**
      * Add user to an event. MAKE SURE TO DOUBLE CHECK ALL CONDITIONS.
