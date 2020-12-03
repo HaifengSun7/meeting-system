@@ -191,6 +191,10 @@ public class Presenter {
                 break;
             case "addSuccess":
                 System.out.println("Request sent! \n");
+                break;
+            case "anythingToGoBack":
+                System.out.println("Press anything to return the main menu");
+                break;
         }
     }
 

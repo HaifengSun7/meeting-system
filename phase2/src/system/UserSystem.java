@@ -146,17 +146,7 @@ public abstract class UserSystem {
             Presenter.inputPrompt("NoRequests");
         } else {
             Presenter.inputPrompt("requestIntroduction");
-            for (int i = 0; i < requestList.size(); i++) {
-                String requestTitle = requestList.get(i)[0];
-                String status;
-                if (requestmanager.getRequestStatus(requestTitle)){
-                    status = "[Status: Addressed] ";
-                } else {
-                    status = "[Status: Pending]   ";
-                }
-                Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
-            }
-            Presenter.exitToMainMenuPrompt();
+            printRequests(requestList);
             Presenter.inputPrompt("readRequest");
             String command = reader.nextLine();
             try {
@@ -176,17 +166,27 @@ public abstract class UserSystem {
         }
     }
 
+    protected void printRequests(ArrayList<String[]> requestList){ //Helper function
+        for (int i = 0; i < requestList.size(); i++) {
+            String requestTitle = requestList.get(i)[0];
+            String status;
+            if (requestmanager.getRequestStatus(requestTitle)){
+                status = "[Status: Addressed] ";
+            } else {
+                status = "[Status: Pending]   ";
+            }
+            Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
+        }
+        Presenter.exitToMainMenuPrompt();
+    }
+
     protected void deleteRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){
             Presenter.inputPrompt("NoRequests");
         } else {
             Presenter.inputPrompt("requestIntroduction");
-            for (int i = 0; i < requestList.size(); i++) {
-                Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
-            }
-            Presenter.inputPrompt("recallRequest");
-            Presenter.exitToMainMenuPrompt();
+            printRequests(requestList);
             String command = reader.nextLine();
             try {
                 int input = Integer.parseInt(command);

@@ -3,6 +3,7 @@ package system;
 import event.exceptions.*;
 import presenter.*;
 import readWrite.Write;
+import request.NoSuchRequestException;
 import user.*;
 
 import javax.activity.InvalidActivityException;
@@ -94,7 +95,32 @@ public class OrganizerSystem extends UserSystem {
     }
 
     private void seeAllRequest() {
-
+        ArrayList<String[]> allRequests = requestmanager.getAllRequests();
+        if (allRequests.size() == 0){
+            Presenter.inputPrompt("NoRequests");
+        } else {
+            OrganizerPresenter.menusInOrganizer("SeeAllRequestsInSystemIntroduction");
+            printRequests(allRequests); // Here is all request titles!
+            Presenter.inputPrompt("readRequest");
+            String command = reader.nextLine();
+            try {
+                int input = Integer.parseInt(command);
+                if ((0 <= input) && (input < allRequests.size())) {
+                    Presenter.defaultPrint(allRequests.get(input)[1]);
+                    changeRequestStatus(allRequests.get(input)[0]);
+                } else {
+                    Presenter.invalid("");
+                    Presenter.exitingToMainMenu();
+                }
+            } catch (NumberFormatException e) {
+                if (!"e".equals(command)) {
+                    Presenter.invalid("");
+                }
+            }
+            Presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            Presenter.exitingToMainMenu();
+        }
     }
 
     private void seeUnsolvedRequest() {
@@ -103,6 +129,23 @@ public class OrganizerSystem extends UserSystem {
 
     private void seeSolvedRequest() {
 
+    }
+
+    private void changeRequestStatus(String title) {
+        boolean requestSolved = requestmanager.getRequestStatus(title);
+        if (requestSolved){
+            OrganizerPresenter.menusInOrganizer("ChangeStatusAtoP");
+        } else {
+            OrganizerPresenter.menusInOrganizer("ChangeStatusPtoA");
+        }
+        String confirm = reader.nextLine();
+        if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
+            requestmanager.changeStatus(title);
+            OrganizerPresenter.menusInOrganizer("ChangeStatusSuccess");
+        }
+//        Presenter.inputPrompt("anythingToGoBack");
+//        reader.nextLine();
+//        Presenter.exitingToMainMenu();
     }
 
     /**

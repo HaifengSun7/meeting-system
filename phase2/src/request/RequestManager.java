@@ -23,8 +23,10 @@ public class RequestManager {
     }
 
     public void changeStatus(String title){
-        titleRequestMapping.get(title).setStatus(true);
+        boolean status = titleRequestMapping.get(title).getStatus();
+        titleRequestMapping.get(title).setStatus(!status);
     }
+
     public boolean getRequestStatus(String title) {
         return titleRequestMapping.get(title).getStatus();
     }
@@ -40,7 +42,7 @@ public class RequestManager {
         return allMyRequestList;
     }
 
-    public ArrayList<String[]> getAllRequests(){ //Need to be String in the future!!!!!!!
+    public ArrayList<String[]> getAllRequests(){
         ArrayList<String[]> allRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
             String[] singleRequest = new String[] {request.getTitle(), request.getContent()};
@@ -49,7 +51,7 @@ public class RequestManager {
         return allRequestList;
     }
 
-    public ArrayList<String[]> getAllUnsolvedRequests(){ //Need to be String in the future!!!!!!!
+    public ArrayList<String[]> getAllUnsolvedRequests(){
         ArrayList<String[]> unsolvedRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
             if (!request.getStatus()) {
