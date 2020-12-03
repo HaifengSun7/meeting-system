@@ -50,7 +50,7 @@ public class MessageManager {
     public ArrayList<String> getInbox(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username)) {
+            if (msg.getReceiver().equals(username) && !msg.getReceiverDeleteStatus()) {
                 rtn_list.add(msg.toString());
             }
         }
@@ -66,7 +66,7 @@ public class MessageManager {
     public ArrayList<String> getUnread(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
+            if (msg.getReceiver().equals(username) && msg.getUnReadStatus() && !msg.getReceiverDeleteStatus()) {
                 rtn_list.add(msg.toString());
             }
         }
@@ -82,7 +82,7 @@ public class MessageManager {
     private ArrayList<Message> getUnreadMessages(String username) {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
+            if (msg.getReceiver().equals(username) && msg.getUnReadStatus() && !msg.getReceiverDeleteStatus()) {
                 rtn_list.add(msg);
             }
         }
@@ -111,6 +111,63 @@ public class MessageManager {
             }
         } catch (Exception e){
             throw new NoSuchMessageException("Failed to mark all as read.");
+        }
+    }
+
+    /**
+     * Get the all messages to string sent or received by the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of unread messages, in form of a list of Strings, each element is the string form of the Message.
+     */
+    public ArrayList<String> getAll(String username) {
+        ArrayList<String> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus()){
+                    rtn_list.add(msg.toString());
+                } 
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus()){
+                    rtn_list.add(msg.toString());
+                }
+            }
+            }
+        return rtn_list;
+    }
+
+    /*
+     * Get the all messages sent or received by the user.
+     * 
+     * @param username The username of the user that we are looking for.
+     * @return The list of unread messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getAllMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus()){
+                    rtn_list.add(msg);
+                } 
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus()){
+                    rtn_list.add(msg);
+                }
+            }
+        }
+        return rtn_list;
+    }
+
+    /**
+     * Delete message
+     * @param username the username we need to change its message status
+     * @param k the index of the message we need to change its status
+     */
+    public void deleteKth(String username, Integer k) {
+        if(this.getAllMessages(username).get(k).getReceiver().equals(username)){
+            this.getAllMessages(username).get(k).setReceiverDeleteStatus(true);
+        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+            this.getAllMessages(username).get(k).setSenderDeleteStatus(true);
         }
     }
 

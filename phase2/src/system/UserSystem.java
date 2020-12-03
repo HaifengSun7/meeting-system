@@ -263,4 +263,29 @@ public abstract class UserSystem {
         Presenter.continuePrompt();
         reader.nextLine();
     }
+
+    protected void deleteMessage() {
+        ArrayList<String> inbox = messagemanager.getAll(myName);
+        Presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might misdelete messages you haven't read");
+        for (int i = 0; i < inbox.size(); i++){
+            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+        }
+        Presenter.defaultPrint("[e] exit");
+        String command = reader.nextLine();
+        switch (command) {
+            case "e":
+                Presenter.exitingToMainMenu();
+                break;
+            default:
+                try{
+                    messagemanager.deleteKth(myName, Integer.valueOf(command));
+                } catch (Exception e) {
+                    Presenter.defaultPrint("Input out of range");
+                    return;
+                }
+                Presenter.success();
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
 }

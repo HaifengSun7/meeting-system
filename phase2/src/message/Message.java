@@ -14,10 +14,10 @@ public class Message {
     private final int ID;
     private static int number = 0;
     private boolean unReadStatus = true;
-    private boolean ReceiverDeleteStatus;
-    private boolean ReceiverArchiveStatus;
-    private boolean SenderDeleteStatus;
-    private boolean SenderArchiveStatus;
+    private boolean ReceiverDeleteStatus = false;
+    private boolean ReceiverArchiveStatus = false;
+    private boolean SenderDeleteStatus = false;
+    private boolean SenderArchiveStatus = false;
 
     /**
      * The constructor for Message entity. Stores sender, receiver, and message text as Strings.
@@ -151,7 +151,7 @@ public class Message {
      */
     public void setSenderArchiveStatus(boolean status) {
         this.SenderArchiveStatus = status;
-    } //note
+    }
     /**
      * Get's everything of the message.
      *
