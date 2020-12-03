@@ -2,8 +2,6 @@ package system;
 
 import event.exceptions.*;
 import presenter.*;
-import readWrite.Write;
-import request.NoSuchRequestException;
 import user.*;
 
 import javax.activity.InvalidActivityException;
@@ -86,10 +84,10 @@ public class OrganizerSystem extends UserSystem {
                     deleteMessage();
                     continue;
                 case "17":
-                    archieveMessage();
+                    archiveMessage();
                     continue;
                 case "18":
-                    unArchieveMessage();
+                    unArchiveMessage();
                     continue;
                 case "save":
                     save();
@@ -107,6 +105,28 @@ public class OrganizerSystem extends UserSystem {
             break;
         }
         save();
+    }
+
+    /**
+     * Send message to a specific person.
+     */
+    @Override
+    protected void sendMessageToSomeone() {
+        Presenter.inputPrompt("receiver");
+        Presenter.exitToMainMenuPrompt();
+        String target = reader.nextLine();
+        if ("e".equals(target)) {
+            Presenter.exitingToMainMenu();
+        } else {
+            if (usermanager.getAllUsernames().contains(target)) {
+                Presenter.inputPrompt("message");
+                String msg = reader.nextLine();
+                messagemanager.sendMessage(myName, target, msg);
+                Presenter.success();
+            } else {
+                Presenter.invalid("username");
+            }
+        }
     }
 
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
@@ -184,28 +204,6 @@ public class OrganizerSystem extends UserSystem {
             Presenter.inputPrompt("anythingToGoBack");
             reader.nextLine();
             Presenter.exitingToMainMenu();
-        }
-    }
-
-    /**
-     * Send message to a specific person.
-     */
-    @Override
-    protected void sendMessageToSomeone() {
-        Presenter.inputPrompt("receiver");
-        Presenter.exitToMainMenuPrompt();
-        String target = reader.nextLine();
-        if ("e".equals(target)) {
-            Presenter.exitingToMainMenu();
-        } else {
-            if (usermanager.getAllUsernames().contains(target)) {
-                Presenter.inputPrompt("message");
-                String msg = reader.nextLine();
-                messagemanager.sendMessage(myName, target, msg);
-                Presenter.success();
-            } else {
-                Presenter.invalid("username");
-            }
         }
     }
 

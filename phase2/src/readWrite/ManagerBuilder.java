@@ -10,19 +10,22 @@ import user.InvalidUsernameException;
 import user.UserManager;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * I read.
+ * Build userManager, eventManager, messageManager, requestManager
  */
 public class ManagerBuilder {
+
     private final UserManager usermanager;
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
     private final RequestManager requestmanager;
     private Statement stmt;
 
+    /**
+     * Construct the builder for managers.
+     */
     public ManagerBuilder(){
         Connecting cct = new Connecting();
         Connection conn = cct.run();
@@ -32,12 +35,11 @@ public class ManagerBuilder {
         this.requestmanager = new RequestManager();
         try{
             this.stmt = conn.createStatement();
-        } catch (SQLException e){
-            //ignored
-        }
+        } catch (SQLException ignored){}
     }
+
     /**
-     * run.
+     * Runs the builders.
      */
     public void run(){
         eventManagerInitialize();
@@ -46,20 +48,38 @@ public class ManagerBuilder {
         requestManagerInitialize();
     }
 
-
-
+    /**
+     * Get the event manager built by this builder.
+     *
+     * @return an initialized event manager with all info from database.
+     */
     public EventManager getEventManager(){
         return this.eventmanager;
     }
 
+    /**
+     * Get the user manager built by this builder.
+     *
+     * @return an initialized user manager with all info from database.
+     */
     public UserManager getUserManager(){
         return this.usermanager;
     }
 
+    /**
+     * Get the message manager built by this builder.
+     *
+     * @return an initialized message manager with all info from database.
+     */
     public MessageManager getMessageManager(){
         return this.messagemanager;
     }
 
+    /**
+     * Get the request manager built by this builder.
+     *
+     * @return an initialized request manager with all info from database.
+     */
     public RequestManager getRequestManager(){
         return this.requestmanager;
     }
@@ -68,7 +88,8 @@ public class ManagerBuilder {
         String sql = "SELECT Username, Password, UserType FROM users";
         try (ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                usermanager.createUserAccount(rs.getString("UserType"), rs.getString("Username"), rs.getString("Password"));
+                usermanager.createUserAccount(rs.getString("UserType"),
+                        rs.getString("Username"), rs.getString("Password"));
         }
 
         } catch (SQLException e) {
@@ -80,7 +101,8 @@ public class ManagerBuilder {
         String sql2 = "SELECT Username, CanSendMessageTo FROM messageList";
         try(ResultSet rs2 = stmt.executeQuery(sql2)) {
             while (rs2.next()) {
-                usermanager.addContactList(rs2.getString("CanSendMessageTo"), rs2.getString("Username"));
+                usermanager.addContactList(rs2.getString("CanSendMessageTo"),
+                        rs2.getString("Username"));
             }
 
         } catch (SQLException e) {
@@ -92,7 +114,8 @@ public class ManagerBuilder {
         String sql3 = "SELECT EventId, UserName FROM signedUp";
         try(ResultSet rs3 = stmt.executeQuery(sql3)){
             while(rs3.next()){
-                usermanager.addSignedEvent(String.valueOf(rs3.getInt("EventId")), rs3.getString("UserName"));
+                usermanager.addSignedEvent(String.valueOf(rs3.getInt("EventId")),
+                        rs3.getString("UserName"));
             }
         } catch (SQLException e) {
             System.out.println("Bad index in signed up database");
@@ -111,7 +134,9 @@ public class ManagerBuilder {
         } catch (DuplicateRoomNumberException e) {
             //ignored, should never happen.
         }
-        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers, MaxNumberOfAttendees, StartTime, Duration, Description, ConferenceName, VIPS FROM event";
+        String sql = "SELECT RoomNumber, MaxNumberOfSpeakers," +
+                " MaxNumberOfAttendees, StartTime, Duration," +
+                " Description, ConferenceName, VIPS FROM event";
         try(ResultSet rs1 = stmt.executeQuery(sql)){
             while(rs1.next()){
                 eventmanager.addEvent(String.valueOf(rs1.getInt("RoomNumber")),
@@ -133,7 +158,7 @@ public class ManagerBuilder {
     }
 
     private void messageManagerInitialize(){
-        int i = 0;
+        int i;
         String sql = "SELECT Sender, Receiver, MessageText," +
                 " Unread, ReceiverDeleteStatus, ReceiverArchiveStatus," +
                 " SenderDeleteStatus, SenderArchiveStatus FROM message";
@@ -149,16 +174,17 @@ public class ManagerBuilder {
                         rs.getBoolean("SenderDeleteStatus"),
                         rs.getBoolean("SenderArchiveStatus"));
             }
-
         } catch (SQLException e) {
             System.out.println("Bad index in message database");
         }
     }
+
     private void requestManagerInitialize() {
         String sql = "SELECT Sender, Status, RequestText, RequestTitle FROM request";
         try(ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
-                requestmanager.createNewRequest(rs.getString("Sender"), rs.getString("RequestTitle"), rs.getString("RequestText"));
+                requestmanager.createNewRequest(rs.getString("Sender"),
+                        rs.getString("RequestTitle"), rs.getString("RequestText"));
                 if (Objects.equals(rs.getString("Status"), "Addressed")){
                     requestmanager.changeStatus(rs.getString("RequestTitle"));
                 }

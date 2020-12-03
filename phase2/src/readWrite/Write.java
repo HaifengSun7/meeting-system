@@ -16,6 +16,7 @@ import java.util.Map;
  * Write to file.
  */
 public class Write {
+
     private final UserManager usermanager;
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
@@ -30,7 +31,8 @@ public class Write {
      * @param eventManager   an EventManager.
      * @param messageManager an MessageManager.
      */
-    public Write(UserManager userManager, EventManager eventManager, MessageManager messageManager, RequestManager requestmanager) {
+    public Write(UserManager userManager, EventManager eventManager,
+                 MessageManager messageManager, RequestManager requestmanager) {
         this.usermanager = userManager;
         this.eventmanager = eventManager;
         this.messagemanager = messageManager;
@@ -52,7 +54,6 @@ public class Write {
         messageWriter();
         requestWriter();
     }
-
 
     private void remover() {
         try {
@@ -180,7 +181,6 @@ public class Write {
         }
     }
 
-
     private void messageWriter() {
         String sql = "INSERT INTO message(Sender,Receiver,MessageText,Unread,ReceiverDeleteStatus," +
                 "ReceiverArchiveStatus,SenderDeleteStatus,SenderArchiveStatus) VALUES(?,?,?,?,?,?,?,?)";
@@ -201,10 +201,11 @@ public class Write {
             }
         }
     }
+
     private void requestWriter() {
         String sql = "INSERT INTO request(Sender,Status,RequestText,RequestTitle) VALUES(?,?,?,?)";
-        ArrayList<ArrayList<String>> allrequests = requestmanager.getAllRequest();
-        for (ArrayList<String> requestInfo : allrequests) {
+        ArrayList<ArrayList<String>> allRequests = requestmanager.getAllRequest();
+        for (ArrayList<String> requestInfo : allRequests) {
             try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
                 pstmt2.setString(1, requestInfo.get(0));
                 pstmt2.setString(2, requestInfo.get(1));

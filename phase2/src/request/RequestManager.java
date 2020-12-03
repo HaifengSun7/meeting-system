@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Manager for requests.
+ */
 public class RequestManager {
     private Map<String, ArrayList<Request>> userRequestMapping; // key: username; value: a list of Requests;
     private Map<String, Request> titleRequestMapping; // key: title; value: Request;
 
+    /**
+     * Create a new request manager.
+     */
     public RequestManager(){
         this.userRequestMapping = new HashMap<>();
         this.titleRequestMapping = new HashMap<>();
@@ -139,19 +145,6 @@ public class RequestManager {
         userRequestMapping.get(username).remove(request);
     }
 
-    private void addRequest(String username, String title, Request request){
-        if (!userRequestMapping.containsKey(username)) {
-            userRequestMapping.put(username, new ArrayList<>());
-        }
-        userRequestMapping.get(username).add(request);
-        titleRequestMapping.put(title, request);
-    }
-
-//    private void recallRequest(String username, String title, Request request){
-//            titleRequestMapping.remove(title);
-//            userRequestMapping.get(username).remove(request);
-//    }
-
     //Do not change the following method. Contact Haifeng for any modification.
     /**
      * Return all requests, with format as follows:
@@ -173,5 +166,18 @@ public class RequestManager {
         result.add(temp);
     }
     return result;
-}
+    }
+
+    private void addRequest(String username, String title, Request request){
+        if (!userRequestMapping.containsKey(username)) {
+            userRequestMapping.put(username, new ArrayList<>());
+        }
+        userRequestMapping.get(username).add(request);
+        titleRequestMapping.put(title, request);
+    }
+
+//    private void recallRequest(String username, String title, Request request){
+//            titleRequestMapping.remove(title);
+//            userRequestMapping.get(username).remove(request);
+//    }
 }

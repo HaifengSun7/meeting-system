@@ -1,7 +1,6 @@
 package system;
 
 import event.EventManager;
-import event.exceptions.NoSuchConferenceException;
 import message.MessageManager;
 import presenter.Presenter;
 import readWrite.*;
@@ -12,7 +11,6 @@ import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.zip.Deflater;
 
 /**
  * <h1>User System</h1>
@@ -36,11 +34,7 @@ public abstract class UserSystem {
     public UserSystem(String myName) {
         this.myName = myName;
         initializeManagers();
-        try {
-            this.conference = chooseConference();
-        } catch (NoSuchConferenceException e) {
-            Presenter.printErrorMessage(e);
-        }
+        this.conference = chooseConference();
     }
 
     /**
@@ -111,7 +105,7 @@ public abstract class UserSystem {
         requestmanager = read.getRequestManager();
     }
 
-    protected String chooseConference() throws NoSuchConferenceException {
+    protected String chooseConference(){
         Presenter.conferenceChoose();
         ArrayList<String> conferenceList = eventmanager.getAllConference();
         for (int i = 0; i < conferenceList.size(); i++) {
@@ -254,7 +248,7 @@ public abstract class UserSystem {
                 break;
             default:
                 try {
-                    messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
+                    messagemanager.markKthAsRead(myName, Integer.valueOf(command));
                 } catch (Exception e) {
                     Presenter.defaultPrint("Input out of range");
                     return;
@@ -267,74 +261,70 @@ public abstract class UserSystem {
 
     protected void deleteMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
-        Presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might misdelete messages you haven't read");
+        Presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might mis-deleted messages you haven't read");
         for (int i = 0; i < inbox.size(); i++){
             Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         Presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
-        switch (command) {
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
-            default:
-                try{
-                    messagemanager.deleteKth(myName, Integer.valueOf(command));
-                } catch (Exception e) {
-                    Presenter.defaultPrint("Input out of range");
-                    return;
-                }
-                Presenter.success();
+        if ("e".equals(command)) {
+            Presenter.exitingToMainMenu();
+        } else {
+            try {
+                messagemanager.deleteKth(myName, Integer.valueOf(command));
+            } catch (Exception e) {
+                Presenter.defaultPrint("Input out of range");
+                return;
+            }
+            Presenter.success();
         }
         Presenter.continuePrompt();
         reader.nextLine();
     }
 
-    protected void archieveMessage(){
+    protected void archiveMessage(){
         ArrayList<String> inbox = messagemanager.getAll(myName);
-        Presenter.inputPrompt("enter number in square bracket to archieve message. Warning: you might archieve message that you have archieved");
+        Presenter.inputPrompt("enter number in square bracket to archive message. " +
+                "Warning: you might archive message that you have archived");
         for (int i = 0; i < inbox.size(); i++){
             Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         Presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
-        switch (command) {
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
-            default:
-                try{
-                    messagemanager.archieveKth(myName, Integer.valueOf(command));
-                } catch (Exception e) {
-                    Presenter.defaultPrint("Input out of range");
-                    return;
-                }
-                Presenter.success();
+        if ("e".equals(command)) {
+            Presenter.exitingToMainMenu();
+        } else {
+            try {
+                messagemanager.archiveKth(myName, Integer.valueOf(command));
+            } catch (Exception e) {
+                Presenter.defaultPrint("Input out of range");
+                return;
+            }
+            Presenter.success();
         }
         Presenter.continuePrompt();
         reader.nextLine();
     }
 
-    protected void unArchieveMessage(){
-        ArrayList<String> archievedInbox = messagemanager.getArchieved(myName);
-        Presenter.inputPrompt("enter number in square bracket to archieve message. Warning: you might archieve message that you have archieved");
-        for (int i = 0; i < archievedInbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + archievedInbox.get(i));
+    protected void unArchiveMessage(){
+        ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
+        Presenter.inputPrompt("enter number in square bracket to archive message." +
+                " Warning: you might archive message that you have archived");
+        for (int i = 0; i < archivedInbox.size(); i++){
+            Presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
         }
         Presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
-        switch (command) {
-            case "e":
-                Presenter.exitingToMainMenu();
-                break;
-            default:
-                try{
-                    messagemanager.unArchieveKth(myName, Integer.valueOf(command));
-                } catch (Exception e) {
-                    Presenter.defaultPrint("Input out of range");
-                    return;
-                }
-                Presenter.success();
+        if ("e".equals(command)) {
+            Presenter.exitingToMainMenu();
+        } else {
+            try {
+                messagemanager.unArchiveKth(myName, Integer.valueOf(command));
+            } catch (Exception e) {
+                Presenter.defaultPrint("Input out of range");
+                return;
+            }
+            Presenter.success();
         }
         Presenter.continuePrompt();
         reader.nextLine();

@@ -6,12 +6,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * yo i connect.
+ * Connect with the database.
  */
-//TODO: get a better name
 public class Connecting {
+
     /**
-     * i do connect.
+     * Start the connection.
      */
     public Connection run(){
 

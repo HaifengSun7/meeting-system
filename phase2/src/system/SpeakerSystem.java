@@ -1,7 +1,7 @@
 package system;
 
+import event.exceptions.NoSuchConferenceException;
 import presenter.*;
-import readWrite.Write;
 
 import java.util.ArrayList;
 
@@ -72,10 +72,10 @@ public class SpeakerSystem extends UserSystem {
                     deleteMessage();
                     continue;
                 case "13":
-                    archieveMessage();
+                    archiveMessage();
                     continue;
                 case "14":
-                    unArchieveMessage();
+                    unArchiveMessage();
                     continue;
                 case "save":
                     save();
@@ -94,12 +94,7 @@ public class SpeakerSystem extends UserSystem {
      */
     private void sendMessageToEvent() {
         try{
-            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
-            for (int i = 0; i < allEvents.size(); i++) {
-                if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                    Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-                }
-            }
+            ShowAllEvents();
             Presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
             if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
@@ -114,7 +109,8 @@ public class SpeakerSystem extends UserSystem {
                 Presenter.continuePrompt();
                 reader.nextLine();
             } else {
-                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
+                Presenter.defaultPrint("This is not your event. Please check your input. " +
+                        "Exiting to main menu.");
             }
         } catch (Exception e){
             Presenter.defaultPrint(e.getMessage());
@@ -126,12 +122,7 @@ public class SpeakerSystem extends UserSystem {
      */
     private void sendMessageToOneAttendee() {
         try {
-            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
-            for (int i = 0; i < allEvents.size(); i++) {
-                if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                    Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-                }
-            }
+            ShowAllEvents();
             Presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
             ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
@@ -155,10 +146,20 @@ public class SpeakerSystem extends UserSystem {
                 Presenter.continuePrompt();
                 reader.nextLine();
             } else {
-                Presenter.defaultPrint("This is not your event. Please check your input. Exiting to main menu.");
+                Presenter.defaultPrint("This is not your event. Please check your input. " +
+                        "Exiting to main menu.");
             }
         } catch (Exception e){
             Presenter.defaultPrint(e.getMessage());
+        }
+    }
+
+    private void ShowAllEvents() throws NoSuchConferenceException {
+        ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+        for (int i = 0; i < allEvents.size(); i++) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
         }
     }
 

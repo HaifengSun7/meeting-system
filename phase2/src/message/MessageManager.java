@@ -10,9 +10,13 @@ public class MessageManager {
 
     private final HashMap<Integer, Message> map = new HashMap<>();
 
+    /**
+     * Runs when message manager is created. Resets message ID.
+     */
     public MessageManager(){
         Message.resetID();
     }
+
     /**
      * Send a Message to receiver by sender. With the message text.
      *
@@ -73,24 +77,9 @@ public class MessageManager {
         return rtn_list;
     }
 
-    /*
-     * Get the inbox messages of the user.
-     *
-     * @param username The username of the user that we are looking for.
-     * @return The list of unread messages, in form of a list of Messages.
-     */
-    private ArrayList<Message> getUnreadMessages(String username) {
-        ArrayList<Message> rtn_list = new ArrayList<>();
-        for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username) && msg.getUnReadStatus() && !msg.getReceiverDeleteStatus()) {
-                rtn_list.add(msg);
-            }
-        }
-        return rtn_list;
-    }
-
     /**
-     * Read message
+     * Read message.
+     *
      * @param username the username we need to change its message status
      * @param k the index of the message we need to change its status
      */
@@ -99,7 +88,8 @@ public class MessageManager {
     }
 
     /**
-     * Read messages
+     * Read messages.
+     *
      * @param username the username we need to change its message status
      */
     public void markAllAsRead(String username) throws NoSuchMessageException{
@@ -136,30 +126,9 @@ public class MessageManager {
         return rtn_list;
     }
 
-    /*
-     * Get the all messages sent or received by the user.
-     * 
-     * @param username The username of the user that we are looking for.
-     * @return The list of deleted messages, in form of a list of Messages.
-     */
-    private ArrayList<Message> getAllMessages(String username) {
-        ArrayList<Message> rtn_list = new ArrayList<>();
-        for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus()){
-                    rtn_list.add(msg);
-                } 
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus()){
-                    rtn_list.add(msg);
-                }
-            }
-        }
-        return rtn_list;
-    }
-
     /**
-     * Delete message
+     * Delete message.
+     *
      * @param username the username we need to change its message status
      * @param k the index of the message we need to change its status
      */
@@ -173,12 +142,12 @@ public class MessageManager {
 
 
     /**
-     * Get the all messages to string archieved by the user.
+     * Get the all messages to string archived by the user.
      *
      * @param username The username of the user that we are looking for.
-     * @return The list of archieved messages, in form of a list of Strings, each element is the string form of the Message.
+     * @return The list of archived messages, in form of a list of Strings, each element is the string form of the Message.
      */
-    public ArrayList<String> getArchieved(String username) {
+    public ArrayList<String> getArchived(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
@@ -194,34 +163,13 @@ public class MessageManager {
         return rtn_list;
     }
 
-    /*
-     * Get the all messages archieved by the user.
-     * 
-     * @param username The username of the user that we are looking for.
-     * @return The list of archieved messages, in form of a list of Messages.
-     */
-    private ArrayList<Message> getArchievedMessages(String username) {
-        ArrayList<Message> rtn_list = new ArrayList<>();
-        for (Message msg : this.map.values()) {
-            if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
-                    rtn_list.add(msg);
-                } 
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus() && msg.getReceiverArchiveStatus()){
-                    rtn_list.add(msg);
-                }
-            }
-        }
-        return rtn_list;
-    }
-
     /**
-     * Archieve message
+     * Archive message
+     *
      * @param username the username we need to change its message status
      * @param k the index of the message we need to change its status
      */
-    public void archieveKth(String username, Integer k) {
+    public void archiveKth(String username, Integer k) {
         if(this.getAllMessages(username).get(k).getReceiver().equals(username)){
             this.getAllMessages(username).get(k).setReceiverArchiveStatus(true);
         } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
@@ -230,15 +178,16 @@ public class MessageManager {
     }
 
     /**
-     * Unarchieve message
+     * Unarchive message
+     *
      * @param username the username we need to change its message status
      * @param k the index of the message we need to change its status
      */
-    public void unArchieveKth(String username, Integer k) {
-        if(this.getArchievedMessages(username).get(k).getReceiver().equals(username)){
+    public void unArchiveKth(String username, Integer k) {
+        if(this.getArchivedMessages(username).get(k).getReceiver().equals(username)){
             this.getAllMessages(username).get(k).setReceiverArchiveStatus(false);
         } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
-            this.getArchievedMessages(username).get(k).setSenderArchiveStatus(false);
+            this.getArchivedMessages(username).get(k).setSenderArchiveStatus(false);
         }
     }
 
@@ -278,7 +227,7 @@ public class MessageManager {
      * The method used to save all sent Messages in the system. Stores each message in the form of
      * [sender's username, receiver's username, status, message] and put them into a list.
      *
-     * @return A list of lists that has each element in form of [sender's username, receiver's username, status, message]
+     * @return A list of lists. Each element are in form: [sender's username, receiver's username, status, message]
      */
     public ArrayList<ArrayList<String>> getAllMessage() {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
@@ -325,5 +274,66 @@ public class MessageManager {
         Message message = new Message(sender, receiver, text);
         map.put(message.getID(), message);
         return message.getID();
+    }
+
+
+    /*
+     * Get the inbox messages of the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of unread messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getUnreadMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username) && msg.getUnReadStatus() && !msg.getReceiverDeleteStatus()) {
+                rtn_list.add(msg);
+            }
+        }
+        return rtn_list;
+    }
+
+    /*
+     * Get the all messages archived by the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of archived messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getArchivedMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
+                    rtn_list.add(msg);
+                }
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus() && msg.getReceiverArchiveStatus()){
+                    rtn_list.add(msg);
+                }
+            }
+        }
+        return rtn_list;
+    }
+
+    /*
+     * Get the all messages sent or received by the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of deleted messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getAllMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus()){
+                    rtn_list.add(msg);
+                }
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus()){
+                    rtn_list.add(msg);
+                }
+            }
+        }
+        return rtn_list;
     }
 }

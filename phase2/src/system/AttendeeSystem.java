@@ -2,8 +2,6 @@ package system;
 
 import event.exceptions.*;
 import presenter.*;
-import readWrite.Write;
-import request.NoSuchRequestException;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
@@ -69,10 +67,10 @@ public class AttendeeSystem extends UserSystem {
                     deleteMessage();
                     continue;
                 case "11":
-                    archieveMessage();
+                    archiveMessage();
                     continue;
                 case "12":
-                    unArchieveMessage();
+                    unArchiveMessage();
                     continue;
                 case "save":
                     save();
@@ -89,14 +87,14 @@ public class AttendeeSystem extends UserSystem {
         save();
     }
 
-    /*
-     * Print the events that attendee hasn't signed up and choose one event to sign it up.
+    /**
+     * User signs up for an event within the given list of events.
+     *
+     * @param example_list the list of event in String, that the user can sign-up for.
      */
-    protected void SignUpForEvent() {
-        ArrayList<String> example_list = eventmanager.canSignUp(myName);
+    protected void SignUp(ArrayList<String> example_list){
         Presenter.inputPrompt("signUp");
         Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
-
         for (int i = 0; i < example_list.size(); i++) {
             Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
@@ -117,6 +115,14 @@ public class AttendeeSystem extends UserSystem {
         } else {
             Presenter.exitingToMainMenu();
         }
+    }
+
+    /**
+     * Print the events that attendee hasn't signed up and choose one event to sign it up.
+     */
+    protected void SignUpForEvent() {
+        ArrayList<String> example_list = eventmanager.canSignUp(myName);
+        this.SignUp(example_list);
     }
 
     /*
