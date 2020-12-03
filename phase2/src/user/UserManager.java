@@ -77,6 +77,13 @@ public class UserManager {
      * @return userType: a string, user's type in string.
      */
     public String getUserType(String username) {
+        try {
+            if (isVIP(username)){
+                return "VIP";
+            }
+        } catch (NotAttendeeException | NoSuchUserException e) {
+            //
+        }
         return userMapping.get(username).getUserType();
     }
 

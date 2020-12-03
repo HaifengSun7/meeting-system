@@ -182,7 +182,7 @@ public class Write {
 
 
     private void messageWriter() {
-        String sql = "INSERT INTO message(ID,Sender,Receiver,MessageText,Unread,ReceiverDeleteStatus," +
+        String sql = "INSERT INTO message(ID,ID,Sender,MessageText,Unread,ReceiverDeleteStatus," +
                 "ReceiverArchiveStatus,SenderDeleteStatus,SenderArchiveStatus) VALUES(?,?,?,?,?,?,?,?,?)";
         ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
         for (ArrayList<String> messageInfo : allMessage) {

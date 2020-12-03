@@ -115,7 +115,7 @@ public class MessageManager {
     }
 
     /**
-     * Get the all messages to string sent or received by the user.
+     * Get all messages to string sent or received by the user.
      *
      * @param username The username of the user that we are looking for.
      * @return The list of deleted messages, in form of a list of Strings, each element is the string form of the Message.
@@ -286,13 +286,13 @@ public class MessageManager {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(String.valueOf(message.getID()));
             temp.add(message.getSender());
-            temp.add(message.getReceiver());//TODO: will wang what the fuck.
+            temp.add(message.getReceiver());
             temp.add(message.getText());
             temp.addAll(message.getAllStatus());
             result.add(temp);
         }
         return result;
-    }//TODO: STATUS?
+    }
 
     /**
      * Initialize the message's status.
