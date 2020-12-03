@@ -43,6 +43,7 @@
     - Fixed writing in Signed up Users
     - Removed Exceptions from AddUserToEvent method, separated them to Corresponding Events.
 
-    TODO: Writing the requests
-    TODO: Writing for Message Status
-    TODO: Try and catch for other potential Exceptions
+[ Version 2020.12.4.0324 by James ]
+    - 90% finished message manager
+    - Most requests are done
+    - Added Javadoc for most public and protected methods
