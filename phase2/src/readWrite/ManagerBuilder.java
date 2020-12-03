@@ -72,7 +72,7 @@ public class ManagerBuilder {
         }
 
         } catch (SQLException e) {
-            System.out.println("i dont fucking know.");
+            System.out.println("Bad index in user database");
         } catch (InvalidUsernameException | DuplicateUserNameException e) {
             // ignored. should never happen.
         }
@@ -84,7 +84,7 @@ public class ManagerBuilder {
             }
 
         } catch (SQLException e) {
-            System.out.println("i dont fucking know.2");
+            System.out.println("Bad index in message list (contact) database");
         }
         // Create Message List
         // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
@@ -95,7 +95,7 @@ public class ManagerBuilder {
                 usermanager.addSignedEvent(String.valueOf(rs3.getInt("EventId")), rs3.getString("UserName"));
             }
         } catch (SQLException e) {
-            System.out.println("I don't fucking know 3");
+            System.out.println("Bad index in signed up database");
         }
     }
 
@@ -107,7 +107,7 @@ public class ManagerBuilder {
                 eventmanager.addRoom(rs2.getInt("RoomNumber"), rs2.getInt("Capacity"));
             }
         } catch (SQLException e) {
-            System.out.println("Wrong index in Database, init for roomManager");
+            System.out.println("Bad index in room database");
         } catch (DuplicateRoomNumberException e) {
             //ignored, should never happen.
         }
@@ -125,7 +125,7 @@ public class ManagerBuilder {
             }
 
         } catch (SQLException e) {
-            System.out.println("Wrong index in Database");
+            System.out.println("Bad index in event database");
         } catch (Exception e) {
             //ignored, should never happen
             System.out.println(e.getMessage());
@@ -150,7 +150,7 @@ public class ManagerBuilder {
             }
 
         } catch (SQLException e) {
-            System.out.println("I don't fucking know 6");
+            System.out.println("Bad index in message database");
         }
     }
     private void requestManagerInitialize() {
@@ -163,7 +163,7 @@ public class ManagerBuilder {
                 }
             }
         } catch (SQLException | InvalidTitleException e) {
-            System.out.println("I don't fucking know 6");
+            System.out.println("Bad index in request database");
         }
     }
 }
