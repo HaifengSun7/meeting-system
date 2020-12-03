@@ -268,7 +268,7 @@ public class Presenter {
             case"noSuchRequest":
                 System.out.println("Cannot find such request");
             default:
-                System.out.println("Invalid input.");
+                System.out.println("Invalid input!");
                 break;
         }
     }
