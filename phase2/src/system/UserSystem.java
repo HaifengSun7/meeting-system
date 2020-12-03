@@ -240,7 +240,7 @@ public abstract class UserSystem {
             try {
                 messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
             } catch (Exception e) {
-                Presenter.invalid(""); // TODO: input out of range, handle this
+                Presenter.invalid(""); // TODO: input out of range
                 return;
             }
             Presenter.success();

@@ -67,7 +67,7 @@ public class SpeakerSystem extends UserSystem {
                     continue;
                 case "11":
                     markUnreadMessages();
-                    continue;
+                    continue; //note
                 case "save":
                     save();
                     continue;

@@ -67,7 +67,7 @@ public class Message {
      */
     public void setUnreadStatus(boolean status) {
         this.unReadStatus = status;
-    }
+    } //note
 
     /**
      * Get's everything of the message.

@@ -81,7 +81,7 @@ public class OrganizerSystem extends UserSystem {
                     continue;
                 case "15":
                     markUnreadMessages();
-                    continue;
+                    continue; //note
                 case "save":
                     save();
                     continue;

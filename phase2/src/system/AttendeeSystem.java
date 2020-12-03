@@ -64,7 +64,7 @@ public class AttendeeSystem extends UserSystem {
                     continue;
                 case "9":
                     markUnreadMessages();
-                    continue;
+                    continue; //note
                 case "save":
                     save();
                     continue;

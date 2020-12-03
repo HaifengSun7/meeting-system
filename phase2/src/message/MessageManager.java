@@ -150,7 +150,7 @@ public class MessageManager {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(message.getSender());
             temp.add(message.getReceiver());
-            temp.add(message.getStatus()); ///TODO: will wang what the fuck.
+            temp.add(message.getStatus()); //TODO: will wang what the fuck.
             temp.add(message.getText());
             result.add(temp);
         }
