@@ -51,7 +51,7 @@ public class UserManager {
                     addUser(newUser);
                     break;
                 }
-                default: {
+                case "Attendee": {
                     Attendee newUser = new Attendee(username, password);
                     addUser(newUser);
                     break;

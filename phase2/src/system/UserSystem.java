@@ -1,6 +1,5 @@
 package system;
 
-import com.sun.xml.internal.stream.StaxErrorReporter;
 import event.EventManager;
 import event.exceptions.NoSuchConferenceException;
 import message.MessageManager;
@@ -8,7 +7,7 @@ import presenter.Presenter;
 import readWrite.*;
 import request.InvalidTitleException;
 import request.NoSuchRequestException;
-import request.Requestmanager;
+import request.RequestManager;
 import user.UserManager;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public abstract class UserSystem {
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
     protected MessageManager messagemanager = new MessageManager();
-    protected Requestmanager requestmanager = new Requestmanager();
+    protected RequestManager requestmanager = new RequestManager();
     protected String conference;
 
     /**
@@ -108,6 +107,7 @@ public abstract class UserSystem {
         usermanager = read.getUserManager();
         eventmanager = read.getEventManager();
         messagemanager = read.getMessageManager();
+        requestmanager = read.getRequestManager();
     }
 
     protected String chooseConference() throws NoSuchConferenceException {
@@ -146,17 +146,7 @@ public abstract class UserSystem {
             Presenter.inputPrompt("NoRequests");
         } else {
             Presenter.inputPrompt("requestIntroduction");
-            for (int i = 0; i < requestList.size(); i++) {
-                String requestTitle = requestList.get(i)[0];
-                String status;
-                if (requestmanager.getRequestStatus(requestTitle)){
-                    status = "[Status: Addressed] ";
-                } else {
-                    status = "[Status: Pending]   ";
-                }
-                Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
-            }
-            Presenter.exitToMainMenuPrompt();
+            printRequests(requestList);
             Presenter.inputPrompt("readRequest");
             String command = reader.nextLine();
             try {
@@ -176,17 +166,27 @@ public abstract class UserSystem {
         }
     }
 
+    protected void printRequests(ArrayList<String[]> requestList){ //Helper function
+        for (int i = 0; i < requestList.size(); i++) {
+            String requestTitle = requestList.get(i)[0];
+            String status;
+            if (requestmanager.getRequestStatus(requestTitle)){
+                status = "[Status: Addressed] ";
+            } else {
+                status = "[Status: Pending]   ";
+            }
+            Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
+        }
+        Presenter.exitToMainMenuPrompt();
+    }
+
     protected void deleteRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){
             Presenter.inputPrompt("NoRequests");
         } else {
             Presenter.inputPrompt("requestIntroduction");
-            for (int i = 0; i < requestList.size(); i++) {
-                Presenter.defaultPrint("[" + i + "] " + requestList.get(i)[0]);
-            }
-            Presenter.inputPrompt("recallRequest");
-            Presenter.exitToMainMenuPrompt();
+            printRequests(requestList);
             String command = reader.nextLine();
             try {
                 int input = Integer.parseInt(command);
@@ -220,32 +220,9 @@ public abstract class UserSystem {
             }
         }
     }
-    protected void markUnreadMessages() {
-        //addAllToMessageList(); //TODO: do we need this
-        ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
-        Presenter.inputPrompt("enter number in square bracket to mark message as read");
-        for (int i = 0; i < unreadInbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + unreadInbox.get(i));
-        }
-        Presenter.defaultPrint("[a] mark all as read");
-        Presenter.defaultPrint("[e] exit");
-        String command = reader.nextLine();
 
-        if (!("e".equals(command)&&!("a".equals(command)))) {
-            try {
-                messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
-            } catch (Exception e) {
-                Presenter.invalid(""); // TODO: input out of range, handle this
-                return;
-            }
-            Presenter.success();
-        } else if ("e".equals(command)) {
-            Presenter.exitingToMainMenu();
-        } else if ("a".equals(command)) {
-            messagemanager.markAllAsRead(myName);
-            Presenter.success();
-        }
-        Presenter.continuePrompt();
-        reader.nextLine();
+    protected void save(){
+        Write write = new Write(usermanager, eventmanager, messagemanager, requestmanager);
+        write.run();
     }
 }

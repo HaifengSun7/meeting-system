@@ -100,6 +100,9 @@ public class Presenter {
             case "eventId":
                 System.out.println("Enter event id to choose the event:");
                 break;
+            case "promote event":
+                System.out.println("Enter eventID of the event you want to promote");
+                break;
             case "roomNumber":
                 System.out.println("Please enter a room number:");
                 break;
@@ -191,6 +194,10 @@ public class Presenter {
                 break;
             case "addSuccess":
                 System.out.println("Request sent! \n");
+                break;
+            case "anythingToGoBack":
+                System.out.println("Press anything to return the main menu");
+                break;
         }
     }
 
@@ -261,7 +268,7 @@ public class Presenter {
             case"noSuchRequest":
                 System.out.println("Cannot find such request");
             default:
-                System.out.println("Invalid input.");
+                System.out.println("Invalid input!");
                 break;
         }
     }

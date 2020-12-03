@@ -65,8 +65,8 @@ public class SpeakerSystem extends UserSystem {
                 case "10":
                     deleteRequests();
                     continue;
-                case "11":
-                    markUnreadMessages();
+                case "save":
+                    save();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
@@ -74,8 +74,7 @@ public class SpeakerSystem extends UserSystem {
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
     }
 
     /*

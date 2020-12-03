@@ -62,8 +62,8 @@ public class AttendeeSystem extends UserSystem {
                 case "8":
                     deleteRequests();
                     continue;
-                case "9":
-                    markUnreadMessages();
+                case "save":
+                    save();
                     continue;
                 default:
                     Presenter.wrongKeyReminder();
@@ -74,8 +74,7 @@ public class AttendeeSystem extends UserSystem {
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
     }
 
     /*

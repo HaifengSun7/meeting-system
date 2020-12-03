@@ -14,11 +14,13 @@ public class OrganizerPresenter extends Presenter{
                         "[6] Send message to all attendees\n" +
                         "[7] See messages\n" +
                         "[8] create/promote VIP account\n" +
-                        "[9] create new attendee account [Not done Yet]\n" +
-                        "[10] create new organizer account [Not done Yet]\n" +
-                        "[11] Read/tag all requests [Not done Yet]\n" +
-                        "[12] Read/tag all pending requests [Not done Yet]\n" +
-                        "[13] Read/tag all addressed requests [Not done Yet]\n" +
+                        "[9] create new attendee account\n" +
+                        "[10] create new organizer account\n" +
+                        "[11] Read/tag all requests\n" +
+                        "[12] Read/tag all pending requests\n" +
+                        "[13] Read/tag all addressed requests\n" +
+                        "[14] Promote an event to be VIP only\n" +
+                        "[save] Save.\n" +
                         "[e] Save and Log out");
     }
 
@@ -55,6 +57,28 @@ public class OrganizerPresenter extends Presenter{
             case "scheduleSpeakers2":
                 System.out.println("Enter room number to check schedule of the room\n" +
                         "[a] to add new event");
+                break;
+            case "SeeAllRequestsInSystemIntroduction":
+                System.out.println("Here are all requests in the system:");
+                break;
+            case "SeeAllPendingRequestsInSystemIntroduction":
+                System.out.println("Here are all pending requests in the system:");
+                break;
+            case "SeeAllAddressedRequestsInSystemIntroduction":
+                System.out.println("Here are all addressed requests in the system:");
+                break;
+            case "ChangeStatusSuccess":
+                System.out.println("Status change success!");
+                break;
+            case "ChangeStatusPtoA":
+                System.out.println("The current status of this request if Pending, do you want to tag it into Addressed?\n" +
+                        "Please enter [Yes] to confirm or type anything else to return. \n" +
+                        "[Yes] Tag it addressed!");
+                break;
+            case "ChangeStatusAtoP":
+                System.out.println("The current status of this request if Addressed, do you want to tag it into Pending?\n" +
+                        "Please enter [Yes] to confirm or type anything else to return. \n" +
+                        "[Yes] Tag it still pending!");
                 break;
         }
     }

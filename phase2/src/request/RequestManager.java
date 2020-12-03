@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Requestmanager {
+public class RequestManager {
     private Map<String, ArrayList<Request>> userRequestMapping; // key: username; value: a list of Requests;
     private Map<String, Request> titleRequestMapping; // key: title; value: Request;
 
-    public Requestmanager(){
+    public RequestManager(){
         this.userRequestMapping = new HashMap<>();
         this.titleRequestMapping = new HashMap<>();
     }
@@ -23,8 +23,10 @@ public class Requestmanager {
     }
 
     public void changeStatus(String title){
-        titleRequestMapping.get(title).setStatus(true);
+        boolean status = titleRequestMapping.get(title).getStatus();
+        titleRequestMapping.get(title).setStatus(!status);
     }
+
     public boolean getRequestStatus(String title) {
         return titleRequestMapping.get(title).getStatus();
     }
@@ -40,7 +42,7 @@ public class Requestmanager {
         return allMyRequestList;
     }
 
-    public ArrayList<String[]> getAllRequests(){ //Need to be String in the future!!!!!!!
+    public ArrayList<String[]> getAllRequests(){
         ArrayList<String[]> allRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
             String[] singleRequest = new String[] {request.getTitle(), request.getContent()};
@@ -49,7 +51,7 @@ public class Requestmanager {
         return allRequestList;
     }
 
-    public ArrayList<String[]> getAllUnsolvedRequests(){ //Need to be String in the future!!!!!!!
+    public ArrayList<String[]> getAllUnsolvedRequests(){
         ArrayList<String[]> unsolvedRequestList = new ArrayList<>();
         for (Request request: titleRequestMapping.values()){
             if (!request.getStatus()) {
@@ -108,4 +110,27 @@ public class Requestmanager {
 //            titleRequestMapping.remove(title);
 //            userRequestMapping.get(username).remove(request);
 //    }
+
+    //Do not change the following method. Contact Haifeng for any modification.
+    /**
+     * Return all requests, with format as follows:
+     * @return An Arraylist, each element with format: [Sender, Status Title, Content]
+     */
+    public ArrayList<ArrayList<String>> getAllRequest(){
+    ArrayList<ArrayList<String>> result = new ArrayList<>();
+    for (Request request: titleRequestMapping.values()){
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(request.getUsername());
+        if (request.getStatus()){
+            temp.add("Addressed");
+        }
+        else{
+            temp.add("Pending");
+        }
+        temp.add(request.getContent());
+        temp.add(request.getTitle());
+        result.add(temp);
+    }
+    return result;
+}
 }

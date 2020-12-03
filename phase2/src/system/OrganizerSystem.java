@@ -3,6 +3,7 @@ package system;
 import event.exceptions.*;
 import presenter.*;
 import readWrite.Write;
+import request.NoSuchRequestException;
 import user.*;
 
 import javax.activity.InvalidActivityException;
@@ -61,10 +62,10 @@ public class OrganizerSystem extends UserSystem {
                     createVIP();
                     continue;
                 case "9":
-                    // leaving for Fred
+                    createAttendee();
                     continue;
                 case "10":
-                    // Leaving for Fred
+                    createOrganizer();
                     continue;
                 case "11":
                     seeAllRequest();
@@ -76,7 +77,10 @@ public class OrganizerSystem extends UserSystem {
                     seeSolvedRequest();
                     continue;
                 case "14":
-                    markUnreadMessages(); //TODO: add case 14 to presenter
+                    promoteVIPEvent();
+                    continue;
+                case "save":
+                    save();
                     continue;
                 case "e":
                     usermanager.logout(myName);
@@ -90,20 +94,85 @@ public class OrganizerSystem extends UserSystem {
             }
             break;
         }
-        Write write = new Write(usermanager, eventmanager, messagemanager);
-        write.run();
+        save();
+    }
+
+    private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
+        if (allRequests.size() == 0) {
+            Presenter.inputPrompt("NoRequests");
+            Presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            Presenter.exitingToMainMenu();
+        } else {
+            OrganizerPresenter.menusInOrganizer(presenterString);
+            printRequests(allRequests); // Here are all requests printed on the screen!
+            Presenter.inputPrompt("readRequest");
+            String command = reader.nextLine();
+            boolean validInput = false;
+            boolean validNumber = false;
+            int input = 0;
+            while (!validInput) {
+                try {
+                    input = Integer.parseInt(command);
+                    if ((0 <= input) && (input < allRequests.size())) {
+                        validInput = true;
+                        validNumber = true;
+                    } else {
+                        Presenter.invalid("");
+                        Presenter.inputPrompt("readRequest");
+                        command = reader.nextLine();
+                    }
+                } catch (NumberFormatException e) {
+                    if ("e".equals(command)) {
+                        validInput = true;
+                    } else {
+                        Presenter.invalid("");
+                        Presenter.inputPrompt("readRequest");
+                        command = reader.nextLine();
+                    }
+                }
+            }
+            if (!validNumber) {
+                Presenter.exitingToMainMenu();
+            } else {
+                Presenter.defaultPrint(allRequests.get(input)[1]);
+                changeRequestStatus(allRequests.get(input)[0]); // Include confirm of status change
+            }
+//                Presenter.inputPrompt("anythingToGoBack");
+//                reader.nextLine();
+        }
     }
 
     private void seeAllRequest() {
-
+        ArrayList<String[]> allRequests = requestmanager.getAllRequests();
+        seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
     private void seeUnsolvedRequest() {
-
+        ArrayList<String[]> allRequests = requestmanager.getAllUnsolvedRequests();
+        seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
     private void seeSolvedRequest() {
+        ArrayList<String[]> allRequests = requestmanager.getAllSolvedRequests();
+        seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
+    }
 
+    private void changeRequestStatus(String title) {
+        boolean requestSolved = requestmanager.getRequestStatus(title);
+        if (requestSolved){
+            OrganizerPresenter.menusInOrganizer("ChangeStatusAtoP");
+        } else {
+            OrganizerPresenter.menusInOrganizer("ChangeStatusPtoA");
+        }
+        String confirm = reader.nextLine();
+        if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
+            requestmanager.changeStatus(title);
+            OrganizerPresenter.menusInOrganizer("ChangeStatusSuccess");
+            Presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            Presenter.exitingToMainMenu();
+        }
     }
 
     /**
@@ -125,6 +194,36 @@ public class OrganizerSystem extends UserSystem {
             } else {
                 Presenter.invalid("username");
             }
+        }
+    }
+
+    private void promoteVIPEvent() {
+        try {
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (String allEvent : allEvents) {
+                Presenter.defaultPrint(allEvent);
+            }
+            Presenter.inputPrompt("promote event");
+            String eventId = reader.nextLine();
+            try {
+                ArrayList<String> userList = new ArrayList<>(eventmanager.getAttendees(eventId));
+                for (String username : userList) {
+                    if (!usermanager.isVIP(username)) {
+                        usermanager.deleteSignedEvent(eventId, username);
+                        eventmanager.signOut(eventId, username);
+                    }
+                }
+                eventmanager.switchVipEvent(eventId, true);
+                Presenter.success();
+            } catch (NoSuchEventException | NoSuchUserException | NotAttendeeException | InvalidActivityException e) {
+                Presenter.printErrorMessage(e);
+                Presenter.continuePrompt();
+                reader.nextLine();
+            }
+        } catch (NoSuchConferenceException e) {
+            Presenter.printErrorMessage(e);
+            Presenter.continuePrompt();
+            reader.nextLine();
         }
     }
 
@@ -384,6 +483,38 @@ public class OrganizerSystem extends UserSystem {
             usermanager.becomeVIP(name);
             System.out.println("Successfully set " + name + " to be a VIP attendee.\n");
         } catch (NoSuchUserException e) {
+            Presenter.printErrorMessage(e);
+        }
+    }
+
+    /*
+     * Create a new attendee account.
+     */
+    private void createAttendee() {
+        Presenter.inputPrompt("newUsername");
+        String username = reader.nextLine();
+        Presenter.inputPrompt("password");
+        String password = reader.nextLine();
+        try {
+            usermanager.createUserAccount("Attendee", username, password);
+            Presenter.success();
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
+            Presenter.printErrorMessage(e);
+        }
+    }
+
+    /*
+     * Create a new Organizer account.
+     */
+    private void createOrganizer() {
+        Presenter.inputPrompt("newUsername");
+        String username = reader.nextLine();
+        Presenter.inputPrompt("password");
+        String password = reader.nextLine();
+        try {
+            usermanager.createUserAccount("Organizer", username, password);
+            Presenter.success();
+        } catch (DuplicateUserNameException | InvalidUsernameException e) {
             Presenter.printErrorMessage(e);
         }
     }

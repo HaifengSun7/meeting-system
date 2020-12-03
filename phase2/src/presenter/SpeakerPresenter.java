@@ -16,6 +16,7 @@ public class SpeakerPresenter extends Presenter{
                         "[8] Make new request\n" +
                         "[9] Check my requests\n" +
                         "[10] Delete my requests\n" +
+                        "[save] Save.\n" +
                         "[e] Save and log out");
     }
 
