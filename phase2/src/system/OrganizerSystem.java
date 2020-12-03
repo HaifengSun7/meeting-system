@@ -85,6 +85,12 @@ public class OrganizerSystem extends UserSystem {
                 case "16":
                     deleteMessage();
                     continue;
+                case "17":
+                    archieveMessage();
+                    continue;
+                case "18":
+                    unArchieveMessage();
+                    continue;
                 case "save":
                     save();
                     continue;

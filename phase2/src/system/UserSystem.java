@@ -12,6 +12,7 @@ import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.zip.Deflater;
 
 /**
  * <h1>User System</h1>
@@ -288,4 +289,55 @@ public abstract class UserSystem {
         Presenter.continuePrompt();
         reader.nextLine();
     }
+
+    protected void archieveMessage(){
+        ArrayList<String> inbox = messagemanager.getAll(myName);
+        Presenter.inputPrompt("enter number in square bracket to archieve message. Warning: you might archieve message that you have archieved");
+        for (int i = 0; i < inbox.size(); i++){
+            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+        }
+        Presenter.defaultPrint("[e] exit");
+        String command = reader.nextLine();
+        switch (command) {
+            case "e":
+                Presenter.exitingToMainMenu();
+                break;
+            default:
+                try{
+                    messagemanager.archieveKth(myName, Integer.valueOf(command));
+                } catch (Exception e) {
+                    Presenter.defaultPrint("Input out of range");
+                    return;
+                }
+                Presenter.success();
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
+
+    protected void unArchieveMessage(){
+        ArrayList<String> archievedInbox = messagemanager.getArchieved(myName);
+        Presenter.inputPrompt("enter number in square bracket to archieve message. Warning: you might archieve message that you have archieved");
+        for (int i = 0; i < archievedInbox.size(); i++){
+            Presenter.defaultPrint("[" + i + "] " + archievedInbox.get(i));
+        }
+        Presenter.defaultPrint("[e] exit");
+        String command = reader.nextLine();
+        switch (command) {
+            case "e":
+                Presenter.exitingToMainMenu();
+                break;
+            default:
+                try{
+                    messagemanager.unArchieveKth(myName, Integer.valueOf(command));
+                } catch (Exception e) {
+                    Presenter.defaultPrint("Input out of range");
+                    return;
+                }
+                Presenter.success();
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
+    
 }

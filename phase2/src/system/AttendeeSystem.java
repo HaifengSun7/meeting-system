@@ -68,6 +68,12 @@ public class AttendeeSystem extends UserSystem {
                 case "10":
                     deleteMessage();
                     continue;
+                case "11":
+                    archieveMessage();
+                    continue;
+                case "12":
+                    unArchieveMessage();
+                    continue;
                 case "save":
                     save();
                     continue;

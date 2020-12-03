@@ -118,7 +118,7 @@ public class MessageManager {
      * Get the all messages to string sent or received by the user.
      *
      * @param username The username of the user that we are looking for.
-     * @return The list of unread messages, in form of a list of Strings, each element is the string form of the Message.
+     * @return The list of deleted messages, in form of a list of Strings, each element is the string form of the Message.
      */
     public ArrayList<String> getAll(String username) {
         ArrayList<String> rtn_list = new ArrayList<>();
@@ -132,7 +132,7 @@ public class MessageManager {
                     rtn_list.add(msg.toString());
                 }
             }
-            }
+        }
         return rtn_list;
     }
 
@@ -140,7 +140,7 @@ public class MessageManager {
      * Get the all messages sent or received by the user.
      * 
      * @param username The username of the user that we are looking for.
-     * @return The list of unread messages, in form of a list of Messages.
+     * @return The list of deleted messages, in form of a list of Messages.
      */
     private ArrayList<Message> getAllMessages(String username) {
         ArrayList<Message> rtn_list = new ArrayList<>();
@@ -168,6 +168,77 @@ public class MessageManager {
             this.getAllMessages(username).get(k).setReceiverDeleteStatus(true);
         } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
             this.getAllMessages(username).get(k).setSenderDeleteStatus(true);
+        }
+    }
+
+
+    /**
+     * Get the all messages to string archieved by the user.
+     *
+     * @param username The username of the user that we are looking for.
+     * @return The list of archieved messages, in form of a list of Strings, each element is the string form of the Message.
+     */
+    public ArrayList<String> getArchieved(String username) {
+        ArrayList<String> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
+                    rtn_list.add(msg.toString());
+                } 
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus() && msg.getSenderArchiveStatus()){
+                    rtn_list.add(msg.toString());
+                }
+            }
+        }
+        return rtn_list;
+    }
+
+    /*
+     * Get the all messages archieved by the user.
+     * 
+     * @param username The username of the user that we are looking for.
+     * @return The list of archieved messages, in form of a list of Messages.
+     */
+    private ArrayList<Message> getArchievedMessages(String username) {
+        ArrayList<Message> rtn_list = new ArrayList<>();
+        for (Message msg : this.map.values()) {
+            if (msg.getReceiver().equals(username)) {
+                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
+                    rtn_list.add(msg);
+                } 
+            } else if(msg.getSender().equals(username)) {
+                if(!msg.getSenderDeleteStatus() && msg.getReceiverArchiveStatus()){
+                    rtn_list.add(msg);
+                }
+            }
+        }
+        return rtn_list;
+    }
+
+    /**
+     * Archieve message
+     * @param username the username we need to change its message status
+     * @param k the index of the message we need to change its status
+     */
+    public void archieveKth(String username, Integer k) {
+        if(this.getAllMessages(username).get(k).getReceiver().equals(username)){
+            this.getAllMessages(username).get(k).setReceiverArchiveStatus(true);
+        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+            this.getAllMessages(username).get(k).setSenderArchiveStatus(true);
+        }
+    }
+
+    /**
+     * Unarchieve message
+     * @param username the username we need to change its message status
+     * @param k the index of the message we need to change its status
+     */
+    public void unArchieveKth(String username, Integer k) {
+        if(this.getArchievedMessages(username).get(k).getReceiver().equals(username)){
+            this.getAllMessages(username).get(k).setReceiverArchiveStatus(false);
+        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+            this.getArchievedMessages(username).get(k).setSenderArchiveStatus(false);
         }
     }
 

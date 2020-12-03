@@ -71,6 +71,12 @@ public class SpeakerSystem extends UserSystem {
                 case "12":
                     deleteMessage();
                     continue;
+                case "13":
+                    archieveMessage();
+                    continue;
+                case "14":
+                    unArchieveMessage();
+                    continue;
                 case "save":
                     save();
                     continue;
