@@ -76,7 +76,7 @@ public abstract class UserSystem {
                 String receiver = contactList.get(Integer.parseInt(receive));
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
-                messagemanager.sendMessage(myName, receiver, message);
+                messagemanager.sendMessage(myName, receiver, message, true);
             } else if ("e".equals(receive)) {
                 Presenter.exitingToMainMenu();
                 return;

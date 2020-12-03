@@ -17,7 +17,7 @@ public class Message {
      * @param receiver The Username of the receiver who gets the message.
      * @param text     The text of the message
      */
-    public Message(String sender, String receiver, String text) {
+    public Message(String sender, String receiver, String text, Boolean unReadStatus) {
         this.sender = sender;
         this.receiver = receiver;
         if (text.isEmpty()) {
@@ -25,7 +25,7 @@ public class Message {
         } else {
             this.text = text;
         }
-        this.unReadStatus = true; //TODO: we need to write this into csv
+        this.unReadStatus = unReadStatus; //TODO: we need to write this into csv
     }
 
     /**

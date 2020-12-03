@@ -192,7 +192,7 @@ public class OrganizerSystem extends UserSystem {
             if (usermanager.getAllUsernames().contains(target)) {
                 Presenter.inputPrompt("message");
                 String msg = reader.nextLine();
-                messagemanager.sendMessage(myName, target, msg);
+                messagemanager.sendMessage(myName, target, msg, true);
                 Presenter.success();
             } else {
                 Presenter.invalid("username");

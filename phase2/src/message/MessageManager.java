@@ -16,8 +16,8 @@ public class MessageManager {
      * @param receiver The Username of the receiver.
      * @param text     The message.
      */
-    public void sendMessage(String sender, String receiver, String text) {
-        Message message = new Message(sender, receiver, text);
+    public void sendMessage(String sender, String receiver, String text, Boolean unread) {
+        Message message = new Message(sender, receiver, text, unread);
         messages.add(message);
     }
 
@@ -133,7 +133,7 @@ public class MessageManager {
     public void sendToList(String u, ArrayList<String> receivers, String text) {
         for (String user : receivers) {
             if (!user.equals(u)) {
-                sendMessage(u, user, text);
+                sendMessage(u, user, text, true);
             }
         }
     }
