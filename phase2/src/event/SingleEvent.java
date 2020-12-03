@@ -27,7 +27,7 @@ public class SingleEvent extends Event{
         if(this.speakStatus){
             throw new TooManySpeakerException("Already has speaker");
         }
-        speakers = new ArrayList<String>();
+        speakers = new ArrayList<>();
         speakers.add(u);
         this.speakStatus = true;
     }

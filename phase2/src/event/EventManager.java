@@ -2,7 +2,6 @@ package event;
 
 import event.exceptions.*;
 import javafx.util.Pair;
-import presenter.Presenter;
 
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
@@ -84,14 +83,7 @@ public class EventManager {
                 }
             }
         } else {
-            for (int i = 0; i < map.size(); i++) {
-                if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
-                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
-                    if (!map.get(i).getVip()) {
-                        rslt.add(String.valueOf(map.get(i).getId()));
-                    }
-                }
-            }
+            rslt = canSignUp(attendee);
         }
         return rslt;
     }
