@@ -79,6 +79,9 @@ public class OrganizerSystem extends UserSystem {
                 case "14":
                     promoteVIPEvent();
                     continue;
+                case "15":
+                    markUnreadMessages();
+                    continue;
                 case "save":
                     save();
                     continue;
