@@ -221,6 +221,9 @@ public abstract class UserSystem {
         }
     }
 
+    /**
+     * Save the current status of events, users, messages, and requests.
+     */
     protected void save(){
         Write write = new Write(usermanager, eventmanager, messagemanager, requestmanager);
         write.run();
@@ -252,7 +255,7 @@ public abstract class UserSystem {
                 try {
                     messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
                 } catch (Exception e) {
-                    Presenter.defaultPrint("Input out of range"); // TODO: input out of range
+                    Presenter.defaultPrint("Input out of range");
                     return;
                 }
                 Presenter.success();

@@ -96,6 +96,12 @@ public class EventManager {
         return rslt;
     }
 
+    /**
+     * Get the events that the attendee can sign up.
+     *
+     * @param attendee the attendee's username.
+     * @return the array list containing all events in string, that the attendee can sign up.
+     */
     public ArrayList<String> canSignUp(String attendee) {
         ArrayList<String> rslt = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
@@ -163,6 +169,12 @@ public class EventManager {
 //        return events;
 //    }
 
+    /**
+     * Switch an event between VIP and normal event.
+     *
+     * @param eventId The event we are setting.
+     * @param vip if the event is VIP event.
+     */
     public void switchVipEvent(String eventId, boolean vip) {
         map.get(Integer.parseInt(eventId)).setVip(vip);
     }
@@ -392,6 +404,35 @@ public class EventManager {
         }
     }
 
+    /**
+     * Get all existing conference.
+     *
+     * @return the list of all conference names.
+     */
+    public ArrayList<String> getAllConference() {
+        return conferenceManager.getAllConferences();
+    }
+
+    /**
+     * Get the conference of event.
+     *
+     * @param eventID the event that we are looking for.
+     * @return the conference name of the event.
+     */
+    public String getConferenceOfEvent(int eventID){
+        return conferenceManager.getConferenceOfEvent(eventID);
+    }
+
+    /**
+     * Get if the event is VIP event.
+     *
+     * @param eventID the event we are looking for.
+     * @return a boolean showing if it is VIP only.
+     */
+    public boolean getVipStatus(int eventID){
+        return map.get(eventID).getVip();
+    }
+
     /*
      * Make attendee sign up for an event.
      *
@@ -462,18 +503,6 @@ public class EventManager {
         } catch (Exception e){
             throw new InvalidActivityException("invalid room number: " + roomNo);
         }
-    }
-
-    public ArrayList<String> getAllConference() {
-        return conferenceManager.getAllConferences();
-    }
-
-    public String getConferenceOfEvent(int eventID){
-        return conferenceManager.getConferenceOfEvent(eventID);
-    }
-
-    public boolean getVipStatus(int eventID){
-        return map.get(eventID).getVip();
     }
 
 }
