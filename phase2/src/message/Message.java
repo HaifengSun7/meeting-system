@@ -1,5 +1,8 @@
 package message;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Each Message entity stores the sender of the message, receiver of the message and the message text itself.
  */
@@ -8,7 +11,13 @@ public class Message {
     private final String sender;
     private final String receiver;
     private final String text;
-    private boolean unReadStatus;
+    private final int ID;
+    private static int number = 0;
+    private boolean unReadStatus = true;
+    private boolean ReceiverDeleteStatus;
+    private boolean ReceiverArchiveStatus;
+    private boolean SenderDeleteStatus;
+    private boolean SenderArchiveStatus;
 
     /**
      * The constructor for Message entity. Stores sender, receiver, and message text as Strings.
@@ -17,7 +26,7 @@ public class Message {
      * @param receiver The Username of the receiver who gets the message.
      * @param text     The text of the message
      */
-    public Message(String sender, String receiver, String text, Boolean unReadStatus) {
+    public Message(String sender, String receiver, String text) {
         this.sender = sender;
         this.receiver = receiver;
         if (text.isEmpty()) {
@@ -25,7 +34,12 @@ public class Message {
         } else {
             this.text = text;
         }
-        this.unReadStatus = unReadStatus; //TODO: we need to write this into csv
+        this.ID = number;
+        number += 1;
+    }
+
+    public static void resetID(){
+        number = 0;
     }
 
     /**
@@ -54,6 +68,16 @@ public class Message {
     public String getText() {
         return this.text;
     }
+
+    /**
+     * Gets the Id of message
+     *
+     * @return the message id.
+     */
+    public int getID(){
+        return this.ID;
+    }
+
     /**
      * Get's whether the text is unread or not
      * @return unReadStatus.
@@ -63,12 +87,71 @@ public class Message {
     }
 
     /**
+     * Get's whether the receiver has deleted the message.
+     * @return ReceiverDeleteStatus.
+     */
+    public boolean getReceiverDeleteStatus() {
+        return this.ReceiverDeleteStatus;
+    }
+
+    /**
+     * Get's whether the text is archived by receiver.
+     * @return ReceiverArchiveStatus.
+     */
+    public boolean getReceiverArchiveStatus() {
+        return this.ReceiverArchiveStatus;
+    }
+
+    /**
+     * Get's whether the receiver has deleted the message.
+     * @return ReceiverDeleteStatus.
+     */
+    public boolean getSenderDeleteStatus() {
+        return this.SenderDeleteStatus;
+    }
+
+    /**
+     * Get's whether the text is archived by receiver.
+     * @return ReceiverArchiveStatus.
+     */
+    public boolean getSenderArchiveStatus() {
+        return this.SenderArchiveStatus;
+    }
+
+    /**
      * @param status the unReadStatus to set
      */
     public void setUnreadStatus(boolean status) {
         this.unReadStatus = status;
-    } //note
+    }
 
+    /**
+     * @param status the ReceiverDeleteStatus to set
+     */
+    public void setReceiverDeleteStatus(boolean status) {
+        this.ReceiverDeleteStatus = status;
+    }
+
+    /**
+     * @param status the ReceiverArchive to set
+     */
+    public void setReceiverArchiveStatus(boolean status) {
+        this.ReceiverArchiveStatus = status;
+    }
+
+    /**
+     * @param status the SenderDelete to set
+     */
+    public void setSenderDeleteStatus(boolean status) {
+        this.SenderDeleteStatus = status;
+    }
+
+    /**
+     * @param status the SenderArchiveStatus to set
+     */
+    public void setSenderArchiveStatus(boolean status) {
+        this.SenderArchiveStatus = status;
+    } //note
     /**
      * Get's everything of the message.
      *
@@ -79,8 +162,13 @@ public class Message {
         return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + this.text;
     }
 
-    public String getStatus() {
-        //TODO:
-        return "yes.";
+    public ArrayList<String> getAllStatus() {
+        ArrayList<String> allStatus = new ArrayList<>();
+        allStatus.add(String.valueOf(getUnReadStatus()));
+        allStatus.add(String.valueOf(getReceiverDeleteStatus()));
+        allStatus.add(String.valueOf(getReceiverArchiveStatus()));
+        allStatus.add(String.valueOf(getSenderDeleteStatus()));
+        allStatus.add(String.valueOf(getSenderArchiveStatus()));
+        return allStatus;
     }
 }

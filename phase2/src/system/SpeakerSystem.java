@@ -136,7 +136,7 @@ public class SpeakerSystem extends UserSystem {
                 String messageToOneAttendee = reader.nextLine();
                 try {
                     if (attendeeList.contains(receiver)) {
-                        messagemanager.sendMessage(myName, receiver, messageToOneAttendee, true);
+                        messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
                     } else {
                         Presenter.defaultPrint("There is no such user in that event.");
                     }
@@ -189,7 +189,7 @@ public class SpeakerSystem extends UserSystem {
                 String receiver = inboxSender.get(Integer.parseInt(cmd));
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
-                messagemanager.sendMessage(myName, receiver, message, true);
+                messagemanager.sendMessage(myName, receiver, message);
                 Presenter.success();
             } else if ("e".equals(cmd)) {
                 Presenter.exitingToMainMenu();

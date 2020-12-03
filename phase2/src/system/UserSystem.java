@@ -76,7 +76,7 @@ public abstract class UserSystem {
                 String receiver = contactList.get(Integer.parseInt(receive));
                 Presenter.inputPrompt("message");
                 String message = reader.nextLine();
-                messagemanager.sendMessage(myName, receiver, message, true);
+                messagemanager.sendMessage(myName, receiver, message);
             } else if ("e".equals(receive)) {
                 Presenter.exitingToMainMenu();
                 return;
@@ -236,19 +236,26 @@ public abstract class UserSystem {
         Presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
 
-        if (!("e".equals(command)&&!("a".equals(command)))) {
-            try {
-                messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
-            } catch (Exception e) {
-                Presenter.invalid(""); // TODO: input out of range
-                return;
-            }
-            Presenter.success();
-        } else if ("e".equals(command)) {
-            Presenter.exitingToMainMenu();
-        } else if ("a".equals(command)) {
-            messagemanager.markAllAsRead(myName);
-            Presenter.success();
+        switch (command){
+            case "e":
+                Presenter.exitingToMainMenu();
+                break;
+            case "a":
+                try{
+                    messagemanager.markAllAsRead(myName);
+                    Presenter.success();
+                } catch (Exception e){
+                    Presenter.printErrorMessage(e);
+                }
+                break;
+            default:
+                try {
+                    messagemanager.markKthAsRead(myName, Integer.valueOf(command));;
+                } catch (Exception e) {
+                    Presenter.defaultPrint("Input out of range"); // TODO: input out of range
+                    return;
+                }
+                Presenter.success();
         }
         Presenter.continuePrompt();
         reader.nextLine();
