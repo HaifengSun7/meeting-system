@@ -284,7 +284,6 @@ public class MessageManager {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         for (Message message : map.values()) {
             ArrayList<String> temp = new ArrayList<>();
-            temp.add(String.valueOf(message.getID()));
             temp.add(message.getSender());
             temp.add(message.getReceiver());
             temp.add(message.getText());
@@ -312,5 +311,19 @@ public class MessageManager {
         msg.setSenderArchiveStatus(SenderArchiveStatus);
         msg.setReceiverDeleteStatus(ReceiverDeleteStatus);
         msg.setSenderDeleteStatus(SenderDeleteStatus);
+    }
+
+    /**
+     * Create a Message to receiver by sender. With the message text.
+     *
+     * @param sender   The Username of the sender.
+     * @param receiver The Username of the receiver.
+     * @param text     The message.
+     * @return id of the message.
+     */
+    public int createMessage(String sender, String receiver, String text) {
+        Message message = new Message(sender, receiver, text);
+        map.put(message.getID(), message);
+        return message.getID();
     }
 }

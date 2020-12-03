@@ -133,15 +133,16 @@ public class ManagerBuilder {
     }
 
     private void messageManagerInitialize(){
-        String sql = "SELECT ID, Sender, Receiver, MessageText," +
+        int i = 0;
+        String sql = "SELECT Sender, Receiver, MessageText," +
                 " Unread, ReceiverDeleteStatus, ReceiverArchiveStatus," +
                 " SenderDeleteStatus, SenderArchiveStatus FROM message";
         try(ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
-                messagemanager.sendMessage(rs.getString("Sender"),
+                i = messagemanager.createMessage(rs.getString("Sender"),
                         rs.getString("Receiver"),
                         rs.getString("MessageText"));
-                messagemanager.initializeStatus(rs.getInt("ID"),
+                messagemanager.initializeStatus( i ,
                         rs.getBoolean("Unread"),
                         rs.getBoolean("ReceiverDeleteStatus"),
                         rs.getBoolean("ReceiverArchiveStatus"),

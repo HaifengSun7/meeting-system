@@ -182,20 +182,19 @@ public class Write {
 
 
     private void messageWriter() {
-        String sql = "INSERT INTO message(ID,ID,Sender,MessageText,Unread,ReceiverDeleteStatus," +
-                "ReceiverArchiveStatus,SenderDeleteStatus,SenderArchiveStatus) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO message(Sender,Receiver,MessageText,Unread,ReceiverDeleteStatus," +
+                "ReceiverArchiveStatus,SenderDeleteStatus,SenderArchiveStatus) VALUES(?,?,?,?,?,?,?,?)";
         ArrayList<ArrayList<String>> allMessage = messagemanager.getAllMessage();
         for (ArrayList<String> messageInfo : allMessage) {
             try (PreparedStatement pstmt2 = conn.prepareStatement(sql)) {
-                pstmt2.setInt(1, Integer.parseInt(messageInfo.get(0)));
+                pstmt2.setString(1, messageInfo.get(0));
                 pstmt2.setString(2, messageInfo.get(1));
                 pstmt2.setString(3, messageInfo.get(2));
-                pstmt2.setString(4, messageInfo.get(3));
+                pstmt2.setBoolean(4, Boolean.parseBoolean(messageInfo.get(3)));
                 pstmt2.setBoolean(5, Boolean.parseBoolean(messageInfo.get(4)));
                 pstmt2.setBoolean(6, Boolean.parseBoolean(messageInfo.get(5)));
                 pstmt2.setBoolean(7, Boolean.parseBoolean(messageInfo.get(6)));
                 pstmt2.setBoolean(8, Boolean.parseBoolean(messageInfo.get(7)));
-                pstmt2.setBoolean(9, Boolean.parseBoolean(messageInfo.get(8)));
                 pstmt2.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
