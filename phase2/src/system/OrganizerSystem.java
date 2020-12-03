@@ -97,41 +97,65 @@ public class OrganizerSystem extends UserSystem {
         save();
     }
 
-    private void seeAllRequest() {
-        ArrayList<String[]> allRequests = requestmanager.getAllRequests();
-        if (allRequests.size() == 0){
+    private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
+        if (allRequests.size() == 0) {
             Presenter.inputPrompt("NoRequests");
-        } else {
-            OrganizerPresenter.menusInOrganizer("SeeAllRequestsInSystemIntroduction");
-            printRequests(allRequests); // Here is all request titles!
-            Presenter.inputPrompt("readRequest");
-            String command = reader.nextLine();
-            try {
-                int input = Integer.parseInt(command);
-                if ((0 <= input) && (input < allRequests.size())) {
-                    Presenter.defaultPrint(allRequests.get(input)[1]);
-                    changeRequestStatus(allRequests.get(input)[0]);
-                } else {
-                    Presenter.invalid("");
-                    Presenter.exitingToMainMenu();
-                }
-            } catch (NumberFormatException e) {
-                if (!"e".equals(command)) {
-                    Presenter.invalid("");
-                }
-            }
             Presenter.inputPrompt("anythingToGoBack");
             reader.nextLine();
             Presenter.exitingToMainMenu();
+        } else {
+            OrganizerPresenter.menusInOrganizer(presenterString);
+            printRequests(allRequests); // Here are all requests printed on the screen!
+            Presenter.inputPrompt("readRequest");
+            String command = reader.nextLine();
+            boolean validInput = false;
+            boolean validNumber = false;
+            int input = 0;
+            while (!validInput) {
+                try {
+                    input = Integer.parseInt(command);
+                    if ((0 <= input) && (input < allRequests.size())) {
+                        validInput = true;
+                        validNumber = true;
+                    } else {
+                        Presenter.invalid("");
+                        Presenter.inputPrompt("readRequest");
+                        command = reader.nextLine();
+                    }
+                } catch (NumberFormatException e) {
+                    if ("e".equals(command)) {
+                        validInput = true;
+                    } else {
+                        Presenter.invalid("");
+                        Presenter.inputPrompt("readRequest");
+                        command = reader.nextLine();
+                    }
+                }
+            }
+            if (!validNumber) {
+                Presenter.exitingToMainMenu();
+            } else {
+                Presenter.defaultPrint(allRequests.get(input)[1]);
+                changeRequestStatus(allRequests.get(input)[0]); // Include confirm of status change
+            }
+//                Presenter.inputPrompt("anythingToGoBack");
+//                reader.nextLine();
         }
     }
 
-    private void seeUnsolvedRequest() {
+    private void seeAllRequest() {
+        ArrayList<String[]> allRequests = requestmanager.getAllRequests();
+        seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
+    }
 
+    private void seeUnsolvedRequest() {
+        ArrayList<String[]> allRequests = requestmanager.getAllUnsolvedRequests();
+        seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
     private void seeSolvedRequest() {
-
+        ArrayList<String[]> allRequests = requestmanager.getAllSolvedRequests();
+        seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
     private void changeRequestStatus(String title) {
@@ -145,10 +169,10 @@ public class OrganizerSystem extends UserSystem {
         if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
             requestmanager.changeStatus(title);
             OrganizerPresenter.menusInOrganizer("ChangeStatusSuccess");
+            Presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            Presenter.exitingToMainMenu();
         }
-//        Presenter.inputPrompt("anythingToGoBack");
-//        reader.nextLine();
-//        Presenter.exitingToMainMenu();
     }
 
     /**

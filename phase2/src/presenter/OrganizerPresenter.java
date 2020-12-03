@@ -16,7 +16,7 @@ public class OrganizerPresenter extends Presenter{
                         "[8] create/promote VIP account\n" +
                         "[9] create new attendee account\n" +
                         "[10] create new organizer account\n" +
-                        "[11] Read/tag all requests [Not done Yet]\n" +
+                        "[11] Read/tag all requests\n" +
                         "[12] Read/tag all pending requests [Not done Yet]\n" +
                         "[13] Read/tag all addressed requests [Not done Yet]\n" +
                         "[14] Promote an event to be VIP only\n" +
