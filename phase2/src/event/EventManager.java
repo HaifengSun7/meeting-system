@@ -26,24 +26,21 @@ public class EventManager {
     }
 
     /**
-     * Add a valid room to the conference.
+     * Return all events in an ArrayList of Strings.
      *
-     * @param roomNumber An int representing the room number
-     * @param size       An int representing the capacity of the room.
-     * @throws DuplicateRoomNumberException when room number exists.
+     * @return all events. Index = event number.
      */
-    public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
-        roomManager.addRoom(roomNumber, size);
-    }
-
-    /**
-     * Gives the string output of the event.
-     *
-     * @param id: The event id.
-     * @return a Event based on its id, but with toString();
-     */
-    public String findEventStr(Integer id) {
-        return map.get(id).toString();
+    public ArrayList<String> getAllEvents(String conference) throws NoSuchConferenceException {
+        ArrayList<Integer> eventIDs = conferenceManager.getEventOfConference(conference);
+        ArrayList<String> events = new ArrayList<>();
+        for (int i : eventIDs) {
+            if (map.containsKey(i)) {
+                events.add(map.get(i).toString());
+            } else {
+                events.add("cancelled");
+            }
+        }
+        return events;
     }
 
     /**
@@ -68,24 +65,109 @@ public class EventManager {
     }
 
     /**
-     * Return a list of Events.toString() that attendee can sign up for.
-     *
-     * @param attendee Attendee, but string.
-     * @return a list of Event ids in String that attendee can sign up for.
+     * Get the capacity of an event
+     * @param id the event ID.
+     * @return a pair of integers that the first is number of speakers, while the second is the number of attendees.
      */
-    public ArrayList<String> canSignUp(String attendee, boolean vip) {
-        ArrayList<String> rslt = new ArrayList<>();
-        if (vip) {
-            for (int i = 0; i < map.size(); i++) {
-                if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
-                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
-                    rslt.add(String.valueOf(map.get(i).getId()));
-                }
-            }
-        } else {
-            rslt = canSignUp(attendee);
+    public Pair<Integer, Integer> getCapacity(int id){
+        int numSpeaker = map.get(id).getMaximumSpeaker();
+        int numPeople = map.get(id).getMaximumAttendee();
+        return new Pair<>(numSpeaker, numPeople);
+    }
+
+    /**
+     * Get a hash map that keys are room numbers and values are their capacities.
+     *
+     * @return A hashmap that maps room numbers to their capacities.
+     */
+    public HashMap<Integer, Integer> getRoomNumberMapToCapacity() {
+        return roomManager.getRoomNumberMapToCapacity();
+    }
+
+    /**
+     * Get a hashmap that keys are eventID and values are room numbers.
+     *
+     * @return a hashmap that keys are eventID and values are room numbers.
+     */
+    public HashMap<Integer, Integer> getEventIDMapToRoomNumber() {
+        return roomManager.getEventIDMapToRoomNumber();
+    }
+
+    /**
+     * Get the time of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the time of the event with the eventNum
+     */
+    public String getTime(Integer eventNum) {
+        return map.get(eventNum).getTime();
+    }
+
+    /**
+     * Get the length of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the length of the event with the eventNum
+     */
+    public String getDuration(Integer eventNum) {
+        return String.valueOf(map.get(eventNum).getMeetingLength());
+    }
+
+    /**
+     * Get the speaker of a particular event.
+     *
+     * @param eventNum the eventNumber of the event that we are looking for.
+     * @return the speaker of the event with the eventNum
+     */
+    public ArrayList<String> getSpeakers(Integer eventNum) {
+        try {
+            return map.get(eventNum).getSpeakers();
+        } catch (Exception e) {
+            return new ArrayList<>();
         }
-        return rslt;
+    }
+
+    /**
+     * Get all existing conference.
+     *
+     * @return the list of all conference names.
+     */
+    public ArrayList<String> getAllConference() {
+        return conferenceManager.getAllConferences();
+    }
+
+    /**
+     * Get the conference of event.
+     *
+     * @param eventID the event that we are looking for.
+     * @return the conference name of the event.
+     */
+    public String getConferenceOfEvent(int eventID){
+        return conferenceManager.getConferenceOfEvent(eventID);
+    }
+
+    /**
+     * Get if the event is VIP event.
+     *
+     * @param eventID the event we are looking for.
+     * @return a boolean showing if it is VIP only.
+     */
+    public boolean getVipStatus(int eventID){
+        return map.get(eventID).getVip();
+    }
+
+    /**
+     * Get the description from the event's id.
+     *
+     * @param event: event's id.
+     * @return the description of the event.
+     */
+    public String getDescription(Integer event) {
+        return map.get(event).getDescription();
+    }
+
+    public ArrayList<String> getAllRooms(){
+        return roomManager.getAllRooms();
     }
 
     /**
@@ -108,6 +190,63 @@ public class EventManager {
     }
 
     /**
+     * Return a list of Events.toString() that attendee can sign up for.
+     *
+     * @param attendee Attendee, but string.
+     * @return a list of Event ids in String that attendee can sign up for.
+     */
+    public ArrayList<String> canSignUp(String attendee, boolean vip) {
+        ArrayList<String> rslt = new ArrayList<>();
+        if (vip) {
+            for (int i = 0; i < map.size(); i++) {
+                if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
+                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                    rslt.add(String.valueOf(map.get(i).getId()));
+                }
+            }
+        } else {
+            rslt = canSignUp(attendee);
+        }
+        return rslt;
+    }
+
+    /*
+     * Make attendee sign up for an event.
+     *
+     * @param event    Event id in string.
+     * @param attendee Attendee, but with String.
+     * @throws NoSuchEventException when the event does not exist.
+     */
+    private void signUp(String event, String attendee) throws NoSuchEventException {
+        if (map.containsKey(Integer.parseInt(event))) {
+            map.get(Integer.parseInt(event)).addAttendees(attendee);
+        } else {
+            throw new NoSuchEventException("This event does not exist: id: " + event);
+        }
+    }
+
+    /**
+     * Add a valid room to the conference.
+     *
+     * @param roomNumber An int representing the room number
+     * @param size       An int representing the capacity of the room.
+     * @throws DuplicateRoomNumberException when room number exists.
+     */
+    public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
+        roomManager.addRoom(roomNumber, size);
+    }
+
+    /**
+     * Gives the string output of the event.
+     *
+     * @param id: The event id.
+     * @return a Event based on its id, but with toString();
+     */
+    public String findEventStr(Integer id) {
+        return map.get(id).toString();
+    }
+
+    /**
      * Make attendee a speaker by updating all events related with them.
      * Tips:
      * 1. scan all events with attendee.
@@ -127,24 +266,6 @@ public class EventManager {
         for (Event j : attended) {
             j.setSpeaker(attendee);
         }
-    }
-
-    /**
-     * Return all events in an ArrayList of Strings.
-     *
-     * @return all events. Index = event number.
-     */
-    public ArrayList<String> getAllEvents(String conference) throws NoSuchConferenceException {
-        ArrayList<Integer> eventIDs = conferenceManager.getEventOfConference(conference);
-        ArrayList<String> events = new ArrayList<>();
-        for (int i : eventIDs) {
-            if (map.containsKey(i)) {
-                events.add(map.get(i).toString());
-            } else {
-                events.add("cancelled");
-            }
-        }
-        return events;
     }
 
 //    public ArrayList<String> getLimitedEvents() {
@@ -224,83 +345,6 @@ public class EventManager {
         } else {
             throw new NoSuchEventException("There is not an event with event number " + eventNumber);
         }
-    }
-
-    /**
-     * Get the capacity of an event
-     * @param id the event ID.
-     * @return a pair of integers that the first is number of speakers, while the second is the number of attendees.
-     */
-    public Pair<Integer, Integer> getCapacity(int id){
-        int numSpeaker = map.get(id).getMaximumSpeaker();
-        int numPeople = map.get(id).getMaximumAttendee();
-        return new Pair<>(numSpeaker, numPeople);
-    }
-
-    /**
-     * Get a hash map that keys are room numbers and values are their capacities.
-     *
-     * @return A hashmap that maps room numbers to their capacities.
-     */
-    public HashMap<Integer, Integer> getRoomNumberMapToCapacity() {
-        return roomManager.getRoomNumberMapToCapacity();
-    }
-
-    /**
-     * Get a hashmap that keys are eventID and values are room numbers.
-     *
-     * @return a hashmap that keys are eventID and values are room numbers.
-     */
-    public HashMap<Integer, Integer> getEventIDMapToRoomNumber() {
-        return roomManager.getEventIDMapToRoomNumber();
-    }
-
-    /**
-     * Get the time of a particular event.
-     *
-     * @param eventNum the eventNumber of the event that we are looking for.
-     * @return the time of the event with the eventNum
-     */
-    public String getTime(Integer eventNum) {
-        return map.get(eventNum).getTime();
-    }
-
-    /**
-     * Get the length of a particular event.
-     *
-     * @param eventNum the eventNumber of the event that we are looking for.
-     * @return the length of the event with the eventNum
-     */
-    public String getDuration(Integer eventNum) {
-        return String.valueOf(map.get(eventNum).getMeetingLength());
-    }
-
-    /**
-     * Get the speaker of a particular event.
-     *
-     * @param eventNum the eventNumber of the event that we are looking for.
-     * @return the speaker of the event with the eventNum
-     */
-    public ArrayList<String> getSpeakers(Integer eventNum) {
-        try {
-            return map.get(eventNum).getSpeakers();
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
-    }
-
-    /**
-     * Get the description from the event's id.
-     *
-     * @param event: event's id.
-     * @return the description of the event.
-     */
-    public String getDescription(Integer event) {
-        return map.get(event).getDescription();
-    }
-
-    public ArrayList<String> getAllRooms(){
-        return roomManager.getAllRooms();
     }
 
     /**
@@ -393,50 +437,6 @@ public class EventManager {
             }
         } else {
             throw new NoSuchEventException("This event does not exist: id: " + eventId);
-        }
-    }
-
-    /**
-     * Get all existing conference.
-     *
-     * @return the list of all conference names.
-     */
-    public ArrayList<String> getAllConference() {
-        return conferenceManager.getAllConferences();
-    }
-
-    /**
-     * Get the conference of event.
-     *
-     * @param eventID the event that we are looking for.
-     * @return the conference name of the event.
-     */
-    public String getConferenceOfEvent(int eventID){
-        return conferenceManager.getConferenceOfEvent(eventID);
-    }
-
-    /**
-     * Get if the event is VIP event.
-     *
-     * @param eventID the event we are looking for.
-     * @return a boolean showing if it is VIP only.
-     */
-    public boolean getVipStatus(int eventID){
-        return map.get(eventID).getVip();
-    }
-
-    /*
-     * Make attendee sign up for an event.
-     *
-     * @param event    Event id in string.
-     * @param attendee Attendee, but with String.
-     * @throws NoSuchEventException when the event does not exist.
-     */
-    private void signUp(String event, String attendee) throws NoSuchEventException {
-        if (map.containsKey(Integer.parseInt(event))) {
-            map.get(Integer.parseInt(event)).addAttendees(attendee);
-        } else {
-            throw new NoSuchEventException("This event does not exist: id: " + event);
         }
     }
 

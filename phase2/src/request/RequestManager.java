@@ -8,8 +8,8 @@ import java.util.Map;
  * Manager for requests.
  */
 public class RequestManager {
-    private Map<String, ArrayList<Request>> userRequestMapping; // key: username; value: a list of Requests;
-    private Map<String, Request> titleRequestMapping; // key: title; value: Request;
+    private final Map<String, ArrayList<Request>> userRequestMapping; // key: username; value: a list of Requests;
+    private final Map<String, Request> titleRequestMapping; // key: title; value: Request;
 
     /**
      * Create a new request manager.
