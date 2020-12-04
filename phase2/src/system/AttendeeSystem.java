@@ -72,6 +72,9 @@ public class AttendeeSystem extends UserSystem {
                 case "12":
                     unArchiveMessage();
                     continue;
+                case "13":
+                    seeArchivedMessage();
+                    continue;
                 case "save":
                     save();
                     continue;
@@ -130,11 +133,16 @@ public class AttendeeSystem extends UserSystem {
      */
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
-        for (String s : eventsList) {
-            Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
+        if (eventsList.size() == 0) {
+            Presenter.noEvent();
         }
-        Presenter.continuePrompt();
-        reader.nextLine();
+        else{
+            for (String s : eventsList) {
+                Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
+            }
+            Presenter.continuePrompt();
+            reader.nextLine();
+        }
     }
 
     /*
@@ -142,25 +150,30 @@ public class AttendeeSystem extends UserSystem {
      */
     private void cancelEnrollment() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
-        for (int i = 0; i < eventsList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
-        }
-        Presenter.exitToMainMenuPrompt();
-        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
-        String number = reader.nextLine();
-        if (!("e".equals(number))) {
-            try {
-                eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
-                usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
-                Presenter.success();
-            } catch (InvalidActivityException | NoSuchEventException e) {
-                Presenter.printErrorMessage(e); // This should never happen.
-            } catch (IndexOutOfBoundsException | NullPointerException e) {
-                Presenter.invalid("");
-            }
+        if (eventsList.size() == 0) {
+            Presenter.noEvent();
         } else {
-            Presenter.exitingToMainMenu();
+            for (int i = 0; i < eventsList.size(); i++) {
+                Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
+            }
+            Presenter.exitToMainMenuPrompt();
+            Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+            String number = reader.nextLine();
+            if (!("e".equals(number))) {
+                try {
+                    eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
+                    usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
+                    Presenter.success();
+                } catch (InvalidActivityException | NoSuchEventException e) {
+                    Presenter.printErrorMessage(e); // This should never happen.
+                } catch (Exception e) {
+                    Presenter.invalid("");
+                }
+            } else {
+                Presenter.exitingToMainMenu();
+            }
         }
     }
 }
+
 

@@ -89,6 +89,9 @@ public class OrganizerSystem extends UserSystem {
                 case "18":
                     unArchiveMessage();
                     continue;
+                case "19":
+                    seeArchivedMessage();
+                    continue;
                 case "save":
                     save();
                     continue;
@@ -319,6 +322,8 @@ public class OrganizerSystem extends UserSystem {
             Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
+        } catch (Exception e) {
+            Presenter.invalid("");
         }
     }
 
