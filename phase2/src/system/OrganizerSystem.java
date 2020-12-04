@@ -222,8 +222,11 @@ public class OrganizerSystem extends UserSystem {
                 ArrayList<String> userList = new ArrayList<>(eventmanager.getAttendees(eventId));
                 for (String username : userList) {
                     if (!usermanager.isVIP(username)) {
+                        String rejectText = "Sorry, event ["+ eventId + "] has been promoted to a VIP event." +
+                                "You have been automatically signed out from the event.";
                         usermanager.deleteSignedEvent(eventId, username);
                         eventmanager.signOut(eventId, username);
+                        messagemanager.sendMessage(this.myName, username, rejectText);
                     }
                 }
                 eventmanager.switchVipEvent(eventId, true);
