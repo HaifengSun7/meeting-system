@@ -2,6 +2,7 @@ package event;
 
 import event.exceptions.DuplicateRoomNumberException;
 import event.exceptions.RoomIsFullException;
+import event.exceptions.WrongRoomSizeException;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ public class RoomManager {
      * @param size       An int representing the capacity of the room.
      * @throws DuplicateRoomNumberException when room number exists.
      */
-    protected void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
+    protected void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException, WrongRoomSizeException {
+        if (size <= 0){
+            throw new WrongRoomSizeException("Room size must be greater than 0");
+        }
         for (Room r : rooms) {
             if (r.getRoomNumber() == roomNumber) {
                 throw new DuplicateRoomNumberException("Duplicate Room Number: " + roomNumber);
