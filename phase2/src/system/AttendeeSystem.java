@@ -130,11 +130,16 @@ public class AttendeeSystem extends UserSystem {
      */
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
-        for (String s : eventsList) {
-            Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
+        if (eventsList.size() == 0) {
+            Presenter.noEvent();
         }
-        Presenter.continuePrompt();
-        reader.nextLine();
+        else{
+            for (String s : eventsList) {
+                Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
+            }
+            Presenter.continuePrompt();
+            reader.nextLine();
+        }
     }
 
     /*
@@ -143,7 +148,7 @@ public class AttendeeSystem extends UserSystem {
     private void cancelEnrollment() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
-            Presenter.noeventyet();
+            Presenter.noEvent();
         } else {
             for (int i = 0; i < eventsList.size(); i++) {
                 Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
