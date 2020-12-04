@@ -155,7 +155,7 @@ public class AttendeeSystem extends UserSystem {
                 Presenter.success();
             } catch (InvalidActivityException | NoSuchEventException e) {
                 Presenter.printErrorMessage(e); // This should never happen.
-            } catch (IndexOutOfBoundsException | NullPointerException e) {
+            } catch (Exception e) {
                 Presenter.invalid("");
             }
         } else {
