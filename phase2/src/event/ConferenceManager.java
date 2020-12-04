@@ -43,6 +43,14 @@ public class ConferenceManager {
         }
     }
 
+    protected void cancelEvent(String conferenceName,int eventID) throws NoSuchConferenceException {
+        try{
+            map.get(conferenceName).cancelEvent(eventID);
+        } catch (Exception e){
+            throw new NoSuchConferenceException("Conference does not exist.");
+        }
+    }
+
     /**
      * Get the events in an array list of their ID's of the conference
      *

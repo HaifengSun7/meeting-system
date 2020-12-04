@@ -36,8 +36,9 @@ public class OrganizerPresenter extends Presenter{
                         "[a] add a new room\n" +
                         "[b] see schedule of a certain room\n" +
                         "[c] add a new event\n" +
-                        "[c2] cancel an event\n" +
+                        "[f] cancel an event\n" +
                         "[d] change an event's maximum number of people\n" +
+                        "[g] check all the events in this conference\n" +
                         "[e] exit to main menu.");
                 break;
             case "createSpeaker":

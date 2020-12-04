@@ -269,12 +269,16 @@ public class OrganizerSystem extends UserSystem {
                 addingEvent();
                 reader.nextLine();
                 break;
-            case "c2":
+            case "f":
                 cancelEvent();
                 reader.nextLine();
                 break;
             case "d":
                 changeEventMaxNumberPeople();
+                reader.nextLine();
+                break;
+            case "g":
+                checkAllEvent();
                 reader.nextLine();
                 break;
             case "e":
@@ -309,6 +313,25 @@ public class OrganizerSystem extends UserSystem {
     }
 
     /*
+     * Check all the events.
+     */
+    private void checkAllEvent() {
+        try {
+            ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+            for (int i = 0; i < allEvents.size(); i++) {
+                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+            System.out.println("That's all.");
+        } catch (NoSuchConferenceException e) {
+            Presenter.printErrorMessage(e);
+            Presenter.continuePrompt();
+            reader.nextLine();
+        } catch (Exception e) {
+            Presenter.invalid("");
+        }
+    }
+
+    /*
      * Cancel an event.
      */
     private void cancelEvent() {
@@ -319,7 +342,7 @@ public class OrganizerSystem extends UserSystem {
             for (String username: userList) {
                 usermanager.deleteSignedEvent(eventId, username);
             }
-            eventmanager.cancelEvent(eventId);
+            eventmanager.cancelEvent(eventId, conference);
             Presenter.success();
         } catch (NoSuchEventException | InvalidActivityException e) {
             Presenter.printErrorMessage(e);

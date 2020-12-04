@@ -29,6 +29,8 @@ public class Conference {
         this.events.add(eventID);
     }
 
+    protected void cancelEvent(int eventID) {this.events.remove(eventID); }
+
     /**
      * Get the event of the conference.
      *
