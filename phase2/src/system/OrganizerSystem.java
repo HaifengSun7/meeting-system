@@ -324,11 +324,8 @@ public class OrganizerSystem extends UserSystem {
             System.out.println("That's all.");
         } catch (NoSuchConferenceException e) {
             Presenter.printErrorMessage(e);
-            Presenter.continuePrompt();
-            reader.nextLine();
-        } catch (Exception e) {
-            Presenter.invalid("");
         }
+        Presenter.continuePrompt();
     }
 
     /*
