@@ -341,7 +341,7 @@ public class OrganizerSystem extends UserSystem {
             }
             eventmanager.cancelEvent(eventId, conference);
             Presenter.success();
-        } catch (NoSuchEventException | InvalidActivityException e) {
+        } catch (NoSuchEventException | InvalidActivityException | NoSuchConferenceException e) {
             Presenter.printErrorMessage(e);
             Presenter.continuePrompt();
             reader.nextLine();
