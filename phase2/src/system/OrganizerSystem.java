@@ -406,6 +406,9 @@ public class OrganizerSystem extends UserSystem {
         } catch (DuplicateRoomNumberException e) {
             Presenter.printErrorMessage(e);
         }
+        catch (Exception e) {
+            Presenter.invalid("");
+        }
     }
 
     /*
@@ -703,7 +706,7 @@ public class OrganizerSystem extends UserSystem {
             eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conference);
             Presenter.success();
             Presenter.continuePrompt();
-        } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
+        } catch (NotInOfficeHourException | TimeNotAvailableException  | InvalidActivityException |
                 RoomIsFullException e) {
             Presenter.printErrorMessage(e);
             Presenter.exitToMainMenuPrompt();
