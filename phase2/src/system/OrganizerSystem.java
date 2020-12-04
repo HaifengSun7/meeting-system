@@ -403,7 +403,7 @@ public class OrganizerSystem extends UserSystem {
         try {
             eventmanager.addRoom(Integer.parseInt(roomNumber), Integer.parseInt(size));
             Presenter.success();
-        } catch (DuplicateRoomNumberException e) {
+        } catch (DuplicateRoomNumberException | WrongRoomSizeException e) {
             Presenter.printErrorMessage(e);
         }
         catch (Exception e) {

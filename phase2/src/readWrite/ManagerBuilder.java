@@ -131,7 +131,7 @@ public class ManagerBuilder {
             }
         } catch (SQLException e) {
             System.out.println("Bad index in room database");
-        } catch (DuplicateRoomNumberException e) {
+        } catch (DuplicateRoomNumberException | WrongRoomSizeException e) {
             //ignored, should never happen.
         }
         String sql = "SELECT RoomNumber, MaxNumberOfSpeakers," +

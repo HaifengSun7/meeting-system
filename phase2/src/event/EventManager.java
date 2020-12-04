@@ -232,7 +232,7 @@ public class EventManager {
      * @param size       An int representing the capacity of the room.
      * @throws DuplicateRoomNumberException when room number exists.
      */
-    public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException {
+    public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException, WrongRoomSizeException {
         roomManager.addRoom(roomNumber, size);
     }
 
