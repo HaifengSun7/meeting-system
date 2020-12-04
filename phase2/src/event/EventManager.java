@@ -292,8 +292,6 @@ public class EventManager {
         map.get(Integer.parseInt(eventId)).setVip(vip);
     }
 
-
-
     /**
      * Add user to an event. MAKE SURE TO DOUBLE CHECK ALL CONDITIONS.
      *
@@ -368,18 +366,7 @@ public class EventManager {
                     " Please enter time between 9:00 to 16:00 to ensure meeting ends before 17:00");
         }
         if (ifRoomAvailable(roomNo, time, meetingLength)) {
-            Event newEvent;
-            switch (numSpeakers){
-                case 0:
-                    newEvent = new PartyEvent(time);
-                    break;
-                case 1:
-                    newEvent = new SingleEvent(time);
-                    break;
-                default:
-                    newEvent = new MultiEvent(time, numSpeakers);
-                    break;
-            }
+            Event newEvent = eventFactory(numSpeakers, time);
             if (!conferenceManager.hasConference(conferenceName)) {
                 conferenceManager.createConference(conferenceName);
             }
@@ -484,7 +471,7 @@ public class EventManager {
         return false;
     }
 
-    protected boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
+    private boolean ifRoomAvailable(String roomNo, Timestamp time, int length) throws InvalidActivityException {
         try {
             for (int id : map.keySet()) {
                 if (roomManager.getSchedule(Integer.parseInt(roomNo)).contains(id) &&
@@ -497,4 +484,14 @@ public class EventManager {
         }
     }
 
+    private Event eventFactory(int numSpeakers, Timestamp time){
+        switch (numSpeakers){
+            case 0:
+                return new PartyEvent(time);
+            case 1:
+                return new SingleEvent(time);
+            default:
+                return new MultiEvent(time, numSpeakers);
+        }
+    }
 }
