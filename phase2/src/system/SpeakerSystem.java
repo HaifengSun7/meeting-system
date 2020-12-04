@@ -77,6 +77,9 @@ public class SpeakerSystem extends UserSystem {
                 case "14":
                     unArchiveMessage();
                     continue;
+                case "15":
+                    seeArchivedMessage();
+                    continue;
                 case "save":
                     save();
                     continue;

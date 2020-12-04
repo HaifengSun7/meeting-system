@@ -329,5 +329,13 @@ public abstract class UserSystem {
         Presenter.continuePrompt();
         reader.nextLine();
     }
-    
+
+    protected void seeArchivedMessage(){
+        ArrayList<String> archivedMessage = messagemanager.getArchived(myName);
+        for (int i = 0; i < archivedMessage.size(); i++) {
+            Presenter.defaultPrint("[" + i + "] " + archivedMessage.get(i));
+        }
+        Presenter.continuePrompt();
+        reader.nextLine();
+    }
 }

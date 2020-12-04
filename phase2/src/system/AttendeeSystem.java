@@ -72,6 +72,9 @@ public class AttendeeSystem extends UserSystem {
                 case "12":
                     unArchiveMessage();
                     continue;
+                case "13":
+                    seeArchivedMessage();
+                    continue;
                 case "save":
                     save();
                     continue;
