@@ -492,6 +492,16 @@ public class OrganizerSystem extends UserSystem {
      * Promote a attendee to be a VIP.
      */
     private void promoteExistingAttendee() {
+        ArrayList<String> allAttendee = usermanager.getAttendees();
+        try {
+            for (String attendee : allAttendee) {
+                if (! usermanager.isVIP(attendee)) {
+                    Presenter.defaultPrint(attendee);
+                }
+            }
+        } catch (NotAttendeeException | NoSuchUserException e) {
+            Presenter.printErrorMessage(e);
+        }
         OrganizerPresenter.menusInOrganizer("promoteExistingAttendee");
         String name = reader.nextLine();
         try {
