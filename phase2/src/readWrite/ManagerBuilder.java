@@ -41,7 +41,7 @@ public class ManagerBuilder {
     /**
      * Runs the builders.
      */
-    public void run(){
+    public void build(){
         eventManagerInitialize();
         userManagerInitialize();
         messageManagerInitialize();
@@ -148,7 +148,6 @@ public class ManagerBuilder {
                         rs1.getString("VIPS"),
                         rs1.getString("ConferenceName"));
             }
-
         } catch (SQLException e) {
             System.out.println("Bad index in event database");
         } catch (Exception e) {

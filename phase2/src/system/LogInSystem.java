@@ -83,7 +83,7 @@ public class LogInSystem {
 
     private void getAccounts() {
         ManagerBuilder managerBuilder = new ManagerBuilder();
-        managerBuilder.run();
+        managerBuilder.build();
         usermanager = managerBuilder.getUserManager();
     }
 }
