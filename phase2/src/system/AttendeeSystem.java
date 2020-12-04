@@ -142,25 +142,30 @@ public class AttendeeSystem extends UserSystem {
      */
     private void cancelEnrollment() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
-        for (int i = 0; i < eventsList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
-        }
-        Presenter.exitToMainMenuPrompt();
-        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
-        String number = reader.nextLine();
-        if (!("e".equals(number))) {
-            try {
-                eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
-                usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
-                Presenter.success();
-            } catch (InvalidActivityException | NoSuchEventException e) {
-                Presenter.printErrorMessage(e); // This should never happen.
-            } catch (Exception e) {
-                Presenter.invalid("");
-            }
+        if (eventsList.size() == 0) {
+            Presenter.noeventyet();
         } else {
-            Presenter.exitingToMainMenu();
+            for (int i = 0; i < eventsList.size(); i++) {
+                Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
+            }
+            Presenter.exitToMainMenuPrompt();
+            Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+            String number = reader.nextLine();
+            if (!("e".equals(number))) {
+                try {
+                    eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
+                    usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
+                    Presenter.success();
+                } catch (InvalidActivityException | NoSuchEventException e) {
+                    Presenter.printErrorMessage(e); // This should never happen.
+                } catch (Exception e) {
+                    Presenter.invalid("");
+                }
+            } else {
+                Presenter.exitingToMainMenu();
+            }
         }
     }
 }
+
 

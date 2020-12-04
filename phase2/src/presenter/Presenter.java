@@ -85,6 +85,11 @@ public class Presenter {
     }
 
     /**
+     * Print out the information of no event operations.
+     */
+    public static void noeventyet(){System.out.println("No Event yet!");}
+
+    /**
      * Print out the prompt of input
      *
      * @param input the type of input to the corresponding prompt.
