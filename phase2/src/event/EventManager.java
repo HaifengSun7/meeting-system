@@ -397,15 +397,13 @@ public class EventManager {
 //        for(String a:attendees){
 //            this.signOut(eventId, a);
 //        }
-        for (Integer id : map.keySet()) {
-            if (id == Integer.parseInt(eventId)) {
-                conferenceManager.cancelEvent(conferenceName, id);
-                map.remove(id);
-                roomManager.remove(id);
-            }
-            return;
+        if (map.containsKey(Integer.parseInt(eventId))) {
+            conferenceManager.cancelEvent(conferenceName, Integer.parseInt(eventId));
+            map.remove(Integer.parseInt(eventId));
+            roomManager.remove(Integer.parseInt(eventId));
+        }else {
+            throw new NoSuchEventException("NoSuchEvent: " + eventId);
         }
-        throw new NoSuchEventException("NoSuchEvent: " + eventId);
     }
 
     /**
