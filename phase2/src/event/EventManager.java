@@ -284,8 +284,13 @@ public class EventManager {
      * @param eventId The event we are setting.
      * @param vip if the event is VIP event.
      */
-    public void switchVipEvent(String eventId, boolean vip) {
-        map.get(Integer.parseInt(eventId)).setVip(vip);
+    public void switchVipEvent(String eventId, boolean vip) throws NoSuchEventException {
+        if(map.containsKey(Integer.parseInt(eventId))) {
+            map.get(Integer.parseInt(eventId)).setVip(vip);
+        }
+        else{
+            throw new NoSuchEventException("There is not an event with event number " + eventId);
+        }
     }
 
     /**

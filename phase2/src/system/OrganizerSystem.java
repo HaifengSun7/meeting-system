@@ -254,6 +254,10 @@ public class OrganizerSystem extends UserSystem {
                 Presenter.printErrorMessage(e);
                 Presenter.continuePrompt();
                 reader.nextLine();
+            } catch (Exception e) {
+                Presenter.invalid("");
+                Presenter.continuePrompt();
+                reader.nextLine();
             }
         } catch (NoSuchConferenceException e) {
             Presenter.printErrorMessage(e);
