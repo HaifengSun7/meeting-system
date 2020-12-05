@@ -34,11 +34,7 @@ public class EventManager {
         ArrayList<Integer> eventIDs = conferenceManager.getEventOfConference(conference);
         ArrayList<String> events = new ArrayList<>();
         for (int i : eventIDs) {
-            if (map.containsKey(i)) {
-                events.add(map.get(i).toString());
-            } else {
-                events.add("cancelled");
-            }
+            events.add(map.get(i).toString());
         }
         return events;
     }
