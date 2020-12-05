@@ -122,6 +122,11 @@ public abstract class UserSystem {
         return chosenConference;
     }
 
+    /**
+     * Create a new request.
+     * Input from reader: String title
+     * Input from reader: String content
+     */
     protected void makeNewRequest(){
         Presenter.inputPrompt("makeRequestTitle");
         String title = reader.nextLine();
@@ -135,6 +140,9 @@ public abstract class UserSystem {
         }
     }
 
+    /**
+     * Print a request list include all requests from one particular person.
+     */
     protected void seeMyRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){
@@ -161,6 +169,11 @@ public abstract class UserSystem {
         }
     }
 
+    /**
+     * This is a protected helper function.
+     * Help to print out a list of requests regardless what type of requests list contained.
+     * Print a request list include all requests from one particular person.
+     */
     protected void printRequests(ArrayList<String[]> requestList){ //Helper function
         for (int i = 0; i < requestList.size(); i++) {
             String requestTitle = requestList.get(i)[0];
@@ -175,6 +188,9 @@ public abstract class UserSystem {
         Presenter.exitToMainMenuPrompt();
     }
 
+    /**
+     * This method can delete requests from one user.
+     */
     protected void deleteRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){

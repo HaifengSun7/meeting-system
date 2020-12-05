@@ -132,6 +132,12 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
+    /**
+    This is a huge helper private method in order to print requests to user on the screen and let them choose.
+     @param allRequests this is a arraylist of list of strings which include title, content of requests.
+     @param presenterString cause this method may print our different requests depends on different input,
+     so we need to input the message we are going to tell presenter.
+     */
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
         if (allRequests.size() == 0) {
             Presenter.inputPrompt("NoRequests");
@@ -178,21 +184,34 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
+    /**
+     Show all requests in the system to organizer.
+     */
     private void seeAllRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllRequests();
         seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
+    /**
+     Show all unsloved/pending requests in the system to organizer.
+     */
     private void seeUnsolvedRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllUnsolvedRequests();
         seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
+    /**
+     Show all solved/addressed requests in the system to organizer.
+     */
     private void seeSolvedRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllSolvedRequests();
         seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
+    /**
+     change the status of a request.
+     @param title the title of a specific request.
+     */
     private void changeRequestStatus(String title) {
         boolean requestSolved = requestmanager.getRequestStatus(title);
         if (requestSolved){

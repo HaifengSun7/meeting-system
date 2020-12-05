@@ -53,6 +53,8 @@ public class Request {
 
     /**
      * Set the status of the request.
+     *
+     * @param status status of the request.
      */
     public void setStatus(boolean status) {
         this.status = status;
