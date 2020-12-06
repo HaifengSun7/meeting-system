@@ -145,7 +145,7 @@ public class ManagerBuilder {
                         Timestamp.valueOf(rs1.getString("StartTime")),
                         rs1.getInt("Duration"),
                         rs1.getString("Description"),
-                        rs1.getString("VIPS"),
+                        String.valueOf(rs1.getBoolean("VIPS")),
                         rs1.getString("ConferenceName"));
             }
         } catch (SQLException e) {

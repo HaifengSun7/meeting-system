@@ -124,7 +124,7 @@ public class Write {
         String time;
         String duration;
         String conferenceName;
-        String vipStatus;
+        boolean vipStatus;
         ArrayList<String> attendees;
         ArrayList<String> speakers;
         String description;
@@ -142,7 +142,7 @@ public class Write {
             description = eventmanager.getDescription(event);
             capacity = eventmanager.getCapacity(event);
             conferenceName = eventmanager.getConferenceOfEvent(event);
-            vipStatus = String.valueOf(eventmanager.getVipStatus(event));
+            vipStatus = eventmanager.getVipStatus(event);
             int numSpeakers = capacity.getKey();
             int numAttendees = capacity.getValue();
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -154,7 +154,7 @@ public class Write {
                 pstmt.setInt(6, Integer.parseInt(duration));
                 pstmt.setString(7, description);
                 pstmt.setString(8, conferenceName);
-                pstmt.setString(9, vipStatus);
+                pstmt.setBoolean(9, vipStatus);
                 pstmt.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
