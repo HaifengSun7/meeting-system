@@ -9,7 +9,7 @@ public class Presenter {
     /**
      * Print out the login information to the user.
      */
-    public static void logInPrompt() {
+    public void logInPrompt() {
         System.out.println("Welcome to Group_0229 Conference System. Please Log in.\n" +
                 "Input [e] to quit the system.\n" +
                 "Press enter to log in.");
@@ -18,7 +18,7 @@ public class Presenter {
     /**
      * Print out the conference choosing prompt to the user.
      */
-    public static void conferenceChoose() {
+    public void conferenceChoose() {
         System.out.println("Please choose a conference to participate");
     }
 
@@ -27,7 +27,7 @@ public class Presenter {
      *
      * @param username the username of user.
      */
-    public static void name(String username) {
+    public void name(String username) {
         System.out.println("UserName: " + username);
     }
 
@@ -36,7 +36,7 @@ public class Presenter {
      *
      * @param password the password of user.
      */
-    public static void password(String password) {
+    public void password(String password) {
         System.out.println("Password: " + password);
     }
 
@@ -45,56 +45,56 @@ public class Presenter {
      *
      * @param usertype the usertype of user.
      */
-    public static void userType(String usertype) {
+    public void userType(String usertype) {
         System.out.println(usertype);
     }
 
     /**
      * Print out the reminder of wrong key pressing.
      */
-    public static void wrongKeyReminder() {
+    public void wrongKeyReminder() {
         System.out.println("Our program requires you to press down the right key on your keyboard, which is explained in Readme.txt");
     }
 
     /**
      * Print out the information of exiting to main menu.
      */
-    public static void exitingToMainMenu() {
+    public void exitingToMainMenu() {
         System.out.println("Exiting to main menu.");
     }
 
     /**
      * Print out the prompt of Input [e] to main menu.
      */
-    public static void exitToMainMenuPrompt() {
+    public void exitToMainMenuPrompt() {
         System.out.println("Input [e] to exit to main menu");
     }
 
     /**
      * Print out the information of successful operations.
      */
-    public static void success() {
+    public void success() {
         System.out.println("Success!");
     }
 
     /**
      * Print out the prompt of pressing enter to continue operating system.
      */
-    public static void continuePrompt() {
+    public void continuePrompt() {
         System.out.println("Press enter to continue.");
     }
 
     /**
      * Print out the information of no event operations.
      */
-    public static void noEvent(){System.out.println("No signed Event yet!");}
+    public void noEvent(){System.out.println("No signed Event yet!");}
 
     /**
      * Print out the prompt of input
      *
      * @param input the type of input to the corresponding prompt.
      */
-    public static void inputPrompt(String input) {
+    public void inputPrompt(String input) {
         switch (input) {
             case "message":
                 System.out.println("Now input your message. Hint: Type \\n for changing of lines if you want.");
@@ -209,21 +209,21 @@ public class Presenter {
     /**
      * Print out the error message of input out of range.
      */
-    public static void inputOutOfRange() {
+    public void inputOutOfRange() {
         System.out.println("Input out of range, exit to main menu and please try again");
     }
 
     /**
      * Print out the information of empty inbox.
      */
-    public static void emptyInbox() {
+    public void emptyInbox() {
         System.out.println("Your inbox is empty.");
     }
 
     /**
      * Print out the error message of the user is not a speaker.
      */
-    public static void notASpeaker() {
+    public void notASpeaker() {
         System.out.println("This user is not a speaker.");
     }
 
@@ -232,7 +232,7 @@ public class Presenter {
      *
      * @param input the type of input to the corresponding message.
      */
-    public static void invalid(String input) {
+    public void invalid(String input) {
         switch (input) {
             case "username":
                 System.out.println("Username doesn't exist. Please enter a valid username.");
@@ -283,7 +283,7 @@ public class Presenter {
 //     *
 //     * @param input the type of input to the corresponding prompt.
 //     */
-//    public static void duplicateInvalid(String input) {
+//    public void duplicateInvalid(String input) {
 //        switch (input) {
 //            case "newRoom":
 //                System.out.println("There is a duplicated Room");
@@ -294,7 +294,7 @@ public class Presenter {
 //        }
 //    }
 
-    public static void autoAddToMessageList() {
+    public void autoAddToMessageList() {
         System.out.println("Added all senders to your contact list automatically.");
     }
 
@@ -303,7 +303,7 @@ public class Presenter {
      *
      * @param input the input that the method would print out.
      */
-    public static void defaultPrint(String input) {
+    public void defaultPrint(String input) {
         System.out.println(input);
     }
 
@@ -312,7 +312,7 @@ public class Presenter {
 //         * @param input the case of the failure.
 //         * @param room the room number that the user tries to add event.
 //         */
-//        public static void failureAddEvent(String input, String room){
+//        public void failureAddEvent(String input, String room){
 //            if(input.equals("NotOfficeHour")){
 //                System.out.println("Invalid time. Please enter time between 9:00 to 16:00 to " +
 //                        "ensure meeting ends before 17:00");
@@ -330,7 +330,7 @@ public class Presenter {
      * @param time     the time of the event.
      * @param duration the length of the event.
      */
-    public static void loadEvent(String room, String time, String duration) {
+    public void loadEvent(String room, String time, String duration) {
         System.out.println("Adding event to room " + room + ", time: " + time + " Duration: " + duration);
     }
 
@@ -339,7 +339,7 @@ public class Presenter {
      *
      * @param i number of trails.
      */
-    public static void trailsRemaining(int i) {
+    public void trailsRemaining(int i) {
         System.out.println("You have " + i + " trials remaining \n");
         if (i == 0) {
             System.out.println("See Readme.txt for some login information. See user.csv file for all login information. Bye bye.");
@@ -351,7 +351,7 @@ public class Presenter {
      *
      * @param s The Exception
      */
-    public static void printErrorMessage(Exception s) {
+    public void printErrorMessage(Exception s) {
         System.out.println(s.getMessage());
     }
 

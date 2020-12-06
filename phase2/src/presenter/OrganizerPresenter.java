@@ -4,7 +4,7 @@ public class OrganizerPresenter extends Presenter{
     /**
      * Print out the menu of organizer.
      */
-    public static void organizerMenu() {
+    public void organizerMenu() {
         System.out.println(
                 "[1] manage rooms and add events\n" +
                         "[2] create/promote speaker account\n" +
@@ -29,7 +29,7 @@ public class OrganizerPresenter extends Presenter{
      *
      * @param methodName the method name to the corresponding menu.
      */
-    public static void menusInOrganizer(String methodName) {
+    public void submenusInOrganizer(String methodName) {
         switch (methodName) {
             case "manageRooms":
                 System.out.println("Manage rooms:\n" +
@@ -80,6 +80,35 @@ public class OrganizerPresenter extends Presenter{
                 System.out.println("The current status of this request if Addressed, do you want to tag it into Pending?\n" +
                         "Please enter [Yes] to confirm or type anything else to return. \n" +
                         "[Yes] Tag it still pending!");
+                break;
+        }
+    }
+    /**
+     * Print out the title in SpeakerSystem.
+     *
+     * @param methodName the method name to the corresponding title.
+     */
+    public void titlesInSpeaker(String methodName) {
+        switch (methodName) {
+            case "manageRooms":
+                System.out.println("Here is a list of rooms");
+                break;
+            case "checkRoom":
+                System.out.println("That's all events in this room.");
+                break;
+            case "promoteExistingSpeaker":
+                System.out.println("Note that promotion will make that user the speaker of all their " +
+                        "signed events.\n" +
+                        "Enter a username to promote him/her a speaker.");
+                break;
+            case "scheduleSpeakers1":
+                System.out.println("Showing all events:");
+                break;
+            case "scheduleSpeakers2":
+                System.out.println("Here are the rooms.");
+                break;
+            case "AddEvents":
+                System.out.println("Now please add the event.");
                 break;
         }
     }

@@ -1,7 +1,7 @@
 package system;
 
 import event.exceptions.NoSuchConferenceException;
-import presenter.*;
+import presenter.SpeakerPresenter;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ import java.util.ArrayList;
  */
 public class SpeakerSystem extends UserSystem {
 
+    private final SpeakerPresenter presenter;
+
+
     /**
      * Constructor for SpeakerSystem
      *
@@ -18,6 +21,7 @@ public class SpeakerSystem extends UserSystem {
      */
     public SpeakerSystem(String myName) {
         super(myName);
+        this.presenter = new SpeakerPresenter();
     }
 
     /**
@@ -27,9 +31,9 @@ public class SpeakerSystem extends UserSystem {
     public void run() {
 
         while (conference != null) {
-            Presenter.name(myName);
-            Presenter.userType("Speaker");
-            SpeakerPresenter.speakerMenu();
+            presenter.name(myName);
+            presenter.userType("Speaker");
+            presenter.speakerMenu();
             String command = reader.nextLine();
 
             switch (command) {
@@ -84,7 +88,7 @@ public class SpeakerSystem extends UserSystem {
                     save();
                     continue;
                 default:
-                    Presenter.wrongKeyReminder();
+                    presenter.wrongKeyReminder();
                     continue;
             }
             break;
@@ -98,25 +102,25 @@ public class SpeakerSystem extends UserSystem {
     private void sendMessageToEvent() {
         try{
             ShowAllEvents();
-            Presenter.inputPrompt("eventIdSendMessage");
+            presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
             if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
-                Presenter.inputPrompt("message");
+                presenter.inputPrompt("message");
                 String messageToAllAttendees = reader.nextLine();
                 try {
                     ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
                     messagemanager.sendToList(myName, attendeeList, messageToAllAttendees);
                 } catch (NullPointerException e) {
-                    Presenter.printErrorMessage(e);
+                    presenter.printErrorMessage(e);
                 }
-                Presenter.continuePrompt();
+                presenter.continuePrompt();
                 reader.nextLine();
             } else {
-                Presenter.defaultPrint("This is not your event. Please check your input. " +
+                presenter.defaultPrint("This is not your event. Please check your input. " +
                         "Exiting to main menu.");
             }
         } catch (Exception e){
-            Presenter.defaultPrint(e.getMessage());
+            presenter.defaultPrint(e.getMessage());
         }
     }
 
@@ -126,34 +130,34 @@ public class SpeakerSystem extends UserSystem {
     private void sendMessageToOneAttendee() {
         try {
             ShowAllEvents();
-            Presenter.inputPrompt("eventIdSendMessage");
+            presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
             ArrayList<String> attendeeList = eventmanager.getAttendees(eventId);
             for (String s : attendeeList) {
-                Presenter.defaultPrint(s);
+                presenter.defaultPrint(s);
             }
-            Presenter.inputPrompt("receiver");
+            presenter.inputPrompt("receiver");
             String receiver = reader.nextLine();
             if (eventmanager.getSpeakers(Integer.parseInt(eventId)).contains(myName)) {
-                Presenter.inputPrompt("message");
+                presenter.inputPrompt("message");
                 String messageToOneAttendee = reader.nextLine();
                 try {
                     if (attendeeList.contains(receiver)) {
                         messagemanager.sendMessage(myName, receiver, messageToOneAttendee);
                     } else {
-                        Presenter.defaultPrint("There is no such user in that event.");
+                        presenter.defaultPrint("There is no such user in that event.");
                     }
                 } catch (NullPointerException e) {
-                    Presenter.printErrorMessage(e);
+                    presenter.printErrorMessage(e);
                 }
-                Presenter.continuePrompt();
+                presenter.continuePrompt();
                 reader.nextLine();
             } else {
-                Presenter.defaultPrint("This is not your event. Please check your input. " +
+                presenter.defaultPrint("This is not your event. Please check your input. " +
                         "Exiting to main menu.");
             }
         } catch (Exception e){
-            Presenter.defaultPrint(e.getMessage());
+            presenter.defaultPrint(e.getMessage());
         }
     }
 
@@ -161,7 +165,7 @@ public class SpeakerSystem extends UserSystem {
         ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
         for (int i = 0; i < allEvents.size(); i++) {
             if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                Presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+                presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
             }
         }
     }
@@ -172,9 +176,9 @@ public class SpeakerSystem extends UserSystem {
     private void getSentMessages() {
         ArrayList<String> messageList = messagemanager.getSent(myName);
         for (int i = 0; i < messageList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + messageList.get(i));
+            presenter.defaultPrint("[" + i + "] " + messageList.get(i));
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
@@ -183,36 +187,36 @@ public class SpeakerSystem extends UserSystem {
      * Respond to an attendee who has sent message to the speaker.
      */
     private void respondToAttendee() {
-        Presenter.inputPrompt("messageToRespond");
+        presenter.inputPrompt("messageToRespond");
         ArrayList<String> msgInbox = messagemanager.getInbox(myName);
         ArrayList<String> inboxSender = messagemanager.getInboxSender(myName);
         if (msgInbox.isEmpty()) {
-            Presenter.emptyInbox();
-            Presenter.continuePrompt();
+            presenter.emptyInbox();
+            presenter.continuePrompt();
             reader.nextLine();
             return;
         }
         for (int i = 0; i < msgInbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + msgInbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + msgInbox.get(i));
         }
-        Presenter.exitToMainMenuPrompt();
+        presenter.exitToMainMenuPrompt();
         String cmd = reader.nextLine();
         try {
             if (!("e".equals(cmd)) && Integer.parseInt(cmd) < msgInbox.size() && Integer.parseInt(cmd) >= 0) {
                 String receiver = inboxSender.get(Integer.parseInt(cmd));
-                Presenter.inputPrompt("message");
+                presenter.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendMessage(myName, receiver, message);
-                Presenter.success();
+                presenter.success();
             } else if ("e".equals(cmd)) {
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
             } else {
-                Presenter.inputOutOfRange();
+                presenter.inputOutOfRange();
             }
         } catch (Exception e) {
-            Presenter.printErrorMessage(e);
+            presenter.printErrorMessage(e);
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
@@ -226,7 +230,7 @@ public class SpeakerSystem extends UserSystem {
                 System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
             }
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 

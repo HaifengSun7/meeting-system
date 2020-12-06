@@ -4,7 +4,7 @@ public class AttendeePresenter extends Presenter{
     /**
      * Print out the menu of attendee.
      */
-    public static void attendeeMenu() {
+    public void attendeeMenu() {
         System.out.println(
                 "[1] sign up for an event.\n" +
                         "[2] See events that I have signed up for\n" +

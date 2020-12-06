@@ -1,6 +1,5 @@
 package system;
 
-import event.EventManager;
 import presenter.Presenter;
 import user.NoSuchUserException;
 import user.NotAttendeeException;
@@ -17,6 +16,10 @@ import java.util.Scanner;
 public class LogInSystem {
 
     UserManager usermanager;
+    Presenter presenter;
+    public LogInSystem(){
+        this.presenter = new Presenter();
+    }
 
     /**
      * Run the Login System. Print out login menu, initialize users' systems.
@@ -30,28 +33,28 @@ public class LogInSystem {
             String user_type = "";
             String username = "";
             Scanner reader = new Scanner(System.in);// Reading from System.in
-            Presenter.logInPrompt();
+            presenter.logInPrompt();
             String command = reader.nextLine();
             if ("e".equals(command)) {
                 break;
             } else {
                 for (int i = 0; i < 5; i++) {
-                    Presenter.trailsRemaining(5 - i);
-                    Presenter.name("");
+                    presenter.trailsRemaining(5 - i);
+                    presenter.name("");
                     username = reader.nextLine();
-                    Presenter.password("");
+                    presenter.password("");
                     String password = reader.nextLine();
                     try {
                         user_type = usermanager.logIn(username, password);
                     } catch (WrongLogInException e) {
-                        Presenter.printErrorMessage(e);
+                        presenter.printErrorMessage(e);
                         continue;
                     }
                     logged_in = true;
                     break;
                 }
                 if (!logged_in) {
-                    Presenter.trailsRemaining(0);
+                    presenter.trailsRemaining(0);
                     return;
                 } else {
                     UserSystem system;
@@ -70,7 +73,7 @@ public class LogInSystem {
                                     system = new AttendeeSystem(username);
                                 }
                             } catch (NotAttendeeException | NoSuchUserException e) {
-                                Presenter.printErrorMessage(e);
+                                presenter.printErrorMessage(e);
                                 continue;
                             }
                             break;

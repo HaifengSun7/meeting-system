@@ -19,6 +19,7 @@ import java.util.Scanner;
 public abstract class UserSystem {
 
     protected final String myName;
+    private final Presenter presenter = new Presenter();
     protected Scanner reader = new Scanner(System.in);
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
@@ -49,9 +50,9 @@ public abstract class UserSystem {
         addAllToMessageList();
         ArrayList<String> inbox = messagemanager.getInbox(myName);
         for (int i = 0; i < inbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
@@ -59,29 +60,29 @@ public abstract class UserSystem {
      * Send messages to a specific person in the contact list.
      */
     protected void sendMessageToSomeone() {
-        Presenter.inputPrompt("receiver");
+        presenter.inputPrompt("receiver");
         ArrayList<String> contactList = usermanager.getContactList(myName);
         for (int i = 0; i < contactList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + contactList.get(i));
+            presenter.defaultPrint("[" + i + "] " + contactList.get(i));
         }
-        Presenter.exitToMainMenuPrompt();
+        presenter.exitToMainMenuPrompt();
         String receive = reader.nextLine();
         try {
             if (!("e".equals(receive)) && (0 <= Integer.parseInt(receive)) && (Integer.parseInt(receive) < contactList.size())) {
                 String receiver = contactList.get(Integer.parseInt(receive));
-                Presenter.inputPrompt("message");
+                presenter.inputPrompt("message");
                 String message = reader.nextLine();
                 messagemanager.sendMessage(myName, receiver, message);
             } else if ("e".equals(receive)) {
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
                 return;
             } else {
-                Presenter.inputOutOfRange();
+                presenter.inputOutOfRange();
             }
         } catch (Exception e) {
-            Presenter.invalid("");
+            presenter.invalid("");
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
@@ -93,7 +94,7 @@ public abstract class UserSystem {
         for (String sender : inboxSenders) {
             usermanager.addContactList(sender, myName);
         }
-        Presenter.autoAddToMessageList();
+        presenter.autoAddToMessageList();
     }
 
     private void initializeManagers() {
@@ -106,18 +107,18 @@ public abstract class UserSystem {
     }
 
     protected String chooseConference(){
-        Presenter.conferenceChoose();
+        presenter.conferenceChoose();
         ArrayList<String> conferenceList = eventmanager.getAllConference();
         for (int i = 0; i < conferenceList.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
+            presenter.defaultPrint("[" + i + "] " + conferenceList.get(i));
         }
-        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
+        presenter.inputPrompt("enterNumberInSquareBracketsToChooseConference");
         String number = reader.nextLine();
         String chosenConference = null;
         try {
             chosenConference = conferenceList.get(Integer.parseInt(number));
         } catch (Exception e) {
-            Presenter.invalid("conference");
+            presenter.invalid("conference");
         }
         return chosenConference;
     }
@@ -128,15 +129,15 @@ public abstract class UserSystem {
      * Input from reader: String content
      */
     protected void makeNewRequest(){
-        Presenter.inputPrompt("makeRequestTitle");
+        presenter.inputPrompt("makeRequestTitle");
         String title = reader.nextLine();
-        Presenter.inputPrompt("makeRequestContext");
+        presenter.inputPrompt("makeRequestContext");
         String content = reader.nextLine();
         try{
             requestmanager.createNewRequest(myName, title, content);
-            Presenter.inputPrompt("addSuccess");
+            presenter.inputPrompt("addSuccess");
         } catch (InvalidTitleException e) {
-            Presenter.invalid("invalidRequestTitle");
+            presenter.invalid("invalidRequestTitle");
         }
     }
 
@@ -146,25 +147,25 @@ public abstract class UserSystem {
     protected void seeMyRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){
-            Presenter.inputPrompt("NoRequests");
+            presenter.inputPrompt("NoRequests");
         } else {
-            Presenter.inputPrompt("requestIntroduction");
+            presenter.inputPrompt("requestIntroduction");
             printRequests(requestList);
-            Presenter.inputPrompt("readRequest");
+            presenter.inputPrompt("readRequest");
             String command = reader.nextLine();
             try {
                 int input = Integer.parseInt(command);
                 if ((0 <= input) && (input < requestList.size())) {
-                    Presenter.defaultPrint(requestList.get(input)[1]);
+                    presenter.defaultPrint(requestList.get(input)[1]);
                 } else {
-                    Presenter.invalid("");
-                    Presenter.exitingToMainMenu();
+                    presenter.invalid("");
+                    presenter.exitingToMainMenu();
                 }
             } catch (NumberFormatException e) {
                 if (!"e".equals(command)) {
-                    Presenter.invalid("");
+                    presenter.invalid("");
                 }
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
             }
         }
     }
@@ -183,9 +184,9 @@ public abstract class UserSystem {
             } else {
                 status = "[Status: Pending]   ";
             }
-            Presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
+            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
         }
-        Presenter.exitToMainMenuPrompt();
+        presenter.exitToMainMenuPrompt();
     }
 
     /**
@@ -194,9 +195,9 @@ public abstract class UserSystem {
     protected void deleteRequests(){
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0){
-            Presenter.inputPrompt("NoRequests");
+            presenter.inputPrompt("NoRequests");
         } else {
-            Presenter.inputPrompt("requestIntroduction");
+            presenter.inputPrompt("requestIntroduction");
             printRequests(requestList);
             String command = reader.nextLine();
             try {
@@ -204,30 +205,30 @@ public abstract class UserSystem {
                 if ((0 <= input) && (input < requestList.size())) {
                     try{
                         requestmanager.recallSingleRequest(requestList.get(Integer.parseInt(command))[0]);
-                        Presenter.inputPrompt("deleteSuccess");
+                        presenter.inputPrompt("deleteSuccess");
                     } catch (NoSuchRequestException e) {
-                        Presenter.invalid("noSuchRequest");
+                        presenter.invalid("noSuchRequest");
                     }
                 } else {
-                    Presenter.invalid("");
-                    Presenter.exitingToMainMenu();
+                    presenter.invalid("");
+                    presenter.exitingToMainMenu();
                 }
             } catch (NumberFormatException e) {
                 if ("R".equals(command)) {
-                    Presenter.inputPrompt("recallRequestConfirm");
+                    presenter.inputPrompt("recallRequestConfirm");
                     String confirm = reader.nextLine();
                     if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
                         try {
                             requestmanager.recallAllRequestsFrom(myName);
-                            Presenter.inputPrompt("deleteSuccess");
+                            presenter.inputPrompt("deleteSuccess");
                         } catch (NoSuchRequestException f) {
-                            Presenter.invalid("noSuchRequest");
+                            presenter.invalid("noSuchRequest");
                         }
                     }
                 } else if (!"e".equals(command)) {
-                    Presenter.invalid("");
+                    presenter.invalid("");
                 }
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
             }
         }
     }
@@ -242,116 +243,116 @@ public abstract class UserSystem {
     protected void markUnreadMessages() {
         //addAllToMessageList(); //TODO: do we need this
         ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
-        Presenter.inputPrompt("enter number in square bracket to mark message as read");
+        presenter.inputPrompt("enter number in square bracket to mark message as read");
         for (int i = 0; i < unreadInbox.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + unreadInbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + unreadInbox.get(i));
         }
-        Presenter.defaultPrint("[a] mark all as read");
-        Presenter.defaultPrint("[e] exit");
+        presenter.defaultPrint("[a] mark all as read");
+        presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
 
         switch (command){
             case "e":
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
                 break;
             case "a":
                 try{
                     messagemanager.markAllAsRead(myName);
-                    Presenter.success();
+                    presenter.success();
                 } catch (Exception e){
-                    Presenter.printErrorMessage(e);
+                    presenter.printErrorMessage(e);
                 }
                 break;
             default:
                 try {
                     messagemanager.markKthAsRead(myName, Integer.valueOf(command));
                 } catch (Exception e) {
-                    Presenter.defaultPrint("Input out of range");
+                    presenter.defaultPrint("Input out of range");
                     return;
                 }
-                Presenter.success();
+                presenter.success();
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
     protected void deleteMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
-        Presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might mis-deleted messages you haven't read");
+        presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might mis-deleted messages you haven't read");
         for (int i = 0; i < inbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
-        Presenter.defaultPrint("[e] exit");
+        presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
         if ("e".equals(command)) {
-            Presenter.exitingToMainMenu();
+            presenter.exitingToMainMenu();
         } else {
             try {
                 messagemanager.deleteKth(myName, Integer.valueOf(command));
             } catch (Exception e) {
-                Presenter.defaultPrint("Input out of range");
+                presenter.defaultPrint("Input out of range");
                 return;
             }
-            Presenter.success();
+            presenter.success();
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
     protected void archiveMessage(){
         ArrayList<String> inbox = messagemanager.getAll(myName);
-        Presenter.inputPrompt("enter number in square bracket to archive message. " +
+        presenter.inputPrompt("enter number in square bracket to archive message. " +
                 "Warning: you might archive message that you have archived");
         for (int i = 0; i < inbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + inbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
-        Presenter.defaultPrint("[e] exit");
+        presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
         if ("e".equals(command)) {
-            Presenter.exitingToMainMenu();
+            presenter.exitingToMainMenu();
         } else {
             try {
                 messagemanager.archiveKth(myName, Integer.valueOf(command));
             } catch (Exception e) {
-                Presenter.defaultPrint("Input out of range");
+                presenter.defaultPrint("Input out of range");
                 return;
             }
-            Presenter.success();
+            presenter.success();
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
     protected void unArchiveMessage(){
         ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
-        Presenter.inputPrompt("enter number in square bracket to archive message." +
+        presenter.inputPrompt("enter number in square bracket to archive message." +
                 " Warning: you might archive message that you have archived");
         for (int i = 0; i < archivedInbox.size(); i++){
-            Presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
+            presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
         }
-        Presenter.defaultPrint("[e] exit");
+        presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
         if ("e".equals(command)) {
-            Presenter.exitingToMainMenu();
+            presenter.exitingToMainMenu();
         } else {
             try {
                 messagemanager.unArchiveKth(myName, Integer.valueOf(command));
             } catch (Exception e) {
-                Presenter.defaultPrint("Input out of range");
+                presenter.defaultPrint("Input out of range");
                 return;
             }
-            Presenter.success();
+            presenter.success();
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 
     protected void seeArchivedMessage(){
         ArrayList<String> archivedMessage = messagemanager.getArchived(myName);
         for (int i = 0; i < archivedMessage.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + archivedMessage.get(i));
+            presenter.defaultPrint("[" + i + "] " + archivedMessage.get(i));
         }
-        Presenter.continuePrompt();
+        presenter.continuePrompt();
         reader.nextLine();
     }
 }

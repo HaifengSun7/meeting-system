@@ -1,7 +1,7 @@
 package system;
 
 import event.exceptions.*;
-import presenter.*;
+import presenter.AttendeePresenter;
 
 import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class AttendeeSystem extends UserSystem {
 
+    private final AttendeePresenter presenter;
+
     /**
      * Constructor of AttendeeSystem
      *
@@ -19,6 +21,7 @@ public class AttendeeSystem extends UserSystem {
      */
     public AttendeeSystem(String myName) {
         super(myName);
+        this.presenter = new AttendeePresenter();
     }
 
     /**
@@ -28,9 +31,9 @@ public class AttendeeSystem extends UserSystem {
     public void run() {
         String command;
         while (conference != null) {
-            Presenter.name(myName);
-            Presenter.userType("Attendee");
-            AttendeePresenter.attendeeMenu();
+            presenter.name(myName);
+            presenter.userType("Attendee");
+            presenter.attendeeMenu();
             command = reader.nextLine();
             switch (command) {
                 case "e":
@@ -79,9 +82,9 @@ public class AttendeeSystem extends UserSystem {
                     save();
                     continue;
                 default:
-                    Presenter.wrongKeyReminder();
-                    Presenter.invalid("");
-                    Presenter.continuePrompt();
+                    presenter.wrongKeyReminder();
+                    presenter.invalid("");
+                    presenter.continuePrompt();
                     reader.nextLine();
                     continue;
             }
@@ -96,27 +99,27 @@ public class AttendeeSystem extends UserSystem {
      * @param example_list the list of event in String, that the user can sign-up for.
      */
     protected void SignUp(ArrayList<String> example_list){
-        Presenter.inputPrompt("signUp");
-        Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+        presenter.inputPrompt("signUp");
+        presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
         for (int i = 0; i < example_list.size(); i++) {
-            Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
+            presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(example_list.get(i))));
         }
-        Presenter.exitToMainMenuPrompt();
+        presenter.exitToMainMenuPrompt();
         String command = reader.nextLine();
         if (!("e".equals(command))) {
             try {
                 eventmanager.addUserToEvent("Attendee", myName, Integer.parseInt(example_list.get(Integer.parseInt(command))));
             } catch (InvalidUserException | NoSuchEventException | TooManySpeakerException | EventIsFullException e) {
-                Presenter.printErrorMessage(e);
+                presenter.printErrorMessage(e);
                 return;
             } catch (Exception e) {
-                Presenter.invalid(""); // Should never be called
+                presenter.invalid(""); // Should never be called
                 return;
             }
             usermanager.addSignedEvent(example_list.get(Integer.parseInt(command)), myName);
-            Presenter.success();
+            presenter.success();
         } else {
-            Presenter.exitingToMainMenu();
+            presenter.exitingToMainMenu();
         }
     }
 
@@ -134,13 +137,13 @@ public class AttendeeSystem extends UserSystem {
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
-            Presenter.noEvent();
+            presenter.noEvent();
         }
         else{
             for (String s : eventsList) {
-                Presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
+                presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
             }
-            Presenter.continuePrompt();
+            presenter.continuePrompt();
             reader.nextLine();
         }
     }
@@ -151,26 +154,26 @@ public class AttendeeSystem extends UserSystem {
     private void cancelEnrollment() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
-            Presenter.noEvent();
+            presenter.noEvent();
         } else {
             for (int i = 0; i < eventsList.size(); i++) {
-                Presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
+                presenter.defaultPrint("[" + i + "] " + eventmanager.findEventStr(Integer.valueOf(eventsList.get(i))));
             }
-            Presenter.exitToMainMenuPrompt();
-            Presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
+            presenter.exitToMainMenuPrompt();
+            presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
             String number = reader.nextLine();
             if (!("e".equals(number))) {
                 try {
                     eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
                     usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
-                    Presenter.success();
+                    presenter.success();
                 } catch (InvalidActivityException | NoSuchEventException e) {
-                    Presenter.printErrorMessage(e); // This should never happen.
+                    presenter.printErrorMessage(e); // This should never happen.
                 } catch (Exception e) {
-                    Presenter.invalid("");
+                    presenter.invalid("");
                 }
             } else {
-                Presenter.exitingToMainMenu();
+                presenter.exitingToMainMenu();
             }
         }
     }
