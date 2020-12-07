@@ -90,6 +90,11 @@ public class Presenter {
     public void noEvent(){System.out.println("No signed Event yet!");}
 
     /**
+     * Print out the information of no event operations.
+     */
+    public void noMessage(){System.out.println("Not sent any Message yet!");}
+
+    /**
      * Print out the prompt of input
      *
      * @param input the type of input to the corresponding prompt.
