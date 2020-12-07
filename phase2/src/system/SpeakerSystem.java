@@ -175,11 +175,15 @@ public class SpeakerSystem extends UserSystem {
      */
     private void getSentMessages() {
         ArrayList<String> messageList = messagemanager.getSent(myName);
-        for (int i = 0; i < messageList.size(); i++) {
-            presenter.defaultPrint("[" + i + "] " + messageList.get(i));
+        if (messageList.size() == 0) {
+            presenter.noMessage();
+        } else {
+            for (int i = 0; i < messageList.size(); i++) {
+                presenter.defaultPrint("[" + i + "] " + messageList.get(i));
+            }
+            presenter.continuePrompt();
+            reader.nextLine();
         }
-        presenter.continuePrompt();
-        reader.nextLine();
     }
 
 
