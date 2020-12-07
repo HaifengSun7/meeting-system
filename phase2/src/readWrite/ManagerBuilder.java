@@ -44,6 +44,7 @@ public class ManagerBuilder {
     public void build(){
         eventManagerInitialize();
         userManagerInitialize();
+        signedUpInitialize();
         messageManagerInitialize();
         requestManagerInitialize();
     }
@@ -104,24 +105,31 @@ public class ManagerBuilder {
                 usermanager.addContactList(rs2.getString("CanSendMessageTo"),
                         rs2.getString("Username"));
             }
-
         } catch (SQLException e) {
             System.out.println("Bad index in message list (contact) database");
         }
         // Create Message List
         // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
         // IF ANYTHING WENT WRONG, PLEASE TAKE A LOOK AT THE FOLLOWING LINES.
-        String sql3 = "SELECT EventId, UserName FROM signedUp";
-        try(ResultSet rs3 = stmt.executeQuery(sql3)){
+    }
+
+    private void signedUpInitialize(){
+        String sql = "SELECT EventId, UserName FROM signedUp";
+        try(ResultSet rs3 = stmt.executeQuery(sql)){
             while(rs3.next()){
                 usermanager.addSignedEvent(String.valueOf(rs3.getInt("EventId")),
                         rs3.getString("UserName"));
+                eventmanager.addUserToEvent(usermanager.getUserType(rs3.getString("UserName")),
+                        rs3.getString("UserName"),
+                        rs3.getInt("EventId"));
+                System.out.println(usermanager.getUserType(rs3.getString("UserName")));
             }
         } catch (SQLException e) {
             System.out.println("Bad index in signed up database");
+        } catch (NoSuchEventException | EventIsFullException | TooManySpeakerException | InvalidUserException e) {
+            e.printStackTrace();
         }
     }
-
 
     private void eventManagerInitialize(){
         String sql2 = "SELECT RoomNumber, Capacity FROM room";
