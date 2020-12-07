@@ -1,4 +1,0 @@
-Organizer,password,Organizer,Speaker1,User1,User2
-User2,password,Attendee,User1,Organizer
-User1,password,Attendee,User2,Speaker1,Organizer
-Speaker1,password,Speaker,Organizer,User1,User2

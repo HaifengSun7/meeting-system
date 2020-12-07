@@ -13,7 +13,7 @@ public class UserManager {
     private Map<String, User> userMapping;
 
     /**
-     * Initializes the user manager, reads from save file user.csv
+     * Initializes the user manager, reads from database.db.
      */
     public UserManager() {
         this.userMapping = new HashMap<>();

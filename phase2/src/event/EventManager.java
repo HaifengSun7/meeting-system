@@ -19,7 +19,7 @@ public class EventManager {
     private final ConferenceManager conferenceManager = new ConferenceManager();
 
     /**
-     * Initializes the event manager. It goes through the saved files of event.csv.
+     * Initializes the event manager. It goes through the saved database.
      */
     public EventManager() {
         Event.resetID();
