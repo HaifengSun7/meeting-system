@@ -8,6 +8,9 @@ import request.RequestManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RequestSystem {
     private final RequestManager requestmanager;
@@ -158,36 +161,36 @@ public class RequestSystem {
             organizerPresenter.submenusInOrganizer(presenterString);
             printRequests(allRequests); // Here are all requests printed on the screen!
             presenter.inputPrompt("readRequest");
-            String command = reader.nextLine();
-            boolean validInput = false;
-            boolean validNumber = false;
-            int input = 0;
-            while (!validInput) {
+            AtomicReference<String> command = new AtomicReference<>(reader.nextLine());
+            AtomicBoolean validInput = new AtomicBoolean(false);
+            AtomicBoolean validNumber = new AtomicBoolean(false);
+            AtomicInteger input = new AtomicInteger();
+            while (!validInput.get()) {
                 try {
-                    input = Integer.parseInt(command);
-                    if ((0 <= input) && (input < allRequests.size())) {
-                        validInput = true;
-                        validNumber = true;
+                    input.set(Integer.parseInt(command.get()));
+                    if ((0 <= input.get()) && (input.get() < allRequests.size())) {
+                        validInput.set(true);
+                        validNumber.set(true);
                     } else {
                         presenter.invalid("");
                         presenter.inputPrompt("readRequest");
-                        command = reader.nextLine();
+                        command.set(reader.nextLine());
                     }
                 } catch (NumberFormatException e) {
-                    if ("e".equals(command)) {
-                        validInput = true;
+                    if ("e".equals(command.get())) {
+                        validInput.set(true);
                     } else {
                         presenter.invalid("");
                         presenter.inputPrompt("readRequest");
-                        command = reader.nextLine();
+                        command.set(reader.nextLine());
                     }
                 }
             }
-            if (!validNumber) {
+            if (!validNumber.get()) {
                 organizerPresenter.exitingToMainMenu();
             } else {
-                organizerPresenter.defaultPrint(allRequests.get(input)[1]);
-                changeRequestStatus(allRequests.get(input)[0]); // Include confirm of status change
+                organizerPresenter.defaultPrint(allRequests.get(input.get())[1]);
+                changeRequestStatus(allRequests.get(input.get())[0]); // Include confirm of status change
             }
 //                presenter.inputPrompt("anythingToGoBack");
 //                reader.nextLine();
