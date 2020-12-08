@@ -1,12 +1,10 @@
 package system;
 
-import event.EventManager;
 import presenter.OrganizerPresenter;
 import presenter.Presenter;
 import request.InvalidTitleException;
 import request.NoSuchRequestException;
 import request.RequestManager;
-import user.UserManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;

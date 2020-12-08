@@ -2,8 +2,6 @@ package system;
 
 import event.exceptions.*;
 import presenter.OrganizerPresenter;
-import presenter.Presenter;
-import request.RequestManager;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.NoSuchUserException;
@@ -20,7 +18,6 @@ public class OrganizerSystem extends UserSystem {
 
 
     private final OrganizerPresenter presenter;
-    private final EventSystem eventSystem;
 
 
     /**
@@ -31,7 +28,6 @@ public class OrganizerSystem extends UserSystem {
     public OrganizerSystem(String myName) {
         super(myName);
         this.presenter = new OrganizerPresenter();
-        this.eventSystem = new EventSystem(eventmanager, usermanager, conference); //TODO: is this line needed?
     }
 
     /**
