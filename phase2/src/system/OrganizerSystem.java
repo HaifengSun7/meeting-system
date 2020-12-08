@@ -3,6 +3,7 @@ package system;
 import event.exceptions.*;
 import presenter.OrganizerPresenter;
 import presenter.Presenter;
+import request.RequestManager;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.NoSuchUserException;
@@ -76,13 +77,13 @@ public class OrganizerSystem extends UserSystem {
                     createOrganizer();
                     continue;
                 case "11":
-                    seeAllRequest();
+                    requestSystem.seeAllRequest();
                     continue;
                 case "12":
-                    seeUnsolvedRequest();
+                    requestSystem.seeUnsolvedRequest();
                     continue;
                 case "13":
-                    seeSolvedRequest();
+                    requestSystem.seeSolvedRequest();
                     continue;
                 case "14":
                     promoteVIPEvent();

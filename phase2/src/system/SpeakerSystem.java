@@ -61,13 +61,13 @@ public class SpeakerSystem extends UserSystem {
                     seeMessages();
                     continue;
                 case "8":
-                    makeNewRequest();
+                    requestSystem.makeNewRequest();
                     continue;
                 case "9":
-                    seeMyRequests();
+                    requestSystem.seeMyRequests();
                     continue;
                 case "10":
-                    deleteRequests();
+                    requestSystem.deleteRequests();
                     continue;
                 case "11":
                     markUnreadMessages();

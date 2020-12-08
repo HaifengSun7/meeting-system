@@ -20,8 +20,9 @@ import java.util.Scanner;
 public abstract class UserSystem {
 
     protected final String myName;
-    private final Presenter presenter = new Presenter();
-    private final EventSystem eventSystem;
+    protected final Presenter presenter = new Presenter();
+    protected final EventSystem eventSystem;
+    protected final RequestSystem requestSystem;
     protected Scanner reader = new Scanner(System.in);
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
@@ -39,6 +40,7 @@ public abstract class UserSystem {
         initializeManagers();
         this.conference = chooseConference();
         this.eventSystem = new EventSystem(eventmanager, usermanager, conference);
+        this.requestSystem = new RequestSystem(requestmanager, myName);
     }
 
     /**
@@ -126,115 +128,6 @@ public abstract class UserSystem {
         return chosenConference;
     }
 
-    /**
-     * Create a new request.
-     * Input from reader: String title
-     * Input from reader: String content
-     */
-    protected void makeNewRequest() {
-        presenter.inputPrompt("makeRequestTitle");
-        String title = reader.nextLine();
-        presenter.inputPrompt("makeRequestContext");
-        String content = reader.nextLine();
-        try {
-            requestmanager.createNewRequest(myName, title, content);
-            presenter.inputPrompt("addSuccess");
-        } catch (InvalidTitleException e) {
-            presenter.invalid("invalidRequestTitle");
-        }
-    }
-
-    /**
-     * Print a request list include all requests from one particular person.
-     */
-    protected void seeMyRequests() {
-        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
-        if (requestList.size() == 0) {
-            presenter.inputPrompt("NoRequests");
-        } else {
-            presenter.inputPrompt("requestIntroduction");
-            printRequests(requestList);
-            presenter.inputPrompt("readRequest");
-            String command = reader.nextLine();
-            try {
-                int input = Integer.parseInt(command);
-                if ((0 <= input) && (input < requestList.size())) {
-                    presenter.defaultPrint(requestList.get(input)[1]);
-                } else {
-                    presenter.invalid("");
-                    presenter.exitingToMainMenu();
-                }
-            } catch (NumberFormatException e) {
-                if (!"e".equals(command)) {
-                    presenter.invalid("");
-                }
-                presenter.exitingToMainMenu();
-            }
-        }
-    }
-
-    /**
-     * This is a protected helper function.
-     * Help to print out a list of requests regardless what type of requests list contained.
-     * Print a request list include all requests from one particular person.
-     */
-    protected void printRequests(ArrayList<String[]> requestList) { //Helper function
-        for (int i = 0; i < requestList.size(); i++) {
-            String requestTitle = requestList.get(i)[0];
-            String status;
-            if (requestmanager.getRequestStatus(requestTitle)) {
-                status = "[Status: Addressed] ";
-            } else {
-                status = "[Status: Pending]   ";
-            }
-            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
-        }
-        presenter.exitToMainMenuPrompt();
-    }
-
-    /**
-     * This method can delete requests from one user.
-     */
-    protected void deleteRequests() {
-        ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
-        if (requestList.size() == 0) {
-            presenter.inputPrompt("NoRequests");
-        } else {
-            presenter.inputPrompt("requestIntroduction");
-            printRequests(requestList);
-            String command = reader.nextLine();
-            try {
-                int input = Integer.parseInt(command);
-                if ((0 <= input) && (input < requestList.size())) {
-                    try {
-                        requestmanager.recallSingleRequest(requestList.get(Integer.parseInt(command))[0]);
-                        presenter.inputPrompt("deleteSuccess");
-                    } catch (NoSuchRequestException e) {
-                        presenter.invalid("noSuchRequest");
-                    }
-                } else {
-                    presenter.invalid("");
-                    presenter.exitingToMainMenu();
-                }
-            } catch (NumberFormatException e) {
-                if ("R".equals(command)) {
-                    presenter.inputPrompt("recallRequestConfirm");
-                    String confirm = reader.nextLine();
-                    if (confirm.equals("Yes") || confirm.equals("yes") || confirm.equals("Y")) {
-                        try {
-                            requestmanager.recallAllRequestsFrom(myName);
-                            presenter.inputPrompt("deleteSuccess");
-                        } catch (NoSuchRequestException f) {
-                            presenter.invalid("noSuchRequest");
-                        }
-                    }
-                } else if (!"e".equals(command)) {
-                    presenter.invalid("");
-                }
-                presenter.exitingToMainMenu();
-            }
-        }
-    }
 
     /**
      * Save the current status of events, users, messages, and requests.

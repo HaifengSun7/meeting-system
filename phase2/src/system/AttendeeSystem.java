@@ -58,13 +58,13 @@ public class AttendeeSystem extends UserSystem {
                     seeMessages();
                     continue;
                 case "6":
-                    makeNewRequest();
+                    requestSystem.makeNewRequest();
                     continue;
                 case "7":
-                    seeMyRequests();
+                    requestSystem.seeMyRequests();
                     continue;
                 case "8":
-                    deleteRequests();
+                    requestSystem.deleteRequests();
                     continue;
                 case "9":
                     markUnreadMessages();
