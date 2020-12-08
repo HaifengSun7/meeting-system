@@ -3,6 +3,7 @@ package readWrite;
 import event.EventManager;
 import event.exceptions.*;
 import message.MessageManager;
+import presenter.LoadingPresenter;
 import request.InvalidTitleException;
 import request.RequestManager;
 import user.DuplicateUserNameException;
@@ -22,6 +23,7 @@ public class ManagerBuilder {
     private final MessageManager messagemanager;
     private final RequestManager requestmanager;
     private Statement stmt;
+    private LoadingPresenter lp;
 
     /**
      * Construct the builder for managers.
@@ -95,7 +97,7 @@ public class ManagerBuilder {
             }
 
         } catch (SQLException e) {
-            System.out.println("Bad index in user database");
+            lp.badIndex("User");
         } catch (InvalidUsernameException | DuplicateUserNameException e) {
             // ignored. should never happen.
         }
@@ -107,7 +109,7 @@ public class ManagerBuilder {
                         rs2.getString("Username"));
             }
         } catch (SQLException e) {
-            System.out.println("Bad index in message list (contact) database");
+            lp.badIndex("Contact (Message List)");
         }
         // Create Message List
         // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
@@ -123,10 +125,9 @@ public class ManagerBuilder {
                 eventmanager.addUserToEvent(usermanager.getUserType(rs3.getString("UserName")),
                         rs3.getString("UserName"),
                         rs3.getInt("EventId"));
-                System.out.println(usermanager.getUserType(rs3.getString("UserName")));
             }
         } catch (SQLException e) {
-            System.out.println("Bad index in signed up database");
+            lp.badIndex("Signed Up");
         } catch (NoSuchEventException | EventIsFullException | TooManySpeakerException | InvalidUserException e) {
             e.printStackTrace();
         }
@@ -139,7 +140,7 @@ public class ManagerBuilder {
                 eventmanager.addRoom(rs2.getInt("RoomNumber"), rs2.getInt("Capacity"));
             }
         } catch (SQLException e) {
-            System.out.println("Bad index in room database");
+            lp.badIndex("Room");
         } catch (DuplicateRoomNumberException | WrongRoomSizeException e) {
             //ignored, should never happen.
         }
@@ -158,7 +159,7 @@ public class ManagerBuilder {
                         rs1.getString("ConferenceName"));
             }
         } catch (SQLException e) {
-            System.out.println("Bad index in event database");
+            lp.badIndex("Event");
         } catch (Exception e) {
             //ignored, should never happen
             System.out.println(e.getMessage());
@@ -183,7 +184,7 @@ public class ManagerBuilder {
                         rs.getBoolean("SenderArchiveStatus"));
             }
         } catch (SQLException e) {
-            System.out.println("Bad index in message database");
+            lp.badIndex("Message");
         }
     }
 
@@ -198,7 +199,7 @@ public class ManagerBuilder {
                 }
             }
         } catch (SQLException | InvalidTitleException e) {
-            System.out.println("Bad index in request database");
+            lp.badIndex("Request");
         }
     }
 }

@@ -303,6 +303,9 @@ public class Presenter {
 //        }
 //    }
 
+    /**
+     * The print line that shows all senders have been added to contact list.
+     */
     public void autoAddToMessageList() {
         System.out.println("Added all senders to your contact list automatically.");
     }

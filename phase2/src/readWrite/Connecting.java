@@ -1,5 +1,7 @@
 package readWrite;
 
+import presenter.LoadingPresenter;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +11,8 @@ import java.sql.SQLException;
  * Connect with the database.
  */
 public class Connecting {
+
+    private final LoadingPresenter lp = new LoadingPresenter();
 
     /**
      * Start the connection.
@@ -24,11 +28,10 @@ public class Connecting {
             // db parameters
             // create a connection to the database
             conn = DriverManager.getConnection(url);
-
-            System.out.println("Connection to SQLite has been established.");
+            lp.printLoad();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            lp.printErrorMessage(e);
         }
         return conn;
     }
