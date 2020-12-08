@@ -14,6 +14,11 @@ public class AttendeePresenter extends Presenter{
                         "[6] Make new request\n" +
                         "[7] Check my requests\n" +
                         "[8] Recall my requests\n" +
+                        "[9] Mark unread messages\n" +
+                        "[10] Delete messages from inbox\n" +
+                        "[11] Archive messages\n" + 
+                        "[12] Unarchive messages\n" + 
+                        "[13] See archived inbox\n" +
                         "[save] Save.\n" +
                         "[e] Save and log out.");
     }

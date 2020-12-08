@@ -20,6 +20,11 @@ public class OrganizerPresenter extends Presenter{
                         "[12] Read/tag all pending requests\n" +
                         "[13] Read/tag all addressed requests\n" +
                         "[14] Promote an event to be VIP only\n" +
+                        "[15] Mark unread messages\n" +
+                        "[16] Delete messages from inbox\n" +
+                        "[17] Archive messages\n" + 
+                        "[18] Unarchive messages\n" + 
+                        "[19] See archived inbox\n" +
                         "[save] Save.\n" +
                         "[e] Save and Log out");
     }
