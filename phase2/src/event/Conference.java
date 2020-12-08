@@ -29,7 +29,7 @@ public class Conference {
         this.events.add(eventID);
     }
 
-    protected void cancelEvent(int eventID) {this.events.remove(eventID); }
+    protected void cancelEvent(int eventID) {this.events.remove(events.indexOf(eventID)); }
 
     /**
      * Get the event of the conference.

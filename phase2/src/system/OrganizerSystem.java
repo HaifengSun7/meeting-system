@@ -373,8 +373,6 @@ public class OrganizerSystem extends UserSystem {
             presenter.printErrorMessage(e);
             presenter.continuePrompt();
             reader.nextLine();
-        } catch (Exception e) {
-            presenter.invalid("");
         }
     }
 
