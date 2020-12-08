@@ -10,7 +10,7 @@ public class VIPSystem extends AttendeeSystem {
 
     @Override
     protected void SignUpForEvent() {
-        ArrayList<String> example_list = eventmanager.canSignUp(myName, true);
+        ArrayList<String> example_list = eventmanager.canSignUp(myName, true, conference);
         super.SignUp(example_list);
     }
 }

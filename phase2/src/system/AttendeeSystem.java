@@ -130,7 +130,7 @@ public class AttendeeSystem extends UserSystem {
      * Print the events that attendee hasn't signed up and choose one event to sign it up.
      */
     protected void SignUpForEvent() {
-        ArrayList<String> example_list = eventmanager.canSignUp(myName);
+        ArrayList<String> example_list = eventmanager.canSignUp(myName, conference);
         this.SignUp(example_list);
     }
 
