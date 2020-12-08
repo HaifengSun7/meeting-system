@@ -65,6 +65,9 @@ public class OrganizerPresenter extends Presenter {
                 System.out.println("Enter room number to check schedule of the room\n" +
                         "[a] to add new event");
                 break;
+            case "NoRequestsInSystem":
+                System.out.println("There are no requests in the system:");
+                break;
             case "SeeAllRequestsInSystemIntroduction":
                 System.out.println("Here are all requests in the system:");
                 break;

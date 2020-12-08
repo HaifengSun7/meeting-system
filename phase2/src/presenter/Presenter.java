@@ -204,7 +204,7 @@ public class Presenter {
                 System.out.println("Recall success! \n");
                 break;
             case "NoRequests":
-                System.out.println("You don't have any request record! \n");
+                System.out.println("You don't have any request record!");
                 break;
             case "addSuccess":
                 System.out.println("Request sent! \n");

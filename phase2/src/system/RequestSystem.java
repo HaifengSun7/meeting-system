@@ -52,6 +52,9 @@ public class RequestSystem {
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0) {
             presenter.inputPrompt("NoRequests");
+            presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            presenter.exitingToMainMenu();
         } else {
             presenter.inputPrompt("requestIntroduction");
             printRequests(requestList);
@@ -100,6 +103,9 @@ public class RequestSystem {
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
         if (requestList.size() == 0) {
             presenter.inputPrompt("NoRequests");
+            presenter.inputPrompt("anythingToGoBack");
+            reader.nextLine();
+            presenter.exitingToMainMenu();
         } else {
             presenter.inputPrompt("requestIntroduction");
             printRequests(requestList);
@@ -146,7 +152,7 @@ public class RequestSystem {
      */
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
         if (allRequests.size() == 0) {
-            presenter.inputPrompt("NoRequests");
+            organizerPresenter.submenusInOrganizer("NoRequestsInSystem");
             presenter.inputPrompt("anythingToGoBack");
             reader.nextLine();
             presenter.exitingToMainMenu();
@@ -180,9 +186,9 @@ public class RequestSystem {
                 }
             }
             if (!validNumber) {
-                presenter.exitingToMainMenu();
+                organizerPresenter.exitingToMainMenu();
             } else {
-                presenter.defaultPrint(allRequests.get(input)[1]);
+                organizerPresenter.defaultPrint(allRequests.get(input)[1]);
                 changeRequestStatus(allRequests.get(input)[0]); // Include confirm of status change
             }
 //                presenter.inputPrompt("anythingToGoBack");
