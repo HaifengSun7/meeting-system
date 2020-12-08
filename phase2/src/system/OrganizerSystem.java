@@ -165,13 +165,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * This is a huge helper private method in order to print requests to user on the screen and let them choose.
-     *
-     * @param allRequests     this is a arraylist of list of strings which include title, content of requests.
-     * @param presenterString cause this method may print our different requests depends on different input,
-     *                        so we need to input the message we are going to tell presenter.
-     */
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
         if (allRequests.size() == 0) {
             presenter.inputPrompt("NoRequests");
@@ -218,35 +211,21 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Show all requests in the system to organizer.
-     */
     private void seeAllRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllRequests();
         seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
-    /*
-     * Show all unsolved/pending requests in the system to organizer.
-     */
     private void seeUnsolvedRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllUnsolvedRequests();
         seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
-    /*
-     * Show all solved/addressed requests in the system to organizer.
-     */
     private void seeSolvedRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllSolvedRequests();
         seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
-    /*
-     * change the status of a request.
-     *
-     * @param title the title of a specific request.
-     */
     private void changeRequestStatus(String title) {
         boolean requestSolved = requestmanager.getRequestStatus(title);
         if (requestSolved) {
@@ -301,10 +280,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Manage the rooms by creating a new room, or checking the existing rooms, or creating a new event
-     * in a specific room.
-     */
     private void manageRooms() {
         presenter.titlesInSpeaker("manageRooms");
         ArrayList<String> roomList = eventmanager.getAllRooms();
@@ -353,10 +328,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Send messages to all users, either all speakers or all attendees.
-     * @param user type of user, either the String "speaker" or "attendee".
-     */
     private void sendMessageToAll(String user) {
         ArrayList<String> receivers = new ArrayList<>();
         switch (user) {
@@ -374,10 +345,6 @@ public class OrganizerSystem extends UserSystem {
 
     }
 
-
-    /*
-     * Create a new user to be the speaker.
-     */
     private void createSpeaker() {
         presenter.submenusInOrganizer("createSpeaker");
         String command = reader.nextLine();
@@ -403,9 +370,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Promote a user to be a speaker.
-     */
     private void promoteExistingSpeaker() {
         presenter.titlesInSpeaker("promoteExistingSpeaker");
         String name = reader.nextLine();
@@ -424,9 +388,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Create a new user to be the VIP attendee.
-     */
     private void createVIP() {
         presenter.submenusInOrganizer("createVIP");
         String command = reader.nextLine();
@@ -452,9 +413,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Promote a attendee to be a VIP.
-     */
     private void promoteExistingAttendee() {
         ArrayList<String> allAttendee = usermanager.getAttendees();
         try {
@@ -476,9 +434,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Create a new attendee account.
-     */
     private void createAttendee() {
         presenter.inputPrompt("newUsername");
         String username = reader.nextLine();
@@ -492,9 +447,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Create a new Organizer account.
-     */
     private void createOrganizer() {
         presenter.inputPrompt("newUsername");
         String username = reader.nextLine();
@@ -508,9 +460,6 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Schedule a speaker to an existing event or to a new event.
-     */
     private void scheduleSpeakers() {
         try {
             presenter.inputPrompt("speakerName");
@@ -568,21 +517,11 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /*
-     * Add a new speaker to an existing event.
-     *
-     * @param allEvents all existing events.
-     * @param name      the name of user who would be a speaker.
-     * @param command   command that organizer choose.
-     */
     private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command) {
         if (0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()) {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 presenter.success();
-//            } catch (RoomIsFullException e) {
-//                presenter.printErrorMessage(e);
-//                presenter.defaultPrint("Room is full.");
             } catch (NoSuchEventException e) {
                 presenter.printErrorMessage(e);
                 presenter.defaultPrint("event not found");
@@ -595,8 +534,4 @@ public class OrganizerSystem extends UserSystem {
             presenter.invalid("eventId");
         }
     }
-
-
-
-
 }

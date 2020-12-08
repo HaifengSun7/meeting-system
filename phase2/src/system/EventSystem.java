@@ -10,6 +10,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The controller that contains all things that directly involves events.
+ */
 public class EventSystem {
     private final EventManager eventmanager;
     private final Presenter presenter;
@@ -17,6 +20,13 @@ public class EventSystem {
     private final UserManager usermanager;
     protected Scanner reader = new Scanner(System.in);
 
+    /**
+     * Initializes the event system, gets which event manager, user manager, conference that it controls.
+     *
+     * @param eventmanager the event manager that the system controls.
+     * @param usermanager the user manager that the system controls.
+     * @param conference the conference name of the chosen conference.
+     */
     public EventSystem(EventManager eventmanager, UserManager usermanager, String conference) {
         this.eventmanager = eventmanager;
         this.presenter = new Presenter();
@@ -24,7 +34,7 @@ public class EventSystem {
         this.usermanager = usermanager;
     }
 
-    /*
+    /**
      * Create a new room.
      */
     protected void addNewRoom() {
@@ -126,7 +136,7 @@ public class EventSystem {
         }
     }
 
-    /*
+    /**
      * Cancel an event.
      */
     protected void cancelEvent() {
@@ -147,7 +157,7 @@ public class EventSystem {
         }
     }
 
-    /*
+    /**
      * set the maximum number of people in the selected event.
      */
     protected void changeEventMaxNumberPeople() {
@@ -189,7 +199,7 @@ public class EventSystem {
         }
     }
 
-    /*
+    /**
      * Check all the events.
      */
     protected void checkAllEvent() {
@@ -204,7 +214,8 @@ public class EventSystem {
         }
         presenter.continuePrompt();
     }
-    /*
+
+    /**
      * show the events in a selected room
      * @param command the room number
      */

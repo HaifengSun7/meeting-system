@@ -239,5 +239,3 @@ public class SpeakerSystem extends UserSystem {
     }
 
 }
-
-

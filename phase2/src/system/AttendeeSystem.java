@@ -134,9 +134,6 @@ public class AttendeeSystem extends UserSystem {
         this.SignUp(example_list);
     }
 
-    /*
-     * Check the events that attendee has signed up.
-     */
     private void checkSignedUp() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
@@ -150,9 +147,6 @@ public class AttendeeSystem extends UserSystem {
         }
     }
 
-    /*
-     * Cancel the enrollment in an event that attendee has signed it up
-     */
     private void cancelEnrollment() {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {

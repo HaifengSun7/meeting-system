@@ -244,6 +244,9 @@ public abstract class UserSystem {
         write.run();
     }
 
+    /**
+     * Choose and mark a message as unread.
+     */
     protected void markUnreadMessages() {
         //addAllToMessageList(); //TODO: do we need this
         ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
@@ -280,6 +283,9 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
+    /**
+     * Choose a message to delete.
+     */
     protected void deleteMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
         presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might mis-deleted messages you haven't read");
@@ -303,6 +309,9 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
+    /**
+     * Choose a message to archive
+     */
     protected void archiveMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
         presenter.inputPrompt("enter number in square bracket to archive message. " +
@@ -327,6 +336,9 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
+    /**
+     * Choose a message and unarchive it.
+     */
     protected void unArchiveMessage() {
         ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
         presenter.inputPrompt("enter number in square bracket to archive message." +
@@ -351,6 +363,9 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
+    /**
+     * See all the archived messages.
+     */
     protected void seeArchivedMessage() {
         ArrayList<String> archivedMessage = messagemanager.getArchived(myName);
         for (int i = 0; i < archivedMessage.size(); i++) {
