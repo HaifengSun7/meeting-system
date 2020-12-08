@@ -5,7 +5,7 @@ import event.exceptions.TooManySpeakerException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class SingleEvent extends Event{
+public class SingleEvent extends Event {
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
      *
@@ -17,14 +17,14 @@ public class SingleEvent extends Event{
     }
 
     @Override
-    public ArrayList<String> getSpeakers(){
+    public ArrayList<String> getSpeakers() {
         return speakers;
     }
 
 
     @Override
     public void setSpeaker(String u) throws TooManySpeakerException {
-        if(this.speakStatus){
+        if (this.speakStatus) {
             throw new TooManySpeakerException("Already has speaker");
         }
         speakers = new ArrayList<>();
@@ -33,7 +33,7 @@ public class SingleEvent extends Event{
     }
 
     @Override
-    public int getMaximumSpeaker(){
+    public int getMaximumSpeaker() {
         return 1;
     }
 

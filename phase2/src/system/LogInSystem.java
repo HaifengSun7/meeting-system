@@ -1,9 +1,9 @@
 package system;
 
 import presenter.Presenter;
+import readWrite.ManagerBuilder;
 import user.NoSuchUserException;
 import user.NotAttendeeException;
-import readWrite.ManagerBuilder;
 import user.UserManager;
 import user.WrongLogInException;
 
@@ -17,7 +17,8 @@ public class LogInSystem {
 
     UserManager usermanager;
     Presenter presenter;
-    public LogInSystem(){
+
+    public LogInSystem() {
         this.presenter = new Presenter();
     }
 

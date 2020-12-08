@@ -5,7 +5,7 @@ import event.exceptions.TooManySpeakerException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class PartyEvent  extends Event {
+public class PartyEvent extends Event {
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
      *
@@ -17,7 +17,7 @@ public class PartyEvent  extends Event {
     }
 
     @Override
-    public ArrayList<String> getSpeakers(){
+    public ArrayList<String> getSpeakers() {
         return new ArrayList<>();
     }
 
@@ -27,7 +27,7 @@ public class PartyEvent  extends Event {
     }
 
     @Override
-    public int getMaximumSpeaker(){
+    public int getMaximumSpeaker() {
         return 0;
     }
 }

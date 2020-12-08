@@ -1,6 +1,6 @@
 package presenter;
 
-public class OrganizerPresenter extends Presenter{
+public class OrganizerPresenter extends Presenter {
     /**
      * Print out the menu of organizer.
      */
@@ -22,8 +22,8 @@ public class OrganizerPresenter extends Presenter{
                         "[14] Promote an event to be VIP only\n" +
                         "[15] Mark unread messages\n" +
                         "[16] Delete messages from inbox\n" +
-                        "[17] Archive messages\n" + 
-                        "[18] Unarchive messages\n" + 
+                        "[17] Archive messages\n" +
+                        "[18] Unarchive messages\n" +
                         "[19] See archived inbox\n" +
                         "[save] Save.\n" +
                         "[e] Save and Log out");
@@ -88,6 +88,7 @@ public class OrganizerPresenter extends Presenter{
                 break;
         }
     }
+
     /**
      * Print out the title in SpeakerSystem.
      *

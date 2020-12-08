@@ -14,10 +14,10 @@ public class Request {
      * Create a new request. Status is false by default.
      *
      * @param username the user name of the attendee sending the request.
-     * @param title title of the request.
-     * @param content the request content.
+     * @param title    title of the request.
+     * @param content  the request content.
      */
-    public Request(String username, String title, String content){
+    public Request(String username, String title, String content) {
         this.username = username;
         this.title = title;
         this.content = content;
@@ -52,21 +52,21 @@ public class Request {
     }
 
     /**
-     * Set the status of the request.
-     *
-     * @param status status of the request.
-     */
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    /**
      * Get the status of the request.
      *
      * @return the status of the request.
      */
     public boolean getStatus() {
         return this.status;
+    }
+
+    /**
+     * Set the status of the request.
+     *
+     * @param status status of the request.
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
 }

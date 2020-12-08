@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public abstract class Event {
 
     private static int eventNumber = 0;
-    private final Timestamp time;
     protected final int id;
+    private final Timestamp time;
     private final ArrayList<String> user_list;
     private final int length = 1;
-    private String description;
-    private boolean vip = false;
     protected String type;
     protected boolean speakStatus = false;
-    private int maximumPeople;
     protected ArrayList<String> speakers = new ArrayList<>();
+    private String description;
+    private boolean vip = false;
+    private int maximumPeople;
 
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
@@ -102,7 +102,7 @@ public abstract class Event {
      */
     public abstract void setSpeaker(String u) throws TooManySpeakerException;
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
@@ -140,12 +140,12 @@ public abstract class Event {
     public String toString() {
         String t = this.time.toString();
         StringBuilder speakerString = new StringBuilder();
-        for(String s: this.speakers){
+        for (String s : this.speakers) {
             speakerString.append(s);
             speakerString.append(",");
         }
         String sub;
-        if(speakerString.length() != 0){
+        if (speakerString.length() != 0) {
             sub = speakerString.substring(0, speakerString.length() - 1);
         } else {
             sub = "null";
@@ -229,19 +229,21 @@ public abstract class Event {
     */
 
     /**
-     * set the maximum number of people in the event.
-     * @param number the number of maximum people.
-     */
-    public void setMaximumAttendee(int number) {
-        this.maximumPeople = number;
-    }
-
-    /**
      * get the maximum number of people in the event.
+     *
      * @return an integer of the maximum number of people in the event.
      */
     public int getMaximumAttendee() {
         return maximumPeople;
+    }
+
+    /**
+     * set the maximum number of people in the event.
+     *
+     * @param number the number of maximum people.
+     */
+    public void setMaximumAttendee(int number) {
+        this.maximumPeople = number;
     }
 
     public abstract int getMaximumSpeaker();

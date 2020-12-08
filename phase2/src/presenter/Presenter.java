@@ -87,12 +87,16 @@ public class Presenter {
     /**
      * Print out the information of no event operations.
      */
-    public void noEvent(){System.out.println("No signed Event yet!");}
+    public void noEvent() {
+        System.out.println("No signed Event yet!");
+    }
 
     /**
      * Print out the information of no event operations.
      */
-    public void noMessage(){System.out.println("Not sent any Message yet!");}
+    public void noMessage() {
+        System.out.println("Not sent any Message yet!");
+    }
 
     /**
      * Print out the prompt of input
@@ -117,9 +121,9 @@ public class Presenter {
                 System.out.println("Please enter a room number:");
                 break;
             case "description":
-                System.out.println("Please input a short description that does not have a comma");
+                System.out.println("Please input a short description.");
                 break;
-            case "vip" :
+            case "vip":
                 System.out.println("Please input 'true' or 'false' to indicate whether the event is for VIP only");
                 break;
             case "newRoomNumber":
@@ -275,7 +279,7 @@ public class Presenter {
             case "conference":
                 System.out.println("Please input a valid conference!");
                 break;
-            case"noSuchRequest":
+            case "noSuchRequest":
                 System.out.println("Cannot find such request");
             default:
                 System.out.println("Invalid input!");

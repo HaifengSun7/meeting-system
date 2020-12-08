@@ -2,7 +2,7 @@ package system;
 
 import java.util.ArrayList;
 
-public class VIPSystem extends AttendeeSystem{
+public class VIPSystem extends AttendeeSystem {
 
     public VIPSystem(String myName) {
         super(myName);

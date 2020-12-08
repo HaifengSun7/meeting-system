@@ -3,7 +3,8 @@ package system;
 import event.EventManager;
 import message.MessageManager;
 import presenter.Presenter;
-import readWrite.*;
+import readWrite.ManagerBuilder;
+import readWrite.Write;
 import request.InvalidTitleException;
 import request.NoSuchRequestException;
 import request.RequestManager;
@@ -20,6 +21,7 @@ public abstract class UserSystem {
 
     protected final String myName;
     private final Presenter presenter = new Presenter();
+    private final EventSystem eventSystem;
     protected Scanner reader = new Scanner(System.in);
     protected EventManager eventmanager = new EventManager();
     protected UserManager usermanager = new UserManager();
@@ -36,6 +38,7 @@ public abstract class UserSystem {
         this.myName = myName;
         initializeManagers();
         this.conference = chooseConference();
+        this.eventSystem = new EventSystem(eventmanager, usermanager, conference);
     }
 
     /**
@@ -106,7 +109,7 @@ public abstract class UserSystem {
         requestmanager = read.getRequestManager();
     }
 
-    protected String chooseConference(){
+    protected String chooseConference() {
         presenter.conferenceChoose();
         ArrayList<String> conferenceList = eventmanager.getAllConference();
         for (int i = 0; i < conferenceList.size(); i++) {
@@ -128,12 +131,12 @@ public abstract class UserSystem {
      * Input from reader: String title
      * Input from reader: String content
      */
-    protected void makeNewRequest(){
+    protected void makeNewRequest() {
         presenter.inputPrompt("makeRequestTitle");
         String title = reader.nextLine();
         presenter.inputPrompt("makeRequestContext");
         String content = reader.nextLine();
-        try{
+        try {
             requestmanager.createNewRequest(myName, title, content);
             presenter.inputPrompt("addSuccess");
         } catch (InvalidTitleException e) {
@@ -144,9 +147,9 @@ public abstract class UserSystem {
     /**
      * Print a request list include all requests from one particular person.
      */
-    protected void seeMyRequests(){
+    protected void seeMyRequests() {
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
-        if (requestList.size() == 0){
+        if (requestList.size() == 0) {
             presenter.inputPrompt("NoRequests");
         } else {
             presenter.inputPrompt("requestIntroduction");
@@ -175,11 +178,11 @@ public abstract class UserSystem {
      * Help to print out a list of requests regardless what type of requests list contained.
      * Print a request list include all requests from one particular person.
      */
-    protected void printRequests(ArrayList<String[]> requestList){ //Helper function
+    protected void printRequests(ArrayList<String[]> requestList) { //Helper function
         for (int i = 0; i < requestList.size(); i++) {
             String requestTitle = requestList.get(i)[0];
             String status;
-            if (requestmanager.getRequestStatus(requestTitle)){
+            if (requestmanager.getRequestStatus(requestTitle)) {
                 status = "[Status: Addressed] ";
             } else {
                 status = "[Status: Pending]   ";
@@ -192,9 +195,9 @@ public abstract class UserSystem {
     /**
      * This method can delete requests from one user.
      */
-    protected void deleteRequests(){
+    protected void deleteRequests() {
         ArrayList<String[]> requestList = requestmanager.getRequestsFrom(myName);
-        if (requestList.size() == 0){
+        if (requestList.size() == 0) {
             presenter.inputPrompt("NoRequests");
         } else {
             presenter.inputPrompt("requestIntroduction");
@@ -203,7 +206,7 @@ public abstract class UserSystem {
             try {
                 int input = Integer.parseInt(command);
                 if ((0 <= input) && (input < requestList.size())) {
-                    try{
+                    try {
                         requestmanager.recallSingleRequest(requestList.get(Integer.parseInt(command))[0]);
                         presenter.inputPrompt("deleteSuccess");
                     } catch (NoSuchRequestException e) {
@@ -236,10 +239,11 @@ public abstract class UserSystem {
     /**
      * Save the current status of events, users, messages, and requests.
      */
-    protected void save(){
+    protected void save() {
         Write write = new Write(usermanager, eventmanager, messagemanager, requestmanager);
         write.run();
     }
+
     protected void markUnreadMessages() {
         //addAllToMessageList(); //TODO: do we need this
         ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
@@ -251,15 +255,15 @@ public abstract class UserSystem {
         presenter.defaultPrint("[e] exit");
         String command = reader.nextLine();
 
-        switch (command){
+        switch (command) {
             case "e":
                 presenter.exitingToMainMenu();
                 break;
             case "a":
-                try{
+                try {
                     messagemanager.markAllAsRead(myName);
                     presenter.success();
-                } catch (Exception e){
+                } catch (Exception e) {
                     presenter.printErrorMessage(e);
                 }
                 break;
@@ -279,7 +283,7 @@ public abstract class UserSystem {
     protected void deleteMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
         presenter.inputPrompt("enter number in square bracket to delete message. Warning: you might mis-deleted messages you haven't read");
-        for (int i = 0; i < inbox.size(); i++){
+        for (int i = 0; i < inbox.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         presenter.defaultPrint("[e] exit");
@@ -299,11 +303,11 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
-    protected void archiveMessage(){
+    protected void archiveMessage() {
         ArrayList<String> inbox = messagemanager.getAll(myName);
         presenter.inputPrompt("enter number in square bracket to archive message. " +
                 "Warning: you might archive message that you have archived");
-        for (int i = 0; i < inbox.size(); i++){
+        for (int i = 0; i < inbox.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + inbox.get(i));
         }
         presenter.defaultPrint("[e] exit");
@@ -323,11 +327,11 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
-    protected void unArchiveMessage(){
+    protected void unArchiveMessage() {
         ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
         presenter.inputPrompt("enter number in square bracket to archive message." +
                 " Warning: you might archive message that you have archived");
-        for (int i = 0; i < archivedInbox.size(); i++){
+        for (int i = 0; i < archivedInbox.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
         }
         presenter.defaultPrint("[e] exit");
@@ -347,7 +351,7 @@ public abstract class UserSystem {
         reader.nextLine();
     }
 
-    protected void seeArchivedMessage(){
+    protected void seeArchivedMessage() {
         ArrayList<String> archivedMessage = messagemanager.getArchived(myName);
         for (int i = 0; i < archivedMessage.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + archivedMessage.get(i));

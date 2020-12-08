@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class MultiEvent extends Event {
     private final int max_speakers;
+
     /**
      * Initiates the Meeting, with its time and a default length of 1 hour.
      *
@@ -19,13 +20,13 @@ public class MultiEvent extends Event {
     }
 
     @Override
-    public ArrayList<String> getSpeakers(){
+    public ArrayList<String> getSpeakers() {
         return speakers;
     }
 
     @Override
     public void setSpeaker(String u) throws TooManySpeakerException {
-        if(speakers.size()<max_speakers){
+        if (speakers.size() < max_speakers) {
             speakers.add(u);
         } else {
             throw new TooManySpeakerException("Number of speakers exceeds maximum");
@@ -34,7 +35,7 @@ public class MultiEvent extends Event {
     }
 
     @Override
-    public int getMaximumSpeaker(){
+    public int getMaximumSpeaker() {
         return max_speakers;
     }
 }

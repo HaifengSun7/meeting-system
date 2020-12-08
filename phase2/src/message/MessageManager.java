@@ -13,7 +13,7 @@ public class MessageManager {
     /**
      * Runs when message manager is created. Resets message ID.
      */
-    public MessageManager(){
+    public MessageManager() {
         Message.resetID();
     }
 
@@ -81,7 +81,7 @@ public class MessageManager {
      * Read message.
      *
      * @param username the username we need to change its message status
-     * @param k the index of the message we need to change its status
+     * @param k        the index of the message we need to change its status
      */
     public void markKthAsRead(String username, Integer k) {
         this.getUnreadMessages(username).get(k).setUnreadStatus(false);
@@ -92,14 +92,14 @@ public class MessageManager {
      *
      * @param username the username we need to change its message status
      */
-    public void markAllAsRead(String username) throws NoSuchMessageException{
+    public void markAllAsRead(String username) throws NoSuchMessageException {
         try {
-            for (Message msg: map.values()) {
+            for (Message msg : map.values()) {
                 if (msg.getReceiver().equals(username) && msg.getUnReadStatus()) {
                     msg.setUnreadStatus(false);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new NoSuchMessageException("Failed to mark all as read.");
         }
     }
@@ -114,11 +114,11 @@ public class MessageManager {
         ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus()){
+                if (!msg.getReceiverDeleteStatus()) {
                     rtn_list.add(msg.toString());
-                } 
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus()){
+                }
+            } else if (msg.getSender().equals(username)) {
+                if (!msg.getSenderDeleteStatus()) {
                     rtn_list.add(msg.toString());
                 }
             }
@@ -130,12 +130,12 @@ public class MessageManager {
      * Delete message.
      *
      * @param username the username we need to change its message status
-     * @param k the index of the message we need to change its status
+     * @param k        the index of the message we need to change its status
      */
     public void deleteKth(String username, Integer k) {
-        if(this.getAllMessages(username).get(k).getReceiver().equals(username)){
+        if (this.getAllMessages(username).get(k).getReceiver().equals(username)) {
             this.getAllMessages(username).get(k).setReceiverDeleteStatus(true);
-        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+        } else if (this.getAllMessages(username).get(k).getSender().equals(username)) {
             this.getAllMessages(username).get(k).setSenderDeleteStatus(true);
         }
     }
@@ -151,11 +151,11 @@ public class MessageManager {
         ArrayList<String> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
+                if (!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()) {
                     rtn_list.add(msg.toString());
-                } 
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus() && msg.getSenderArchiveStatus()){
+                }
+            } else if (msg.getSender().equals(username)) {
+                if (!msg.getSenderDeleteStatus() && msg.getSenderArchiveStatus()) {
                     rtn_list.add(msg.toString());
                 }
             }
@@ -167,12 +167,12 @@ public class MessageManager {
      * Archive message
      *
      * @param username the username we need to change its message status
-     * @param k the index of the message we need to change its status
+     * @param k        the index of the message we need to change its status
      */
     public void archiveKth(String username, Integer k) {
-        if(this.getAllMessages(username).get(k).getReceiver().equals(username)){
+        if (this.getAllMessages(username).get(k).getReceiver().equals(username)) {
             this.getAllMessages(username).get(k).setReceiverArchiveStatus(true);
-        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+        } else if (this.getAllMessages(username).get(k).getSender().equals(username)) {
             this.getAllMessages(username).get(k).setSenderArchiveStatus(true);
         }
     }
@@ -181,12 +181,12 @@ public class MessageManager {
      * Unarchive message
      *
      * @param username the username we need to change its message status
-     * @param k the index of the message we need to change its status
+     * @param k        the index of the message we need to change its status
      */
     public void unArchiveKth(String username, Integer k) {
-        if(this.getArchivedMessages(username).get(k).getReceiver().equals(username)){
+        if (this.getArchivedMessages(username).get(k).getReceiver().equals(username)) {
             this.getAllMessages(username).get(k).setReceiverArchiveStatus(false);
-        } else if(this.getAllMessages(username).get(k).getSender().equals(username)){
+        } else if (this.getAllMessages(username).get(k).getSender().equals(username)) {
             this.getArchivedMessages(username).get(k).setSenderArchiveStatus(false);
         }
     }
@@ -244,16 +244,17 @@ public class MessageManager {
 
     /**
      * Initialize the message's status.
-     * @param ID message ID
-     * @param Unread unread status, true for unread.
-     * @param ReceiverDeleteStatus whether the receiver has deleted the message.
+     *
+     * @param ID                    message ID
+     * @param Unread                unread status, true for unread.
+     * @param ReceiverDeleteStatus  whether the receiver has deleted the message.
      * @param ReceiverArchiveStatus whether the receiver has archived the message.
-     * @param SenderDeleteStatus whether the sender has delete the message.
-     * @param SenderArchiveStatus whether the sender has archived the message.
+     * @param SenderDeleteStatus    whether the sender has delete the message.
+     * @param SenderArchiveStatus   whether the sender has archived the message.
      */
     public void initializeStatus(int ID, boolean Unread, boolean ReceiverDeleteStatus,
-                                 boolean ReceiverArchiveStatus,boolean SenderDeleteStatus,
-                                 boolean SenderArchiveStatus){
+                                 boolean ReceiverArchiveStatus, boolean SenderDeleteStatus,
+                                 boolean SenderArchiveStatus) {
         Message msg = map.get(ID);
         msg.setUnreadStatus(Unread);
         msg.setReceiverArchiveStatus(ReceiverArchiveStatus);
@@ -303,11 +304,11 @@ public class MessageManager {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()){
+                if (!msg.getReceiverDeleteStatus() && msg.getReceiverArchiveStatus()) {
                     rtn_list.add(msg);
                 }
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus() && msg.getReceiverArchiveStatus()){
+            } else if (msg.getSender().equals(username)) {
+                if (!msg.getSenderDeleteStatus() && msg.getReceiverArchiveStatus()) {
                     rtn_list.add(msg);
                 }
             }
@@ -325,11 +326,11 @@ public class MessageManager {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
             if (msg.getReceiver().equals(username)) {
-                if(!msg.getReceiverDeleteStatus()){
+                if (!msg.getReceiverDeleteStatus()) {
                     rtn_list.add(msg);
                 }
-            } else if(msg.getSender().equals(username)) {
-                if(!msg.getSenderDeleteStatus()){
+            } else if (msg.getSender().equals(username)) {
+                if (!msg.getSenderDeleteStatus()) {
                     rtn_list.add(msg);
                 }
             }

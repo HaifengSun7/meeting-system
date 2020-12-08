@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class UserManager {
 
-    private Map<String, User> userMapping;
+    private final Map<String, User> userMapping;
 
     /**
      * Initializes the user manager, reads from database.db.
@@ -78,7 +78,7 @@ public class UserManager {
      */
     public String getUserType(String username) {
         try {
-            if (isVIP(username)){
+            if (isVIP(username)) {
                 return "VIP";
             }
         } catch (NotAttendeeException | NoSuchUserException e) {
@@ -189,9 +189,9 @@ public class UserManager {
         }
     }
 
-    public void becomeVIP(String attendeeName) throws NoSuchUserException{
+    public void becomeVIP(String attendeeName) throws NoSuchUserException {
         if (!userMapping.containsKey(attendeeName)) {
-            throw new NoSuchUserException("User " + attendeeName + " does not exist." );
+            throw new NoSuchUserException("User " + attendeeName + " does not exist.");
         } else {
             User attendee = userMapping.get(attendeeName);
             ArrayList<String> contactList = attendee.getContactList();
@@ -200,7 +200,8 @@ public class UserManager {
             deleteUser(attendeeName);
             try {
                 createUserAccount("VIP", attendee.getUserName(), attendee.getPassword());
-            } catch (InvalidUsernameException | DuplicateUserNameException ignored){}
+            } catch (InvalidUsernameException | DuplicateUserNameException ignored) {
+            }
             User attendeeVIP = userMapping.get(attendeeName);
             attendeeVIP.setContactList(contactList);
             attendeeVIP.setStatus(status);

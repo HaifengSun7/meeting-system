@@ -6,7 +6,10 @@ import message.MessageManager;
 import request.RequestManager;
 import user.UserManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,8 +42,10 @@ public class Write {
         this.requestmanager = requestmanager;
         Connecting cct = new Connecting();
         this.conn = cct.run();
-        try{this.stmt = conn.createStatement();}
-        catch (SQLException ignored){}
+        try {
+            this.stmt = conn.createStatement();
+        } catch (SQLException ignored) {
+        }
     }
 
     /**
@@ -91,10 +96,10 @@ public class Write {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            for (String username2 : messageList){
-                try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)){
-                    pstmt2.setString(1,username);
-                    pstmt2.setString(2,username2);
+            for (String username2 : messageList) {
+                try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
+                    pstmt2.setString(1, username);
+                    pstmt2.setString(2, username2);
                     pstmt2.execute();
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -103,7 +108,7 @@ public class Write {
         }
     }
 
-    private void roomWriter(){
+    private void roomWriter() {
         HashMap<Integer, Integer> roomToCapacity = eventmanager.getRoomNumberMapToCapacity();
         String sql = "INSERT INTO room(RoomNumber,Capacity) VALUES(?,?)";
         for (Map.Entry<Integer, Integer> item : roomToCapacity.entrySet()) {

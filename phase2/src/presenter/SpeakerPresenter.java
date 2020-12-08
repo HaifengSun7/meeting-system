@@ -1,6 +1,6 @@
 package presenter;
 
-public class SpeakerPresenter extends Presenter{
+public class SpeakerPresenter extends Presenter {
     /**
      * Print out the menu of speaker.
      */
@@ -18,8 +18,8 @@ public class SpeakerPresenter extends Presenter{
                         "[10] Delete my requests\n" +
                         "[11] Mark unread messages\n" +
                         "[12] Delete messages from inbox\n" +
-                        "[13] Archive messages\n" + 
-                        "[14] Unarchive messages\n" + 
+                        "[13] Archive messages\n" +
+                        "[14] Unarchive messages\n" +
                         "[15] See archived inbox\n" +
                         "[save] Save.\n" +
                         "[e] Save and log out");

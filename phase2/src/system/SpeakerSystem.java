@@ -100,7 +100,7 @@ public class SpeakerSystem extends UserSystem {
      * Send messages to all attendees in a particular event.
      */
     private void sendMessageToEvent() {
-        try{
+        try {
             ShowAllEvents();
             presenter.inputPrompt("eventIdSendMessage");
             String eventId = reader.nextLine();
@@ -119,7 +119,7 @@ public class SpeakerSystem extends UserSystem {
                 presenter.defaultPrint("This is not your event. Please check your input. " +
                         "Exiting to main menu.");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             presenter.defaultPrint(e.getMessage());
         }
     }
@@ -156,7 +156,7 @@ public class SpeakerSystem extends UserSystem {
                 presenter.defaultPrint("This is not your event. Please check your input. " +
                         "Exiting to main menu.");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             presenter.defaultPrint(e.getMessage());
         }
     }

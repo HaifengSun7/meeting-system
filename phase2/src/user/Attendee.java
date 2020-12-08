@@ -40,7 +40,7 @@ public class Attendee extends User {
         this.signedEvent = signedEvent;
     }
 
-    public boolean getVIPstatus(){
+    public boolean getVIPstatus() {
         return this.VIPstatus;
     }
 }

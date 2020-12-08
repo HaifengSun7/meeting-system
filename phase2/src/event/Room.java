@@ -55,7 +55,7 @@ public class Room {
      * @param eventID An Event that is planned to be added to the schedule of the Room.
      */
     public void removeEvent(int eventID) {
-        schedule.remove(schedule.indexOf(eventID));
+        schedule.remove((Integer) eventID);
     }
 
     /**

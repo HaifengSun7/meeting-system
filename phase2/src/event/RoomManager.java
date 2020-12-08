@@ -24,7 +24,7 @@ public class RoomManager {
      * @throws DuplicateRoomNumberException when room number exists.
      */
     protected void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException, WrongRoomSizeException {
-        if (size <= 0){
+        if (size <= 0) {
             throw new WrongRoomSizeException("Room size must be greater than 0");
         }
         for (Room r : rooms) {
@@ -39,7 +39,7 @@ public class RoomManager {
     protected void addEvent(int roomNo, int eventId, int totalPeople) throws RoomIsFullException {
         for (Room r : rooms) {
             if (r.getRoomNumber() == roomNo) {
-                if(r.getCapacity() >= totalPeople){
+                if (r.getCapacity() >= totalPeople) {
                     r.addEvent(eventId);
                 } else {
                     throw new RoomIsFullException("Room is not big enough.");
@@ -48,7 +48,7 @@ public class RoomManager {
         }
     }
 
-    protected void remove(int id){
+    protected void remove(int id) {
         for (Room r : rooms) {
             if (r.getSchedule().contains(id)) {
                 r.removeEvent(id);

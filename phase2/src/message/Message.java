@@ -7,11 +7,11 @@ import java.util.ArrayList;
  */
 public class Message {
 
+    private static int number = 0;
     private final String sender;
     private final String receiver;
     private final String text;
     private final int ID;
-    private static int number = 0;
     private boolean unReadStatus = true;
     private boolean ReceiverDeleteStatus = false;
     private boolean ReceiverArchiveStatus = false;
@@ -37,7 +37,7 @@ public class Message {
         number += 1;
     }
 
-    public static void resetID(){
+    public static void resetID() {
         number = 0;
     }
 
@@ -73,12 +73,13 @@ public class Message {
      *
      * @return the message id.
      */
-    public int getID(){
+    public int getID() {
         return this.ID;
     }
 
     /**
      * Get's whether the text is unread or not
+     *
      * @return unReadStatus.
      */
     public boolean getUnReadStatus() {
@@ -87,41 +88,11 @@ public class Message {
 
     /**
      * Get's whether the receiver has deleted the message.
+     *
      * @return ReceiverDeleteStatus.
      */
     public boolean getReceiverDeleteStatus() {
         return this.ReceiverDeleteStatus;
-    }
-
-    /**
-     * Get's whether the text is archived by receiver.
-     * @return ReceiverArchiveStatus.
-     */
-    public boolean getReceiverArchiveStatus() {
-        return this.ReceiverArchiveStatus;
-    }
-
-    /**
-     * Get's whether the receiver has deleted the message.
-     * @return ReceiverDeleteStatus.
-     */
-    public boolean getSenderDeleteStatus() {
-        return this.SenderDeleteStatus;
-    }
-
-    /**
-     * Get's whether the text is archived by receiver.
-     * @return ReceiverArchiveStatus.
-     */
-    public boolean getSenderArchiveStatus() {
-        return this.SenderArchiveStatus;
-    }
-
-    /**
-     * @param status the unReadStatus to set
-     */
-    public void setUnreadStatus(boolean status) {
-        this.unReadStatus = status;
     }
 
     /**
@@ -132,10 +103,28 @@ public class Message {
     }
 
     /**
+     * Get's whether the text is archived by receiver.
+     *
+     * @return ReceiverArchiveStatus.
+     */
+    public boolean getReceiverArchiveStatus() {
+        return this.ReceiverArchiveStatus;
+    }
+
+    /**
      * @param status the ReceiverArchive to set
      */
     public void setReceiverArchiveStatus(boolean status) {
         this.ReceiverArchiveStatus = status;
+    }
+
+    /**
+     * Get's whether the receiver has deleted the message.
+     *
+     * @return ReceiverDeleteStatus.
+     */
+    public boolean getSenderDeleteStatus() {
+        return this.SenderDeleteStatus;
     }
 
     /**
@@ -146,11 +135,28 @@ public class Message {
     }
 
     /**
+     * Get's whether the text is archived by receiver.
+     *
+     * @return ReceiverArchiveStatus.
+     */
+    public boolean getSenderArchiveStatus() {
+        return this.SenderArchiveStatus;
+    }
+
+    /**
      * @param status the SenderArchiveStatus to set
      */
     public void setSenderArchiveStatus(boolean status) {
         this.SenderArchiveStatus = status;
     }
+
+    /**
+     * @param status the unReadStatus to set
+     */
+    public void setUnreadStatus(boolean status) {
+        this.unReadStatus = status;
+    }
+
     /**
      * Get's everything of the message.
      *

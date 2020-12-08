@@ -62,10 +62,11 @@ public class EventManager {
 
     /**
      * Get the capacity of an event
+     *
      * @param id the event ID.
      * @return a pair of integers that the first is number of speakers, while the second is the number of attendees.
      */
-    public Pair<Integer, Integer> getCapacity(int id){
+    public Pair<Integer, Integer> getCapacity(int id) {
         int numSpeaker = map.get(id).getMaximumSpeaker();
         int numPeople = map.get(id).getMaximumAttendee();
         return new Pair<>(numSpeaker, numPeople);
@@ -138,7 +139,7 @@ public class EventManager {
      * @param eventID the event that we are looking for.
      * @return the conference name of the event.
      */
-    public String getConferenceOfEvent(int eventID){
+    public String getConferenceOfEvent(int eventID) {
         return conferenceManager.getConferenceOfEvent(eventID);
     }
 
@@ -148,7 +149,7 @@ public class EventManager {
      * @param eventID the event we are looking for.
      * @return a boolean showing if it is VIP only.
      */
-    public boolean getVipStatus(int eventID){
+    public boolean getVipStatus(int eventID) {
         return map.get(eventID).getVip();
     }
 
@@ -162,7 +163,7 @@ public class EventManager {
         return map.get(event).getDescription();
     }
 
-    public ArrayList<String> getAllRooms(){
+    public ArrayList<String> getAllRooms() {
         return roomManager.getAllRooms();
     }
 
@@ -282,13 +283,12 @@ public class EventManager {
      * Switch an event between VIP and normal event.
      *
      * @param eventId The event we are setting.
-     * @param vip if the event is VIP event.
+     * @param vip     if the event is VIP event.
      */
     public void switchVipEvent(String eventId, boolean vip) throws NoSuchEventException {
-        if(map.containsKey(Integer.parseInt(eventId))) {
+        if (map.containsKey(Integer.parseInt(eventId))) {
             map.get(Integer.parseInt(eventId)).setVip(vip);
-        }
-        else{
+        } else {
             throw new NoSuchEventException("There is not an event with event number " + eventId);
         }
     }
@@ -299,9 +299,9 @@ public class EventManager {
      * @param type        type of user
      * @param username    username
      * @param eventNumber eventNumber.
-     * @throws InvalidUserException       if input type is "Organizer".
-     * @throws NoSuchEventException       if event corresponding to the input eventNumber does not exist.
-     * @throws EventIsFullException       if event is full.
+     * @throws InvalidUserException if input type is "Organizer".
+     * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
+     * @throws EventIsFullException if event is full.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws NoSuchEventException,
             InvalidUserException, EventIsFullException, TooManySpeakerException {
@@ -314,7 +314,8 @@ public class EventManager {
                 if (event_size >= maximumAttendee) {
                     throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
                             "You can't sign up this event!");
-                } signUp(String.valueOf(eventNumber), username);
+                }
+                signUp(String.valueOf(eventNumber), username);
             } else {
                 throw new InvalidUserException("Invalid user type.");
             }
@@ -325,9 +326,10 @@ public class EventManager {
 
     /**
      * set the maximum number of people in the selected event.
-     * @param newMaximum the new maximum number of people.
+     *
+     * @param newMaximum  the new maximum number of people.
      * @param eventNumber the event number of the selected event.
-     * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
+     * @throws NoSuchEventException         if event corresponding to the input eventNumber does not exist.
      * @throws InvalidNewMaxNumberException if the new maximum number of the event is less than the existing attendees in that event
      */
     public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
@@ -353,7 +355,7 @@ public class EventManager {
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
      * @param description:   description of event
-     * @param vip:   whether the event is for VIP only.
+     * @param vip:           whether the event is for VIP only.
      * @throws NotInOfficeHourException  if time out of working hour.
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException  if there's no such room.
@@ -391,7 +393,7 @@ public class EventManager {
      */
     public void cancelEvent(String eventId, String conferenceName) throws NoSuchEventException, InvalidActivityException, NoSuchConferenceException {
         Integer i = Integer.parseInt(eventId);
-        if(!map.containsKey(i)){
+        if (!map.containsKey(i)) {
             throw new NoSuchEventException("This event does not exist: id: " + eventId);
         }
 //        ArrayList<String> attendees = this.getAttendees(eventId);
@@ -402,7 +404,7 @@ public class EventManager {
             conferenceManager.cancelEvent(conferenceName, Integer.parseInt(eventId));
             map.remove(Integer.parseInt(eventId));
             roomManager.remove(Integer.parseInt(eventId));
-        }else {
+        } else {
             throw new NoSuchEventException("NoSuchEvent: " + eventId);
         }
     }
@@ -479,13 +481,13 @@ public class EventManager {
                     return false;
             }
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new InvalidActivityException("invalid room number: " + roomNo);
         }
     }
 
-    private Event eventFactory(int numSpeakers, Timestamp time){
-        switch (numSpeakers){
+    private Event eventFactory(int numSpeakers, Timestamp time) {
+        switch (numSpeakers) {
             case 0:
                 return new PartyEvent(time);
             case 1:

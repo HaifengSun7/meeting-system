@@ -1,6 +1,9 @@
 package system;
 
-import event.exceptions.*;
+import event.exceptions.EventIsFullException;
+import event.exceptions.InvalidUserException;
+import event.exceptions.NoSuchEventException;
+import event.exceptions.TooManySpeakerException;
 import presenter.AttendeePresenter;
 
 import javax.activity.InvalidActivityException;
@@ -98,7 +101,7 @@ public class AttendeeSystem extends UserSystem {
      *
      * @param example_list the list of event in String, that the user can sign-up for.
      */
-    protected void SignUp(ArrayList<String> example_list){
+    protected void SignUp(ArrayList<String> example_list) {
         presenter.inputPrompt("signUp");
         presenter.inputPrompt("enterNumberInSquareBracketsToChooseEvent");
         for (int i = 0; i < example_list.size(); i++) {
@@ -138,8 +141,7 @@ public class AttendeeSystem extends UserSystem {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
             presenter.noEvent();
-        }
-        else{
+        } else {
             for (String s : eventsList) {
                 presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
             }

@@ -1,6 +1,6 @@
 package user;
 
-public class VIP extends Attendee{
+public class VIP extends Attendee {
     /**
      * Constructor for an Attendee object.
      *

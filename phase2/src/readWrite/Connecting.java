@@ -13,7 +13,7 @@ public class Connecting {
     /**
      * Start the connection.
      */
-    public Connection run(){
+    public Connection run() {
 
         Connection conn = null;
         File file = new File("src/resources/database.db");

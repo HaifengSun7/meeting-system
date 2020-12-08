@@ -1,6 +1,6 @@
 package presenter;
 
-public class AttendeePresenter extends Presenter{
+public class AttendeePresenter extends Presenter {
     /**
      * Print out the menu of attendee.
      */
@@ -16,8 +16,8 @@ public class AttendeePresenter extends Presenter{
                         "[8] Recall my requests\n" +
                         "[9] Mark unread messages\n" +
                         "[10] Delete messages from inbox\n" +
-                        "[11] Archive messages\n" + 
-                        "[12] Unarchive messages\n" + 
+                        "[11] Archive messages\n" +
+                        "[12] Unarchive messages\n" +
                         "[13] See archived inbox\n" +
                         "[save] Save.\n" +
                         "[e] Save and log out.");
