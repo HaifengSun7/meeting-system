@@ -42,7 +42,7 @@ public class EventSystem {
         }
     }
 
-    /*
+    /**
      * Check all scheduled events in a specific room.
      */
     protected void checkRoom() {
@@ -50,6 +50,8 @@ public class EventSystem {
         String roomNumber = reader.nextLine();
         try {
             ArrayList<Integer> schedule = eventmanager.getSchedule(Integer.parseInt(roomNumber));
+            presenter.defaultPrint("All schedule of room "+roomNumber+" is shown, including all conferences.\n"+
+                    "You are currently managing conference "+conference+".\n");
             for (Integer i : schedule) {
                 presenter.defaultPrint(eventmanager.findEventStr(i));
             }
@@ -65,10 +67,10 @@ public class EventSystem {
 
     }
 
-    /*
+    /**
      * The action of adding an Event, with info from inputs.
      */
-    protected void addingEvent() {
+    protected void addingEvent(String conf) {
 
         presenter.inputPrompt("roomNumber");
         String room = reader.nextLine();
@@ -112,7 +114,7 @@ public class EventSystem {
         }
         try {
             presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conference);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conf);
             presenter.success();
             presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |
@@ -136,7 +138,7 @@ public class EventSystem {
             }
             eventmanager.cancelEvent(eventId, conference);
             presenter.success();
-        } catch (NoSuchEventException | InvalidActivityException | NoSuchConferenceException e) {
+        } catch (NoSuchEventException | NoSuchConferenceException e) {
             presenter.printErrorMessage(e);
             presenter.continuePrompt();
             reader.nextLine();

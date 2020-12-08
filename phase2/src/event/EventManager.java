@@ -173,11 +173,12 @@ public class EventManager {
      * @param attendee the attendee's username.
      * @return the array list containing all events in string, that the attendee can sign up.
      */
-    public ArrayList<String> canSignUp(String attendee) {
+    public ArrayList<String> canSignUp(String attendee, String conference) {
         ArrayList<String> rslt = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
-                    && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                    && !this.dontHaveTime(attendee).contains(map.get(i).getTime())
+                    && conferenceManager.getConferenceOfEvent(i).equals(conference)) {
                 if (!map.get(i).getVip()) {
                     rslt.add(String.valueOf(map.get(i).getId()));
                 }
@@ -192,17 +193,18 @@ public class EventManager {
      * @param attendee Attendee, but string.
      * @return a list of Event ids in String that attendee can sign up for.
      */
-    public ArrayList<String> canSignUp(String attendee, boolean vip) {
+    public ArrayList<String> canSignUp(String attendee, boolean vip, String conference) {
         ArrayList<String> rslt = new ArrayList<>();
         if (vip) {
             for (int i = 0; i < map.size(); i++) {
                 if (map.containsKey(i) && !map.get(i).getAttendees().contains(attendee)
-                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())) {
+                        && !this.dontHaveTime(attendee).contains(map.get(i).getTime())
+                        && conferenceManager.getConferenceOfEvent(i).equals(conference)) {
                     rslt.add(String.valueOf(map.get(i).getId()));
                 }
             }
         } else {
-            rslt = canSignUp(attendee);
+            rslt = canSignUp(attendee,conference);
         }
         return rslt;
     }
@@ -391,7 +393,7 @@ public class EventManager {
      * @param eventId: the id of the event in string.
      * @throws NoSuchEventException if cannot find event with given eventId.
      */
-    public void cancelEvent(String eventId, String conferenceName) throws NoSuchEventException, InvalidActivityException, NoSuchConferenceException {
+    public void cancelEvent(String eventId, String conferenceName) throws NoSuchEventException, NoSuchConferenceException {
         Integer i = Integer.parseInt(eventId);
         if (!map.containsKey(i)) {
             throw new NoSuchEventException("This event does not exist: id: " + eventId);

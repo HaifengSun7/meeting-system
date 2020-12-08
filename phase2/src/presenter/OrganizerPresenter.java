@@ -25,6 +25,7 @@ public class OrganizerPresenter extends Presenter {
                         "[17] Archive messages\n" +
                         "[18] Unarchive messages\n" +
                         "[19] See archived inbox\n" +
+                        "[20] Create new conference\n" +
                         "[save] Save.\n" +
                         "[e] Save and Log out");
     }
@@ -85,6 +86,13 @@ public class OrganizerPresenter extends Presenter {
                 System.out.println("The current status of this request if Addressed, do you want to tag it into Pending?\n" +
                         "Please enter [Yes] to confirm or type anything else to return. \n" +
                         "[Yes] Tag it still pending!");
+                break;
+            case "CreateConference":
+                System.out.println("Please enter the conference name.\n" +
+                        "[e] Return to menu.");
+                break;
+            case "ConferencePrompt":
+                System.out.println("To create a conference, we must create an event of the new conference.");
                 break;
         }
     }

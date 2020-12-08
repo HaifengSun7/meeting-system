@@ -2,6 +2,7 @@ package system;
 
 import event.exceptions.*;
 import presenter.OrganizerPresenter;
+import presenter.Presenter;
 import user.DuplicateUserNameException;
 import user.InvalidUsernameException;
 import user.NoSuchUserException;
@@ -101,6 +102,9 @@ public class OrganizerSystem extends UserSystem {
                 case "19":
                     seeArchivedMessage();
                     continue;
+                case "20":
+                    createConference();
+                    continue;
                 case "save":
                     save();
                     continue;
@@ -141,7 +145,27 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    private void createConference() {
+        presenter.submenusInOrganizer("CreateConference");
+        String command = reader.nextLine();
+        if ("e".equals(command)) {
+            presenter.exitingToMainMenu();
+        } else {
+            try {
+                ArrayList<String> conferences = eventmanager.getAllConference();
+                while(conferences.contains(command)){
+                    presenter.defaultPrint("Conference exists, please re-enter a name.");
+                    command = reader.nextLine();
+                }
+                presenter.submenusInOrganizer("ConferencePrompt");
+                eventSystem.addingEvent(command);
+            } catch (Exception e){
+                presenter.printErrorMessage(e);
+            }
+        }
+    }
+
+    /*
      * This is a huge helper private method in order to print requests to user on the screen and let them choose.
      *
      * @param allRequests     this is a arraylist of list of strings which include title, content of requests.
@@ -194,7 +218,7 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    /**
+    /*
      * Show all requests in the system to organizer.
      */
     private void seeAllRequest() {
@@ -202,15 +226,15 @@ public class OrganizerSystem extends UserSystem {
         seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
-    /**
-     * Show all unsloved/pending requests in the system to organizer.
+    /*
+     * Show all unsolved/pending requests in the system to organizer.
      */
     private void seeUnsolvedRequest() {
         ArrayList<String[]> allRequests = requestmanager.getAllUnsolvedRequests();
         seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
-    /**
+    /*
      * Show all solved/addressed requests in the system to organizer.
      */
     private void seeSolvedRequest() {
@@ -218,7 +242,7 @@ public class OrganizerSystem extends UserSystem {
         seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
-    /**
+    /*
      * change the status of a request.
      *
      * @param title the title of a specific request.
@@ -303,7 +327,7 @@ public class OrganizerSystem extends UserSystem {
                 break;
             case "c":
                 presenter.titlesInSpeaker("AddEvents");
-                eventSystem.addingEvent();
+                eventSystem.addingEvent(conference);
                 reader.nextLine();
                 break;
             case "f":
@@ -519,7 +543,7 @@ public class OrganizerSystem extends UserSystem {
                     switch (command4) {
                         case "a":
                             presenter.titlesInSpeaker("AddEvents");
-                            eventSystem.addingEvent();
+                            eventSystem.addingEvent(conference);
                             presenter.continuePrompt();
                             reader.nextLine();
                             break;
@@ -529,7 +553,7 @@ public class OrganizerSystem extends UserSystem {
                         default:
                             eventSystem.showEvents(command4);
                             presenter.titlesInSpeaker("AddEvents");
-                            eventSystem.addingEvent();
+                            eventSystem.addingEvent(conference);
                             presenter.continuePrompt();
                             reader.nextLine();
                             break;
