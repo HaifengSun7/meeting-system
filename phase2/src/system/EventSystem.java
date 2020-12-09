@@ -208,7 +208,6 @@ public class EventSystem {
             for (int i = 0; i < allEvents.size(); i++) {
                 presenter.defaultPrint("[" + i + "]" + allEvents.get(i));
             }
-            System.out.println("That's all.");
         } catch (NoSuchConferenceException e) {
             presenter.printErrorMessage(e);
         }
