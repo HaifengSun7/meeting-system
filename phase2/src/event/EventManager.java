@@ -318,6 +318,12 @@ public class EventManager {
                             "You can't sign up this event!");
                 }
                 signUp(String.valueOf(eventNumber), username);
+            } else if (type.equals("VIP")) {
+                if (event_size >= maximumAttendee) {
+                    throw new EventIsFullException("Event: " + eventNumber + " is full of attendees! " +
+                            "You can't sign up this event!");
+                }
+                signUp(String.valueOf(eventNumber), username);
             } else {
                 throw new InvalidUserException("Invalid user type.");
             }
