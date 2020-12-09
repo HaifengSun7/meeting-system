@@ -398,10 +398,6 @@ public class EventManager {
         if (!map.containsKey(i)) {
             throw new NoSuchEventException("This event does not exist: id: " + eventId);
         }
-//        ArrayList<String> attendees = this.getAttendees(eventId);
-//        for(String a:attendees){
-//            this.signOut(eventId, a);
-//        }
         if (map.containsKey(Integer.parseInt(eventId))) {
             conferenceManager.cancelEvent(conferenceName, Integer.parseInt(eventId));
             map.remove(Integer.parseInt(eventId));
