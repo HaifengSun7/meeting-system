@@ -5,11 +5,9 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 - Group Members: Shaohong Chen, Dechen Han, Ruimin Mao, You Peng, Haifeng Sun, Wei Tao, Haoyang Wang, Jinyang Zhao
 
 - General Instructions:
-    - To run the program, please run >src >Main.java.
+    - To run the program, please run >phase 2 >src >Main.java.
     - Assumptions: All events (or “talks”) are 1 hour long, when adding events, please enter 1 when being asked for durations.
     - Meetings have to start after 9 a.m. and ends before 5 p.m., which means we need to start the latest meeting in a day before 4 p.m.
-    - No comma is allowed in event descriptions.
-    - No comma is allowed in usernames.
     - The UMLs in \phase1 folder are in the series of design.pdf. However, There are .uml and .png files with detailed filenames in \UMLs folder.
 
 - Some other info:
