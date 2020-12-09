@@ -167,6 +167,8 @@ public class AttendeeSystem extends UserSystem {
                     eventmanager.signOut(eventsList.get(Integer.parseInt(number)), myName);
                     usermanager.deleteSignedEvent(eventsList.get(Integer.parseInt(number)), myName);
                     presenter.success();
+                    presenter.continuePrompt();
+                    reader.nextLine();
                 } catch (InvalidActivityException | NoSuchEventException e) {
                     presenter.printErrorMessage(e); // This should never happen.
                 } catch (Exception e) {
