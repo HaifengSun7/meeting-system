@@ -121,6 +121,8 @@ public class AttendeeSystem extends UserSystem {
             }
             usermanager.addSignedEvent(example_list.get(Integer.parseInt(command)), myName);
             presenter.success();
+            presenter.continuePrompt();
+            reader.nextLine();
         } else {
             presenter.exitingToMainMenu();
         }
@@ -138,6 +140,8 @@ public class AttendeeSystem extends UserSystem {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
             presenter.noEvent();
+            presenter.continuePrompt();
+            reader.nextLine();
         } else {
             for (String s : eventsList) {
                 presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
