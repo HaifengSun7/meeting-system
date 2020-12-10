@@ -38,7 +38,7 @@ public class SpeakerSystem extends UserSystem {
                     usermanager.logout(myName);
                     break;
                 case "1":   //See the events that the speaker gave
-                    checkTalkedEvent();
+                    eventSystem.checkTalkedEvent();
                     continue;
                 case "2":   //See the messages that the speaker gave
                     messageSystem.getSentMessages();
@@ -91,20 +91,6 @@ public class SpeakerSystem extends UserSystem {
             break;
         }
         save();
-    }
-
-    /**
-     * Check the events that speaker gave.
-     */
-    protected void checkTalkedEvent() {
-        ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
-        for (String s : eventsList) {
-            if (eventmanager.getSpeakers(Integer.valueOf(s)).contains(myName)) {
-                System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
-            }
-        }
-        speakerPresenter.continuePrompt();
-        reader.nextLine();
     }
 
 }

@@ -30,6 +30,7 @@ public class MessageSystem {
         this.myName = myName;
         this.conference = conference;
     }
+
     /**
      * See the messages that the user got from other users.
      */
@@ -73,10 +74,10 @@ public class MessageSystem {
         reader.nextLine();
     }
 
-    /*
+    /**
      * Add all senders of the inbox messages to user's contact list.
      */
-    private void addAllToMessageList() {
+    protected void addAllToMessageList() {
         ArrayList<String> inboxSenders = messagemanager.getInboxSender(myName);
         for (String sender : inboxSenders) {
             usermanager.addContactList(sender, myName);
@@ -236,6 +237,9 @@ public class MessageSystem {
         }
     }
 
+    /**
+     * Send messages to everyone.
+     */
     protected void sendMessageToAll(String user) {
         ArrayList<String> receivers = new ArrayList<>();
         switch (user) {

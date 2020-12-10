@@ -3,6 +3,7 @@ package system;
 import event.EventManager;
 import event.exceptions.*;
 import presenter.Presenter;
+import presenter.SpeakerPresenter;
 import user.UserManager;
 
 import javax.activity.InvalidActivityException;
@@ -16,9 +17,11 @@ import java.util.Scanner;
 public class EventSystem {
     private final EventManager eventmanager;
     private final Presenter presenter;
+    private final SpeakerPresenter speakerPresenter;
     private final String conference;
     private final UserManager usermanager;
     protected Scanner reader = new Scanner(System.in);
+    private final String myName;
 
     /**
      * Initializes the event system, gets which event manager, user manager, conference that it controls.
@@ -27,11 +30,13 @@ public class EventSystem {
      * @param usermanager the user manager that the system controls.
      * @param conference the conference name of the chosen conference.
      */
-    public EventSystem(EventManager eventmanager, UserManager usermanager, String conference) {
+    public EventSystem(EventManager eventmanager, UserManager usermanager, String conference, String myName) {
         this.eventmanager = eventmanager;
         this.presenter = new Presenter();
+        this.speakerPresenter = new SpeakerPresenter();
         this.conference = conference;
         this.usermanager = usermanager;
+        this.myName = myName;
     }
 
     /**
@@ -229,5 +234,17 @@ public class EventSystem {
         }
     }
 
-
+    /**
+     * Check the events that speaker gave.
+     */
+    protected void checkTalkedEvent() {
+        ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
+        for (String s : eventsList) {
+            if (eventmanager.getSpeakers(Integer.valueOf(s)).contains(myName)) {
+                System.out.println(eventmanager.findEventStr(Integer.valueOf(s)));
+            }
+        }
+        speakerPresenter.continuePrompt();
+        reader.nextLine();
+    }
 }

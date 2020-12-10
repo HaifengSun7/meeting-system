@@ -38,7 +38,7 @@ public abstract class UserSystem {
         this.myName = myName;
         initializeManagers();
         this.conference = chooseConference();
-        this.eventSystem = new EventSystem(eventmanager, usermanager, conference);
+        this.eventSystem = new EventSystem(eventmanager, usermanager, conference, myName);
         this.requestSystem = new RequestSystem(requestmanager, myName);
         this.messageSystem = new MessageSystem(usermanager, eventmanager, messagemanager, myName, conference);
     }
