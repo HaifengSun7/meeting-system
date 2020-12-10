@@ -22,8 +22,8 @@ public class ManagerBuilder {
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
     private final RequestManager requestmanager;
+    private final LoadingPresenter lp = new LoadingPresenter();
     private Statement stmt;
-    private LoadingPresenter lp;
 
     /**
      * Construct the builder for managers.
@@ -141,8 +141,7 @@ public class ManagerBuilder {
             }
         } catch (SQLException e) {
             lp.badIndex("Room");
-        } catch (DuplicateRoomNumberException | WrongRoomSizeException e) {
-            //ignored, should never happen.
+        } catch (DuplicateRoomNumberException | WrongRoomSizeException ignored) {
         }
         String sql = "SELECT RoomNumber, MaxNumberOfSpeakers," +
                 " MaxNumberOfAttendees, StartTime, Duration," +
@@ -153,7 +152,7 @@ public class ManagerBuilder {
                         rs1.getInt("MaxNumberOfSpeakers"),
                         rs1.getInt("MaxNumberOfAttendees"),
                         Timestamp.valueOf(rs1.getString("StartTime")),
-                        rs1.getInt("Duration"),
+                        rs1.getFloat("Duration"),
                         rs1.getString("Description"),
                         String.valueOf(rs1.getBoolean("VIPS")),
                         rs1.getString("ConferenceName"));

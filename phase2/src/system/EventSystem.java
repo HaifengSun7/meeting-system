@@ -5,7 +5,6 @@ import event.exceptions.*;
 import presenter.Presenter;
 import presenter.SpeakerPresenter;
 import user.UserManager;
-
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -129,7 +128,8 @@ public class EventSystem {
         }
         try {
             presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conf);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Float.parseFloat(duration),
+                    description, vip, conf);
             presenter.success();
             presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |

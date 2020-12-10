@@ -26,10 +26,10 @@ public class MultiEvent extends Event {
 
     @Override
     public void setSpeaker(String u) throws TooManySpeakerException {
-        if (speakers.size() < max_speakers) {
+        if (speakers.size() < max_speakers & !speakers.contains(u)) {
             speakers.add(u);
         } else {
-            throw new TooManySpeakerException("Number of speakers exceeds maximum");
+            throw new TooManySpeakerException("Number of speakers exceeds maximum or speaker already exists.");
         }
         this.speakStatus = true;
     }
