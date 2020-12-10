@@ -52,16 +52,16 @@ public class OrganizerSystem extends UserSystem {
                     scheduleSpeakers();
                     continue;
                 case "4":
-                    sendMessageToSomeone();
+                    messageSystem.sendMessageFromOrganizerToSomeone();
                     continue;
                 case "5":
-                    sendMessageToAll("speaker");
+                    messageSystem.sendMessageToAll("speaker");
                     continue;
                 case "6":
-                    sendMessageToAll("attendee");
+                    messageSystem.sendMessageToAll("attendee");
                     continue;
                 case "7":
-                    seeMessages();
+                    messageSystem.seeMessages();
                     continue;
                 case "8":
                     createVIP();
@@ -85,19 +85,19 @@ public class OrganizerSystem extends UserSystem {
                     promoteVIPEvent();
                     continue;
                 case "15":
-                    markUnreadMessages();
+                    messageSystem.markUnreadMessages();
                     continue;
                 case "16":
-                    deleteMessage();
+                    messageSystem.deleteMessage();
                     continue;
                 case "17":
-                    archiveMessage();
+                    messageSystem.archiveMessage();
                     continue;
                 case "18":
-                    unArchiveMessage();
+                    messageSystem.unArchiveMessage();
                     continue;
                 case "19":
-                    seeArchivedMessage();
+                    messageSystem.seeArchivedMessage();
                     continue;
                 case "20":
                     createConference();
@@ -118,28 +118,6 @@ public class OrganizerSystem extends UserSystem {
             break;
         }
         save();
-    }
-
-    /**
-     * Send message to a specific person.
-     */
-    @Override
-    protected void sendMessageToSomeone() {
-        presenter.inputPrompt("receiver");
-        presenter.exitToMainMenuPrompt();
-        String target = reader.nextLine();
-        if ("e".equals(target)) {
-            presenter.exitingToMainMenu();
-        } else {
-            if (usermanager.getAllUsernames().contains(target)) {
-                presenter.inputPrompt("message");
-                String msg = reader.nextLine();
-                messagemanager.sendMessage(myName, target, msg);
-                presenter.success();
-            } else {
-                presenter.invalid("username");
-            }
-        }
     }
 
     private void createConference() {
@@ -245,23 +223,6 @@ public class OrganizerSystem extends UserSystem {
                 reader.nextLine();
                 break;
         }
-    }
-
-    private void sendMessageToAll(String user) {
-        ArrayList<String> receivers = new ArrayList<>();
-        switch (user) {
-            case "speaker":
-                receivers = usermanager.getSpeakers();
-                break;
-            case "attendee":
-                receivers = usermanager.getAttendees();
-                break;
-        }
-        presenter.inputPrompt("message");
-        String message = reader.nextLine();
-        messagemanager.sendToList(myName, receivers, message);
-        presenter.continuePrompt();
-
     }
 
     private void createSpeaker() {

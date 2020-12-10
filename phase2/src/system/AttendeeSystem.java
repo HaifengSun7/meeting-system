@@ -52,10 +52,10 @@ public class AttendeeSystem extends UserSystem {
                     cancelEnrollment();
                     continue;
                 case "4":
-                    sendMessageToSomeone();
+                    messageSystem.sendMessageToSomeone();
                     continue;
                 case "5":
-                    seeMessages();
+                    messageSystem.seeMessages();
                     continue;
                 case "6":
                     requestSystem.makeNewRequest();
@@ -67,19 +67,19 @@ public class AttendeeSystem extends UserSystem {
                     requestSystem.deleteRequests();
                     continue;
                 case "9":
-                    markUnreadMessages();
+                    messageSystem.markUnreadMessages();
                     continue;
                 case "10":
-                    deleteMessage();
+                    messageSystem.deleteMessage();
                     continue;
                 case "11":
-                    archiveMessage();
+                    messageSystem.archiveMessage();
                     continue;
                 case "12":
-                    unArchiveMessage();
+                    messageSystem.unArchiveMessage();
                     continue;
                 case "13":
-                    seeArchivedMessage();
+                    messageSystem.seeArchivedMessage();
                     continue;
                 case "save":
                     save();
