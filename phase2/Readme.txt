@@ -5,6 +5,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 - Group Members: Shaohong Chen, Dechen Han, Ruimin Mao, You Peng, Haifeng Sun, Wei Tao, Haoyang Wang, Jinyang Zhao
 
 - General Instructions:
+    - We are using JDK8 and a JDBC driver. Please follow the SetupGuide.txt
     - To run the program, please run >phase 2 >src >Main.java.
     - Assumptions: All events (or “talks”) are 1 hour long, when adding events, please enter 1 when being asked for durations.
     - Meetings have to start after 9 a.m. and ends before 5 p.m., which means we need to start the latest meeting in a day before 4 p.m.
