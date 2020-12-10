@@ -40,7 +40,7 @@ public class Write {
         this.eventmanager = eventManager;
         this.messagemanager = messageManager;
         this.requestmanager = requestmanager;
-        Connecting cct = new Connecting();
+        Connect cct = new Connect();
         this.conn = cct.run();
         try {
             this.stmt = conn.createStatement();

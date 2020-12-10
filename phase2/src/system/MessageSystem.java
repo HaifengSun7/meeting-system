@@ -89,7 +89,7 @@ public class MessageSystem {
      * Choose and mark a message as unread.
      */
     protected void markUnreadMessages() {
-        //addAllToMessageList(); //TODO: do we need this
+        addAllToMessageList(); // Yes. I think we do need this.
         ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
         presenter.inputPrompt("enter number in square bracket to mark message as read");
         for (int i = 0; i < unreadInbox.size(); i++) {

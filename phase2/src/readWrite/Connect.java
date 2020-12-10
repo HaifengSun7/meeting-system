@@ -8,14 +8,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Connect with the database.
+ * Connect to the database.
  */
-public class Connecting {
+public class Connect {
 
     private final LoadingPresenter lp = new LoadingPresenter();
 
     /**
-     * Start the connection.
+     * Generate the connection.
      */
     public Connection run() {
 
@@ -28,7 +28,6 @@ public class Connecting {
             // db parameters
             // create a connection to the database
             conn = DriverManager.getConnection(url);
-            lp.printLoad();
 
         } catch (SQLException e) {
             lp.printErrorMessage(e);
