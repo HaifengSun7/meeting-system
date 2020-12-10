@@ -29,7 +29,7 @@ public class ManagerBuilder {
      * Construct the builder for managers.
      */
     public ManagerBuilder() {
-        Connecting cct = new Connecting();
+        Connect cct = new Connect();
         Connection conn = cct.run();
         this.usermanager = new UserManager();
         this.eventmanager = new EventManager();
