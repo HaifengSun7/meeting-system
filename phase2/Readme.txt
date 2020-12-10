@@ -1,4 +1,4 @@
-CSC207H1F - Phase 1
+CSC207H1F - Phase 2
 
 WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 
@@ -7,8 +7,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 - General Instructions:
     - We are using JDK8 and a JDBC driver. Please follow the SetupGuide.txt
     - To run the program, please run >phase 2 >src >Main.java.
-    - Assumptions: All events (or “talks”) are 1 hour long, when adding events, please enter 1 when being asked for durations.
-    - Meetings have to start after 9 a.m. and ends before 5 p.m., which means we need to start the latest meeting in a day before 4 p.m.
+    - Meetings have to START after 9 a.m. and END before 5 p.m.
     - The UMLs in \phase1 folder are in the series of design.pdf. However, There are .uml and .png files with detailed filenames in \UMLs folder.
 
 - Some other info:
@@ -27,8 +26,8 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
     - For your ease, we have created some users, events, rooms and messages for testing.
     - Please keep in mind that logging in is case sensitive.
 
-Here is a list of users, rooms, events and messages that are stored in our .csv files.
-You can always access those through src > resources folder.
+Here is a list of users, rooms, events and messages that are stored in the database as default.
+You can always access the database.db file through src > resources folder.
 We strongly suggest not to change any of the files externally. The program always saves the file when an user logs off.
 
 Users:
