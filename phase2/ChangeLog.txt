@@ -49,7 +49,11 @@
 [ Version 2020.12.11.0326 by James ]
     - Theoretically finished everything.
     - Javadoc and UMLs completed
-    - Jar now inside phase 2 folder
     - Fixed some bugs
     - Completed readme, list of features
     - Pending: Explanation in design pattern
+
+[ Version 2020.12.11.0457 by James ]
+    - Technically finished everything.
+    - Javadoc and UMLs completed and checked
+    - Jar of SQLite now inside phase 2 folder

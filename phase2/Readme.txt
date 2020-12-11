@@ -7,7 +7,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 
 -Here is the guide to set up all required additional jdks.
     1, Go to https://github.com/xerial/sqlite-jdbc , Download the jar file of sqlite-jdbc.
-        (We also have a copy of that file in phase2\additionalJRE folder)
+        (We also have a copy of that file in <phase2\Additional files> folder)
     2, Put the jdk file into the folder where all other jdks are located.
         - This location can be found in File -> Project Settings -> SDKs.
         - Make sure the jre file is in the same folder as all other jres.
