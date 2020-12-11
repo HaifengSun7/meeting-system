@@ -21,8 +21,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
     - We are using JDK 8(From the link in quercus) and a JDBC driver of SQLite for the database.
     - To run the program, please run \phase 2\src\Main.java.
     - Meetings have to START after 9 a.m. and END before 5 p.m.
-    - The UMLs in \phase1 folder are in the series of design.pdf.
-    - However, There are .uml and .png files with detailed filenames in \UMLs folder.
+    - The UMLs in \phase2 folder are in the form of design.pdf.
 
 - Some other info:
     - All inputs are done through command line. They are all case specific.
