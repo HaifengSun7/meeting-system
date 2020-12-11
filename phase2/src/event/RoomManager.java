@@ -19,7 +19,7 @@ public class RoomManager {
     /**
      * Add a valid room to the conference.
      *
-     * @param roomNumber An int representing the room number
+     * @param roomNumber An int representing the room number.
      * @param size       An int representing the capacity of the room.
      * @throws DuplicateRoomNumberException when room number exists.
      * @throws WrongRoomSizeException when the room size is invalid.
@@ -37,6 +37,14 @@ public class RoomManager {
         rooms.add(n);
     }
 
+    /**
+     * Add an event to the room.
+     *
+     * @param roomNo Room number of the room that we want to add the event in.
+     * @param eventId Event id of the event we want to add.
+     * @param totalPeople total people of the event.
+     * @throws RoomIsFullException when the room is full.
+     */
     protected void addEvent(int roomNo, int eventId, int totalPeople) throws RoomIsFullException {
         for (Room r : rooms) {
             if (r.getRoomNumber() == roomNo) {
@@ -48,7 +56,11 @@ public class RoomManager {
             }
         }
     }
-
+    /**
+     * Remove an event from the room.
+     *
+     * @param id id of the event we want to remove.
+     */
     protected void remove(int id) {
         for (Room r : rooms) {
             if (r.getSchedule().contains(id)) {
