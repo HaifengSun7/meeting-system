@@ -1,0 +1,8 @@
+We've used Builder, Façade, Factory.
+
+Factory
+In EventManager, we create the eventFactory which can output different types of events.
+And we used that in method addUserToEvent, so whatever the user enters, we will create a correct event type.
+
+Façade
+Our UserSystem(and its subclasses) delegate the operations to EventManager, UserManager, MessageManager, and RequestManager.

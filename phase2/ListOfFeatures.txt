@@ -1,0 +1,21 @@
+Here is a list of features of our project Phase 2
+
+- All the mandatory features
+    1. The system now have Multi Event with multiple speakers, Single Event with only one speaker, and Party Event with no speaker.
+    2. Any Organizer may cancel events now.
+    3. The program now allows VIP users. They can be created by Organizers, and can be promoted from normal user.
+    4. Each event now has maximum number of speakers allowed, and maximum number of attendees allowed.
+
+- Optional features:
+    1. The program now allow organizers to create new conferences, and users need to choose which conference to go into when they log in.
+    2. The message now can be marked as unread, archived, or unarchived now. Users can also delete messages.
+    3. Users now can send requests to organizers, and any organizer may respond to the request.
+    4. The program now uses a database to store all the data.
+
+- Our own features:
+    1. Organizers can promote an Attendee to Speaker. More specifically:
+        * The Attendee will be signed out of all party events.
+        * They will be automatically signed out from all events that already have maximum amount of speakers.
+        * They will be added to the speaker list of all the rest of events that they signed up as Attendee.
+    2. We can change the status of an event between VIP only and non-VIP. More specifically:
+        * When an event is changed from non-VIP to VIP, non-VIP attendees signed up for the event will be kicked out.
