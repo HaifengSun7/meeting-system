@@ -412,7 +412,7 @@ public class EventManager {
     private boolean inOfficeHour(Timestamp time, float length) {
         Timestamp endTime = Timestamp.from(time.toInstant().plus((long) length, ChronoUnit.HOURS));
         String date = endTime.toString().substring(0,11);
-        Timestamp workingStart = Timestamp.valueOf(date+"09:00:01");
+        Timestamp workingStart = Timestamp.valueOf(date+"08:59:59");
         Timestamp workingEnd = Timestamp.valueOf(date+"17:00:01");
         return time.after(workingStart) && endTime.before(workingEnd);
     }
