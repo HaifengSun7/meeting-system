@@ -34,14 +34,25 @@ HOW: We have different controllers as "client", and the ManagerBuilder class as 
 
 - Strategy design pattern, in Event class
 
- WHY: Since we add different types of events based on the number of speakers, including party events (no-speaker event),
-      multi-speaker events, and single-speaker event. Different types of events have different algorithms. So we use
-      Strategy design pattern to separate various algorithms into different classes. It helps understand the structure
-      of implementation of event entity and follows the clean architecture, makes the code easy to extend.
- HOW: We implement a parent class called Event, and then implement three child classes including MultiEvent, PartyEvent,
-      and SingleEvent to extend parent class Event. Such that, Event class has the mutual methods that the other three
-      child classes are able to use them, and those three child classes have their own algorithms to define their own
-      features.
+WHY: Since we add different types of events based on the number of speakers, including party events (no-speaker event),
+     multi-speaker events, and single-speaker event. Different types of events have different algorithms. So we use
+     Strategy design pattern to separate various algorithms into different classes, rather than putting all of them in
+     one class. It helps understand the structure of implementation of event entity and follows the clean architecture,
+     makes the code easy to extend.
+HOW: We implement a parent class called Event, and then implement three child classes including MultiEvent, PartyEvent,
+     and SingleEvent to extend parent class Event. Such that, Event class has the mutual methods that the other three
+     child classes are able to access them, and those three child classes have their own algorithms to define their own
+     features.
+
+- Strategy design pattern, in User class
+
+WHY: Since we have multiple types of users, including organizer, speaker, attendee, and VIP attendee. Each of them have
+     different algorithms to define themselves. Thus, we use the Strategy design pattern to separate various algorithms
+     into different classes rather than gathering them in one class. It follows the clean architecture, and makes our code
+     clear to understand what kinds of user we have in our project, and also makes code easy to extend.
+HOW: We first implement a parent class called User, it includes all mutual methods that other types of users are able to
+     access them. And then we implement four child classes including Organizer, Speaker, Attendee and VIP. These four
+     child classes have their own methods to define themselves.
 
 - Why we not use Dependency Injection:
     We did not use Dependency Injection in RoomManager and ConferenceManager.
