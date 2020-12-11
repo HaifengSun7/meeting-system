@@ -29,6 +29,11 @@ public class Conference {
         this.events.add(eventID);
     }
 
+    /**
+     * Cancel an event.
+     *
+     * @param eventID the ID of the event.
+     */
     protected void cancelEvent(int eventID) {
         this.events.remove(events.indexOf(eventID));
     }
