@@ -32,6 +32,16 @@ HOW: We have different controllers as "client", and the ManagerBuilder class as 
      to initialize their required use case classes (EventManager, UserManager,...),
      which are then initialized in ManagerBuilder class.
 
+- Strategy design pattern, in Event class
+
+ WHY: Since we add different types of events based on the number of speakers, including party events (no-speaker event),
+      multi-speaker events, and single-speaker event. Different types of events have different algorithms. So we use
+      Strategy design pattern to separate various algorithms into different classes. It helps understand the structure
+      of implementation of event entity and follows the clean architecture, makes the code easy to extend.
+ HOW: We implement a parent class called Event, and then implement three child classes including MultiEvent, PartyEvent,
+      and SingleEvent to extend parent class Event. Such that, Event class has the mutual methods that the other three
+      child classes are able to use them, and those three child classes have their own algorithms to define their own
+      features.
 
 - Why we not use Dependency Injection:
     We did not use Dependency Injection in RoomManager and ConferenceManager.
