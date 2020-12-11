@@ -6,3 +6,16 @@ And we used that in method addUserToEvent, so whatever the user enters, we will 
 
 Façade
 Our UserSystem(and its subclasses) delegate the operations to EventManager, UserManager, MessageManager, and RequestManager.
+
+Builder
+in ManagerBuilder class.
+WHY:
+Considering future extension, adding new controllers and different use case classes will make the program huge, and can be slow to run.
+Thus, we use Builder class to initialize necessary use case classes only.
+It also helps to clean up some codes, made them clearer for understanding.
+HOW:
+We have different controllers as "client", and the ManagerBuilder class as a "builder".
+We made the "director" part within the controllers, since this part of code is very straight forward.
+For future extension. we may want to take these codes out and create a "director" class instead.
+When our program runs, controllers will ask the "director" (built in controllers right now) to initialize their required use case classes
+(EventManager, UserManager,...), which are then initialized in ManagerBuilder class.
