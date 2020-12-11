@@ -31,3 +31,10 @@ HOW: We have different controllers as "client", and the ManagerBuilder class as 
      When our program runs, controllers will ask the "director" (built in controllers right now),
      to initialize their required use case classes (EventManager, UserManager,...),
      which are then initialized in ManagerBuilder class.
+
+
+- Why we not use Dependency Injection:
+    We did not use Dependency Injection in RoomManager and ConferenceManager.
+    Instead of storing an Event with type event, we just store the id number with type int.
+    So we avoid interactions between two different Manager classes.
+    But if we do that, we will not able to apply Dependency Injection here, which requires us to store a special type.
