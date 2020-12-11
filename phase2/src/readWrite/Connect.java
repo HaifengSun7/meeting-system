@@ -25,7 +25,7 @@ public class Connect {
         File file = new File("src/resources/database.db");
         String url = file.getAbsolutePath();
         url = "jdbc:sqlite:" + url;
-
+        lp.defaultPrint("Making connection to Database.");
         try {
             conn = DriverManager.getConnection(url);
 
