@@ -1,21 +1,33 @@
-We've used Builder, Façade, Factory.
+We've used Builder, Façade, and Factory design patterns.
 
-Factory
-In EventManager, we create the eventFactory which can output different types of events.
-And we used that in method addUserToEvent, so whatever the user enters, we will create a correct event type.
+- Factory design pattern, in EventManager:
 
-Façade
-Our UserSystem(and its subclasses) delegate the operations to EventManager, UserManager, MessageManager, and RequestManager.
+WHY: We create the eventFactory to easily get different types of events,
+     according to the number of speakers and attendees the event has.
+HOW: We created a factory method inside EventManager,
+     we used that factory in method addUserToEvent.
+     So whatever the user enters, we will create a correct event type.
 
-Builder
-in ManagerBuilder class.
-WHY:
-Considering future extension, adding new controllers and different use case classes will make the program huge, and can be slow to run.
-Thus, we use Builder class to initialize necessary use case classes only.
-It also helps to clean up some codes, made them clearer for understanding.
-HOW:
-We have different controllers as "client", and the ManagerBuilder class as a "builder".
-We made the "director" part within the controllers, since this part of code is very straight forward.
-For future extension. we may want to take these codes out and create a "director" class instead.
-When our program runs, controllers will ask the "director" (built in controllers right now) to initialize their required use case classes
-(EventManager, UserManager,...), which are then initialized in ManagerBuilder class.
+
+
+- Façade design pattern, in different Managers:
+
+WHY: We need some information about some values inside the entities from other use cases,
+     which are not interacting with those entities directly. We need some facades to avoid breaking the clean architecture,
+How: we create modified Facade methods inside some Use Case classes.
+     Our UserSystem(and its subclasses) delegate the operations to EventManager, UserManager, MessageManager, and RequestManager.
+
+
+
+- Builder design pattern, in ManagerBuilder class.
+
+WHY: Considering future extension, adding new controllers and different use case classes will make the program huge,
+     and can be slow to run if it reads while proceeds information.
+     Thus, we use Builder class to initialize necessary use case classes only.
+     It also helps to clean up some codes, making them clearer for understanding.
+HOW: We have different controllers as "client", and the ManagerBuilder class as a "builder".
+     We made the "director" part within the controllers, since this part of code is very straight forward.
+     For future extension. we may want to take these codes out and create a "director" class instead.
+     When our program runs, controllers will ask the "director" (built in controllers right now),
+     to initialize their required use case classes (EventManager, UserManager,...),
+     which are then initialized in ManagerBuilder class.
