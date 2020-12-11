@@ -44,6 +44,13 @@ public class ConferenceManager {
         }
     }
 
+    /**
+     * Cancel an event.
+     *
+     * @param conferenceName the name of the conference.
+     * @param eventID        the id of the event.
+     * @throws NoSuchConferenceException when the conference name is not available.
+     */
     protected void cancelEvent(String conferenceName, int eventID) throws NoSuchConferenceException {
         try {
             map.get(conferenceName).cancelEvent(eventID);
