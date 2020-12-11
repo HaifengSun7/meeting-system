@@ -185,8 +185,8 @@ public class MessageManager {
      */
     public void unArchiveKth(String username, Integer k) {
         if (this.getArchivedMessages(username).get(k).getReceiver().equals(username)) {
-            this.getAllMessages(username).get(k).setReceiverArchiveStatus(false);
-        } else if (this.getAllMessages(username).get(k).getSender().equals(username)) {
+            this.getArchivedMessages(username).get(k).setReceiverArchiveStatus(false);
+        } else if (this.getArchivedMessages(username).get(k).getSender().equals(username)) {
             this.getArchivedMessages(username).get(k).setSenderArchiveStatus(false);
         }
     }

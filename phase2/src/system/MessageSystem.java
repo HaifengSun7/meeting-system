@@ -182,8 +182,7 @@ public class MessageSystem {
      */
     protected void unArchiveMessage() {
         ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
-        presenter.inputPrompt("enter number in square bracket to archive message." +
-                " Warning: you might archive message that you have archived");
+        presenter.inputPrompt("enter number in square bracket to unarchive message.");
         for (int i = 0; i < archivedInbox.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
         }
