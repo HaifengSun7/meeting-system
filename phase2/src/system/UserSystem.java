@@ -79,6 +79,7 @@ public abstract class UserSystem {
      * Save the current status of events, users, messages, and requests.
      */
     protected void save() {
+        presenter.defaultPrint("Saving files, please don't press anything until further instructions.");
         Write write = new Write(usermanager, eventmanager, messagemanager, requestmanager);
         write.run();
     }
