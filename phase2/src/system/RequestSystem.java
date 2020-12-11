@@ -12,6 +12,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The system that controls requests.
+ */
 public class RequestSystem {
     private final RequestManager requestmanager;
     private final Presenter presenter;
@@ -20,6 +23,12 @@ public class RequestSystem {
     protected Scanner reader = new Scanner(System.in);
     private final String myName;
 
+    /**
+     * Constructs the request system.
+     *
+     * @param requestmanager that contains all information about the sent requests.
+     * @param myName the username of the user logged in.
+     */
     public RequestSystem(RequestManager requestmanager, String myName) {
         this.requestmanager = requestmanager;
         this.presenter = new Presenter();
@@ -180,12 +189,10 @@ public class RequestSystem {
                 organizerPresenter.defaultPrint(allRequests.get(input.get())[1]);
                 changeRequestStatus(allRequests.get(input.get())[0]); // Include confirm of status change
             }
-//                presenter.inputPrompt("anythingToGoBack");
-//                reader.nextLine();
         }
     }
 
-    /*
+    /**
      * Show all requests in the system to organizer.
      */
     protected void seeAllRequest() {
@@ -193,7 +200,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * Show all unsolved/pending requests in the system to organizer.
      */
     protected void seeUnsolvedRequest() {
@@ -201,7 +208,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * Show all solved/addressed requests in the system to organizer.
      */
     protected void seeSolvedRequest() {
@@ -209,7 +216,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * change the status of a request.
      *
      * @param title the title of a specific request.

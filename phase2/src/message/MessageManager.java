@@ -278,13 +278,6 @@ public class MessageManager {
         return message.getID();
     }
 
-
-    /*
-     * Get the inbox messages of the user.
-     *
-     * @param username The username of the user that we are looking for.
-     * @return The list of unread messages, in form of a list of Messages.
-     */
     private ArrayList<Message> getUnreadMessages(String username) {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
@@ -295,12 +288,6 @@ public class MessageManager {
         return rtn_list;
     }
 
-    /*
-     * Get the all messages archived by the user.
-     *
-     * @param username The username of the user that we are looking for.
-     * @return The list of archived messages, in form of a list of Messages.
-     */
     private ArrayList<Message> getArchivedMessages(String username) {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {
@@ -317,12 +304,6 @@ public class MessageManager {
         return rtn_list;
     }
 
-    /*
-     * Get the all messages sent or received by the user.
-     *
-     * @param username The username of the user that we are looking for.
-     * @return The list of deleted messages, in form of a list of Messages.
-     */
     private ArrayList<Message> getAllMessages(String username) {
         ArrayList<Message> rtn_list = new ArrayList<>();
         for (Message msg : this.map.values()) {

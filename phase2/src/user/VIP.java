@@ -1,5 +1,8 @@
 package user;
 
+/**
+ * The VIP class, representing a VIP attendee.
+ */
 public class VIP extends Attendee {
     /**
      * Constructor for an Attendee object.

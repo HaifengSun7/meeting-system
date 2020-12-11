@@ -157,8 +157,6 @@ public class RequestManager {
         userRequestMapping.get(username).remove(request);
     }
 
-    //Do not change the following method. Contact Haifeng for any modification.
-
     /**
      * Return all requests, with format as follows:
      *
@@ -188,9 +186,4 @@ public class RequestManager {
         userRequestMapping.get(username).add(request);
         titleRequestMapping.put(title, request);
     }
-
-//    private void recallRequest(String username, String title, Request request){
-//            titleRequestMapping.remove(title);
-//            userRequestMapping.get(username).remove(request);
-//    }
 }

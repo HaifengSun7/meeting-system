@@ -10,6 +10,9 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The system controlling messages.
+ */
 public class MessageSystem {
     private final MessageManager messagemanager;
     private final EventManager eventmanager;
@@ -20,7 +23,15 @@ public class MessageSystem {
     private final String myName;
     private final String conference;
 
-
+    /**
+     * Constructs the system.
+     *
+     * @param usermanager the userManager created when the user logged in.
+     * @param eventmanager the eventManager created when the user logged in.
+     * @param messagemanager the messageManager created when the user logged in.
+     * @param myName the userName of the user logged in.
+     * @param conference the conference the user chooses.
+     */
     public MessageSystem(UserManager usermanager, EventManager eventmanager, MessageManager messagemanager, String myName, String conference) {
         this.messagemanager = messagemanager;
         this.usermanager = usermanager;
@@ -295,15 +306,6 @@ public class MessageSystem {
         }
     }
 
-    private void ShowAllEvents() throws NoSuchConferenceException {
-        ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
-        for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                speakerPresenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-            }
-        }
-    }
-
     /**
      * Send messages to all attendees in a particular event.
      */
@@ -383,6 +385,15 @@ public class MessageSystem {
         }
         speakerPresenter.continuePrompt();
         reader.nextLine();
+    }
+
+    private void ShowAllEvents() throws NoSuchConferenceException {
+        ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+        for (int i = 0; i < allEvents.size(); i++) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
+                speakerPresenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+        }
     }
 }
 

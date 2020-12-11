@@ -57,6 +57,11 @@ public abstract class UserSystem {
         requestmanager = read.getRequestManager();
     }
 
+    /**
+     * Do the things required to choose the conference.
+     *
+     * @return the chosen conference name.
+     */
     protected String chooseConference() {
         presenter.conferenceChoose();
         ArrayList<String> conferenceList = eventmanager.getAllConference();

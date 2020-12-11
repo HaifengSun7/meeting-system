@@ -167,6 +167,11 @@ public class Message {
         return "Message To: " + this.receiver + ". From: " + this.sender + ". Text: " + this.text;
     }
 
+    /**
+     * Return all status of the message.
+     *
+     * @return An arraylist containing unread, sender and receiver delete/archive status.
+     */
     public ArrayList<String> getAllStatus() {
         ArrayList<String> allStatus = new ArrayList<>();
         allStatus.add(String.valueOf(getUnReadStatus()));

@@ -1,11 +1,9 @@
 package system;
 
 import presenter.SpeakerPresenter;
-import java.util.ArrayList;
 
 /**
- * <h1>Speaker System</h1>
- * The SpeakerSystem program implements the system of Speaker user.
+ * The SpeakerSystem program implements the system of Speaker user. Extends from UserSystem
  */
 public class SpeakerSystem extends UserSystem {
 

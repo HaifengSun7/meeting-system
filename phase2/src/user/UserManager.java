@@ -97,16 +97,6 @@ public class UserManager {
         return userMapping.get(username).getContactList();
     }
 
-/*    /**
-     * Get a new user's status
-     * @param username: a User's username in string.
-     * @return User's status in boolean.
-     * /
-    public boolean getStatus(String username) {
-        return userMapping.get(username).getStatus();
-    }
-*/
-
     /**
      * Get a new user's password
      *
@@ -187,6 +177,12 @@ public class UserManager {
         }
     }
 
+    /**
+     * Make an attendee a VIP.
+     *
+     * @param attendeeName the attendee that we are going to promote.
+     * @throws NoSuchUserException When the input attendee Name is not a valid username.
+     */
     public void becomeVIP(String attendeeName) throws NoSuchUserException {
         if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("User " + attendeeName + " does not exist.");

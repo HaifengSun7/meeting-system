@@ -121,10 +121,20 @@ public abstract class Event {
         this.description = description;
     }
 
+    /**
+     * Returns if the event is VIP only.
+     *
+     * @return boolean representing if this is VIP only.
+     */
     public boolean getVip() {
         return vip;
     }
 
+    /**
+     * Sets whether the event is VIP-only.
+     *
+     * @param vip_status true for VIP only, false for non-VIP.
+     */
     public void setVip(boolean vip_status) {
         vip = vip_status;
     }

@@ -8,6 +8,9 @@ import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The manager of rooms.
+ */
 public class RoomManager {
 
     private final ArrayList<Room> rooms;

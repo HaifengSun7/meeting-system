@@ -71,7 +71,7 @@ public class Write {
             stmt.execute("DELETE FROM room");
             stmt.execute("DELETE FROM signedUp");
         } catch (SQLException e) {
-            //
+            e.printStackTrace();
         }
     }
 

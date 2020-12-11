@@ -11,8 +11,7 @@ import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 
 /**
- * <h1>Organizer System</h1>
- * The OrganizerSystem program implements the system of Organizer user.
+ * The OrganizerSystem program implements the text interface of Organizer user. Extends from UserSystem
  */
 public class OrganizerSystem extends UserSystem {
 
