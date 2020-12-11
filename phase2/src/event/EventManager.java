@@ -29,7 +29,9 @@ public class EventManager {
     /**
      * Return all events in an ArrayList of Strings.
      *
+     * @param conference The name of the conference we are checking.
      * @return all events. Index = event number.
+     * @throws NoSuchConferenceException when there is no conference with given name.
      */
     public ArrayList<String> getAllEvents(String conference) throws NoSuchConferenceException {
         ArrayList<Integer> eventIDs = conferenceManager.getEventOfConference(conference);
@@ -164,6 +166,11 @@ public class EventManager {
         return map.get(event).getDescription();
     }
 
+    /**
+     * Get all the existing rooms in string.
+     *
+     * @return A list of string containing all room information.
+     */
     public ArrayList<String> getAllRooms() {
         return roomManager.getAllRooms();
     }
@@ -172,6 +179,7 @@ public class EventManager {
      * Get the events that the attendee can sign up.
      *
      * @param attendee the attendee's username.
+     * @param conference the name of the conference we are checking.
      * @return the array list containing all events in string, that the attendee can sign up.
      */
     public ArrayList<String> canSignUp(String attendee, String conference) {
@@ -192,6 +200,8 @@ public class EventManager {
      * Return a list of Events.toString() that attendee can sign up for.
      *
      * @param attendee Attendee, but string.
+     * @param vip if the attendee is vip.
+     * @param conference the name of the conference.
      * @return a list of Event ids in String that attendee can sign up for.
      */
     public ArrayList<String> canSignUp(String attendee, boolean vip, String conference) {
@@ -216,6 +226,7 @@ public class EventManager {
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
      * @throws DuplicateRoomNumberException when room number exists.
+     * @throws WrongRoomSizeException when the room size is not applicable.
      */
     public void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException, WrongRoomSizeException {
         roomManager.addRoom(roomNumber, size);
@@ -235,10 +246,11 @@ public class EventManager {
      * Make attendee a speaker by updating all events related with them.
      * Tips:
      * 1. scan all events with attendee.
-     * 2. See if there is an speaker. If there is one already, We skip the event.
+     * 2. See if the number of speakers reach maximum. If it does, the user signs out from the event.
      * 3. make attendee speaker of all the rest of events.
      *
      * @param attendee Attendee but string.
+     * @throws TooManySpeakerException when there are too many speakers in one or more of all the events that user signs up to.
      */
     public void becomeSpeaker(String attendee) throws TooManySpeakerException {
         ArrayList<Event> events = new ArrayList<>(this.map.values());
@@ -249,7 +261,14 @@ public class EventManager {
             }
         }
         for (Event j : attended) {
-            j.setSpeaker(attendee);
+            try{
+                signOut(String.valueOf(j.getId()),attendee);
+                if ((!j.getType().equals("Party")) && j.getSpeakers().size() < j.getMaximumSpeaker()){
+                    addUserToEvent("Speaker", attendee, j.getId());
+                }
+            } catch (InvalidActivityException | NoSuchEventException |
+                    InvalidUserException | EventIsFullException ignored) {
+            }
         }
     }
 
@@ -258,6 +277,7 @@ public class EventManager {
      *
      * @param eventId The event we are setting.
      * @param vip     if the event is VIP event.
+     * @throws NoSuchEventException when there is no event with the given eventId.
      */
     public void switchVipEvent(String eventId, boolean vip) throws NoSuchEventException {
         if (map.containsKey(Integer.parseInt(eventId))) {
@@ -276,6 +296,7 @@ public class EventManager {
      * @throws InvalidUserException if input type is "Organizer".
      * @throws NoSuchEventException if event corresponding to the input eventNumber does not exist.
      * @throws EventIsFullException if event is full.
+     * @throws TooManySpeakerException if event already has maximum number of speakers.
      */
     public void addUserToEvent(String type, String username, int eventNumber) throws NoSuchEventException,
             InvalidUserException, EventIsFullException, TooManySpeakerException {
@@ -301,10 +322,12 @@ public class EventManager {
     /**
      * set the maximum number of people in the selected event.
      *
+     * @param roomNumber the room number of the event.
      * @param newMaximum  the new maximum number of people.
      * @param eventNumber the event number of the selected event.
      * @throws NoSuchEventException         if event corresponding to the input eventNumber does not exist.
      * @throws InvalidNewMaxNumberException if the new maximum number of the event is less than the existing attendees in that event
+     * @throws InvalidActivityException if there is no such room.
      */
     public void setMaximumPeople(int roomNumber, int newMaximum, int eventNumber) throws NoSuchEventException,
             InvalidNewMaxNumberException, InvalidActivityException {
@@ -326,13 +349,18 @@ public class EventManager {
      * Create and add a event.
      *
      * @param roomNo:        room number.
+     * @param numSpeakers the maximum number of speakers in the event.
+     * @param numAttendees the maximum number of attendees of event.
      * @param time:          time the meeting begins.
      * @param meetingLength: time length of the event.
      * @param description:   description of event
      * @param vip:           whether the event is for VIP only.
+     * @param conferenceName The name of the conference.
      * @throws NotInOfficeHourException  if time out of working hour.
      * @throws TimeNotAvailableException if time is not available.
      * @throws InvalidActivityException  if there's no such room.
+     * @throws RoomIsFullException if room is full.
+     * @throws NoSuchConferenceException if there is not a conference with given conference name.
      */
     public void addEvent(String roomNo, int numSpeakers, int numAttendees, Timestamp time, float meetingLength,
                          String description, String vip, String conferenceName)
@@ -363,9 +391,12 @@ public class EventManager {
      * Cancel the certain Event.
      *
      * @param eventId: the id of the event in string.
+     * @param conferenceName the name of the conference we are checking.
      * @throws NoSuchEventException if cannot find event with given eventId.
+     * @throws NoSuchConferenceException if cannot find the conference with given name.
      */
-    public void cancelEvent(String eventId, String conferenceName) throws NoSuchEventException, NoSuchConferenceException {
+    public void cancelEvent(String eventId, String conferenceName) throws NoSuchEventException,
+            NoSuchConferenceException {
         Integer i = Integer.parseInt(eventId);
         if (!map.containsKey(i)) {
             throw new NoSuchEventException("This event does not exist: id: " + eventId);
