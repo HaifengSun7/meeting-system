@@ -22,6 +22,7 @@ public class RoomManager {
      * @param roomNumber An int representing the room number
      * @param size       An int representing the capacity of the room.
      * @throws DuplicateRoomNumberException when room number exists.
+     * @throws WrongRoomSizeException when the room size is invalid.
      */
     protected void addRoom(int roomNumber, int size) throws DuplicateRoomNumberException, WrongRoomSizeException {
         if (size <= 0) {

@@ -45,3 +45,11 @@
     - 90% finished message manager
     - Most requests are done
     - Added Javadoc for most public and protected methods
+
+[ Version 2020.12.11.0326 by James ]
+    - Theoretically finished everything.
+    - Javadoc and UMLs completed
+    - Jar now inside phase 2 folder
+    - Fixed some bugs
+    - Completed readme, list of features
+    - Pending: Explanation in design pattern

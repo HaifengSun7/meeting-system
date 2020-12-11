@@ -170,7 +170,6 @@ public class UserManager {
      * @throws InvalidUsernameException   throw an exception when necessary.
      * @throws DuplicateUserNameException throw an exception when necessary.
      */
-    //* @return a list of signed event list of this attendee in string.
     public void becomeSpeaker(String attendeeName) throws NoSuchUserException, InvalidUsernameException, DuplicateUserNameException {
         if (!userMapping.containsKey(attendeeName)) {
             throw new NoSuchUserException("This user does not exist: " + attendeeName);
@@ -185,7 +184,6 @@ public class UserManager {
             speaker.setContactList(contactList);
             speaker.setStatus(status);
             speaker.setSignedEvent(signedEvent);
-            //return signedEvent;
         }
     }
 

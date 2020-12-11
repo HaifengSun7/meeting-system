@@ -90,9 +90,15 @@ public abstract class Event {
      * Set Speaker to the event.
      *
      * @param u: Speaker's name.
+     * @throws TooManySpeakerException when the number of speaker exceeds maximum.
      */
     public abstract void setSpeaker(String u) throws TooManySpeakerException;
 
+    /**
+     * Get the type of event.
+     *
+     * @return the type of the Event in string.
+     */
     public String getType() {
         return type;
     }

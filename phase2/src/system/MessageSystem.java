@@ -238,6 +238,8 @@ public class MessageSystem {
 
     /**
      * Send messages to everyone.
+     *
+     * @param user The type of user that the message is sent to.
      */
     protected void sendMessageToAll(String user) {
         ArrayList<String> receivers = new ArrayList<>();

@@ -91,6 +91,7 @@ public class MessageManager {
      * Read messages.
      *
      * @param username the username we need to change its message status
+     * @throws NoSuchMessageException when the message does not exist.
      */
     public void markAllAsRead(String username) throws NoSuchMessageException {
         try {

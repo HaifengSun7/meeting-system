@@ -28,6 +28,7 @@ public class EventSystem {
      * @param eventmanager the event manager that the system controls.
      * @param usermanager the user manager that the system controls.
      * @param conference the conference name of the chosen conference.
+     * @param myName the name of the user logged in.
      */
     public EventSystem(EventManager eventmanager, UserManager usermanager, String conference, String myName) {
         this.eventmanager = eventmanager;
@@ -83,6 +84,8 @@ public class EventSystem {
 
     /**
      * The action of adding an Event, with info from inputs.
+     *
+     * @param conf the name of the conference chosen.
      */
     protected void addingEvent(String conf) {
 

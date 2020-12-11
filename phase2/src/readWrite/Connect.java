@@ -16,6 +16,8 @@ public class Connect {
 
     /**
      * Generate the connection.
+     *
+     * @return a Connection object that connects the program gateway with builder.
      */
     public Connection run() {
 
@@ -25,8 +27,6 @@ public class Connect {
         url = "jdbc:sqlite:" + url;
 
         try {
-            // db parameters
-            // create a connection to the database
             conn = DriverManager.getConnection(url);
 
         } catch (SQLException e) {

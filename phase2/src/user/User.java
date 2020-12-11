@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The Abstract class representing all users.
  */
-public abstract class User {
+public abstract class  User{
     protected String username;
     protected String password;
     protected String usertype = "attendee";

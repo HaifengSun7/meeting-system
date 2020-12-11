@@ -79,25 +79,6 @@ public class RequestSystem {
     }
 
     /**
-     * This is a protected helper function.
-     * Help to print out a list of requests regardless what type of requests list contained.
-     * Print a request list include all requests from one particular person.
-     */
-    protected void printRequests(ArrayList<String[]> requestList) { //Helper function
-        for (int i = 0; i < requestList.size(); i++) {
-            String requestTitle = requestList.get(i)[0];
-            String status;
-            if (requestmanager.getRequestStatus(requestTitle)) {
-                status = "[Status: Addressed] ";
-            } else {
-                status = "[Status: Pending]   ";
-            }
-            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
-        }
-        presenter.exitToMainMenuPrompt();
-    }
-
-    /**
      * This method can delete requests from one user.
      */
     protected void deleteRequests() {
@@ -144,13 +125,20 @@ public class RequestSystem {
         }
     }
 
-    /*
-     * This is a huge helper private method in order to print requests to user on the screen and let them choose.
-     *
-     * @param allRequests     this is a arraylist of list of strings which include title, content of requests.
-     * @param presenterString cause this method may print our different requests depends on different input,
-     *                        so we need to input the message we are going to tell presenter.
-     */
+    private void printRequests(ArrayList<String[]> requestList) {
+        for (int i = 0; i < requestList.size(); i++) {
+            String requestTitle = requestList.get(i)[0];
+            String status;
+            if (requestmanager.getRequestStatus(requestTitle)) {
+                status = "[Status: Addressed] ";
+            } else {
+                status = "[Status: Pending]   ";
+            }
+            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
+        }
+        presenter.exitToMainMenuPrompt();
+    }
+
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
         if (allRequests.size() == 0) {
             organizerPresenter.submenusInOrganizer("NoRequestsInSystem");

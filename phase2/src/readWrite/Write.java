@@ -30,9 +30,10 @@ public class Write {
     /**
      * Constructor of Write.
      *
-     * @param userManager    an UserManager.
+     * @param userManager    a UserManager.
      * @param eventManager   an EventManager.
-     * @param messageManager an MessageManager.
+     * @param messageManager a MessageManager.
+     * @param requestmanager a RequestManager
      */
     public Write(UserManager userManager, EventManager eventManager,
                  MessageManager messageManager, RequestManager requestmanager) {
