@@ -1,4 +1,4 @@
-We've used Builder, Façade, and Factory design patterns.
+We've used Builder, Façade, Strategy, and Factory design patterns.
 
 - Factory design pattern, in EventManager:
 
