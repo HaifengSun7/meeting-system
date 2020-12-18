@@ -25,7 +25,7 @@ WELCOME TO THE CONFERENCE SYSTEM PROGRAM OF GROUP_0229!
 
 - Some other info:
     - All inputs are done through command line. They are all case specific.
-    - Please do not enter "Enter" to fast after each input.
+    - Please do not enter "Enter" too fast after each input.
     - Usually, commands are surrounded by square brackets.
         For example, “Input [e] to quit the system” requires the user to input “e” and press enter to send the line.
         “[3] Send a message” requires the user to input “3” and press enter to send the line. Most inputs in the menus are done this way.
