@@ -30,9 +30,10 @@ public class Write {
     /**
      * Constructor of Write.
      *
-     * @param userManager    an UserManager.
+     * @param userManager    a UserManager.
      * @param eventManager   an EventManager.
-     * @param messageManager an MessageManager.
+     * @param messageManager a MessageManager.
+     * @param requestmanager a RequestManager
      */
     public Write(UserManager userManager, EventManager eventManager,
                  MessageManager messageManager, RequestManager requestmanager) {
@@ -40,7 +41,7 @@ public class Write {
         this.eventmanager = eventManager;
         this.messagemanager = messageManager;
         this.requestmanager = requestmanager;
-        Connecting cct = new Connecting();
+        Connect cct = new Connect();
         this.conn = cct.run();
         try {
             this.stmt = conn.createStatement();
@@ -70,7 +71,7 @@ public class Write {
             stmt.execute("DELETE FROM room");
             stmt.execute("DELETE FROM signedUp");
         } catch (SQLException e) {
-            //
+            e.printStackTrace();
         }
     }
 

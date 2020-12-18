@@ -10,8 +10,7 @@ import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 
 /**
- * <h1>Attendee System</h1>
- * The AttendeeSystem program implements the system of Attendee user.
+ * The AttendeeSystem program implements the text interface of Attendee user. Extends UserSystem.
  */
 public class AttendeeSystem extends UserSystem {
 
@@ -140,15 +139,13 @@ public class AttendeeSystem extends UserSystem {
         ArrayList<String> eventsList = usermanager.getSignedEventList(myName);
         if (eventsList.size() == 0) {
             presenter.noEvent();
-            presenter.continuePrompt();
-            reader.nextLine();
         } else {
             for (String s : eventsList) {
                 presenter.defaultPrint(eventmanager.findEventStr(Integer.valueOf(s)));
             }
-            presenter.continuePrompt();
-            reader.nextLine();
         }
+        presenter.continuePrompt();
+        reader.nextLine();
     }
 
     private void cancelEnrollment() {

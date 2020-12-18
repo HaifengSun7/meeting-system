@@ -22,14 +22,14 @@ public class ManagerBuilder {
     private final EventManager eventmanager;
     private final MessageManager messagemanager;
     private final RequestManager requestmanager;
+    private final LoadingPresenter lp = new LoadingPresenter();
     private Statement stmt;
-    private LoadingPresenter lp;
 
     /**
      * Construct the builder for managers.
      */
     public ManagerBuilder() {
-        Connecting cct = new Connecting();
+        Connect cct = new Connect();
         Connection conn = cct.run();
         this.usermanager = new UserManager();
         this.eventmanager = new EventManager();
@@ -98,10 +98,8 @@ public class ManagerBuilder {
 
         } catch (SQLException e) {
             lp.badIndex("User");
-        } catch (InvalidUsernameException | DuplicateUserNameException e) {
-            // ignored. should never happen.
+        } catch (InvalidUsernameException | DuplicateUserNameException ignored) {
         }
-        // Create User Accounts
         String sql2 = "SELECT Username, CanSendMessageTo FROM messageList";
         try (ResultSet rs2 = stmt.executeQuery(sql2)) {
             while (rs2.next()) {
@@ -111,9 +109,6 @@ public class ManagerBuilder {
         } catch (SQLException e) {
             lp.badIndex("Contact (Message List)");
         }
-        // Create Message List
-        // IMPORTANT: BY DEFAULT, THE EVENT IDs ARE (ASSUMED) CORRECT.
-        // IF ANYTHING WENT WRONG, PLEASE TAKE A LOOK AT THE FOLLOWING LINES.
     }
 
     private void signedUpInitialize() {
@@ -141,8 +136,7 @@ public class ManagerBuilder {
             }
         } catch (SQLException e) {
             lp.badIndex("Room");
-        } catch (DuplicateRoomNumberException | WrongRoomSizeException e) {
-            //ignored, should never happen.
+        } catch (DuplicateRoomNumberException | WrongRoomSizeException ignored) {
         }
         String sql = "SELECT RoomNumber, MaxNumberOfSpeakers," +
                 " MaxNumberOfAttendees, StartTime, Duration," +
@@ -153,7 +147,7 @@ public class ManagerBuilder {
                         rs1.getInt("MaxNumberOfSpeakers"),
                         rs1.getInt("MaxNumberOfAttendees"),
                         Timestamp.valueOf(rs1.getString("StartTime")),
-                        rs1.getInt("Duration"),
+                        rs1.getFloat("Duration"),
                         rs1.getString("Description"),
                         String.valueOf(rs1.getBoolean("VIPS")),
                         rs1.getString("ConferenceName"));
@@ -161,8 +155,7 @@ public class ManagerBuilder {
         } catch (SQLException e) {
             lp.badIndex("Event");
         } catch (Exception e) {
-            //ignored, should never happen
-            System.out.println(e.getMessage());
+            lp.printErrorMessage(e);
         }
     }
 

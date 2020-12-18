@@ -30,9 +30,8 @@ public abstract class Event {
      * @param time: The time the meeting begins.
      */
     public Event(Timestamp time) {
-        //The input time needs to be in the form of 05:00, which means with length 5.
         this.time = time;
-        this.id = eventNumber; //To be used in other useCases and entities.
+        this.id = eventNumber;
         eventNumber += 1;
         this.user_list = new ArrayList<>();
     }
@@ -80,14 +79,6 @@ public abstract class Event {
         return speakStatus;
     }
 
-    //   /**
-    //    * Remove Speaker from the event.
-    //    */
-    //   public void removeSpeaker() {
-    //       this.speaker = null;
-    //       this.speakStatus = false;
-    //   }
-
     /**
      * Get the name of the Speaker.
      *
@@ -99,9 +90,15 @@ public abstract class Event {
      * Set Speaker to the event.
      *
      * @param u: Speaker's name.
+     * @throws TooManySpeakerException when the number of speaker exceeds maximum.
      */
     public abstract void setSpeaker(String u) throws TooManySpeakerException;
 
+    /**
+     * Get the type of event.
+     *
+     * @return the type of the Event in string.
+     */
     public String getType() {
         return type;
     }
@@ -124,10 +121,20 @@ public abstract class Event {
         this.description = description;
     }
 
+    /**
+     * Returns if the event is VIP only.
+     *
+     * @return boolean representing if this is VIP only.
+     */
     public boolean getVip() {
         return vip;
     }
 
+    /**
+     * Sets whether the event is VIP-only.
+     *
+     * @param vip_status true for VIP only, false for non-VIP.
+     */
     public void setVip(boolean vip_status) {
         vip = vip_status;
     }
@@ -150,7 +157,13 @@ public abstract class Event {
         } else {
             sub = "null";
         }
-        return "Event {" + "Id: " + this.getId() +
+        String output_id;
+        if (this.id <10){
+            output_id = "0"+ this.id;
+        } else {
+            output_id = String.valueOf(this.id);
+        }
+        return "Event {" + "Id: " + output_id +
                 ", Type:" + this.type +
                 ", Description: " + this.description +
                 ", Time: " + t +
@@ -170,14 +183,12 @@ public abstract class Event {
     }
 
     /**
-     * Get the hour of the event time, in 24 hours, in int.
+     * Get the time of the event.
      *
-     * @return the hour part of the time, in int.
+     * @return the time of event, in form: "yyyy-mm-dd hr:mm:ss.f"
      */
     public String getTime() {
-        //String t = this.time.toString();
-        //return "The meeting will begin on:"+t+".";
-        return this.time.toString(); //For Write.
+        return this.time.toString();
     }
 
     /**
@@ -189,13 +200,6 @@ public abstract class Event {
         return length;
     }
 
-    //   /**
-    //    * @param n: The wanted length of the Event.
-    //    */
-    //   public void setMeetingLength(int n) {
-    //       this.length = n;
-    //   }
-
     /**
      * Check if the event contradicts the other event in time.
      *
@@ -203,7 +207,7 @@ public abstract class Event {
      * @param length: The length of the event.
      * @return A boolean showing if the two events contradicts. true for contradict.
      */
-    public boolean contradicts(Timestamp start, int length) {
+    public boolean contradicts(Timestamp start, float length) {
         if (this.time.compareTo(start) == 0) {
             return true;
         }
@@ -216,17 +220,6 @@ public abstract class Event {
             return length > diff_h;
         }
     }
-
-    /*
-     * Get the length of the event.
-     *
-     * @return the length of the event.
-     */
-    /*
-    private int getLength() {
-        return this.length;
-    }
-    */
 
     /**
      * get the maximum number of people in the event.
@@ -246,5 +239,10 @@ public abstract class Event {
         this.maximumPeople = number;
     }
 
+    /**
+     * Get the maximum number of speakers.
+     *
+     * @return the number of speakers in int.
+     */
     public abstract int getMaximumSpeaker();
 }

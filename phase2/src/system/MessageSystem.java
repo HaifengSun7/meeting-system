@@ -10,6 +10,9 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The system controlling messages.
+ */
 public class MessageSystem {
     private final MessageManager messagemanager;
     private final EventManager eventmanager;
@@ -20,7 +23,15 @@ public class MessageSystem {
     private final String myName;
     private final String conference;
 
-
+    /**
+     * Constructs the system.
+     *
+     * @param usermanager the userManager created when the user logged in.
+     * @param eventmanager the eventManager created when the user logged in.
+     * @param messagemanager the messageManager created when the user logged in.
+     * @param myName the userName of the user logged in.
+     * @param conference the conference the user chooses.
+     */
     public MessageSystem(UserManager usermanager, EventManager eventmanager, MessageManager messagemanager, String myName, String conference) {
         this.messagemanager = messagemanager;
         this.usermanager = usermanager;
@@ -89,7 +100,7 @@ public class MessageSystem {
      * Choose and mark a message as unread.
      */
     protected void markUnreadMessages() {
-        //addAllToMessageList(); //TODO: do we need this
+        addAllToMessageList(); // Yes. I think we do need this.
         ArrayList<String> unreadInbox = messagemanager.getUnread(myName);
         presenter.inputPrompt("enter number in square bracket to mark message as read");
         for (int i = 0; i < unreadInbox.size(); i++) {
@@ -182,8 +193,7 @@ public class MessageSystem {
      */
     protected void unArchiveMessage() {
         ArrayList<String> archivedInbox = messagemanager.getArchived(myName);
-        presenter.inputPrompt("enter number in square bracket to archive message." +
-                " Warning: you might archive message that you have archived");
+        presenter.inputPrompt("enter number in square bracket to unarchive message.");
         for (int i = 0; i < archivedInbox.size(); i++) {
             presenter.defaultPrint("[" + i + "] " + archivedInbox.get(i));
         }
@@ -239,6 +249,8 @@ public class MessageSystem {
 
     /**
      * Send messages to everyone.
+     *
+     * @param user The type of user that the message is sent to.
      */
     protected void sendMessageToAll(String user) {
         ArrayList<String> receivers = new ArrayList<>();
@@ -291,15 +303,6 @@ public class MessageSystem {
             }
         } catch (Exception e) {
             speakerPresenter.defaultPrint(e.getMessage());
-        }
-    }
-
-    private void ShowAllEvents() throws NoSuchConferenceException {
-        ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
-        for (int i = 0; i < allEvents.size(); i++) {
-            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
-                speakerPresenter.defaultPrint("[" + i + "]" + allEvents.get(i));
-            }
         }
     }
 
@@ -382,6 +385,15 @@ public class MessageSystem {
         }
         speakerPresenter.continuePrompt();
         reader.nextLine();
+    }
+
+    private void ShowAllEvents() throws NoSuchConferenceException {
+        ArrayList<String> allEvents = eventmanager.getAllEvents(conference);
+        for (int i = 0; i < allEvents.size(); i++) {
+            if (eventmanager.getSpeakers(Integer.parseInt(String.valueOf(i))).contains(myName)) {
+                speakerPresenter.defaultPrint("[" + i + "]" + allEvents.get(i));
+            }
+        }
     }
 }
 

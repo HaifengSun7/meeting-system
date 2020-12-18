@@ -5,7 +5,6 @@ import event.exceptions.*;
 import presenter.Presenter;
 import presenter.SpeakerPresenter;
 import user.UserManager;
-
 import javax.activity.InvalidActivityException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,6 +28,7 @@ public class EventSystem {
      * @param eventmanager the event manager that the system controls.
      * @param usermanager the user manager that the system controls.
      * @param conference the conference name of the chosen conference.
+     * @param myName the name of the user logged in.
      */
     public EventSystem(EventManager eventmanager, UserManager usermanager, String conference, String myName) {
         this.eventmanager = eventmanager;
@@ -84,6 +84,8 @@ public class EventSystem {
 
     /**
      * The action of adding an Event, with info from inputs.
+     *
+     * @param conf the name of the conference chosen.
      */
     protected void addingEvent(String conf) {
 
@@ -129,7 +131,8 @@ public class EventSystem {
         }
         try {
             presenter.loadEvent(room, time1, duration);
-            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Integer.parseInt(duration), description, vip, conf);
+            eventmanager.addEvent(room, maxSpeaker, maxAttendee, Timestamp.valueOf(time1), Float.parseFloat(duration),
+                    description, vip, conf);
             presenter.success();
             presenter.continuePrompt();
         } catch (NotInOfficeHourException | TimeNotAvailableException | InvalidActivityException |

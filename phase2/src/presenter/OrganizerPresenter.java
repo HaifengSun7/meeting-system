@@ -13,9 +13,9 @@ public class OrganizerPresenter extends Presenter {
                         "[5] Send message to all speakers\n" +
                         "[6] Send message to all attendees\n" +
                         "[7] See messages\n" +
-                        "[8] create/promote VIP account\n" +
-                        "[9] create new attendee account\n" +
-                        "[10] create new organizer account\n" +
+                        "[8] Create/promote VIP account\n" +
+                        "[9] Create new attendee account\n" +
+                        "[10] Create new organizer account\n" +
                         "[11] Read/tag all requests\n" +
                         "[12] Read/tag all pending requests\n" +
                         "[13] Read/tag all addressed requests\n" +
@@ -81,12 +81,12 @@ public class OrganizerPresenter extends Presenter {
                 System.out.println("Status change success!");
                 break;
             case "ChangeStatusPtoA":
-                System.out.println("The current status of this request if Pending, do you want to tag it into Addressed?\n" +
+                System.out.println("The current status of this request is Pending, do you want to tag it into Addressed?\n" +
                         "Please enter [Yes] to confirm or type anything else to return. \n" +
                         "[Yes] Tag it addressed!");
                 break;
             case "ChangeStatusAtoP":
-                System.out.println("The current status of this request if Addressed, do you want to tag it into Pending?\n" +
+                System.out.println("The current status of this request is Addressed, do you want to tag it into Pending?\n" +
                         "Please enter [Yes] to confirm or type anything else to return. \n" +
                         "[Yes] Tag it still pending!");
                 break;

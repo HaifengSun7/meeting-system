@@ -40,6 +40,11 @@ public class Attendee extends User {
         this.signedEvent = signedEvent;
     }
 
+    /**
+     * Get if the user is VIP
+     *
+     * @return true for VIP, false for non-VIP.
+     */
     public boolean getVIPstatus() {
         return this.VIPstatus;
     }

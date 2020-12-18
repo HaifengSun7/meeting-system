@@ -12,6 +12,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The system that controls requests.
+ */
 public class RequestSystem {
     private final RequestManager requestmanager;
     private final Presenter presenter;
@@ -20,6 +23,12 @@ public class RequestSystem {
     protected Scanner reader = new Scanner(System.in);
     private final String myName;
 
+    /**
+     * Constructs the request system.
+     *
+     * @param requestmanager that contains all information about the sent requests.
+     * @param myName the username of the user logged in.
+     */
     public RequestSystem(RequestManager requestmanager, String myName) {
         this.requestmanager = requestmanager;
         this.presenter = new Presenter();
@@ -79,25 +88,6 @@ public class RequestSystem {
     }
 
     /**
-     * This is a protected helper function.
-     * Help to print out a list of requests regardless what type of requests list contained.
-     * Print a request list include all requests from one particular person.
-     */
-    protected void printRequests(ArrayList<String[]> requestList) { //Helper function
-        for (int i = 0; i < requestList.size(); i++) {
-            String requestTitle = requestList.get(i)[0];
-            String status;
-            if (requestmanager.getRequestStatus(requestTitle)) {
-                status = "[Status: Addressed] ";
-            } else {
-                status = "[Status: Pending]   ";
-            }
-            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
-        }
-        presenter.exitToMainMenuPrompt();
-    }
-
-    /**
      * This method can delete requests from one user.
      */
     protected void deleteRequests() {
@@ -144,13 +134,20 @@ public class RequestSystem {
         }
     }
 
-    /*
-     * This is a huge helper private method in order to print requests to user on the screen and let them choose.
-     *
-     * @param allRequests     this is a arraylist of list of strings which include title, content of requests.
-     * @param presenterString cause this method may print our different requests depends on different input,
-     *                        so we need to input the message we are going to tell presenter.
-     */
+    private void printRequests(ArrayList<String[]> requestList) {
+        for (int i = 0; i < requestList.size(); i++) {
+            String requestTitle = requestList.get(i)[0];
+            String status;
+            if (requestmanager.getRequestStatus(requestTitle)) {
+                status = "[Status: Addressed] ";
+            } else {
+                status = "[Status: Pending]   ";
+            }
+            presenter.defaultPrint("[" + i + "] " + status + requestList.get(i)[0]);
+        }
+        presenter.exitToMainMenuPrompt();
+    }
+
     private void seeRequests(ArrayList<String[]> allRequests, String presenterString) { // Huge helper function
         if (allRequests.size() == 0) {
             organizerPresenter.submenusInOrganizer("NoRequestsInSystem");
@@ -192,12 +189,10 @@ public class RequestSystem {
                 organizerPresenter.defaultPrint(allRequests.get(input.get())[1]);
                 changeRequestStatus(allRequests.get(input.get())[0]); // Include confirm of status change
             }
-//                presenter.inputPrompt("anythingToGoBack");
-//                reader.nextLine();
         }
     }
 
-    /*
+    /**
      * Show all requests in the system to organizer.
      */
     protected void seeAllRequest() {
@@ -205,7 +200,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * Show all unsolved/pending requests in the system to organizer.
      */
     protected void seeUnsolvedRequest() {
@@ -213,7 +208,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllPendingRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * Show all solved/addressed requests in the system to organizer.
      */
     protected void seeSolvedRequest() {
@@ -221,7 +216,7 @@ public class RequestSystem {
         seeRequests(allRequests, "SeeAllAddressedRequestsInSystemIntroduction");
     }
 
-    /*
+    /**
      * change the status of a request.
      *
      * @param title the title of a specific request.

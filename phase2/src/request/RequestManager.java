@@ -25,6 +25,7 @@ public class RequestManager {
      * @param username: a User's username in string.
      * @param title:    a request's title in string.
      * @param content:  a request's content in string.
+     * @throws InvalidTitleException if the title already exists.
      */
     public void createNewRequest(String username, String title, String content) throws InvalidTitleException {
         if (titleRequestMapping.containsKey(title)) {
@@ -122,6 +123,7 @@ public class RequestManager {
      * recall all request from one single user.
      *
      * @param username: a user's username in string.
+     * @throws NoSuchRequestException when the request does not exist.
      */
     public void recallAllRequestsFrom(String username) throws NoSuchRequestException {
         if (userRequestMapping.containsKey(username)) {
@@ -140,6 +142,7 @@ public class RequestManager {
      * recall one specific request from one user.
      *
      * @param title: the title of a request in string.
+     * @throws NoSuchRequestException if the request does not exist.
      */
     public void recallSingleRequest(String title) throws NoSuchRequestException {
         if (!titleRequestMapping.containsKey(title)) {
@@ -153,8 +156,6 @@ public class RequestManager {
         titleRequestMapping.remove(title);
         userRequestMapping.get(username).remove(request);
     }
-
-    //Do not change the following method. Contact Haifeng for any modification.
 
     /**
      * Return all requests, with format as follows:
@@ -185,9 +186,4 @@ public class RequestManager {
         userRequestMapping.get(username).add(request);
         titleRequestMapping.put(title, request);
     }
-
-//    private void recallRequest(String username, String title, Request request){
-//            titleRequestMapping.remove(title);
-//            userRequestMapping.get(username).remove(request);
-//    }
 }

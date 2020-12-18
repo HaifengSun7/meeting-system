@@ -11,8 +11,7 @@ import javax.activity.InvalidActivityException;
 import java.util.ArrayList;
 
 /**
- * <h1>Organizer System</h1>
- * The OrganizerSystem program implements the system of Organizer user.
+ * The OrganizerSystem program implements the text interface of Organizer user. Extends from UserSystem
  */
 public class OrganizerSystem extends UserSystem {
 
@@ -358,7 +357,11 @@ public class OrganizerSystem extends UserSystem {
             String command = reader.nextLine();
             switch (command) {
                 default:
-                    addSpeakerToEvent(allEvents, name, command);
+                    try{
+                        addSpeakerToEvent(name, allEvents.get(Integer.parseInt(command)).substring(11,13));
+                    } catch (Exception e){
+                        presenter.defaultPrint("Please enter a valid number.");
+                    }
                     break;
                 case "r":
                     presenter.titlesInSpeaker("scheduleSpeakers2");
@@ -381,8 +384,6 @@ public class OrganizerSystem extends UserSystem {
                             break;
                         default:
                             eventSystem.showEvents(command4);
-                            presenter.titlesInSpeaker("AddEvents");
-                            eventSystem.addingEvent(conference);
                             presenter.continuePrompt();
                             reader.nextLine();
                             break;
@@ -397,8 +398,8 @@ public class OrganizerSystem extends UserSystem {
         }
     }
 
-    private void addSpeakerToEvent(ArrayList<String> allEvents, String name, String command) {
-        if (0 <= Integer.parseInt(command) && Integer.parseInt(command) < allEvents.size()) {
+    private void addSpeakerToEvent(String name, String command) {
+        if (0 <= Integer.parseInt(command)) {
             try {
                 eventmanager.addUserToEvent("Speaker", name, Integer.parseInt(command));
                 presenter.success();
