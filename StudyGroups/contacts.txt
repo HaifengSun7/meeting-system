@@ -1,9 +1,0 @@
-Contact Information
-Name: Wei (Kyrie) Tao	Email: wei.tao@mail.utoronto.ca
-Name: Haifeng Sun		Email: haifeng.sun@mail.utoronto.ca
-Name: You Peng		    Email: fred.peng@mail.utoronto.ca
-Name: Shaohong Chen	    Email: shaohong.chen@mail.utoronto.ca
-Name: Haoyang Wang	    Email: hyang.wang@mail.utoronto.ca
-Name: Jinyang Zhao		Email: jinyang.zhao@mail.utoronto.ca
-Name: Ruimin Mao		Email: ruimin.mao@mail.utoronto.ca
-Name: Dechen Han 		Email: dechen.han@mail.utoronto.ca
