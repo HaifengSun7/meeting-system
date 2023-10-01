@@ -4,4 +4,13 @@ A meeting system with a text-UI and a sqlite database. It follows the clean arch
 
 Please refer to meeting-system/phase2/readme.txt for a setup guide.
 
-This is a school project. The code should not be reused for any purposes.
+
+## Functionalities:
+
+Events planning / scheduling
+
+Different user groups for different privileges
+
+Direct messaging between users
+
+Group messaging for Admins
